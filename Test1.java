@@ -7,5 +7,6 @@ public class Test1{
         System.out.println("Hello Becca");
         System.out.println("Hello from branch1");
         System.out.print("Merge test... merge test");
+        System.out.print("This is a test to see if the repo was cloned to the cs computers");
     }
 }
