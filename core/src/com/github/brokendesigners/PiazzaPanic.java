@@ -13,10 +13,10 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class PiazzaPanic extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
+	//SpriteBatch batch;
+	//Texture img;
 	Viewport viewport;
-	TestBall testBall;
+	//TestBall testBall;
 	ShapeRenderer shapeRenderer;
 	OrthographicCamera camera;
 	final int VIRTUAL_WIDTH  = 800;
@@ -29,7 +29,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 
 		shapeRenderer = new ShapeRenderer();
-		testBall = new TestBall(30,8,3,2,6, shapeRenderer);
+		//testBall = new TestBall(30,8,3,2,6, shapeRenderer);
 
 		camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		viewport = new FitViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
@@ -38,7 +38,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 		Sprite chef_sprite = new Sprite(chef);
 		chef_sprite.setPosition(500,600);
 
-		TestSheth testSheth = new TestSheth(60, 60, 3, 4, 20, 36, chef, spriteBatch);
+		testSheth = new TestSheth(60, 60, 3, 4, 80, 144, chef, spriteBatch);
 
 	}
 
@@ -56,10 +56,12 @@ public class PiazzaPanic extends ApplicationAdapter {
 		int width = Gdx.graphics.getWidth();
 		int height = Gdx.graphics.getHeight();
 
-		testBall.update(viewport);
+
 		testSheth.update(viewport);
+		//testBall.update(viewport);
 		camera.setToOrtho(false);
 		shapeRenderer.setProjectionMatrix(camera.combined);
+
 
 
 		//resize(width, height);

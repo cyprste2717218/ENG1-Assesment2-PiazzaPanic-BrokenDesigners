@@ -44,8 +44,9 @@ public class TestSheth {
         }
         this.x += this.x_change;
         this.y += this.y_change;
+        this.spriteBatch.begin();
+        this.spriteBatch.draw(this.texture, this.x, this.y, this.width, this.height);
+        this.spriteBatch.end();
 
-        spriteBatch.draw(this.texture, this.x, this.y, this.width, this.height);
-        spriteBatch.end();
     }
 }
