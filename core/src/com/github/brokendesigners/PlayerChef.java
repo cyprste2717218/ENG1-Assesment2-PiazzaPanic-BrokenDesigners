@@ -14,9 +14,10 @@ public class PlayerChef {
 	private int x_coord;				// vv
 	private int y_coord; 				// Current Co-ords of Chef
 
-	private Animation<TextureRegion> idleAnimation;
-	private Animation<TextureRegion> moveAnimation;
+	private final Animation<TextureRegion> idleAnimation;
+	private final Animation<TextureRegion> moveAnimation;
 	private float stateTime;
+	private boolean isFacingRight = true;
 
 	public final int WIDTH = 80;		// Width of chef when drawn
 	public final int HEIGHT = 144;		// Height of Chef when drawn
@@ -36,27 +37,24 @@ public class PlayerChef {
 
 		moveAnimation =
 			new Animation<TextureRegion>(0.3f, ChefTextures.atlasImages.findRegions("running"), PlayMode.LOOP);
+
 		idleAnimation =
 			new Animation<TextureRegion>(1.3f, ChefTextures.atlasImages.findRegions("idle"), PlayMode.LOOP);
 
-
-
-
 	}
 
-	public void renderChef(SpriteBatch spriteRenderer){
+	public void renderChef(SpriteBatch spriteBatch){
 		stateTime += Gdx.graphics.getDeltaTime();
-		spriteRenderer.begin();
+		spriteBatch.begin();
 
 		if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.D)){
-			spriteRenderer.draw(moveAnimation.getKeyFrame(stateTime), x_coord, y_coord, this.WIDTH, this.HEIGHT);
+			spriteBatch.draw(moveAnimation.getKeyFrame(stateTime), x_coord, y_coord, this.WIDTH, this.HEIGHT);
 		}
 		else {
-			spriteRenderer.draw(idleAnimation.getKeyFrame(stateTime), x_coord, y_coord, this.WIDTH, this.HEIGHT);
+			spriteBatch.draw(idleAnimation.getKeyFrame(stateTime), x_coord, y_coord, this.WIDTH, this.HEIGHT);
 		}
 
-
-		spriteRenderer.end();
+		spriteBatch.end();
 	}
 
 	public void processMovement(){
@@ -71,20 +69,26 @@ public class PlayerChef {
 		}
 		else if(Gdx.input.isKeyPressed(Keys.D)){
 			this.moveRight();
-
 		}
 	}
 
 	private void moveLeft(){
-		this.x_coord -= MOVE_SPEED;
+		this.x_coord -= (MOVE_SPEED);
 	}
 	private void moveRight(){
-		this.x_coord += MOVE_SPEED;
+		this.x_coord += (MOVE_SPEED);
 	}
 	private void moveUp(){
-		this.y_coord += MOVE_SPEED;
+		this.y_coord += (MOVE_SPEED);
 	}
 	private void moveDown(){
-		this.y_coord -= MOVE_SPEED;
+		this.y_coord -= (MOVE_SPEED);
+	}
+	public int getX_coord(){
+		return x_coord;
+	}
+
+	public int getY_coord() {
+		return y_coord;
 	}
 }
