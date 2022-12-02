@@ -1,0 +1,2 @@
+Chef.png has some... quirks, It seems to be fine in game so it might not need to be changed at all
+but its a bit weird
