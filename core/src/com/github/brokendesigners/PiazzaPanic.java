@@ -32,9 +32,9 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 		playerChef = new PlayerChef(400, 400);
 
-		box_texture = new Texture("textures/box.png");
+		box_texture = new Texture("textures/Box_Alt.png");
 
-		box = new Box(800, 400, 100);
+		box = new Box(800, 400, 128);
 		box.setTexture(box_texture);
 
 	}
@@ -48,6 +48,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 		playerChef.processMovement();
 		playerChef.renderChef(spriteBatch);
+
 		box.renderBox(spriteBatch);
 	}
 	

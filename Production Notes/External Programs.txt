@@ -1,0 +1,5 @@
+Programs used that are not IntelliJ:
+
+  "LibGDX Texture Packer" - Program used to pack textures and generate .pack files to use for animation / conserving space in general
+  "Tiled" - Program that may be used for making game maps, or at least inspired it.
+  "Gimp"  - Used for the pixel art

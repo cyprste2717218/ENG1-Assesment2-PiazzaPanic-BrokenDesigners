@@ -11,6 +11,7 @@ public class DesktopLauncher {
 		config.setForegroundFPS(60);
 		config.setTitle("Piazza Panic");
 		config.setWindowedMode(1600,900);
+		config.setWindowIcon("textures/Glibbert.png");
 		new Lwjgl3Application(new PiazzaPanic(), config);
 	}
 }
