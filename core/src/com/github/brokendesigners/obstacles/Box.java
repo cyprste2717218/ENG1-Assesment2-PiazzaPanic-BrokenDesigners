@@ -37,11 +37,5 @@ public class Box {
         spriteBatch.end();
 
     }
-    public boolean hasCollided(PlayerChef player){
-        if (player.getX_coord() - this.x_coord < player.WIDTH - this.WIDTH){
-            return true;
-        }
-        return (player.getY_coord() - this.y_coord < player.WIDTH - this.WIDTH);
-    }
 
 }
