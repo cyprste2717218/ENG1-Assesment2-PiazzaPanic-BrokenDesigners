@@ -51,10 +51,10 @@ public class PlayerRenderer {
 		}
 
 		if (!player.hand.isEmpty()){
-			int stackOffset = 3;
+			float stackOffset = 7 * Constants.UNIT_SCALE;
 			for (Item item : player.hand.heldItems){
-				spriteBatch.draw(item.getTexture(), scr_pos.x, scr_pos.y + stackOffset, 16 * Constants.UNIT_SCALE, 16 * Constants.UNIT_SCALE);
-				stackOffset += 1;
+				spriteBatch.draw(item.getTexture(), scr_pos.x + 3 * Constants.UNIT_SCALE, scr_pos.y + stackOffset, 16 * Constants.UNIT_SCALE, 16 * Constants.UNIT_SCALE);
+				stackOffset += 0.5;
 			}
 		}
 

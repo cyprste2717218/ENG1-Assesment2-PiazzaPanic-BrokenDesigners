@@ -4,16 +4,16 @@ import com.badlogic.gdx.math.Rectangle;
 import com.github.brokendesigners.Player;
 import java.lang.reflect.InvocationTargetException;
 
-public abstract class Interactable {
+public abstract class Station {
 
 	protected Rectangle interactionArea;
 
-	protected Interactable(Rectangle rectangle) {
+	protected Station(Rectangle rectangle) {
 		this.interactionArea = rectangle;
 	}
 
 
-	public boolean pickup(Player player)
+	public boolean pickUp(Player player)
 		throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 		return false;
 	}
@@ -29,5 +29,7 @@ public abstract class Interactable {
 	public boolean action(Player player){
 		return false;
 	}
+
+
 
 }

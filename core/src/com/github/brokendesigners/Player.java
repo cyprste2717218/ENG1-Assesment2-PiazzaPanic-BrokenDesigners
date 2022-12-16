@@ -4,22 +4,19 @@ import static java.lang.Math.abs;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.github.brokendesigners.item.Item;
 import com.github.brokendesigners.map.KitchenCollisionObject;
-import com.github.brokendesigners.map.interactable.Interactable;
-import java.lang.reflect.Array;
+import com.github.brokendesigners.map.interactable.Station;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class Player {
 	Vector3 worldPosition;
 
-	public float MOVEMENT_SPEED = 1 * Constants.UNIT_SCALE;  // Movement Speed of Chef differs between vertical and horizontal due to following 2 lines
+	public float MOVEMENT_SPEED = 2 * Constants.UNIT_SCALE;  // Movement Speed of Chef differs between vertical and horizontal due to following 2 lines
 
 	private final float WIDTH = 18 * Constants.UNIT_SCALE; //NOTE:  NOT THE WIDTH OF CHEF SPRITE
 	private final float HEIGHT = 4 * Constants.UNIT_SCALE;	//NOTE: NOT HEIGHT OF CHEF SPRITE
@@ -74,12 +71,19 @@ public class Player {
 		}
 	}
 
-	public void processInteraction(ArrayList<? extends Interactable> stations)
+	public void processPickUp(ArrayList<? extends Station> stations)
 		throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-		if (Gdx.input.isKeyPressed(Keys.SPACE)) {
+		if (Gdx.input.isKeyPressed(Keys.UP)) {
 			this.pickUp(stations);
 		}
 	}
+
+	public void processDropOff(ArrayList<? extends  Station> stations){
+		if (Gdx.input.isKeyPressed(Keys.DOWN)){
+			this.dropOff(stations);
+		}
+	}
+
 
 	public boolean moveUp(ArrayList<KitchenCollisionObject> objects){
 		this.playerRectangle.y += (this.MOVEMENT_SPEED);
@@ -136,17 +140,26 @@ public class Player {
 
 	}
 
-	public boolean pickUp(ArrayList<? extends Interactable> stations)
+	public boolean pickUp(ArrayList<? extends Station> stations)
 		throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-		for (Interactable station : stations){
+		for (Station station : stations){
 			if(Intersector.overlaps(station.getInteractionArea(), this.getPlayerRectangle())){
-				station.pickup(this);
-				System.out.println("PICK UP");
+				station.pickUp(this);
 				return true;
 			}
 		}
 		return false;
 	}
+	public boolean dropOff(ArrayList<? extends Station> stations){
+		for (Station station : stations){
+			if (Intersector.overlaps(station.getInteractionArea(), this.getPlayerRectangle())){
+				station.dropOff(this);
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 	public void setSelected(boolean isSelected){
 		this.selected = isSelected;
@@ -181,7 +194,7 @@ public class Player {
 
 			if (!this.heldItems.isEmpty()) {
 				int amountOfItems = this.heldItems.size();
-				System.out.println(amountOfItems);
+
 				Item droppedItem = this.heldItems.get(
 					amountOfItems - 1);
 				this.heldItems.remove(amountOfItems - 1);
@@ -195,6 +208,15 @@ public class Player {
 
 		public boolean isEmpty(){
 			return this.heldItems.isEmpty();
+		}
+
+		public boolean isFull(){
+			if (this.heldItems.size() == 3){
+				return true;
+			}
+			else{
+				return false;
+			}
 		}
 
 

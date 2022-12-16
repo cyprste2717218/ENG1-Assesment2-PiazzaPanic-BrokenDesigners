@@ -18,6 +18,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.brokendesigners.item.NuclearWeapon;
 import com.github.brokendesigners.map.Kitchen;
 import com.github.brokendesigners.map.KitchenCollisionObject;
+import com.github.brokendesigners.map.interactable.CounterStation;
+import com.github.brokendesigners.map.interactable.Station;
 import com.github.brokendesigners.obstacles.Box;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -108,14 +110,9 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 		player1.processMovement(kitchen.getKitchenObstacles());
 		try {
-			player1.processInteraction(kitchen.getKitchenStations());
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
+			player1.processPickUp(kitchen.getKitchenStations());
+			player1.processDropOff(kitchen.getKitchenStations());
+		} catch (InvocationTargetException | IllegalAccessException | InstantiationException | NoSuchMethodException e) {
 			e.printStackTrace();
 		}
 
@@ -126,27 +123,17 @@ public class PiazzaPanic extends ApplicationAdapter {
 		playerRenderer.renderChef(spriteBatch, player1); // Perhaps fix the relationship of playerRenderer and player
 		playerRenderer.renderChef(spriteBatch, player2);
 		playerRenderer.renderChef(spriteBatch, player3);
-
-
-
-		if (Gdx.input.isKeyPressed(Keys.RIGHT)){
-			camera.position.add(0.3f, 0, 0);
-			camera.update();
-			spriteBatch.setProjectionMatrix(camera.combined);
-		} else if (Gdx.input.isKeyPressed((Keys.LEFT))){
-			camera.position.add(-0.3f,0,0);
-			camera.update();
-			spriteBatch.setProjectionMatrix(camera.combined);
+		for (Station station : kitchen.getKitchenStations()){
+			if (station instanceof CounterStation){
+				((CounterStation) station).renderCounter(spriteBatch);
+			}
 		}
-		if (Gdx.input.isKeyPressed(Keys.UP)){
-			camera.position.add(0,0.3f,0);
-			camera.update();
-			spriteBatch.setProjectionMatrix(camera.combined);
-		} else if (Gdx.input.isKeyPressed(Keys.DOWN)){
-			camera.position.add(0,-0.3f,0);
-			camera.update();
-			spriteBatch.setProjectionMatrix(camera.combined);
-		}
+
+
+		camera.position.set(player1.worldPosition);
+
+
+
 		if (Gdx.input.isKeyPressed(Keys.NUM_1)){
 			player1.setSelected(true);
 			player2.setSelected(false);
@@ -164,7 +151,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 		}
 		if (Gdx.input.isKeyPressed(Keys.Q)){
-			player1.hand.drop();
+			//player1.hand.drop();
 
 
 		}

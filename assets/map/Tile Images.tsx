@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.9" tiledversion="1.9.2" name="Tile Images" tilewidth="32" tileheight="32" tilecount="16" columns="0">
+<tileset version="1.9" tiledversion="1.9.2" name="Tile Images" tilewidth="32" tileheight="32" tilecount="17" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <transformations hflip="1" vflip="1" rotate="1" preferuntransformed="0"/>
  <tile id="0">
@@ -64,5 +64,8 @@
  </tile>
  <tile id="15">
   <image width="32" height="32" source="WallPart.png"/>
+ </tile>
+ <tile id="16">
+  <image width="32" height="32" source="bin.png"/>
  </tile>
 </tileset>

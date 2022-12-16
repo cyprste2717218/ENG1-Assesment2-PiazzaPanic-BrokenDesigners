@@ -11,16 +11,17 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.github.brokendesigners.Constants;
-import com.github.brokendesigners.item.Item;
 import com.github.brokendesigners.item.NuclearWeapon;
-import com.github.brokendesigners.map.interactable.Dispenser;
-import com.github.brokendesigners.map.interactable.Interactable;
+import com.github.brokendesigners.map.interactable.BinStation;
+import com.github.brokendesigners.map.interactable.CounterStation;
+import com.github.brokendesigners.map.interactable.DispenserStation;
+import com.github.brokendesigners.map.interactable.Station;
 import java.util.ArrayList;
 
 public class Kitchen {
 	public static TiledMap tileMap = Constants.TILE_MAP;
 	private ArrayList<KitchenCollisionObject> kitchenObstacles;
-	private ArrayList<Interactable> kitchenStations;
+	private ArrayList<Station> kitchenStations;
 
 	public Kitchen(Camera camera, SpriteBatch spriteBatch){
 
@@ -49,14 +50,35 @@ public class Kitchen {
 
 			if (rectangleMapObject.getProperties().get("objectType").equals("Dispenser")){
 
-				System.out.println("adding thingma");
 				kitchenStations.add(
-					new Dispenser(
+					new DispenserStation(
 						objectPosition,
 						rectangle.width * Constants.UNIT_SCALE,
 						rectangle.height * Constants.UNIT_SCALE,
 						NuclearWeapon.class));
 
+			} else if (rectangleMapObject.getProperties().get("objectType").equals("Counter")){
+
+				float handX = (float)rectangleMapObject.getProperties().get("Center X");
+				float handY = (float)rectangleMapObject.getProperties().get("Center Y");
+				System.out.println(handX);
+				System.out.println(handY);
+				kitchenStations.add(
+					new CounterStation(
+						objectPosition,
+						rectangle.width * Constants.UNIT_SCALE,
+						rectangle.height * Constants.UNIT_SCALE,
+						handX * Constants.UNIT_SCALE,
+						handY * Constants.UNIT_SCALE));
+			} else if (rectangleMapObject.getProperties().get("objectType").equals("Bin")){
+
+				kitchenStations.add(
+					new BinStation(
+						new Rectangle(
+							objectPosition.x,
+							objectPosition.y,
+							rectangle.width * Constants.UNIT_SCALE,
+							rectangle.height * Constants.UNIT_SCALE)));
 			}
 
 		}
@@ -66,7 +88,7 @@ public class Kitchen {
 		return kitchenObstacles;
 	}
 
-	public ArrayList<? extends Interactable> getKitchenStations(){
+	public ArrayList<? extends Station> getKitchenStations(){
 		return kitchenStations;
 	}
 
