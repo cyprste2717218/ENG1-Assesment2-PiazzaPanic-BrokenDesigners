@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.9" tiledversion="1.9.2" name="Tile Images" tilewidth="32" tileheight="32" tilecount="17" columns="0">
+<tileset version="1.9" tiledversion="1.9.2" name="Tile Images" tilewidth="32" tileheight="32" tilecount="23" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <transformations hflip="1" vflip="1" rotate="1" preferuntransformed="0"/>
  <tile id="0">
@@ -51,7 +51,7 @@
   <image width="32" height="32" source="wall_bottom.png"/>
  </tile>
  <tile id="11">
-  <image width="32" height="32" source="tile_test.png"/>
+  <image width="32" height="32" source="tilepiece.png"/>
  </tile>
  <tile id="12">
   <image width="32" height="32" source="WMD dispenser.png"/>
@@ -67,5 +67,23 @@
  </tile>
  <tile id="16">
   <image width="32" height="32" source="bin.png"/>
+ </tile>
+ <tile id="17">
+  <image width="32" height="32" source="newcountertest.png"/>
+ </tile>
+ <tile id="18">
+  <image width="32" height="32" source="justbrick.png"/>
+ </tile>
+ <tile id="19">
+  <image width="32" height="32" source="marbleside.png"/>
+ </tile>
+ <tile id="20">
+  <image width="32" height="32" source="marble-end.png"/>
+ </tile>
+ <tile id="21">
+  <image width="32" height="32" source="marblesidealt.png"/>
+ </tile>
+ <tile id="22">
+  <image width="32" height="32" source="corner.png"/>
  </tile>
 </tileset>

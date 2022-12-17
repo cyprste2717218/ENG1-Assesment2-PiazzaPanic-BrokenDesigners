@@ -15,7 +15,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.github.brokendesigners.item.NuclearWeapon;
 import com.github.brokendesigners.map.Kitchen;
 import com.github.brokendesigners.map.KitchenCollisionObject;
 import com.github.brokendesigners.map.interactable.CounterStation;
@@ -35,10 +34,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 	Texture box_texture;
 	TiledMap map_test;
 	OrthogonalTiledMapRenderer mapRenderer;
-	Vector3 vector3;
-	MapObject box2;
-	MapObjects objects;
-	TiledMapTileLayer tileLayer;
+
 
 	Player player1;
 	Player player2;
@@ -86,7 +82,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 		player1.setSelected(true);
 
-		camera.zoom = 1.5f;
+		camera.zoom = 1.3f;
 
 
 	}
@@ -120,18 +116,36 @@ public class PiazzaPanic extends ApplicationAdapter {
 		player3.processMovement(kitchen.getKitchenObstacles());
 
 		mapRenderer.render();
-		playerRenderer.renderChef(spriteBatch, player1); // Perhaps fix the relationship of playerRenderer and player
-		playerRenderer.renderChef(spriteBatch, player2);
-		playerRenderer.renderChef(spriteBatch, player3);
 		for (Station station : kitchen.getKitchenStations()){
 			if (station instanceof CounterStation){
 				((CounterStation) station).renderCounter(spriteBatch);
 			}
 		}
+		playerRenderer.renderChef(spriteBatch, player1); // Perhaps fix the relationship of playerRenderer and player
+		playerRenderer.renderChef(spriteBatch, player2);
+		playerRenderer.renderChef(spriteBatch, player3);
 
 
-		camera.position.set(player1.worldPosition);
 
+		//camera.position.set(player1.worldPosition);
+		if (Gdx.input.isKeyPressed(Keys.RIGHT)){
+			camera.position.add(0.3f, 0, 0);
+			camera.update();
+			spriteBatch.setProjectionMatrix(camera.combined);
+		} else if (Gdx.input.isKeyPressed((Keys.LEFT))){
+			camera.position.add(-0.3f,0,0);
+			camera.update();
+			spriteBatch.setProjectionMatrix(camera.combined);
+		}
+		if (Gdx.input.isKeyPressed(Keys.UP)){
+			camera.position.add(0,0.3f,0);
+			camera.update();
+			spriteBatch.setProjectionMatrix(camera.combined);
+		} else if (Gdx.input.isKeyPressed(Keys.DOWN)){
+			camera.position.add(0,-0.3f,0);
+			camera.update();
+			spriteBatch.setProjectionMatrix(camera.combined);
+		}
 
 
 		if (Gdx.input.isKeyPressed(Keys.NUM_1)){
@@ -151,6 +165,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 		}
 		if (Gdx.input.isKeyPressed(Keys.Q)){
+			System.out.println(player1.getWorldPosition());
 			//player1.hand.drop();
 
 
