@@ -4,6 +4,7 @@ import static java.lang.Math.abs;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -70,20 +71,6 @@ public class Player {
 			this.updateRectangle();
 		}
 	}
-
-	public void processPickUp(ArrayList<? extends Station> stations)
-		throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-		if (Gdx.input.isKeyPressed(Keys.UP)) {
-			this.pickUp(stations);
-		}
-	}
-
-	public void processDropOff(ArrayList<? extends  Station> stations){
-		if (Gdx.input.isKeyPressed(Keys.DOWN)){
-			this.dropOff(stations);
-		}
-	}
-
 
 	public boolean moveUp(ArrayList<KitchenCollisionObject> objects){
 		this.playerRectangle.y += (this.MOVEMENT_SPEED);
@@ -218,8 +205,5 @@ public class Player {
 				return false;
 			}
 		}
-
-
 	}
-
 }
