@@ -16,5 +16,9 @@ public class ItemInitialiser {
 
         Item testItem2 = new Void();
         Items.addItem("void", testItem2);
+
+        Item testItem3 = new Void();
+        Items.addItem("grapes", testItem3);
+
     }
 }
