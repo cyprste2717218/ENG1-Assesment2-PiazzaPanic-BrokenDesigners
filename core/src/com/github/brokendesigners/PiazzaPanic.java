@@ -88,7 +88,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 		player1.setSelected(true);
 
-		camera.zoom = 1.3f;
+		camera.zoom = 2f;
 
 		inputProcessor = new InputProcessor(){
 

@@ -27,7 +27,6 @@ public class DispenserStation extends Station {
 		throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 		player.hand.give(dispenserItem);
 
-
 		return true;
 	}
 
