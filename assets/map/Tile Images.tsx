@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.9" tiledversion="1.9.2" name="Tile Images" tilewidth="32" tileheight="32" tilecount="26" columns="0">
+<tileset version="1.9" tiledversion="1.9.2" name="Tile Images" tilewidth="32" tileheight="32" tilecount="25" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <transformations hflip="1" vflip="1" rotate="1" preferuntransformed="0"/>
  <tile id="0">
@@ -70,9 +70,6 @@
  </tile>
  <tile id="17">
   <image width="32" height="32" source="newcountertest.png"/>
- </tile>
- <tile id="18">
-  <image width="32" height="32" source="justbrick.png"/>
  </tile>
  <tile id="19">
   <image width="32" height="32" source="marbleside.png"/>

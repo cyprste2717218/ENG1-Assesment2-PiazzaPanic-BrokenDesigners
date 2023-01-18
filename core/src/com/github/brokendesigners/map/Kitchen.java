@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.github.brokendesigners.Constants;
+import com.github.brokendesigners.item.Items;
 import com.github.brokendesigners.item.NuclearWeapon;
 import com.github.brokendesigners.map.interactable.BinStation;
 import com.github.brokendesigners.map.interactable.CounterStation;
@@ -55,7 +56,7 @@ public class Kitchen {
 						objectPosition,
 						rectangle.width * Constants.UNIT_SCALE,
 						rectangle.height * Constants.UNIT_SCALE,
-						NuclearWeapon.class));
+							Items.itemMap.get(rectangleMapObject.getProperties().get("itemType"))));
 
 			} else if (rectangleMapObject.getProperties().get("objectType").equals("Counter")){
 

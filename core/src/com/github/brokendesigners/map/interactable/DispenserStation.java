@@ -8,15 +8,15 @@ import java.lang.reflect.InvocationTargetException;
 
 public class DispenserStation extends Station {
 
-	protected final Class<? extends Item> dispenserItem;
+	protected final Item dispenserItem;
 
 
-	public DispenserStation(Rectangle interactionArea, Class<? extends Item> dispensorItem) {
+	public DispenserStation(Rectangle interactionArea, Item dispenserItem) {
 		super(interactionArea);
-		this.dispenserItem = dispensorItem;
+		this.dispenserItem = dispenserItem;
 	}
 
-	public DispenserStation(Vector3 worldPosition, float width, float height, Class<? extends Item> dispenserItem){
+	public DispenserStation(Vector3 worldPosition, float width, float height, Item dispenserItem){
 		super(new Rectangle(worldPosition.x, worldPosition.y, width, height));
 		this.dispenserItem = dispenserItem;
 	}
@@ -25,7 +25,7 @@ public class DispenserStation extends Station {
 	@Override
 	public boolean pickUp(Player player)
 		throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-		player.hand.give(this.dispenserItem.getConstructor().newInstance());
+		player.hand.give(dispenserItem);
 
 
 		return true;

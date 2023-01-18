@@ -45,9 +45,12 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 	Kitchen kitchen;
 	KitchenCollisionObject kitchenCollisionObject;
+	ItemInitialiser initialiser;
 
 	@Override
 	public void create () {
+		initialiser = new ItemInitialiser();
+		initialiser.initialise();
 
 		camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 
