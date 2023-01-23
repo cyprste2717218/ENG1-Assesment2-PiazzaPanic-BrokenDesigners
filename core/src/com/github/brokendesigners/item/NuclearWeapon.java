@@ -7,7 +7,7 @@ public class NuclearWeapon extends Item{
 	public Texture texture = new Texture("items/WMD.png");
 
 	public NuclearWeapon() {
-		Items.addItem("wmd", this);
+		ItemRegister.addItem("wmd", this);
 
 	}
 

@@ -14,8 +14,10 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.github.brokendesigners.character.Customer;
 import com.github.brokendesigners.item.NuclearWeapon;
 import com.github.brokendesigners.map.Kitchen;
 import com.github.brokendesigners.map.KitchenCollisionObject;
@@ -43,6 +45,8 @@ public class PiazzaPanic extends ApplicationAdapter {
 	Player player2;
 	Player player3;
 
+	Customer bluggus;
+
 	Kitchen kitchen;
 	KitchenCollisionObject kitchenCollisionObject;
 	ItemInitialiser initialiser;
@@ -61,7 +65,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 		System.out.println("Cam Pos");
 		camera.position.set(0, 0, 1);
 
-		viewport = new FitViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera);
+		viewport = new FillViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera);
 
 
 		spriteBatch = new SpriteBatch();
@@ -71,7 +75,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 
 		player1 = new Player(new Vector3((float)6.5 * 4, (float)3.5 * 4, 0));
-		player2 = new Player(new Vector3(8, -2, 0));
+		player2 = new Player(new Vector3(0, 0, 0));
 		player3 = new Player(new Vector3(12, -2, 0));
 		playerRenderer = new PlayerRenderer();
 
@@ -89,6 +93,9 @@ public class PiazzaPanic extends ApplicationAdapter {
 		player1.setSelected(true);
 
 		camera.zoom = 2f;
+		Texture bluggusTexture = new Texture("characters/bluggus.png");
+
+		bluggus = new Customer(bluggusTexture, kitchen.getCustomerStations().get(2)); // TEST THING
 
 		inputProcessor = new InputProcessor(){
 
@@ -110,6 +117,8 @@ public class PiazzaPanic extends ApplicationAdapter {
 				} else if (keycode == Keys.DOWN){
 					player1.dropOff(kitchen.getKitchenStations());
 					return true;
+				} else if (keycode == Keys.L){
+					bluggus.Spawn();
 				}
 				return false;
 			}
@@ -151,15 +160,16 @@ public class PiazzaPanic extends ApplicationAdapter {
 		};
 		Gdx.input.setInputProcessor(inputProcessor);
 
-		player1.hand.give(new NuclearWeapon());
+		spriteBatch.enableBlending();
 
 
 	}
 
 	@Override
 	public void resize(int width, int height){
-		viewport.update(width, height);
 		camera.update();
+		viewport.update(width, height);
+
 		spriteBatch.setProjectionMatrix(camera.combined);
 	}
 
@@ -193,7 +203,9 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 		camera.position.set(player1.worldPosition);
 
-
+		spriteBatch.begin();
+		bluggus.render(spriteBatch);
+		spriteBatch.end();
 
 		if (Gdx.input.isKeyPressed(Keys.NUM_1)){
 			player1.setSelected(true);

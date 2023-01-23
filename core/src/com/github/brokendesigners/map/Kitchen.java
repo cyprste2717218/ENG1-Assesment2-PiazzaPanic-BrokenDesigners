@@ -11,10 +11,10 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.github.brokendesigners.Constants;
-import com.github.brokendesigners.item.Items;
-import com.github.brokendesigners.item.NuclearWeapon;
+import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.map.interactable.BinStation;
 import com.github.brokendesigners.map.interactable.CounterStation;
+import com.github.brokendesigners.map.interactable.CustomerStation;
 import com.github.brokendesigners.map.interactable.DispenserStation;
 import com.github.brokendesigners.map.interactable.Station;
 import java.util.ArrayList;
@@ -23,6 +23,7 @@ public class Kitchen {
 	public static TiledMap tileMap = Constants.TILE_MAP;
 	private ArrayList<KitchenCollisionObject> kitchenObstacles;
 	private ArrayList<Station> kitchenStations;
+	private ArrayList<CustomerStation> customerStations;
 
 	public Kitchen(Camera camera, SpriteBatch spriteBatch){
 
@@ -31,6 +32,7 @@ public class Kitchen {
 
 		MapObjects mapObjects = tileMap.getLayers().get("Collision Layer").getObjects();
 		kitchenObstacles = new ArrayList<>();
+		customerStations = new ArrayList<>();
 		for (RectangleMapObject rectangleMapObject : mapObjects.getByType(RectangleMapObject.class)){
 			Rectangle rectangle = rectangleMapObject.getRectangle();
 			Vector3 objectPosition = new Vector3(rectangle.x * Constants.UNIT_SCALE, rectangle.y * Constants.UNIT_SCALE, 0);
@@ -56,14 +58,13 @@ public class Kitchen {
 						objectPosition,
 						rectangle.width * Constants.UNIT_SCALE,
 						rectangle.height * Constants.UNIT_SCALE,
-							Items.itemMap.get(rectangleMapObject.getProperties().get("itemType"))));
+							ItemRegister.itemRegister.get(rectangleMapObject.getProperties().get("itemType"))));
 
 			} else if (rectangleMapObject.getProperties().get("objectType").equals("Counter")){
 
 				float handX = (float)rectangleMapObject.getProperties().get("Center X");
 				float handY = (float)rectangleMapObject.getProperties().get("Center Y");
-				System.out.println(handX);
-				System.out.println(handY);
+
 				kitchenStations.add(
 					new CounterStation(
 						objectPosition,
@@ -71,6 +72,20 @@ public class Kitchen {
 						rectangle.height * Constants.UNIT_SCALE,
 						handX * Constants.UNIT_SCALE,
 						handY * Constants.UNIT_SCALE));
+			} else if (rectangleMapObject.getProperties().get("objectType").equals("CustomerCounter")){
+
+				float handX = (float)rectangleMapObject.getProperties().get("Center X");
+				float handY = (float)rectangleMapObject.getProperties().get("Center Y");
+
+				CustomerStation station = new CustomerStation(
+					objectPosition,
+					rectangle.width * Constants.UNIT_SCALE,
+					rectangle.height * Constants.UNIT_SCALE,
+					handX * Constants.UNIT_SCALE,
+					handY * Constants.UNIT_SCALE);
+
+				kitchenStations.add(station);
+				customerStations.add(station);
 			} else if (rectangleMapObject.getProperties().get("objectType").equals("Bin")){
 
 				kitchenStations.add(
@@ -103,5 +118,9 @@ public class Kitchen {
 
 	public void addKitchenObject(KitchenCollisionObject kitchenCollisionObject){
 		kitchenObstacles.add(kitchenCollisionObject);
+	}
+
+	public ArrayList<CustomerStation> getCustomerStations() {
+		return customerStations;
 	}
 }

@@ -13,10 +13,14 @@ import java.util.ArrayList;
 public class PlayerRenderer {
 
 	ArrayList<Chef> players;
+	SpriteBatch batch;
+	float stateTime;
+
 
 
 	public PlayerRenderer(SpriteBatch batch){
-
+		this.batch = batch;
+		this.stateTime = 0;
 	}
 
 	public void addPlayer(Player player, Texture texture){
@@ -28,6 +32,7 @@ public class PlayerRenderer {
 	}
 
 	public void render(SpriteBatch batch){
+		this.stateTime += Gdx.graphics.getDeltaTime();
 
 
 	}
@@ -35,19 +40,18 @@ public class PlayerRenderer {
 
 	public class Chef{
 		public Player player;
-		public float depth;
+		public float YLevel;
 		public Texture texture;
-		public float stateTime = 0;
 		public Animation animation;
 		public Vector3 position;
 
 		public void updatePosition(){
 			this.position = this.player.getWorldPosition();
-			this.depth = this.position.y;
+			this.YLevel = this.position.y;
 		}
 
 		public void renderChef(SpriteBatch batch){
-			this.stateTime += Gdx.graphics.getDeltaTime();
+
 
 			batch.begin();
 
