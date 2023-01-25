@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Cut_Onion extends Item{
 
-	public Texture texture = new Texture("items/WMD.png");
+	public Texture texture = new Texture("items/onion_cut.png");
 
 	public Cut_Onion() {
 		super("Cut_Onion");

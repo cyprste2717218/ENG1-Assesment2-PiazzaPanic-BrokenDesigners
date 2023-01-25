@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Patty extends Item{
 
-	public Texture texture = new Texture("items/WMD.png");
+	public Texture texture = new Texture("items/patty.png");
 
 	public Patty() {
 		super("Patty");

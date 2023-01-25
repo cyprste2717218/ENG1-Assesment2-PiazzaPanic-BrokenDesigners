@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Cooked_Patty extends Item{
 
-	public Texture texture = new Texture("items/WMD.png");
+	public Texture texture = new Texture("items/patty_cooked.png");
 
 	public Cooked_Patty() {
 		super("Cooked_Patty");
