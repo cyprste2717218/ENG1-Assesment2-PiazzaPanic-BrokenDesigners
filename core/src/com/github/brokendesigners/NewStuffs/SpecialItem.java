@@ -1,15 +1,13 @@
 package com.github.brokendesigners.NewStuffs;
 
-import javax.print.event.PrintJobAttributeEvent;
-
-public class Item {
+public class SpecialItem {
     private String name;
     public Boolean Cut;
     public Boolean Cooking;
     public Boolean Cooked;
     public Boolean Waste;
 
-    public Item(String n)
+    public SpecialItem(String n)
     {
         this.name = n;
         this.Cut = false;

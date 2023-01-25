@@ -13,19 +13,18 @@ import com.github.brokendesigners.item.Item;
 public class CounterStation extends Station {
 
 	Vector3 handPosition;
-	Item hand = null;
 
 
 	public CounterStation(Rectangle interactionArea, float handX, float handY) {
 
-		super(interactionArea);
+		super(interactionArea,"Counter_Station");
 
 		handPosition = new Vector3(handX, handY, 0);
 
 
 	}
 	public CounterStation(Vector3 objectPosition, float width, float height, float handX, float handY){
-		super(new Rectangle(objectPosition.x, objectPosition.y, width, height));
+		super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Counter_Station");
 		handPosition = new Vector3(handX, handY, 0);
 		System.out.println(handX);
 		System.out.println(handY);
@@ -70,6 +69,15 @@ public class CounterStation extends Station {
 		} else {
 			return false;
 		}
+	}
+	public Item formPatty() //Turn meat into patty
+	{
+		if(hand.getName()=="Meat")
+		{
+			hand.setName("Patty");
+		}
+		return hand;
+
 	}
 
 

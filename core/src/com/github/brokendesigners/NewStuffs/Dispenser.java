@@ -9,9 +9,9 @@ public class Dispenser{
         this.Ingredient = T;
     }
 
-    public Item Interact() //When you go up to the station, an ingredient of this type is dropped.
+    public SpecialItem Interact() //When you go up to the station, an ingredient of this type is dropped.
     {
-        return new Item(this.Ingredient);
+        return new SpecialItem(this.Ingredient);
     }
 
 }

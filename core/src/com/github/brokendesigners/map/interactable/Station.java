@@ -2,13 +2,21 @@ package com.github.brokendesigners.map.interactable;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.github.brokendesigners.Player;
+import com.github.brokendesigners.item.Item;
+
 import java.lang.reflect.InvocationTargetException;
 
 public abstract class Station {
 
 	protected Rectangle interactionArea;
+	protected String station_name;
+	public Item hand;
+	public Boolean storing;
 
-	protected Station(Rectangle rectangle) {
+	protected Station(Rectangle rectangle, String n) {
+		this.station_name = n;
+		this.hand = null;
+		this.storing = false;
 		this.interactionArea = rectangle;
 	}
 
@@ -27,6 +35,22 @@ public abstract class Station {
 	}
 
 	public boolean action(Player player){
+		return false;
+	}
+
+	//Check if operation can be completed
+	public Boolean Applicable(String[] Conditions,String state, String itemName)
+	{
+		if(this.station_name == state) //Checks if its in the correct station before preforming
+		{
+			for(int i = 0;i<Conditions.length;i++)
+			{
+				if(Conditions[i] == itemName)
+				{
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 

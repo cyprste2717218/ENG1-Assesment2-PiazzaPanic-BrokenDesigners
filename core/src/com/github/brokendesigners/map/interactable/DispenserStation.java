@@ -12,12 +12,12 @@ public class DispenserStation extends Station {
 
 
 	public DispenserStation(Rectangle interactionArea, Item dispenserItem) {
-		super(interactionArea);
+		super(interactionArea,"dispenser_station");
 		this.dispenserItem = dispenserItem;
 	}
 
 	public DispenserStation(Vector3 worldPosition, float width, float height, Item dispenserItem){
-		super(new Rectangle(worldPosition.x, worldPosition.y, width, height));
+		super(new Rectangle(worldPosition.x, worldPosition.y, width, height),"dispenser_station");
 		this.dispenserItem = dispenserItem;
 	}
 

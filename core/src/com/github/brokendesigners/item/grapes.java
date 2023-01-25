@@ -7,6 +7,7 @@ public class grapes extends Item{
     public Texture texture = new Texture("items/grapes.png");
 
     public grapes(){
+        super("grapes");
     }
 
     @Override

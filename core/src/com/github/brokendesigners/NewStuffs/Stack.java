@@ -2,7 +2,7 @@ package com.github.brokendesigners.NewStuffs;
 
 public class Stack {
 
-    private Item top,middle,bottom;
+    private SpecialItem top,middle,bottom;
 
 
     public Stack()
@@ -13,7 +13,7 @@ public class Stack {
     }
 
     //Push
-    public void pickup(Item Value)
+    public void pickup(SpecialItem Value)
     {
         //Only push if there is space to push, else do nothing
         if(CheckBottom() == true)
@@ -28,9 +28,9 @@ public class Stack {
     }
 
     //Pop
-    public Item drop()
+    public SpecialItem drop()
     {
-        Item temp = this.top;
+        SpecialItem temp = this.top;
         this.top = this.middle;
         this.middle = this.bottom;
         this.bottom = null;

@@ -1,14 +1,14 @@
 package com.github.brokendesigners.NewStuffs;
 
-public class Assembly_Station {
-    private Item[] items;
-    private Item Product;
+public class AssemblyStation {
+    private SpecialItem[] items;
+    private SpecialItem Product;
     private int Counter;
      
 
-    public Assembly_Station()
+    public AssemblyStation()
     {
-        this.items = new Item[3];
+        this.items = new SpecialItem[3];
         this.items[0] = null;
         this.items[1] = null;
         this.items[2] = null;
@@ -18,9 +18,9 @@ public class Assembly_Station {
     //Overide storing products
 
     //return Product or spare ingredients
-    public Item pickup()
+    public SpecialItem pickup()
     {
-        Item Temp = this.items[0];
+        SpecialItem Temp = this.items[0];
         this.items[0] = this.items[1];
         this.items[1] = this.items[2];
         this.items[2] = null;
@@ -28,7 +28,7 @@ public class Assembly_Station {
     }
 
     //set item position
-    public void StoreItem(Item x) 
+    public void StoreItem(SpecialItem x)
     {
         this.items[this.Counter] = x;
         if(this.Counter == 2) //To get correct spare position
@@ -52,7 +52,7 @@ public class Assembly_Station {
         return 0;
     }
 
-    private Item TestingForFood(String[] Test, String[] data, String n)
+    private SpecialItem TestingForFood(String[] Test, String[] data, String n)
     {
         int Total = 0;
         for(int i = 0; i<Test.length;i++)
@@ -72,7 +72,7 @@ public class Assembly_Station {
         }
         if(Total == 3)
         {
-            return new Item(n);
+            return new SpecialItem(n);
         }
         else
         {

@@ -2,25 +2,25 @@ package com.github.brokendesigners.NewStuffs;
 
 public abstract class Station {
     private String station_name;
-    public Item stored;
+    public SpecialItem hand;
     public Boolean storing;
 
     public Station(String n)
     {
         this.station_name = n;
-        this.stored = null;
+        this.hand = null;
         this.storing = false;
     }
 
-    public void StoreItem(Item x) //To hold item on a counter
+    public void StoreItem(SpecialItem x) //To hold item on a counter
     {
-        this.stored = x;
+        this.hand = x;
         this.storing = true;
     }
-    public Item pickup() //Picking up from counter
+    public SpecialItem pickup() //Picking up from counter
     {
-        Item Temp = this.stored;
-        this.stored = null;
+        SpecialItem Temp = this.hand;
+        this.hand = null;
         this.storing = false;
         return Temp;
     }

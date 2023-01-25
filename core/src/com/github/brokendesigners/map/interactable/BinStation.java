@@ -7,7 +7,7 @@ public class BinStation extends Station{
 
 
 	public BinStation(Rectangle interactionArea) {
-		super(interactionArea);
+		super(interactionArea,"bin_station");
 	}
 	@Override
 	public boolean dropOff(Player player){

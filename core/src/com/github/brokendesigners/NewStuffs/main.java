@@ -1,5 +1,7 @@
 package com.github.brokendesigners.NewStuffs;
 
+import com.github.brokendesigners.MergeBin.Counter_Station;
+
 class main
 {
     // public static Item CuttingStuff(String a)
@@ -56,7 +58,7 @@ class main
         Dispenser Dis_Onion = new Dispenser("Onion");
 
         //Create Stations
-        Assembly_Station Sta_Assembly = new Assembly_Station();
+        AssemblyStation Sta_Assembly = new AssemblyStation();
         Baking_Station Sta_Baking = new Baking_Station();
         Cooking_Station Sta_Cooking = new Cooking_Station();
         Counter_Station Sta_Counter1 = new Counter_Station();
@@ -121,7 +123,7 @@ class main
          Dispenser Dis_Bun = new Dispenser("Bun");
  
          //Create Stations
-         Assembly_Station Sta_Assembly = new Assembly_Station();
+         AssemblyStation Sta_Assembly = new AssemblyStation();
          Baking_Station Sta_Baking = new Baking_Station();
          Cooking_Station Sta_Cooking = new Cooking_Station();
          Counter_Station Sta_Counter1 = new Counter_Station();
@@ -183,7 +185,7 @@ class main
          Dispenser Dis_Bun = new Dispenser("Bun");
  
          //Create Stations
-         Assembly_Station Sta_Assembly = new Assembly_Station();
+         AssemblyStation Sta_Assembly = new AssemblyStation();
          Baking_Station Sta_Baking = new Baking_Station();
          Cooking_Station Sta_Cooking = new Cooking_Station();
          Counter_Station Sta_Counter1 = new Counter_Station();
