@@ -2,12 +2,12 @@ package com.github.brokendesigners.item;
 
 import com.badlogic.gdx.graphics.Texture;
 
-public class NuclearWeapon extends Item{
+public class Cut_Tomato extends Item{
 
 	public Texture texture = new Texture("items/WMD.png");
 
-	public NuclearWeapon() {
-		super("Nuclear_Weapon");
+	public Cut_Tomato() {
+		super("Cut_Tomato");
 
 	}
 

@@ -1,15 +1,20 @@
 package com.github.brokendesigners.map.interactable;
 
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
+import com.github.brokendesigners.Player;
 import com.github.brokendesigners.item.Item;
 import com.github.brokendesigners.item.ItemRegister;
 
-public class AssemblyStation {
+public class AssemblyStation extends Station{
     private Item[] items;
     private Item Product;
     private Integer Counter;
      
 
-    public AssemblyStation()
+    public AssemblyStation(Vector3 objectPosition, float width, float height, float handX, float handY){
+        super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Assembly_Station");
+    }
     {
         this.items = new Item[3];
         this.items[0] = null;
@@ -28,6 +33,20 @@ public class AssemblyStation {
         this.items[1] = this.items[2];
         this.items[2] = null;
         return  Temp;
+    }
+    public void dumpHand(){
+        this.hand = null;
+    }
+
+    @Override
+    public boolean pickUp(Player player){
+        if (this.hasEmptyHand() || player.hand.isFull()){
+            return false;
+        } else {
+            player.hand.give(pickup()); //Special form of pickup
+            this.dumpHand();
+            return true;
+        }
     }
 
     //set item position

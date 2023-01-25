@@ -21,18 +21,18 @@ public abstract class Station {
 	}
 
 
-	public boolean pickUp(Player player)
-		throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-		return false;
-	}
+//	public boolean pickUp(Player player)
+//		throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+//		return false;
+//	}
 
 	public Rectangle getInteractionArea() {
 		return interactionArea;
 	}
 
-	public boolean dropOff(Player player){
-		return false;
-	}
+//	public boolean dropOff(Player player){
+//		return false;
+//	}
 
 	public boolean action(Player player){
 		return false;
@@ -52,6 +52,37 @@ public abstract class Station {
 			}
 		}
 		return false;
+	}
+
+	public boolean hasEmptyHand(){
+		if (this.hand == null){
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void dumpHand(){
+		this.hand = null;
+	}
+
+	public boolean pickUp(Player player){
+		if (this.hasEmptyHand() || player.hand.isFull()){
+			return false;
+		} else {
+			player.hand.give(hand);
+			this.dumpHand();
+			return true;
+		}
+	}
+
+	public boolean dropOff(Player player){
+		if (this.hasEmptyHand()){
+			this.hand = player.hand.drop();
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 
