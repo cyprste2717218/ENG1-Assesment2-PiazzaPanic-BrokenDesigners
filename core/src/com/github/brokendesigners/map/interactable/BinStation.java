@@ -18,4 +18,9 @@ public class BinStation extends Station{
 		return true;
 	}
 
+	@Override
+	public boolean pickUp(Player player) {
+		return false;
+	}
+
 }

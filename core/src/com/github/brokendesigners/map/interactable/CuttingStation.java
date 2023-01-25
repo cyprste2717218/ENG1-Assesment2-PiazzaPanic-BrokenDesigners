@@ -1,5 +1,7 @@
 package com.github.brokendesigners.map.interactable;
 
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 import com.github.brokendesigners.item.Item;
 import com.github.brokendesigners.item.ItemRegister;
 
@@ -7,9 +9,8 @@ public class CuttingStation extends Station {
 
     static final String[] Cuttables = {"Tomato", "Lettuce", "Onion","Bun"};
 
-    public CuttingStation()
-    {
-        super("Cutting_Station");
+    public CuttingStation(Vector3 objectPosition, float width, float height, float handX, float handY){
+        super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Cutting_Station");
     }
 
     //Cutting Operation

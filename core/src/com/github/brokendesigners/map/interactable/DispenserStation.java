@@ -23,11 +23,17 @@ public class DispenserStation extends Station {
 
 
 	@Override
-	public boolean pickUp(Player player)
-		throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+	public boolean pickUp(Player player) {
+
 		player.hand.give(dispenserItem);
 
 		return true;
+	}
+
+	@Override
+	public boolean dropOff(Player player)
+	{
+		return false;
 	}
 
 }

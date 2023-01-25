@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.github.brokendesigners.Constants;
 import com.github.brokendesigners.Player;
 import com.github.brokendesigners.item.Item;
+import com.github.brokendesigners.item.ItemRegister;
 
 
 public class CounterStation extends Station {
@@ -39,42 +40,13 @@ public class CounterStation extends Station {
 		spriteBatch.end();
 
 	}
-	public boolean hasEmptyHand(){
-		if (this.hand == null){
-			return true;
-		} else {
-			return false;
-		}
-	}
 
-	public void dumpHand(){
-		this.hand = null;
-	}
 
-	@Override
-	public boolean pickUp(Player player){
-		if (this.hasEmptyHand() || player.hand.isFull()){
-			return false;
-		} else {
-			player.hand.give(hand);
-			this.dumpHand();
-			return true;
-		}
-	}
-	@Override
-	public boolean dropOff(Player player){
-		if (this.hasEmptyHand()){
-			this.hand = player.hand.drop();
-			return true;
-		} else {
-			return false;
-		}
-	}
 	public Item formPatty() //Turn meat into patty
 	{
 		if(hand.getName()=="Meat")
 		{
-			hand.setName("Patty");
+			hand =  ItemRegister.itemRegister.get("Patty");
 		}
 		return hand;
 

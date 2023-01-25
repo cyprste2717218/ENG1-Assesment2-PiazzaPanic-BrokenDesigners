@@ -1,5 +1,7 @@
 package com.github.brokendesigners.map.interactable;
 
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 import com.github.brokendesigners.item.ItemRegister;
 
 public class CookingStation extends Station {
@@ -7,9 +9,8 @@ public class CookingStation extends Station {
     static final String[] Cookables = {"Patty","Bun","Cut_Bun"};
     static final String[] Flippables = {"Patty"};
 
-    public CookingStation()
-    {
-        super("Cooking_Station");
+    public CookingStation(Vector3 objectPosition, float width, float height, float handX, float handY){
+        super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Cooking_Station");
     }
 
     //Cooking Operation
