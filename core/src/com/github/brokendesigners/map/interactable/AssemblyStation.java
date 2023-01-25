@@ -1,14 +1,17 @@
-package com.github.brokendesigners.NewStuffs;
+package com.github.brokendesigners.map.interactable;
+
+import com.github.brokendesigners.item.Item;
+import com.github.brokendesigners.item.ItemRegister;
 
 public class AssemblyStation {
-    private SpecialItem[] items;
-    private SpecialItem Product;
-    private int Counter;
+    private Item[] items;
+    private Item Product;
+    private Integer Counter;
      
 
     public AssemblyStation()
     {
-        this.items = new SpecialItem[3];
+        this.items = new Item[3];
         this.items[0] = null;
         this.items[1] = null;
         this.items[2] = null;
@@ -18,9 +21,9 @@ public class AssemblyStation {
     //Overide storing products
 
     //return Product or spare ingredients
-    public SpecialItem pickup()
+    public Item pickup()
     {
-        SpecialItem Temp = this.items[0];
+        Item Temp = this.items[0];
         this.items[0] = this.items[1];
         this.items[1] = this.items[2];
         this.items[2] = null;
@@ -28,7 +31,7 @@ public class AssemblyStation {
     }
 
     //set item position
-    public void StoreItem(SpecialItem x)
+    public void StoreItem(Item x)
     {
         this.items[this.Counter] = x;
         if(this.Counter == 2) //To get correct spare position
@@ -52,7 +55,7 @@ public class AssemblyStation {
         return 0;
     }
 
-    private SpecialItem TestingForFood(String[] Test, String[] data, String n)
+    private Item TestingForFood(String[] Test, String[] data, String n)
     {
         int Total = 0;
         for(int i = 0; i<Test.length;i++)
@@ -72,7 +75,7 @@ public class AssemblyStation {
         }
         if(Total == 3)
         {
-            return new SpecialItem(n);
+            return ItemRegister.itemRegister.get(n);
         }
         else
         {

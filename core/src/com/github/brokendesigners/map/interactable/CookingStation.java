@@ -1,11 +1,13 @@
-package com.github.brokendesigners.NewStuffs;
+package com.github.brokendesigners.map.interactable;
 
-public class Cooking_Station extends Station {
+import com.github.brokendesigners.item.ItemRegister;
+
+public class CookingStation extends Station {
 
     static final String[] Cookables = {"Patty","Bun","Cut_Bun"};
     static final String[] Flippables = {"Patty"};
 
-    public Cooking_Station()
+    public CookingStation()
     {
         super("Cooking_Station");
     }
@@ -15,23 +17,21 @@ public class Cooking_Station extends Station {
     {
         if(this.storing == true) //only if a value is held
         {
-            if(Applicable(Cookables,"Cooking_Station",stored.getName())==true)
+            if(Applicable(Cookables,"Cooking_Station",hand.getName())==true)
             {
                 //when cooking check for flip
-                if(Applicable(Flippables,"Cooking_Station",stored.getName())==false) //Cooking something that does not require a flip
+                if(Applicable(Flippables,"Cooking_Station",hand.getName())==false) //Cooking something that does not require a flip
                 {
-                    stored.Cooked = true;
-                    stored.setName("Cooked_"+stored.getName());
+                    hand =  ItemRegister.itemRegister.get("Cooked_"+hand.getName());
                 }
                 else
                 {
-                    stored.Cooking = true;
+                    hand.Cooking = true;
                 }
             }
             else //If operation should not be able to preformed, stops item being valid for other operations
             {
-                stored.setName("Waste_"+stored.getName());
-                stored.Waste = true;
+                hand =  ItemRegister.itemRegister.get("Waste");
             }
         }
     }
@@ -41,14 +41,13 @@ public class Cooking_Station extends Station {
     {
         if(this.storing == true) //only if a value is held
         {
-            if(Applicable(Flippables,"Cooking_Station",stored.getName())==true)
+            if(Applicable(Flippables,"Cooking_Station",hand.getName())==true)
             {
                 //This is once it is cooked
-                if (stored.Cooking == true) //only cooked if it has been cooking
+                if (hand.Cooking == true) //only cooked if it has been cooking
                 {
-                    stored.setName("Cooked_"+stored.getName());
-                    stored.Cooked = true;
-                    stored.Cooking = false;
+                    hand.Cooking = false;
+                    hand =  ItemRegister.itemRegister.get("Cooked_"+hand.getName());
                 }
             }
             //Does not matter if you flip a non-flippable
