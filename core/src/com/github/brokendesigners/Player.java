@@ -26,7 +26,6 @@ public class Player {
 	Rectangle playerRectangle;
 
 	private boolean selected;
-	boolean facingRight = false;
 
 
 
@@ -64,11 +63,9 @@ public class Player {
 			}
 			this.updateRectangle();
 			if (Gdx.input.isKeyPressed(Keys.A)) {
-				this.facingRight = false;
 				this.moveLeft(objects);
 			} else if (Gdx.input.isKeyPressed(Keys.D)) {
 				this.moveRight(objects);
-				this.facingRight = true;
 
 			}
 			this.updateRectangle();
@@ -158,9 +155,6 @@ public class Player {
 		return selected;
 	}
 
-	public boolean isFacingRight(){
-		return this.facingRight;
-	}
 
 	public boolean interact(ArrayList<? extends Station> stations){
 		for(Station station : stations){

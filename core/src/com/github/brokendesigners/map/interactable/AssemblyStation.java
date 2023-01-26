@@ -23,7 +23,7 @@ public class AssemblyStation extends Station{
         this.Product = null;
         this.Counter = 0;
     }
-    //Overide storing products
+    //Override storing products
 
     //return Product or spare ingredients
     public Item pickup()
