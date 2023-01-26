@@ -144,12 +144,6 @@ public class AssemblyStation extends Station{
                 this.items[2] = null;
                 this.Product = null;
             }
-            
-            
-
         }
     }
-
-
-
 }

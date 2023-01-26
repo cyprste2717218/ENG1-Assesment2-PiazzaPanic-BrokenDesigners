@@ -162,6 +162,15 @@ public class Player {
 		return this.facingRight;
 	}
 
+	public boolean interact(ArrayList<? extends Station> stations){
+		for(Station station : stations){
+			if(Intersector.overlaps(station.getInteractionArea(), this.getPlayerRectangle())){
+				station.action(this);
+				return true;
+			}
+		}
+		return false;
+	}
 	public class Hand{
 
 		ArrayList<Item> heldItems;

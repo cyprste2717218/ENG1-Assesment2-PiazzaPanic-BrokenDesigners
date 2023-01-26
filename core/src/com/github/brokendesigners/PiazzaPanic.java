@@ -119,6 +119,8 @@ public class PiazzaPanic extends ApplicationAdapter {
 					return true;
 				} else if (keycode == Keys.L){
 					bluggus.Spawn();
+				} else if (keycode == Keys.SPACE){
+					player1.interact(kitchen.getKitchenStations());
 				}
 				return false;
 			}

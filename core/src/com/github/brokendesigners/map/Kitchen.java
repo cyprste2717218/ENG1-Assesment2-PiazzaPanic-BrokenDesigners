@@ -95,6 +95,18 @@ public class Kitchen {
 							objectPosition.y,
 							rectangle.width * Constants.UNIT_SCALE,
 							rectangle.height * Constants.UNIT_SCALE)));
+			} else if (rectangleMapObject.getProperties().get("objectType").equals("Assembly")){
+
+				//float handX = (float)rectangleMapObject.getProperties().get("Center X");
+				//float handY = (float)rectangleMapObject.getProperties().get("Center Y");
+
+				kitchenStations.add(
+						new CounterStation(
+								objectPosition,
+								rectangle.width * Constants.UNIT_SCALE,
+								rectangle.height * Constants.UNIT_SCALE,
+								objectPosition.x * Constants.UNIT_SCALE,
+								objectPosition.y * Constants.UNIT_SCALE));
 			}
 
 		}
