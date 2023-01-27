@@ -18,8 +18,9 @@ public class CuttingStation extends Station {
     @Override
     public boolean action(Player player)
     {
-        if(Applicable(Cuttables,"Cutting_Station",hand.getName())==true)
-        {
+        if (hand == null){
+            return false;
+        } else if(Applicable(Cuttables,"Cutting_Station",hand.getName())==true) {
             hand =  ItemRegister.itemRegister.get("Cut_"+hand.getName());
             return true;
         }

@@ -101,6 +101,7 @@ public class AssemblyStation extends Station{
             for(int j = 0; j<data.length;j++)
             {
                 int adder = Compare(Test[i], data[j]);
+                System.out.println(Compare(Test[i], data[j]));
                 Total = Total + adder;
                 if(adder==1)
                 {
@@ -111,8 +112,10 @@ public class AssemblyStation extends Station{
 
 
         }
+        System.out.println(Total);
         if(Total == 3)
         {
+            System.out.println(n);
             return ItemRegister.itemRegister.get(n);
         }
         else
@@ -140,6 +143,9 @@ public class AssemblyStation extends Station{
         String[] ItemStack = new String[]{this.hand.getHeldItems().get(0).name, this.hand.getHeldItems().get(1).name, this.hand.getHeldItems().get(2).name};
         if((this.hand.isFull()))
         {
+            for (String i : ItemStack){
+                System.out.println(i);
+            }
 
             //Testing data
             String[] SaladTest = new String[]{"Cut_Tomato","Cut_Lettuce","Cut_Onion"};
@@ -165,11 +171,13 @@ public class AssemblyStation extends Station{
             //     this.Product = TestingForFood();
             // }
 
-
+            System.out.println(this.Product);
             if(this.Product != null) //Delete ingredients and leave Product only waiting to go to stack.
             {
+                System.out.println("AAA");
                 this.dumpHand();
-                this.hand.give(Product);
+                this.hand.give(this.Product);
+
             }
         }
     }
