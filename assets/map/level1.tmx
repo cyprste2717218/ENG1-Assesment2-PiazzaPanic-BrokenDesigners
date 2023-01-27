@@ -147,8 +147,14 @@
     <property name="objectType" value="Dispenser"/>
    </properties>
   </object>
-  <object id="66" x="157.875" y="541.75" width="36.4663" height="36.9092">
+  <object id="66" x="158" y="542" width="36" height="36">
    <properties>
+    <property name="hand1X" type="float" value="3"/>
+    <property name="hand1Y" type="float" value="25"/>
+    <property name="hand2X" type="float" value="25"/>
+    <property name="hand2Y" type="float" value="25"/>
+    <property name="hand3X" type="float" value="14"/>
+    <property name="hand3Y" type="float" value="18"/>
     <property name="objectType" value="Assembly"/>
    </properties>
   </object>

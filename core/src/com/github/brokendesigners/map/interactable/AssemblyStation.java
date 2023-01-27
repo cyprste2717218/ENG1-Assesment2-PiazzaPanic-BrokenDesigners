@@ -2,12 +2,16 @@ package com.github.brokendesigners.map.interactable;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.github.brokendesigners.Constants;
 import com.github.brokendesigners.Player;
 import com.github.brokendesigners.item.Item;
 import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.Hand;
+
+import java.util.ArrayList;
 
 public class AssemblyStation extends Station{
     private Item[] items;
@@ -15,9 +19,12 @@ public class AssemblyStation extends Station{
     private Integer Counter;
     private Hand hand;
 
-    public AssemblyStation(Vector3 objectPosition, float width, float height, float handX, float handY){
+    private ArrayList<Vector2> handPositions;
+
+    public AssemblyStation(Vector3 objectPosition, float width, float height, ArrayList<Vector2> handPositions){
         super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Assembly_Station");
-        hand = new Hand();
+        this.handPositions = handPositions;
+        this.hand = new Hand();
     }
     {
         this.items = new Item[3];
@@ -182,11 +189,19 @@ public class AssemblyStation extends Station{
         }
     }
 
-    /*@Override
+    @Override
     public void renderCounter(SpriteBatch spriteBatch) {
         spriteBatch.begin();
-        for (Item item : this.hand.getHeldItems()){
+        if (!this.hand.isEmpty()) {
+            ArrayList<Item> heldItems = this.hand.getHeldItems();
 
+            for (int i = 0; i < heldItems.size(); i++){
+                spriteBatch.draw(heldItems.get(i).getTexture(), this.handPositions.get(i).x, this.handPositions.get(i).y, 8 * Constants.UNIT_SCALE, 8 * Constants.UNIT_SCALE);
+
+
+            }
         }
-    }*/
+        spriteBatch.end();
+
+    }
 }

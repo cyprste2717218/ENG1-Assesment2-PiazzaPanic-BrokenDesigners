@@ -5,11 +5,14 @@ import static java.lang.Math.abs;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 import com.github.brokendesigners.Constants;
 import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.map.interactable.AssemblyStation;
@@ -101,16 +104,20 @@ public class Kitchen {
 							rectangle.height * Constants.UNIT_SCALE)));
 			} else if (rectangleMapObject.getProperties().get("objectType").equals("Assembly")){
 
-				//float handX = (float)rectangleMapObject.getProperties().get("Center X");
-				//float handY = (float)rectangleMapObject.getProperties().get("Center Y");
+				MapProperties assemblerProperties = rectangleMapObject.getProperties();
+
+
+				ArrayList<Vector2> handPositions = new ArrayList<>(3);
+				handPositions.add(new Vector2((float)assemblerProperties.get("hand1X") * Constants.UNIT_SCALE + objectPosition.x, (float)assemblerProperties.get("hand1Y") * Constants.UNIT_SCALE + objectPosition.y));
+				handPositions.add(new Vector2((float)assemblerProperties.get("hand2X") * Constants.UNIT_SCALE + objectPosition.x, (float)assemblerProperties.get("hand2Y") * Constants.UNIT_SCALE + objectPosition.y));
+				handPositions.add(new Vector2((float)assemblerProperties.get("hand3X") * Constants.UNIT_SCALE + objectPosition.x, (float)assemblerProperties.get("hand3Y") * Constants.UNIT_SCALE + objectPosition.y));
 
 				kitchenStations.add(
 						new AssemblyStation(
 								objectPosition,
 								rectangle.width * Constants.UNIT_SCALE,
 								rectangle.height * Constants.UNIT_SCALE,
-								objectPosition.x * Constants.UNIT_SCALE,
-								objectPosition.y * Constants.UNIT_SCALE));
+								handPositions));
 			} else if (rectangleMapObject.getProperties().get("objectType").equals("Baking")){
 
 				//float handX = (float)rectangleMapObject.getProperties().get("Center X");
