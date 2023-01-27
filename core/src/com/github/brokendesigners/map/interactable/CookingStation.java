@@ -2,6 +2,7 @@ package com.github.brokendesigners.map.interactable;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.github.brokendesigners.Player;
 import com.github.brokendesigners.item.ItemRegister;
 
 public class CookingStation extends Station {
@@ -14,7 +15,8 @@ public class CookingStation extends Station {
     }
 
     //Cooking Operation
-    public void Interact()
+    @Override
+    public boolean action(Player player)
     {
         if(this.storing == true) //only if a value is held
         {
@@ -29,11 +31,17 @@ public class CookingStation extends Station {
                 {
                     hand.Cooking = true;
                 }
+                return true;
             }
             else //If operation should not be able to preformed, stops item being valid for other operations
             {
                 hand =  ItemRegister.itemRegister.get("Waste");
+                return true;
             }
+        }
+        else
+        {
+            return false;
         }
     }
 
