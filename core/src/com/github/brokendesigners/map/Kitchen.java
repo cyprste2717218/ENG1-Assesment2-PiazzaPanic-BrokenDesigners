@@ -12,9 +12,13 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.github.brokendesigners.Constants;
 import com.github.brokendesigners.item.ItemRegister;
+import com.github.brokendesigners.map.interactable.AssemblyStation;
+import com.github.brokendesigners.map.interactable.BakingStation;
 import com.github.brokendesigners.map.interactable.BinStation;
+import com.github.brokendesigners.map.interactable.CookingStation;
 import com.github.brokendesigners.map.interactable.CounterStation;
 import com.github.brokendesigners.map.interactable.CustomerStation;
+import com.github.brokendesigners.map.interactable.CuttingStation;
 import com.github.brokendesigners.map.interactable.DispenserStation;
 import com.github.brokendesigners.map.interactable.Station;
 import java.util.ArrayList;
@@ -101,12 +105,48 @@ public class Kitchen {
 				//float handY = (float)rectangleMapObject.getProperties().get("Center Y");
 
 				kitchenStations.add(
-						new CounterStation(
+						new AssemblyStation(
 								objectPosition,
 								rectangle.width * Constants.UNIT_SCALE,
 								rectangle.height * Constants.UNIT_SCALE,
 								objectPosition.x * Constants.UNIT_SCALE,
 								objectPosition.y * Constants.UNIT_SCALE));
+			} else if (rectangleMapObject.getProperties().get("objectType").equals("Baking")){
+
+				//float handX = (float)rectangleMapObject.getProperties().get("Center X");
+				//float handY = (float)rectangleMapObject.getProperties().get("Center Y");
+
+				kitchenStations.add(
+					new BakingStation(
+						objectPosition,
+						rectangle.width * Constants.UNIT_SCALE,
+						rectangle.height * Constants.UNIT_SCALE,
+						objectPosition.x * Constants.UNIT_SCALE,
+						objectPosition.y * Constants.UNIT_SCALE));
+			} else if (rectangleMapObject.getProperties().get("objectType").equals("Cooking")){
+
+				//float handX = (float)rectangleMapObject.getProperties().get("Center X");
+				//float handY = (float)rectangleMapObject.getProperties().get("Center Y");
+
+				kitchenStations.add(
+					new CookingStation(
+						objectPosition,
+						rectangle.width * Constants.UNIT_SCALE,
+						rectangle.height * Constants.UNIT_SCALE,
+						objectPosition.x,
+						objectPosition.y));
+			} else if (rectangleMapObject.getProperties().get("objectType").equals("Cutting")){
+
+				//float handX = (float)rectangleMapObject.getProperties().get("Center X");
+				//float handY = (float)rectangleMapObject.getProperties().get("Center Y");
+
+				kitchenStations.add(
+					new CuttingStation(
+						objectPosition,
+						rectangle.width * Constants.UNIT_SCALE,
+						rectangle.height * Constants.UNIT_SCALE,
+						objectPosition.x,
+						objectPosition.y));
 			}
 
 		}

@@ -93,7 +93,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 		player1.setSelected(true);
 
 		camera.zoom = 2f;
-		Texture bluggusTexture = new Texture("characters/bluggus.png");
+		Texture bluggusTexture = new Texture("characters/bluggus2.png");
 
 		bluggus = new Customer(bluggusTexture, kitchen.getCustomerStations().get(2)); // TEST THING
 
@@ -193,9 +193,8 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 		mapRenderer.render();
 		for (Station station : kitchen.getKitchenStations()){
-			if (station instanceof CounterStation){
-				((CounterStation) station).renderCounter(spriteBatch);
-			}
+
+				station.renderCounter(spriteBatch);
 		}
 		playerRenderer.renderChef(spriteBatch, player1); // Perhaps fix the relationship of playerRenderer and player
 		playerRenderer.renderChef(spriteBatch, player2);

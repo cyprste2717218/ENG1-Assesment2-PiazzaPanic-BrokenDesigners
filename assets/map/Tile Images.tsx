@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.9" tiledversion="1.9.2" name="Tile Images" tilewidth="32" tileheight="32" tilecount="29" columns="0">
+<tileset version="1.9" tiledversion="1.9.2" name="Tile Images" tilewidth="32" tileheight="32" tilecount="31" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <transformations hflip="1" vflip="1" rotate="1" preferuntransformed="0"/>
  <tile id="0">
@@ -103,5 +103,11 @@
  </tile>
  <tile id="29">
   <image width="32" height="32" source="cutting station.png"/>
+ </tile>
+ <tile id="30">
+  <image width="32" height="32" source="customerCounter.png"/>
+ </tile>
+ <tile id="31">
+  <image width="32" height="32" source="customerCounterEND.png"/>
  </tile>
 </tileset>
