@@ -52,6 +52,15 @@ public class CounterStation extends Station {
 
 	}
 
+	@Override
+	public boolean action(Player player){
+		if (hand == null){
+			return false;
+		} else if () {
+
+		}
+	}
+
 
 
 }

@@ -27,6 +27,9 @@ public class ItemInitialiser {
         ItemRegister.addItem("Cooked_Patty", new Cooked_Patty());
         ItemRegister.addItem("Cooked_Bun", new Cooked_Bun());
 
+        ItemRegister.addItem("Salad", new Salad());
+        ItemRegister.addItem("Burger", new Burger());
+
         ItemRegister.addItem("Waste", new Waste());
 
 
