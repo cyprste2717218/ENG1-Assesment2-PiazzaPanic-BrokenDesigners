@@ -56,9 +56,13 @@ public class CounterStation extends Station {
 	public boolean action(Player player){
 		if (hand == null){
 			return false;
-		} else if () {
+		} else if (hand.equals(ItemRegister.itemRegister.get("Meat"))) {
+			this.dumpHand();
+			this.hand = ItemRegister.itemRegister.get("Patty");
+			return true;
 
 		}
+		return false;
 	}
 
 
