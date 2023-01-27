@@ -1,6 +1,9 @@
 package com.github.brokendesigners.map.interactable;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.github.brokendesigners.Constants;
 import com.github.brokendesigners.Player;
 import com.github.brokendesigners.item.Item;
 
@@ -12,12 +15,15 @@ public abstract class Station {
 	protected String station_name;
 	public Item hand;
 	public Boolean storing;
+	public Vector2 handPosition = new Vector2(0,0);
 
 	protected Station(Rectangle rectangle, String n) {
 		this.station_name = n;
 		this.hand = null;
 		this.storing = false;
 		this.interactionArea = rectangle;
+		this.handPosition.x = this.interactionArea.x;
+		this.handPosition.y = this.interactionArea.y;
 	}
 
 
@@ -84,7 +90,14 @@ public abstract class Station {
 			return false;
 		}
 	}
+	public void renderCounter(SpriteBatch spriteBatch) {
+		spriteBatch.begin();
+		if (!this.hasEmptyHand()) {
+			spriteBatch.draw(this.hand.getTexture(), this.handPosition.x, this.handPosition.y, 16 * Constants.UNIT_SCALE, 16 * Constants.UNIT_SCALE);
+		}
+		spriteBatch.end();
 
+	}
 
 
 }

@@ -26,7 +26,6 @@ public class Player {
 	Rectangle playerRectangle;
 
 	private boolean selected;
-	boolean facingRight = false;
 
 
 
@@ -64,11 +63,9 @@ public class Player {
 			}
 			this.updateRectangle();
 			if (Gdx.input.isKeyPressed(Keys.A)) {
-				this.facingRight = false;
 				this.moveLeft(objects);
 			} else if (Gdx.input.isKeyPressed(Keys.D)) {
 				this.moveRight(objects);
-				this.facingRight = true;
 
 			}
 			this.updateRectangle();
@@ -158,58 +155,14 @@ public class Player {
 		return selected;
 	}
 
-	public boolean isFacingRight(){
-		return this.facingRight;
-	}
 
-	public class Hand{
-
-		ArrayList<Item> heldItems;
-
-		public Hand(){
-			this.heldItems = new ArrayList<Item>(3);
-		}
-
-		public void give(Item item){
-
-			if (this.heldItems.size() == 3){
-				return;
-			}
-			this.heldItems.add(item);
-		}
-
-		public Item drop(Item item){
-			this.heldItems.remove(item);
-			return(item);
-		}
-
-		public Item drop() {
-
-			if (!this.heldItems.isEmpty()) {
-				int amountOfItems = this.heldItems.size();
-
-				Item droppedItem = this.heldItems.get(
-					amountOfItems - 1);
-				this.heldItems.remove(amountOfItems - 1);
-
-				return droppedItem;
-
-			} else {
-				return null;
-			}
-		}
-
-		public boolean isEmpty(){
-			return this.heldItems.isEmpty();
-		}
-
-		public boolean isFull(){
-			if (this.heldItems.size() == 3){
+	public boolean interact(ArrayList<? extends Station> stations){
+		for(Station station : stations){
+			if(Intersector.overlaps(station.getInteractionArea(), this.getPlayerRectangle())){
+				station.action(this);
 				return true;
 			}
-			else{
-				return false;
-			}
 		}
+		return false;
 	}
 }

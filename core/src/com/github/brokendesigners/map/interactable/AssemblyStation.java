@@ -1,19 +1,23 @@
 package com.github.brokendesigners.map.interactable;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 import com.github.brokendesigners.Player;
 import com.github.brokendesigners.item.Item;
 import com.github.brokendesigners.item.ItemRegister;
+import com.github.brokendesigners.Hand;
 
 public class AssemblyStation extends Station{
     private Item[] items;
     private Item Product;
     private Integer Counter;
-     
+    private Hand hand;
 
     public AssemblyStation(Vector3 objectPosition, float width, float height, float handX, float handY){
         super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Assembly_Station");
+        hand = new Hand();
     }
     {
         this.items = new Item[3];
@@ -23,21 +27,36 @@ public class AssemblyStation extends Station{
         this.Product = null;
         this.Counter = 0;
     }
-    //Overide storing products
+    //Override storing products
 
     //return Product or spare ingredients
-    public Item pickup()
-    {
-        Item Temp = this.items[0];
-        this.items[0] = this.items[1];
-        this.items[1] = this.items[2];
-        this.items[2] = null;
-        return  Temp;
-    }
-    public void dumpHand(){
-        this.hand = null;
-    }
 
+    @Override
+    public boolean pickUp(Player player) {
+        if (hand.isEmpty() || player.hand.isFull()){
+            return false;
+        } else {
+            player.hand.give(this.hand.drop());
+            return true;
+        }
+    }
+    @Override
+    public boolean dropOff(Player player){
+        if (hand.isFull() || player.hand.isEmpty()){
+            return false;
+        } else {
+            this.hand.give(player.hand.drop());
+            return true;
+        }
+    }
+    @Override
+    public void dumpHand(){
+        this.hand.drop();
+        this.hand.drop();
+        this.hand.drop();
+
+    }
+/*
     @Override
     public boolean pickUp(Player player){
         if (this.hasEmptyHand() || player.hand.isFull()){
@@ -47,7 +66,7 @@ public class AssemblyStation extends Station{
             this.dumpHand();
             return true;
         }
-    }
+    } */
 
     //set item position
     public void StoreItem(Item x)
@@ -104,12 +123,22 @@ public class AssemblyStation extends Station{
         
         
     }
+    @Override
+    public boolean action(Player player){
+        if (this.hand.isFull()){
+            System.out.println("ENGAGED");
+            this.Construct();
+            return true;
+        }
+        return false;
+
+    }
 
     //Construct Product
     public void Construct()
     {
-        String[] ItemStack = new String[]{this.items[0].getName(),this.items[1].getName(),this.items[2].getName()};
-        if((this.items[0] != null)&(this.items[1] != null)&(this.items[2] != null))
+        String[] ItemStack = new String[]{this.hand.getHeldItems().get(0).name, this.hand.getHeldItems().get(1).name, this.hand.getHeldItems().get(2).name};
+        if((this.hand.isFull()))
         {
 
             //Testing data
@@ -139,17 +168,17 @@ public class AssemblyStation extends Station{
 
             if(this.Product != null) //Delete ingredients and leave Product only waiting to go to stack.
             {
-                this.items[0] = this.Product;
-                this.items[1] = null;
-                this.items[2] = null;
-                this.Product = null;
+                this.dumpHand();
+                this.hand.give(Product);
             }
-            
-            
-
         }
     }
 
+    /*@Override
+    public void renderCounter(SpriteBatch spriteBatch) {
+        spriteBatch.begin();
+        for (Item item : this.hand.getHeldItems()){
 
-
+        }
+    }*/
 }

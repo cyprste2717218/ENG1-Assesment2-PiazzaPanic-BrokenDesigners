@@ -2,6 +2,7 @@ package com.github.brokendesigners.map.interactable;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.github.brokendesigners.Player;
 import com.github.brokendesigners.item.Item;
 import com.github.brokendesigners.item.ItemRegister;
 
@@ -14,15 +15,18 @@ public class CuttingStation extends Station {
     }
 
     //Cutting Operation
-    public void Interact()
+    @Override
+    public boolean action(Player player)
     {
         if(Applicable(Cuttables,"Cutting_Station",hand.getName())==true)
         {
             hand =  ItemRegister.itemRegister.get("Cut_"+hand.getName());
+            return true;
         }
         else //If operation should not be able to preformed, stops item being valid for other operations
         {
             hand =  ItemRegister.itemRegister.get("Waste");
+            return true;
         }
     }
     

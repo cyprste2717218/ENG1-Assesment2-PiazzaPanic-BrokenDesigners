@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="left-up" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="70">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="left-up" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="74">
  <tileset firstgid="1" source="Tile Images.tsx"/>
- <tileset firstgid="29" source="Tile Images.tsx"/>
  <layer id="4" name="Tile Layer 2" width="30" height="20">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -39,14 +38,14 @@
 16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,0,0,0,0,0,
 10,10,16,15,15,15,15,15,15,15,15,16,15,15,15,15,15,15,15,15,15,15,15,16,16,0,0,0,0,0,
 11,11,16,14,14,14,14,14,14,14,14,16,14,14,14,14,14,14,14,14,14,14,14,16,16,0,0,0,0,0,
-7,7,15,7,7,7,26,7,7,26,7,15,7,7,6,6,6,6,7,7,7,7,7,16,16,0,0,0,0,0,
-7,7,27,7,7,23,25,18,18,25,7,14,7,6,7,7,7,7,7,7,7,7,7,16,16,0,0,0,0,0,
-7,7,27,7,7,22,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,16,16,0,0,0,0,0,
-7,7,27,7,7,22,7,7,7,17,7,16,7,7,7,7,7,7,7,7,7,7,7,16,16,0,0,0,0,0,
-7,7,28,7,7,21,7,7,7,7,7,16,7,7,7,7,7,7,7,7,7,7,7,16,16,0,0,0,0,0,
+7,7,15,7,7,7,29,7,7,28,7,15,7,7,6,6,6,6,7,7,7,7,7,16,16,0,0,0,0,0,
+7,7,31,7,7,23,25,30,18,25,7,14,7,6,7,7,7,7,7,7,7,7,7,16,16,0,0,0,0,0,
+7,7,31,7,7,22,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,16,16,0,0,0,0,0,
+7,7,31,7,7,22,7,7,7,17,7,16,7,7,7,7,7,7,7,7,7,7,7,16,16,0,0,0,0,0,
+7,7,32,7,7,21,7,7,7,7,7,16,7,7,7,7,7,7,7,7,7,7,7,16,16,0,0,0,0,0,
 7,7,7,7,7,7,7,7,7,7,7,16,7,7,7,7,7,7,7,7,7,7,7,16,16,0,0,0,0,0,
-7,7,16,7,7,7,7,7,13,7,7,16,7,53,7,7,7,7,7,7,7,7,7,16,16,0,0,0,0,0,
-7,7,15,7,7,7,7,7,7,7,7,15,7,7,6,53,6,53,7,7,7,7,7,16,16,0,0,0,0,0,
+7,7,16,7,7,27,7,7,13,7,7,16,7,7,7,7,7,7,7,7,7,7,7,16,16,0,0,0,0,0,
+7,7,15,7,7,7,7,7,7,7,7,15,7,7,6,25,6,25,7,7,7,7,7,16,16,0,0,0,0,0,
 7,7,14,7,7,7,7,7,7,7,7,14,7,7,7,7,7,7,7,7,7,7,7,16,16,0,0,0,0,0
 </data>
  </layer>
@@ -60,13 +59,6 @@
   <object id="14" x="280" y="440" width="48" height="48">
    <properties>
     <property name="objectType" value="Bin"/>
-   </properties>
-  </object>
-  <object id="15" x="224" y="376" width="32" height="48">
-   <properties>
-    <property name="Center X" type="float" value="222"/>
-    <property name="Center Y" type="float" value="230"/>
-    <property name="objectType" value="Counter"/>
    </properties>
   </object>
   <object id="17" x="152" y="416" width="48" height="32">
@@ -155,22 +147,22 @@
     <property name="objectType" value="Dispenser"/>
    </properties>
   </object>
-  <object id="66" x="410.227" y="537.402" width="43.7163" height="37.5342">
+  <object id="66" x="157.875" y="541.75" width="36.4663" height="36.9092">
    <properties>
     <property name="objectType" value="Assembly"/>
    </properties>
   </object>
-  <object id="67" x="478.23" y="560.805" width="34.4432" height="65.3537">
+  <object id="67" x="288.147" y="375.888" width="31.9432" height="48.1037">
    <properties>
     <property name="objectType" value="Baking"/>
    </properties>
   </object>
-  <object id="68" x="543.584" y="562.572" width="33.56" height="64.029">
+  <object id="68" x="190.493" y="376.072" width="33.56" height="48.029">
    <properties>
     <property name="objectType" value="Cooking"/>
    </properties>
   </object>
-  <object id="69" x="287.313" y="376.071" width="48" height="48">
+  <object id="69" x="224.091" y="376.091" width="31.8182" height="48">
    <properties>
     <property name="objectType" value="Cutting"/>
    </properties>
@@ -194,5 +186,9 @@
   <object id="63" x="480" y="352" width="32" height="32"/>
   <object id="64" x="512" y="352" width="32" height="32"/>
   <object id="65" x="416" y="384" width="32" height="32"/>
+  <object id="70" x="160" y="544" width="32" height="32"/>
+  <object id="71" x="448" y="576" width="128" height="32"/>
+  <object id="72" x="448" y="352" width="128" height="32"/>
+  <object id="73" x="416" y="384" width="32" height="32"/>
  </objectgroup>
 </map>
