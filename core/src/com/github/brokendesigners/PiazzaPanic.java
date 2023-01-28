@@ -95,7 +95,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 		camera.zoom = 2f;
 		Texture bluggusTexture = new Texture("characters/bluggus2.png");
 
-		bluggus = new Customer(bluggusTexture, kitchen.getCustomerStations().get(2)); // TEST THING
+		//bluggus = new Customer(bluggusTexture, kitchen.getCustomerStations().get(2)); // TEST THING
 
 		inputProcessor = new InputProcessor(){
 
@@ -205,7 +205,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 		camera.position.set(player1.worldPosition);
 
 		spriteBatch.begin();
-		bluggus.render(spriteBatch);
+		//bluggus.render(spriteBatch);
 		spriteBatch.end();
 
 		if (Gdx.input.isKeyPressed(Keys.NUM_1)){
