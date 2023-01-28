@@ -3,6 +3,7 @@ package com.github.brokendesigners.map.interactable;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 import com.github.brokendesigners.Constants;
@@ -24,7 +25,7 @@ public class CounterStation extends Station {
 
 
 	}
-	public CounterStation(Vector3 objectPosition, float width, float height, float handX, float handY){
+	public CounterStation(Vector2 objectPosition, float width, float height, float handX, float handY){
 		super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Counter_Station");
 		handPosition = new Vector3(handX, handY, 0);
 		System.out.println(handX);

@@ -1,13 +1,15 @@
 package com.github.brokendesigners.character;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.github.brokendesigners.Constants;
 import com.github.brokendesigners.bubble.SimpleItemBubble;
 import com.github.brokendesigners.item.Item;
 import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.map.interactable.CustomerStation;
+import com.github.brokendesigners.renderer.BubbleRenderer;
+import com.github.brokendesigners.renderer.CustomerRenderer;
 
 public class Customer {
 
@@ -19,10 +21,11 @@ public class Customer {
 	public final float WIDTH;
 	public final float HEIGHT;
 	SimpleItemBubble bubble;
+	private int phase = 3;
 
 	float movement_speed = 0; //Intentionally lowercase - NOT A CONSTANT
 
-	public Customer(Texture texture, CustomerStation station){
+	public Customer(Texture texture, CustomerStation station, CustomerRenderer customerRenderer, BubbleRenderer bubbleRenderer){
 		worldPosition = new Vector3(1/8f,0,0);
 		this.station = station;
 		this.texture = texture;
@@ -31,13 +34,16 @@ public class Customer {
 		this.WIDTH = this.texture.getWidth() * Constants.UNIT_SCALE; // 1-size-fits-all probably doesnt work, change this to be part of the constructor.
 		this.HEIGHT = this.texture.getHeight() * Constants.UNIT_SCALE;
 
-		bubble = new SimpleItemBubble(this.desiredMeal, new Vector3(this.station.getCustomerPosition().x + 1f, this.station.getCustomerPosition().y + 2f, 0));
+		bubble = new SimpleItemBubble(bubbleRenderer, this.desiredMeal, new Vector2(this.station.getCustomerPosition().x + 1f, this.station.getCustomerPosition().y + 2f));
+
+		customerRenderer.addCustomer(this);
 	}
 
 	public boolean Spawn(){
 		if (station.isFree()){
 			this.visible = true;
 			this.movement_speed = 1 * Constants.UNIT_SCALE;
+			this.phase = 0;
 			// PLAY SOUND - DOOR OPENING / BELL RING / ETC
 			return true;
 		}
@@ -46,49 +52,63 @@ public class Customer {
 		}
 	}
 
-	public boolean render(SpriteBatch batch){ // make Customer Renderer - Make 3 render phases.
-		if (this.visible){
-			//batch begin should happen before the loop in "PiazzaPanic.class" to avoid overuse or whatever.
-			batch.draw(this.texture, worldPosition.x, worldPosition.y, this.WIDTH, this.HEIGHT, 0, 0, this.texture.getWidth(), this.texture.getHeight(), true, false);
-
-			// basic code::
-			if (worldPosition.y != this.station.getCustomerPosition().y){
-				worldPosition.y += this.movement_speed;
-			}
-			else if (worldPosition.x != this.station.getCustomerPosition().x){
-				worldPosition.x += this.movement_speed;
-			}
-			else if (!this.station.hasEmptyHand()){
-				System.out.println("STATION HAS SOMETHING ON IT");
-				if (this.station.getItemInHand().equals(this.desiredMeal)){
-					this.station.customerPosition = new Vector3(0,0,0);
-					this.movement_speed = this.movement_speed * -1;
-					this.station.dumpHand();
-				}
-			}
-			if (worldPosition.equals(this.station.getCustomerPosition())){
-				if (worldPosition.equals(new Vector3(0,0,0))){
-					this.visible = false;
-
-				} else {
+	public void update(){
+		switch (this.phase) {
+			case (0): // Phase 0 -- Customer is moving to Ordering Station
+				if (worldPosition.y != this.station.getCustomerPosition().y) {
+					worldPosition.y += this.movement_speed;
+					if (Math.abs((worldPosition.y - this.station.getCustomerPosition().y)) <= this.movement_speed) {
+						this.worldPosition.y = this.station.getCustomerPosition().y;
+					}
+				} else if (worldPosition.x != this.station.getCustomerPosition().x) {
+					worldPosition.x += this.movement_speed;
+					if (Math.abs((worldPosition.x - this.station.getCustomerPosition().x)) <= this.movement_speed){
+						this.worldPosition.x = this.station.getCustomerPosition().x;
+					}
+				} else if (worldPosition.equals(this.station.getCustomerPosition())) {
+					this.phase += 1;
 					this.bubble.setVisible(true);
 				}
+				break;
+			case (1): // Phase 1 -- Customer is waiting for meal
+				if (!this.station.hasEmptyHand()) {
+					if (this.station.getItemInHand().equals(this.desiredMeal)) {
+						this.phase += 1;
+						this.station.dumpHand();
+						this.bubble.setVisible(false);
+					}
+				}
+				break;
+			case (2): // Phase 2 -- Customer is walking to the exit
+				if (worldPosition.x != 0) {
+					worldPosition.x -= this.movement_speed;
+				} else if (worldPosition.y != 0) {
+					worldPosition.y -= this.movement_speed;
+				} else {
+					this.phase = 3;
+				}
+				break;
+			case (3):
+				this.visible = false;
+				break;
 
-			}
-			else{
-				this.bubble.setVisible(false);
-			}
 
-			this.bubble.render(batch);
-
-			return true;
-
-
-		}
-		else {
-			return false;
 		}
 	}
 
+	public Texture getTexture() {
+		return texture;
+	}
 
+	public Vector3 getWorldPosition() {
+		return worldPosition;
+	}
+
+	public boolean isVisible(){
+		return visible;
+	}
+
+	public void dispose(){
+		this.texture.dispose();
+	}
 }

@@ -24,6 +24,7 @@ import com.github.brokendesigners.map.interactable.CustomerStation;
 import com.github.brokendesigners.map.interactable.CuttingStation;
 import com.github.brokendesigners.map.interactable.DispenserStation;
 import com.github.brokendesigners.map.interactable.Station;
+import com.github.brokendesigners.renderer.BubbleRenderer;
 import java.util.ArrayList;
 
 public class Kitchen {
@@ -32,7 +33,7 @@ public class Kitchen {
 	private ArrayList<Station> kitchenStations;
 	private ArrayList<CustomerStation> customerStations;
 
-	public Kitchen(Camera camera, SpriteBatch spriteBatch){
+	public Kitchen(Camera camera, SpriteBatch spriteBatch, BubbleRenderer bubbleRenderer){
 
 		Matrix4 inverseProjection = spriteBatch.getProjectionMatrix().cpy();
 		inverseProjection.inv();
@@ -56,7 +57,7 @@ public class Kitchen {
 		kitchenStations = new ArrayList<>();
 		for (RectangleMapObject rectangleMapObject : mapStations.getByType(RectangleMapObject.class)){
 			Rectangle rectangle = rectangleMapObject.getRectangle();
-			Vector3 objectPosition = new Vector3(rectangle.x * Constants.UNIT_SCALE, rectangle.y * Constants.UNIT_SCALE, 0);
+			Vector2 objectPosition = new Vector2(rectangle.x * Constants.UNIT_SCALE, rectangle.y * Constants.UNIT_SCALE);
 
 			if (rectangleMapObject.getProperties().get("objectType").equals("Dispenser")){
 
@@ -69,27 +70,26 @@ public class Kitchen {
 
 			} else if (rectangleMapObject.getProperties().get("objectType").equals("Counter")){
 
-				float handX = (float)rectangleMapObject.getProperties().get("Center X");
-				float handY = (float)rectangleMapObject.getProperties().get("Center Y");
-
+				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
+				float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
 				kitchenStations.add(
 					new CounterStation(
 						objectPosition,
 						rectangle.width * Constants.UNIT_SCALE,
 						rectangle.height * Constants.UNIT_SCALE,
-						handX * Constants.UNIT_SCALE,
-						handY * Constants.UNIT_SCALE));
+						handX,
+						handY));
 			} else if (rectangleMapObject.getProperties().get("objectType").equals("CustomerCounter")){
 
-				float handX = (float)rectangleMapObject.getProperties().get("Center X");
-				float handY = (float)rectangleMapObject.getProperties().get("Center Y");
+				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
+				float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
 
 				CustomerStation station = new CustomerStation(
 					objectPosition,
 					rectangle.width * Constants.UNIT_SCALE,
 					rectangle.height * Constants.UNIT_SCALE,
-					handX * Constants.UNIT_SCALE,
-					handY * Constants.UNIT_SCALE);
+					handX,
+					handY);
 
 				kitchenStations.add(station);
 				customerStations.add(station);
@@ -120,40 +120,40 @@ public class Kitchen {
 								handPositions));
 			} else if (rectangleMapObject.getProperties().get("objectType").equals("Baking")){
 
-				//float handX = (float)rectangleMapObject.getProperties().get("Center X");
-				//float handY = (float)rectangleMapObject.getProperties().get("Center Y");
+				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
+				float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
 
 				kitchenStations.add(
 					new BakingStation(
 						objectPosition,
 						rectangle.width * Constants.UNIT_SCALE,
 						rectangle.height * Constants.UNIT_SCALE,
-						objectPosition.x * Constants.UNIT_SCALE,
-						objectPosition.y * Constants.UNIT_SCALE));
+						handX,
+						handY));
 			} else if (rectangleMapObject.getProperties().get("objectType").equals("Cooking")){
 
-				//float handX = (float)rectangleMapObject.getProperties().get("Center X");
-				//float handY = (float)rectangleMapObject.getProperties().get("Center Y");
+				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
+				float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
 
 				kitchenStations.add(
 					new CookingStation(
 						objectPosition,
 						rectangle.width * Constants.UNIT_SCALE,
 						rectangle.height * Constants.UNIT_SCALE,
-						objectPosition.x,
-						objectPosition.y));
+						handX,
+						handY));
 			} else if (rectangleMapObject.getProperties().get("objectType").equals("Cutting")){
 
-				//float handX = (float)rectangleMapObject.getProperties().get("Center X");
-				//float handY = (float)rectangleMapObject.getProperties().get("Center Y");
+				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
+				float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
 
 				kitchenStations.add(
 					new CuttingStation(
 						objectPosition,
 						rectangle.width * Constants.UNIT_SCALE,
 						rectangle.height * Constants.UNIT_SCALE,
-						objectPosition.x,
-						objectPosition.y));
+						handX,
+						handY, bubbleRenderer));
 			}
 
 		}

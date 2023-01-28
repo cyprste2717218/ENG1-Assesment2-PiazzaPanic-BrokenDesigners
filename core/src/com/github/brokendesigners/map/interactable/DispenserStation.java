@@ -1,6 +1,7 @@
 package com.github.brokendesigners.map.interactable;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.github.brokendesigners.Player;
 import com.github.brokendesigners.item.Item;
@@ -16,7 +17,7 @@ public class DispenserStation extends Station {
 		this.dispenserItem = dispenserItem;
 	}
 
-	public DispenserStation(Vector3 worldPosition, float width, float height, Item dispenserItem){
+	public DispenserStation(Vector2 worldPosition, float width, float height, Item dispenserItem){
 		super(new Rectangle(worldPosition.x, worldPosition.y, width, height),"dispenser_station");
 		this.dispenserItem = dispenserItem;
 	}

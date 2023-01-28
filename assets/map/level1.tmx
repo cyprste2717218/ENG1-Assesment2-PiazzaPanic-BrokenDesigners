@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="left-up" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="74">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="left-up" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="85">
  <tileset firstgid="1" source="Tile Images.tsx"/>
  <layer id="4" name="Tile Layer 2" width="30" height="20">
   <data encoding="csv">
@@ -7,26 +7,62 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,39,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,38,0,0,38,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,38,0,0,38,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,38,0,0,38,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-7,7,14,24,24,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
  <layer id="1" name="Tile Layer 1" width="30" height="20">
   <data encoding="csv">
+33,33,33,33,33,44,1610612780,2684354603,2684354603,2684354603,2684354603,2684354603,2684354603,2684354603,2684354603,2684354603,2684354603,2684354603,2684354603,2684354603,2684354603,2684354603,2684354603,2684354603,2684354603,2684354603,2684354603,2684354603,2684354603,2684354604,
+33,33,33,33,33,43,40,40,44,40,40,40,40,40,40,40,40,44,40,40,40,40,40,40,40,40,40,40,40,44,
+33,33,33,33,33,43,39,39,43,39,39,39,39,39,39,39,39,43,39,39,39,39,39,39,39,39,39,39,39,43,
+33,33,33,33,33,43,38,38,40,38,38,38,29,38,38,28,38,40,38,38,6,6,6,6,38,38,38,38,38,43,
+33,33,33,33,33,43,38,38,31,38,38,23,25,30,18,25,38,39,38,6,38,38,38,38,38,38,38,38,38,43,
+33,33,33,33,33,43,38,38,31,38,38,22,38,38,38,38,38,38,38,38,38,38,38,38,38,38,38,38,38,43,
+33,33,33,33,33,43,38,38,31,38,38,22,38,38,38,17,38,44,38,38,38,38,38,38,38,38,38,38,38,43,
+33,33,33,33,33,43,38,38,32,38,38,21,38,38,38,38,38,43,38,38,38,38,38,38,38,38,38,38,38,43,
+33,33,33,33,33,43,38,38,38,38,38,38,38,38,38,38,38,43,38,38,38,38,38,38,38,38,38,38,38,43,
+33,33,33,33,33,43,38,38,44,38,38,27,38,38,13,38,38,43,38,38,38,38,38,38,38,38,38,38,38,43,
+33,33,33,33,33,40,38,38,40,38,38,38,38,38,38,38,38,40,38,38,38,38,38,38,38,38,38,38,38,43,
+33,33,33,33,33,39,38,38,39,38,38,38,38,38,38,38,38,39,38,38,38,38,38,38,38,38,38,38,38,3221225516,
+33,33,33,33,33,33,34,34,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,
+33,33,33,33,33,33,34,34,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,
+33,33,33,33,33,33,34,34,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,
+33,33,33,33,33,33,34,34,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,
+35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,
+37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,
+37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37
+</data>
+ </layer>
+ <layer id="5" name="Tile Layer 3" width="30" height="20">
+  <data encoding="csv">
+0,0,0,0,0,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,29,0,0,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,44,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,40,42,42,42,42,42,42,42,42,40,42,42,42,42,42,42,42,42,42,42,42,40,
+0,0,0,0,0,0,0,0,39,41,41,41,41,41,41,41,41,39,41,41,41,41,41,41,41,41,41,41,41,39,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -34,167 +70,162 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,0,0,0,0,0,
-10,10,16,15,15,15,15,15,15,15,15,16,15,15,15,15,15,15,15,15,15,15,15,16,16,0,0,0,0,0,
-11,11,16,14,14,14,14,14,14,14,14,16,14,14,14,14,14,14,14,14,14,14,14,16,16,0,0,0,0,0,
-7,7,15,7,7,7,29,7,7,28,7,15,7,7,6,6,6,6,7,7,7,7,7,16,16,0,0,0,0,0,
-7,7,31,7,7,23,25,30,18,25,7,14,7,6,7,7,7,7,7,7,7,7,7,16,16,0,0,0,0,0,
-7,7,31,7,7,22,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,16,16,0,0,0,0,0,
-7,7,31,7,7,22,7,7,7,17,7,16,7,7,7,7,7,7,7,7,7,7,7,16,16,0,0,0,0,0,
-7,7,32,7,7,21,7,7,7,7,7,16,7,7,7,7,7,7,7,7,7,7,7,16,16,0,0,0,0,0,
-7,7,7,7,7,7,7,7,7,7,7,16,7,7,7,7,7,7,7,7,7,7,7,16,16,0,0,0,0,0,
-7,7,16,7,7,27,7,7,13,7,7,16,7,7,7,7,7,7,7,7,7,7,7,16,16,0,0,0,0,0,
-7,7,15,7,7,7,7,7,7,7,7,15,7,7,6,25,6,25,7,7,7,7,7,16,16,0,0,0,0,0,
-7,7,14,7,7,7,7,7,7,7,7,14,7,7,7,7,7,7,7,7,7,7,7,16,16,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
  <objectgroup id="3" name="Interact">
-  <object id="10" x="248" y="536" width="48" height="48">
+  <object id="10" x="440.002" y="280.008" width="48" height="48">
    <properties>
     <property name="itemType" value="wmd"/>
     <property name="objectType" value="Dispenser"/>
    </properties>
   </object>
-  <object id="14" x="280" y="440" width="48" height="48">
+  <object id="14" x="472.002" y="184.008" width="48" height="48">
    <properties>
     <property name="objectType" value="Bin"/>
    </properties>
   </object>
-  <object id="17" x="152" y="416" width="48" height="32">
+  <object id="19" x="350.002" y="224.008" width="33" height="32">
    <properties>
-    <property name="Center X" type="float" value="166"/>
-    <property name="Center Y" type="float" value="198"/>
+    <property name="handX" type="float" value="10"/>
+    <property name="handY" type="float" value="16"/>
     <property name="objectType" value="Counter"/>
    </properties>
   </object>
-  <object id="18" x="152" y="448" width="48" height="32">
+  <object id="35" x="256.002" y="128" width="32" height="32">
    <properties>
-    <property name="Center X" type="float" value="166"/>
-    <property name="Center Y" type="float" value="166"/>
-    <property name="objectType" value="Counter"/>
-   </properties>
-  </object>
-  <object id="19" x="152" y="480" width="48" height="32">
-   <properties>
-    <property name="Center X" type="float" value="166"/>
-    <property name="Center Y" type="float" value="134"/>
-    <property name="objectType" value="Counter"/>
-   </properties>
-  </object>
-  <object id="32" x="256" y="376" width="32" height="48">
-   <properties>
-    <property name="Center X" type="float" value="254"/>
-    <property name="Center Y" type="float" value="230"/>
-    <property name="objectType" value="Counter"/>
-   </properties>
-  </object>
-  <object id="35" x="64" y="384" width="32" height="32">
-   <properties>
-    <property name="Center X" type="float" value="64"/>
-    <property name="Center Y" type="float" value="240"/>
+    <property name="handX" type="float" value="10"/>
+    <property name="handY" type="float" value="16"/>
     <property name="objectType" value="CustomerCounter"/>
    </properties>
   </object>
-  <object id="37" x="64" y="448" width="32" height="32">
+  <object id="37" x="256.002" y="192" width="32" height="32">
    <properties>
-    <property name="Center X" type="float" value="64"/>
-    <property name="Center Y" type="float" value="176"/>
+    <property name="handX" type="float" value="10"/>
+    <property name="handY" type="float" value="16"/>
     <property name="objectType" value="CustomerCounter"/>
    </properties>
   </object>
-  <object id="38" x="64" y="416" width="32" height="32">
+  <object id="38" x="256.002" y="160" width="32" height="32">
    <properties>
-    <property name="Center X" type="float" value="64"/>
-    <property name="Center Y" type="float" value="208"/>
+    <property name="handX" type="float" value="10"/>
+    <property name="handY" type="float" value="16"/>
     <property name="objectType" value="CustomerCounter"/>
    </properties>
   </object>
-  <object id="39" x="64" y="480" width="32" height="32">
+  <object id="39" x="256.002" y="224" width="32" height="32">
    <properties>
-    <property name="Center X" type="float" value="64"/>
-    <property name="Center Y" type="float" value="144"/>
+    <property name="handX" type="float" value="10"/>
+    <property name="handY" type="float" value="16"/>
     <property name="objectType" value="CustomerCounter"/>
    </properties>
   </object>
-  <object id="56" x="400.247" y="377.174" width="48" height="48">
+  <object id="56" x="592.249" y="121.182" width="48" height="48">
    <properties>
     <property name="itemType" value="Lettuce"/>
     <property name="objectType" value="Dispenser"/>
    </properties>
   </object>
-  <object id="57" x="448.821" y="352.446" width="30.7784" height="48">
+  <object id="57" x="640.002" y="96.0082" width="30.7784" height="48">
    <properties>
     <property name="itemType" value="Tomato"/>
     <property name="objectType" value="Dispenser"/>
    </properties>
   </object>
-  <object id="58" x="480.394" y="352.888" width="30.7784" height="48">
+  <object id="58" x="672.002" y="96.0082" width="30.7784" height="48">
    <properties>
     <property name="itemType" value="Onion"/>
     <property name="objectType" value="Dispenser"/>
    </properties>
   </object>
-  <object id="59" x="513.07" y="353.771" width="30.7784" height="48">
+  <object id="59" x="704.002" y="96.0082" width="30.7784" height="48">
    <properties>
     <property name="itemType" value="Meat"/>
     <property name="objectType" value="Dispenser"/>
    </properties>
   </object>
-  <object id="60" x="545.306" y="352.005" width="30.7784" height="48">
+  <object id="60" x="736.002" y="96.0082" width="30.7784" height="48">
    <properties>
     <property name="itemType" value="Bun"/>
     <property name="objectType" value="Dispenser"/>
    </properties>
   </object>
-  <object id="66" x="158" y="542" width="36" height="36">
+  <object id="66" x="349.877" y="285.758" width="36.4663" height="36.9092">
    <properties>
     <property name="hand1X" type="float" value="3"/>
-    <property name="hand1Y" type="float" value="25"/>
-    <property name="hand2X" type="float" value="25"/>
+    <property name="hand1Y" type="float" value="24"/>
+    <property name="hand2X" type="float" value="24"/>
     <property name="hand2Y" type="float" value="25"/>
     <property name="hand3X" type="float" value="14"/>
-    <property name="hand3Y" type="float" value="18"/>
+    <property name="hand3Y" type="float" value="16"/>
     <property name="objectType" value="Assembly"/>
    </properties>
   </object>
-  <object id="67" x="288.147" y="375.888" width="31.9432" height="48.1037">
+  <object id="68" x="384.002" y="126.008" width="32" height="36">
    <properties>
-    <property name="objectType" value="Baking"/>
-   </properties>
-  </object>
-  <object id="68" x="190.493" y="376.072" width="33.56" height="48.029">
-   <properties>
+    <property name="handX" type="float" value="9"/>
+    <property name="handY" type="float" value="23"/>
     <property name="objectType" value="Cooking"/>
    </properties>
   </object>
-  <object id="69" x="224.091" y="376.091" width="31.8182" height="48">
+  <object id="74" x="350.002" y="192.008" width="33" height="32">
    <properties>
+    <property name="handX" type="float" value="10"/>
+    <property name="handY" type="float" value="16"/>
+    <property name="objectType" value="Counter"/>
+   </properties>
+  </object>
+  <object id="75" x="350.002" y="160.008" width="33" height="32">
+   <properties>
+    <property name="handX" type="float" value="10"/>
+    <property name="handY" type="float" value="16"/>
+    <property name="objectType" value="Counter"/>
+   </properties>
+  </object>
+  <object id="76" x="416.002" y="126.008" width="32" height="36">
+   <properties>
+    <property name="handX" type="float" value="9"/>
+    <property name="handY" type="float" value="23"/>
     <property name="objectType" value="Cutting"/>
+   </properties>
+  </object>
+  <object id="77" x="448.002" y="126.008" width="32" height="36">
+   <properties>
+    <property name="handX" type="float" value="9"/>
+    <property name="handY" type="float" value="23"/>
+    <property name="objectType" value="Counter"/>
+   </properties>
+  </object>
+  <object id="78" x="480.002" y="126.008" width="32" height="36">
+   <properties>
+    <property name="handX" type="float" value="9"/>
+    <property name="handY" type="float" value="23"/>
+    <property name="objectType" value="Baking"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup id="2" name="Collision Layer">
-  <object id="1" x="66" y="384" width="28" height="128"/>
-  <object id="4" x="0" y="288" width="352" height="64"/>
-  <object id="6" x="64" y="544" width="32" height="96"/>
-  <object id="13" x="256" y="544" width="32" height="32"/>
-  <object id="20" x="288" y="448" width="32" height="32"/>
-  <object id="21" x="64" y="352" width="32" height="32"/>
-  <object id="26" x="352" y="288" width="32" height="128"/>
-  <object id="27" x="352" y="448" width="32" height="192"/>
-  <object id="29" x="384" y="288" width="384" height="64"/>
-  <object id="30" x="736" y="352" width="32" height="288"/>
-  <object id="44" x="160" y="384" width="160" height="32"/>
-  <object id="46" x="160" y="416" width="29" height="96"/>
-  <object id="61" x="544" y="352" width="32" height="32"/>
-  <object id="62" x="448" y="352" width="32" height="32"/>
-  <object id="63" x="480" y="352" width="32" height="32"/>
-  <object id="64" x="512" y="352" width="32" height="32"/>
-  <object id="65" x="416" y="384" width="32" height="32"/>
-  <object id="70" x="160" y="544" width="32" height="32"/>
-  <object id="71" x="448" y="576" width="128" height="32"/>
-  <object id="72" x="448" y="352" width="128" height="32"/>
-  <object id="73" x="416" y="384" width="32" height="32"/>
+  <object id="1" x="258" y="128" width="28" height="128"/>
+  <object id="4" x="192" y="32" width="352" height="64"/>
+  <object id="6" x="256" y="288" width="32" height="96"/>
+  <object id="13" x="448" y="288" width="32" height="32"/>
+  <object id="20" x="480" y="192" width="32" height="32"/>
+  <object id="21" x="256" y="96" width="32" height="32"/>
+  <object id="26" x="544" y="32" width="32" height="128"/>
+  <object id="29" x="576" y="32" width="384" height="64"/>
+  <object id="30" x="928" y="96" width="32" height="288"/>
+  <object id="44" x="352" y="128" width="160" height="32"/>
+  <object id="46" x="352" y="160" width="29" height="96"/>
+  <object id="61" x="736" y="96" width="32" height="32"/>
+  <object id="62" x="640" y="96" width="32" height="32"/>
+  <object id="63" x="672" y="96" width="32" height="32"/>
+  <object id="64" x="704" y="96" width="32" height="32"/>
+  <object id="65" x="608" y="128" width="32" height="32"/>
+  <object id="70" x="352" y="288" width="32" height="32"/>
+  <object id="72" x="640" y="96" width="128" height="32"/>
+  <object id="73" x="608" y="128" width="32" height="32"/>
+  <object id="81" x="288" y="384" width="640"/>
+  <object id="83" x="160" y="0" width="32" height="384"/>
+  <object id="84" x="544" y="224" width="32" height="96"/>
  </objectgroup>
 </map>

@@ -10,5 +10,12 @@ public class ItemRegister {
         return true;
 
     }
+    public static void dispose(){
+        for (String key : itemRegister.keySet()){
+            itemRegister.get(key).texture.dispose();
+
+        }
+
+    }
 
 }

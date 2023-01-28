@@ -1,6 +1,7 @@
 package com.github.brokendesigners.map.interactable;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.github.brokendesigners.Constants;
 import com.github.brokendesigners.Player;
@@ -13,7 +14,7 @@ public class CustomerStation extends CounterStation{
 	public Customer servedCustomer;
 
 
-	public CustomerStation(Vector3 objectPosition, float width, float height, float handX, float handY) {
+	public CustomerStation(Vector2 objectPosition, float width, float height, float handX, float handY) {
 		super(objectPosition, width, height, handX, handY);
 		this.customerPosition = new Vector3(handX - (32 * Constants.UNIT_SCALE), handY, 0);
 		System.out.println(customerPosition);

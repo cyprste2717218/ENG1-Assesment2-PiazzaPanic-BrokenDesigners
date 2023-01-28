@@ -13,9 +13,11 @@ public abstract class Station {
 
 	protected Rectangle interactionArea;
 	protected String station_name;
+	protected boolean interacting = false;
 	public Item hand;
 	public Boolean storing;
 	public Vector2 handPosition = new Vector2(0,0);
+
 
 	protected Station(Rectangle rectangle, String n) {
 		this.station_name = n;
@@ -73,7 +75,7 @@ public abstract class Station {
 	}
 
 	public boolean pickUp(Player player){
-		if (this.hasEmptyHand() || player.hand.isFull()){
+		if (this.hasEmptyHand() || player.hand.isFull() || this.interacting){
 			return false;
 		} else {
 			player.hand.give(hand);

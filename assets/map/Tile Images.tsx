@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.9" tiledversion="1.9.2" name="Tile Images" tilewidth="32" tileheight="32" tilecount="31" columns="0">
+<tileset version="1.9" tiledversion="1.9.2" name="Tile Images" tilewidth="32" tileheight="32" tilecount="43" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <transformations hflip="1" vflip="1" rotate="1" preferuntransformed="0"/>
  <tile id="0">
@@ -109,5 +109,41 @@
  </tile>
  <tile id="31">
   <image width="32" height="32" source="customerCounterEND.png"/>
+ </tile>
+ <tile id="32">
+  <image width="32" height="32" source="grasstest.png"/>
+ </tile>
+ <tile id="33">
+  <image width="32" height="32" source="grasspath.png"/>
+ </tile>
+ <tile id="34">
+  <image width="32" height="32" source="Pathement Test.png"/>
+ </tile>
+ <tile id="35">
+  <image width="32" height="32" source="road middle.png"/>
+ </tile>
+ <tile id="36">
+  <image width="32" height="32" source="roadchunk.png"/>
+ </tile>
+ <tile id="37">
+  <image width="32" height="32" source="foggy.png"/>
+ </tile>
+ <tile id="38">
+  <image width="32" height="32" source="newbricktest.png"/>
+ </tile>
+ <tile id="39">
+  <image width="32" height="32" source="newbricktop.png"/>
+ </tile>
+ <tile id="40">
+  <image width="32" height="32" source="windowedbottom.png"/>
+ </tile>
+ <tile id="41">
+  <image width="32" height="32" source="windowedtop.png"/>
+ </tile>
+ <tile id="42">
+  <image width="32" height="32" source="void.png"/>
+ </tile>
+ <tile id="43">
+  <image width="32" height="32" source="void_capped.png"/>
  </tile>
 </tileset>

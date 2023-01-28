@@ -4,15 +4,17 @@ import static java.lang.Math.abs;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.github.brokendesigners.item.Item;
 import com.github.brokendesigners.map.KitchenCollisionObject;
 import com.github.brokendesigners.map.interactable.Station;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import com.github.brokendesigners.renderer.PlayerRenderer;
 
 public class Player {
 	Vector3 worldPosition;
@@ -21,22 +23,55 @@ public class Player {
 
 	private final float WIDTH = 18 * Constants.UNIT_SCALE; //NOTE:  NOT THE WIDTH OF CHEF SPRITE
 	private final float HEIGHT = 4 * Constants.UNIT_SCALE;	//NOTE: NOT HEIGHT OF CHEF SPRITE
+
+	public final float SPRITE_WIDTH;		// Width of chef when drawn
+	public final float SPRITE_HEIGHT;
+
 	public Hand hand;
 
 	Rectangle playerRectangle;
 
 	private boolean selected;
 
+	public Texture texture;
+	public ArrayList<Animation<TextureRegion>> animations; // A list of animations
+	public float keyFrame;
+	public boolean flipped;
+	public boolean moving_disabled = false;
 
 
-	public Player(Vector3 worldPosition){
+	public Player(PlayerRenderer renderer, Texture texture, Vector3 worldPosition){
 
 		this.worldPosition = worldPosition;
 
 		playerRectangle = new Rectangle(worldPosition.x, worldPosition.y, this.WIDTH, this.HEIGHT);
 
+		this.texture = texture;
+
 		hand = new Hand();
 
+		renderer.addPlayer(this);
+
+		boolean flipped = false;
+
+		SPRITE_HEIGHT = this.texture.getHeight() * Constants.UNIT_SCALE;
+		SPRITE_WIDTH = this.texture.getWidth() * Constants.UNIT_SCALE;
+
+
+	}
+	public Player(PlayerRenderer renderer, ArrayList<Animation<TextureRegion>> animations, Vector3 worldPosition, float sprite_width, float sprite_height){
+
+		this.worldPosition = worldPosition;
+
+		playerRectangle = new Rectangle(worldPosition.x, worldPosition.y, this.WIDTH, this.HEIGHT);
+
+		this.animations = animations;
+
+		hand = new Hand();
+
+		renderer.addPlayer(this);
+		SPRITE_HEIGHT = sprite_height;
+		SPRITE_WIDTH = sprite_width;
 	}
 
 	public Rectangle getPlayerRectangle() {
@@ -54,7 +89,7 @@ public class Player {
 
 	public void processMovement(ArrayList<KitchenCollisionObject> objects){
 
-		if (this.selected == true) {
+		if (this.selected == true && !this.moving_disabled) {
 
 			if (Gdx.input.isKeyPressed(Keys.W)) {
 				this.moveUp(objects);
@@ -64,8 +99,10 @@ public class Player {
 			this.updateRectangle();
 			if (Gdx.input.isKeyPressed(Keys.A)) {
 				this.moveLeft(objects);
+				this.flipped = true;
 			} else if (Gdx.input.isKeyPressed(Keys.D)) {
 				this.moveRight(objects);
+				this.flipped = false;
 
 			}
 			this.updateRectangle();
@@ -129,19 +166,23 @@ public class Player {
 
 	public boolean pickUp(ArrayList<? extends Station> stations)
 		throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-		for (Station station : stations){
-			if(Intersector.overlaps(station.getInteractionArea(), this.getPlayerRectangle())){
-				station.pickUp(this);
-				return true;
+		if (this.isSelected()) {
+			for (Station station : stations) {
+				if (Intersector.overlaps(station.getInteractionArea(), this.getPlayerRectangle())) {
+					station.pickUp(this);
+					return true;
+				}
 			}
 		}
 		return false;
 	}
 	public boolean dropOff(ArrayList<? extends Station> stations){
-		for (Station station : stations){
-			if (Intersector.overlaps(station.getInteractionArea(), this.getPlayerRectangle())){
-				station.dropOff(this);
-				return true;
+		if (this.isSelected()) {
+			for (Station station : stations) {
+				if (Intersector.overlaps(station.getInteractionArea(), this.getPlayerRectangle())) {
+					station.dropOff(this);
+					return true;
+				}
 			}
 		}
 		return false;
@@ -157,12 +198,27 @@ public class Player {
 
 
 	public boolean interact(ArrayList<? extends Station> stations){
-		for(Station station : stations){
-			if(Intersector.overlaps(station.getInteractionArea(), this.getPlayerRectangle())){
-				station.action(this);
-				return true;
+		if (this.isSelected()) {
+			for (Station station : stations) {
+				if (Intersector.overlaps(station.getInteractionArea(), this.getPlayerRectangle())) {
+					station.action(this);
+					return true;
+				}
 			}
 		}
 		return false;
 	}
+
+	public void dispose(){
+		if (this.texture != null){
+			this.texture.dispose();
+		}
+	}
+	public void disableMovement(){
+		this.moving_disabled = true;
+	}
+	public void enableMovement(){
+		this.moving_disabled = false;
+	}
+
 }

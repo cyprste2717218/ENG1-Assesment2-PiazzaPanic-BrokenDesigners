@@ -21,7 +21,7 @@ public class AssemblyStation extends Station{
 
     private ArrayList<Vector2> handPositions;
 
-    public AssemblyStation(Vector3 objectPosition, float width, float height, ArrayList<Vector2> handPositions){
+    public AssemblyStation(Vector2 objectPosition, float width, float height, ArrayList<Vector2> handPositions){
         super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Assembly_Station");
         this.handPositions = handPositions;
         this.hand = new Hand();
@@ -122,7 +122,7 @@ public class AssemblyStation extends Station{
         System.out.println(Total);
         if(Total == 3)
         {
-            System.out.println(n);
+
             return ItemRegister.itemRegister.get(n);
         }
         else
@@ -151,7 +151,7 @@ public class AssemblyStation extends Station{
         if((this.hand.isFull()))
         {
             for (String i : ItemStack){
-                System.out.println(i);
+
             }
 
             //Testing data
@@ -181,7 +181,7 @@ public class AssemblyStation extends Station{
             System.out.println(this.Product);
             if(this.Product != null) //Delete ingredients and leave Product only waiting to go to stack.
             {
-                System.out.println("AAA");
+
                 this.dumpHand();
                 this.hand.give(this.Product);
 
