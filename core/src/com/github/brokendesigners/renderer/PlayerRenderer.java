@@ -39,56 +39,45 @@ public class PlayerRenderer {
 			}
 		}); // This changes the "depth" of each player chef based on their relative y axes
 
-		for (Player player : players){
-			if (player.animations != null){
+		for (Player player : players) {
+			if (player.animations != null) {
 				player.keyFrame += Gdx.graphics.getDeltaTime();
 
-				if (player.isSelected()){
-					if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.D)){
+				if (player.texture == null) {
+					TextureRegion frame;
+					if (player.moving_disabled) {
+						frame = player.animations.get(2).getKeyFrame(player.keyFrame);
+					} else if (player.isSelected()) {
+						 if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.S)
+							|| Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.D)){
+							frame = player.animations.get(1).getKeyFrame(player.keyFrame);
+						} else {
+							frame = player.animations.get(0).getKeyFrame(player.keyFrame);
+						}
 
-						this.batch.draw(player.animations.get(1).getKeyFrame(player.keyFrame),
-							player.getWorldPosition().x - 1 * Constants.UNIT_SCALE,
-							player.getWorldPosition().y,
-							player.SPRITE_WIDTH,
-							player.SPRITE_HEIGHT);
+					} else {
+						frame = player.animations.get(0).getKeyFrame((player.keyFrame));
 					}
-					else{
-
-						this.batch.draw(player.animations.get(0).getKeyFrame(player.keyFrame),
-							player.getWorldPosition().x - 1 * Constants.UNIT_SCALE,
-							player.getWorldPosition().y,
-							player.SPRITE_WIDTH,
-							player.SPRITE_HEIGHT);
-
-					}
+					this.batch.draw(frame, player.getWorldPosition().x + player.getRenderOffsetX(),
+						player.getWorldPosition().y, player.SPRITE_WIDTH, player.SPRITE_HEIGHT);
 				} else {
-
-					this.batch.draw(player.animations.get(0).getKeyFrame(player.keyFrame),
-						player.getWorldPosition().x - 1 * Constants.UNIT_SCALE,
-						player.getWorldPosition().y,
-						player.SPRITE_WIDTH,
-						player.SPRITE_HEIGHT);
+					this.batch.draw(player.texture,
+						player.getWorldPosition().x + player.getRenderOffsetX(),
+						player.getWorldPosition().y, player.SPRITE_WIDTH, player.SPRITE_HEIGHT);
 				}
-			}
-			else {
 
-				this.batch.draw(
-					player.texture,
-					player.getWorldPosition().x - 1 * Constants.UNIT_SCALE,
-					player.getWorldPosition().y,
-					player.SPRITE_WIDTH,
-					player.SPRITE_HEIGHT);
-			}
-			if (!player.hand.isEmpty()){
-				float stackOffset = 7 * Constants.UNIT_SCALE;
-				for (Item item : player.hand.getHeldItems()){
-					this.batch.draw(
-						item.getTexture(),
-						player.getWorldPosition().x + 3 * Constants.UNIT_SCALE,
-						player.getWorldPosition().y + stackOffset,
-						16 * Constants.UNIT_SCALE,
-						16 * Constants.UNIT_SCALE);
-					stackOffset += 0.5;
+				if (!player.hand.isEmpty()) {
+					float stackOffset = 7 * Constants.UNIT_SCALE;
+					for (Item item : player.hand.getHeldItems()) {
+						this.batch.draw(
+							item.getTexture(),
+							player.getWorldPosition().x + 4 * Constants.UNIT_SCALE
+								+ player.getRenderOffsetX(),
+							player.getWorldPosition().y + stackOffset,
+							16 * Constants.UNIT_SCALE,
+							16 * Constants.UNIT_SCALE);
+						stackOffset += 0.5;
+					}
 				}
 			}
 		}

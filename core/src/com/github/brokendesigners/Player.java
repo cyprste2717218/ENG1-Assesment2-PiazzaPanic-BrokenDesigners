@@ -21,8 +21,8 @@ public class Player {
 
 	public float MOVEMENT_SPEED = 2 * Constants.UNIT_SCALE;  // Movement Speed of Chef differs between vertical and horizontal due to following 2 lines
 
-	private final float WIDTH = 18 * Constants.UNIT_SCALE; //NOTE:  NOT THE WIDTH OF CHEF SPRITE
-	private final float HEIGHT = 4 * Constants.UNIT_SCALE;	//NOTE: NOT HEIGHT OF CHEF SPRITE
+	private float width; //NOTE:  NOT THE WIDTH OF CHEF SPRITE
+	private float height;	//NOTE: NOT HEIGHT OF CHEF SPRITE
 
 	public final float SPRITE_WIDTH;		// Width of chef when drawn
 	public final float SPRITE_HEIGHT;
@@ -39,12 +39,18 @@ public class Player {
 	public boolean flipped;
 	public boolean moving_disabled = false;
 
+	float renderOffsetX = 0;
+
 
 	public Player(PlayerRenderer renderer, Texture texture, Vector3 worldPosition){
 
 		this.worldPosition = worldPosition;
 
-		playerRectangle = new Rectangle(worldPosition.x, worldPosition.y, this.WIDTH, this.HEIGHT);
+		SPRITE_HEIGHT = this.texture.getHeight() * Constants.UNIT_SCALE;
+		SPRITE_WIDTH = this.texture.getWidth() * Constants.UNIT_SCALE;
+
+
+		playerRectangle = new Rectangle(worldPosition.x, worldPosition.y, this.width, this.height);
 
 		this.texture = texture;
 
@@ -54,8 +60,9 @@ public class Player {
 
 		boolean flipped = false;
 
-		SPRITE_HEIGHT = this.texture.getHeight() * Constants.UNIT_SCALE;
-		SPRITE_WIDTH = this.texture.getWidth() * Constants.UNIT_SCALE;
+		this.width = 18 * Constants.UNIT_SCALE;
+		this.height = 4 * Constants.UNIT_SCALE;
+
 
 
 	}
@@ -63,15 +70,23 @@ public class Player {
 
 		this.worldPosition = worldPosition;
 
-		playerRectangle = new Rectangle(worldPosition.x, worldPosition.y, this.WIDTH, this.HEIGHT);
+		SPRITE_HEIGHT = sprite_height;
+		SPRITE_WIDTH = sprite_width;
+
+
+
+		playerRectangle = new Rectangle(worldPosition.x, worldPosition.y, this.width, this.height);
 
 		this.animations = animations;
 
 		hand = new Hand();
 
 		renderer.addPlayer(this);
-		SPRITE_HEIGHT = sprite_height;
-		SPRITE_WIDTH = sprite_width;
+		this.width = 18 * Constants.UNIT_SCALE;
+		this.height = 4 * Constants.UNIT_SCALE;
+		playerRectangle.width = this.width;
+		playerRectangle.height = this.height;
+
 	}
 
 	public Rectangle getPlayerRectangle() {
@@ -81,6 +96,7 @@ public class Player {
 	private void updateRectangle(){
 		playerRectangle.x = worldPosition.x;
 		playerRectangle.y = worldPosition.y;
+
 	}
 
 	public Vector3 getWorldPosition(){
@@ -113,7 +129,7 @@ public class Player {
 		this.playerRectangle.y += (this.MOVEMENT_SPEED);
 		for (KitchenCollisionObject object : objects){
 			if(Intersector.overlaps(object.getRectangle(), this.getPlayerRectangle())){
-				this.worldPosition.y = object.getRectangle().y - this.HEIGHT;
+				this.worldPosition.y = object.getRectangle().y - this.height;
 
 				return false;
 			}
@@ -140,7 +156,7 @@ public class Player {
 		this.playerRectangle.x += (this.MOVEMENT_SPEED);
 		for (KitchenCollisionObject object : objects){
 			if(Intersector.overlaps(object.getRectangle(), this.getPlayerRectangle())){
-				this.worldPosition.x = object.getRectangle().x - this.WIDTH;
+				this.worldPosition.x = object.getRectangle().x - this.width;
 				return false;
 			}
 		}
@@ -221,4 +237,21 @@ public class Player {
 		this.moving_disabled = false;
 	}
 
+	public void setWidth(float width) {
+		this.width = width;
+		playerRectangle.width = this.width;
+	}
+
+	public void setHeight(float height) {
+		this.height = height;
+		playerRectangle.height = this.height;
+	}
+
+	public void setRenderOffsetX(float renderOffsetX) {
+		this.renderOffsetX = renderOffsetX;
+	}
+
+	public float getRenderOffsetX() {
+		return renderOffsetX;
+	}
 }

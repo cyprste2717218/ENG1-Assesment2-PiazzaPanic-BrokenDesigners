@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="left-up" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="85">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="left-up" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="91">
  <tileset firstgid="1" source="Tile Images.tsx"/>
  <layer id="4" name="Tile Layer 2" width="30" height="20">
   <data encoding="csv">
@@ -35,7 +35,7 @@
 33,33,33,33,33,43,38,38,31,38,38,22,38,38,38,38,38,38,38,38,38,38,38,38,38,38,38,38,38,43,
 33,33,33,33,33,43,38,38,31,38,38,22,38,38,38,17,38,44,38,38,38,38,38,38,38,38,38,38,38,43,
 33,33,33,33,33,43,38,38,32,38,38,21,38,38,38,38,38,43,38,38,38,38,38,38,38,38,38,38,38,43,
-33,33,33,33,33,43,38,38,38,38,38,38,38,38,38,38,38,43,38,38,38,38,38,38,38,38,38,38,38,43,
+33,33,33,33,33,43,38,38,38,38,38,38,38,38,38,38,38,43,38,6,38,6,38,38,38,38,38,38,38,43,
 33,33,33,33,33,43,38,38,44,38,38,27,38,38,13,38,38,43,38,38,38,38,38,38,38,38,38,38,38,43,
 33,33,33,33,33,40,38,38,40,38,38,38,38,38,38,38,38,40,38,38,38,38,38,38,38,38,38,38,38,43,
 33,33,33,33,33,39,38,38,39,38,38,38,38,38,38,38,38,39,38,38,38,38,38,38,38,38,38,38,38,3221225516,
@@ -203,8 +203,20 @@
     <property name="objectType" value="Baking"/>
    </properties>
   </object>
+  <object id="89" x="599.667" y="247.667" width="48" height="48">
+   <properties>
+    <property name="itemType" value="Salad"/>
+    <property name="objectType" value="Dispenser"/>
+   </properties>
+  </object>
+  <object id="90" x="664.667" y="248.333" width="48" height="48">
+   <properties>
+    <property name="itemType" value="Burger"/>
+    <property name="objectType" value="Dispenser"/>
+   </properties>
+  </object>
  </objectgroup>
- <objectgroup id="2" name="Collision Layer">
+ <objectgroup id="2" name="Collision Layer" visible="0">
   <object id="1" x="258" y="128" width="28" height="128"/>
   <object id="4" x="192" y="32" width="352" height="64"/>
   <object id="6" x="256" y="288" width="32" height="96"/>
@@ -225,7 +237,9 @@
   <object id="72" x="640" y="96" width="128" height="32"/>
   <object id="73" x="608" y="128" width="32" height="32"/>
   <object id="81" x="288" y="384" width="640"/>
-  <object id="83" x="160" y="0" width="32" height="384"/>
-  <object id="84" x="544" y="224" width="32" height="96"/>
+  <object id="85" x="544" y="224" width="32" height="160"/>
+  <object id="86" x="160" y="32" width="32" height="352"/>
+  <object id="87" x="608" y="256" width="32" height="32"/>
+  <object id="88" x="672" y="256" width="32" height="32"/>
  </objectgroup>
 </map>

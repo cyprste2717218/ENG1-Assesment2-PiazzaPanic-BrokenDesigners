@@ -13,7 +13,7 @@ import com.github.brokendesigners.renderer.CustomerRenderer;
 
 public class Customer {
 
-	Boolean visible = false;
+	boolean visible = false;
 	Texture texture;
 	Vector3 worldPosition;
 	CustomerStation station;
@@ -25,36 +25,35 @@ public class Customer {
 
 	float movement_speed = 0; //Intentionally lowercase - NOT A CONSTANT
 
-	public Customer(Texture texture, CustomerStation station, CustomerRenderer customerRenderer, BubbleRenderer bubbleRenderer){
+	public Customer(CustomerRenderer customerRenderer, BubbleRenderer bubbleRenderer, Texture texture, CustomerStation station, Item desiredMeal){
 		worldPosition = new Vector3(1/8f,0,0);
 		this.station = station;
 		this.texture = texture;
-		this.desiredMeal = ItemRegister.itemRegister.get("wmd");
+		this.desiredMeal = desiredMeal;
 
-		this.WIDTH = this.texture.getWidth() * Constants.UNIT_SCALE; // 1-size-fits-all probably doesnt work, change this to be part of the constructor.
+		this.WIDTH = this.texture.getWidth() * Constants.UNIT_SCALE;
 		this.HEIGHT = this.texture.getHeight() * Constants.UNIT_SCALE;
+		this.phase = -1;
+
 
 		bubble = new SimpleItemBubble(bubbleRenderer, this.desiredMeal, new Vector2(this.station.getCustomerPosition().x + 1f, this.station.getCustomerPosition().y + 2f));
 
 		customerRenderer.addCustomer(this);
 	}
 
-	public boolean Spawn(){
-		if (station.isFree()){
-			this.visible = true;
-			this.movement_speed = 1 * Constants.UNIT_SCALE;
-			this.phase = 0;
-			// PLAY SOUND - DOOR OPENING / BELL RING / ETC
-			return true;
-		}
-		else{
-			return false;
-		}
+	public boolean spawn(){
+		this.visible = true;
+		this.movement_speed = 1 * Constants.UNIT_SCALE + 5;
+		this.phase = 0;
+		// PLAY SOUND - DOOR OPENING / BELL RING / ETC
+		return true;
+
 	}
 
 	public void update(){
 		switch (this.phase) {
 			case (0): // Phase 0 -- Customer is moving to Ordering Station
+
 				if (worldPosition.y != this.station.getCustomerPosition().y) {
 					worldPosition.y += this.movement_speed;
 					if (Math.abs((worldPosition.y - this.station.getCustomerPosition().y)) <= this.movement_speed) {
@@ -82,14 +81,24 @@ public class Customer {
 			case (2): // Phase 2 -- Customer is walking to the exit
 				if (worldPosition.x != 0) {
 					worldPosition.x -= this.movement_speed;
+					if (Math.abs(worldPosition.x) <= this.movement_speed){
+						this.worldPosition.x = 0;
+					}
 				} else if (worldPosition.y != 0) {
 					worldPosition.y -= this.movement_speed;
+					if (Math.abs(worldPosition.y) <= this.movement_speed) {
+						this.worldPosition.y = 0;
+					}
 				} else {
+
 					this.phase = 3;
 				}
 				break;
-			case (3):
+			case (3): // Phase 3 -- Customer has completed its tasks, despawns.
+
 				this.visible = false;
+				break;
+			default:
 				break;
 
 
@@ -110,5 +119,13 @@ public class Customer {
 
 	public void dispose(){
 		this.texture.dispose();
+	}
+
+	public int getPhase() {
+		return phase;
+	}
+
+	public void setPhase(int phase) {
+		this.phase = phase;
 	}
 }
