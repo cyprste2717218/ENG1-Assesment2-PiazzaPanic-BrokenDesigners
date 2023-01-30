@@ -14,11 +14,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.brokendesigners.character.Customer;
+import com.github.brokendesigners.character.CustomerManager;
 import com.github.brokendesigners.map.Kitchen;
 import com.github.brokendesigners.map.KitchenCollisionObject;
 import com.github.brokendesigners.map.interactable.Station;
@@ -35,10 +38,12 @@ import com.github.brokendesigners.renderer.PlayerRenderer;
 public class PiazzaPanic extends ApplicationAdapter {
 	Viewport viewport;
 	OrthographicCamera camera;
+	OrthographicCamera hud_cam;
 	private float VIRTUAL_WIDTH  = 32;
 	private float VIRTUAL_HEIGHT = 18;
 
 	SpriteBatch spriteBatch;
+	SpriteBatch hud_batch;
 	PlayerRenderer playerRenderer;
 
 	Texture box_texture;
@@ -54,12 +59,15 @@ public class PiazzaPanic extends ApplicationAdapter {
 	Player player2;
 	Player player3;
 
+	ArrayList<Player> playerList;
+
 	Customer bluggus;
 
 	Player selectedPlayer;
 
 	Kitchen kitchen;
 	KitchenCollisionObject kitchenCollisionObject;
+	CustomerManager customerManager;
 	ItemInitialiser initialiser;
 
 
@@ -70,20 +78,26 @@ public class PiazzaPanic extends ApplicationAdapter {
 		initialiser.initialise();
 
 		camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+		hud_cam = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 
 		camera.setToOrtho(false, VIRTUAL_WIDTH/16, VIRTUAL_HEIGHT/16);
+		hud_cam.setToOrtho(false);
 		camera.update();
+		hud_cam.update();
 
 
 
 		System.out.println("Cam Pos");
 		camera.position.set(0, 0, 1);
 
-		viewport = new FillViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera);
+		viewport = new FitViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera);
 
 
 		spriteBatch = new SpriteBatch();
 		spriteBatch.setProjectionMatrix(camera.combined);
+		hud_batch = new SpriteBatch();
+		hud_batch.setProjectionMatrix(hud_cam.combined);
+
 		mapRenderer = new OrthogonalTiledMapRenderer(Constants.TILE_MAP, Constants.UNIT_SCALE, spriteBatch);
 		mapRenderer.setView(camera.combined, 0, 0, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 
@@ -93,31 +107,42 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 		Animation<TextureRegion> glibbert_moveAnimation =
 			new Animation<TextureRegion>(0.15f, ChefTextures.atlasImages.findRegions("running"), PlayMode.LOOP);
-
 		Animation<TextureRegion> glibbert_idleAnimation =
 			new Animation<TextureRegion>(1.3f, ChefTextures.atlasImages.findRegions("idle"), PlayMode.LOOP);
+		Animation<TextureRegion> glibbert_actionAnimation=
+			new Animation<TextureRegion>(0.3f, ChefTextures.atlasImages.findRegions("action"), PlayMode.LOOP);
 
 		Animation<TextureRegion> bluggus_idleAnimation =
-			new Animation<TextureRegion>(1.3f, BluggusTextures.atlasImages.findRegions("bluggus_idle"));
+			new Animation<TextureRegion>(1.3f, BluggusTextures.atlasImages.findRegions("idle"), PlayMode.LOOP);
 		Animation<TextureRegion> bluggus_moveAnimation =
-			new Animation<TextureRegion>(0.15f, BluggusTextures.atlasImages.findRegions("bluggus_inch"));
+			new Animation<TextureRegion>(0.23f, BluggusTextures.atlasImages.findRegions("running"), PlayMode.LOOP);
+
+
 
 
 
 		ArrayList<Animation<TextureRegion>> glibbert_animations = new ArrayList<>();
 		glibbert_animations.add(glibbert_idleAnimation);
 		glibbert_animations.add(glibbert_moveAnimation);
+		glibbert_animations.add(glibbert_actionAnimation);
 		playerRenderer = new PlayerRenderer(spriteBatch);
 
 		ArrayList<Animation<TextureRegion>> bluggus_animations = new ArrayList<>();
 		bluggus_animations.add(bluggus_idleAnimation);
 		bluggus_animations.add(bluggus_moveAnimation);
+		bluggus_animations.add(bluggus_idleAnimation);
 
+		playerList = new ArrayList<>();
 
 		player1 = new Player(playerRenderer, glibbert_animations, new Vector3((float)6.5 * 4, (float)3.5 * 4, 0), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
-		player2 = new Player(playerRenderer, bluggus_animations, new Vector3(0, 0, 0), 36 * Constants.UNIT_SCALE, 34 * Constants.UNIT_SCALE);
+		player1.setRenderOffsetX(-1 * Constants.UNIT_SCALE);
+		playerList.add(player1);
+		player2 = new Player(playerRenderer, bluggus_animations, new Vector3(0, 0, 0), 54 * Constants.UNIT_SCALE, 51 * Constants.UNIT_SCALE);
+		player2.setWidth(26 * Constants.UNIT_SCALE);
+		playerList.add(player2);
+		player2.setRenderOffsetX(-13 * Constants.UNIT_SCALE);
 		player3 = new Player(playerRenderer, glibbert_animations, new Vector3(1, 0, 0), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
-
+		playerList.add(player3);
 
 
 
@@ -134,9 +159,9 @@ public class PiazzaPanic extends ApplicationAdapter {
 		player1.setSelected(true);
 		selectedPlayer = player1;
 		camera.zoom = 2f;
-		Texture bluggusTexture = new Texture("characters/bluggus2.png");
+		box_texture = new Texture("characters/bluggus.png");
+		customerManager = new CustomerManager(customerRenderer, bubbleRenderer, 1, new Vector2((float)6.5 * 4, (float)3.5 * 4), kitchen.getCustomerStations());
 
-		bluggus = new Customer(bluggusTexture, kitchen.getCustomerStations().get(2), customerRenderer, bubbleRenderer); // TEST THING
 
 		inputProcessor = new InputProcessor(){
 
@@ -163,12 +188,12 @@ public class PiazzaPanic extends ApplicationAdapter {
 					player3.dropOff(kitchen.getKitchenStations());
 
 					return true;
-				} else if (keycode == Keys.L){
-					bluggus.Spawn();
 				} else if (keycode == Keys.SPACE){
 					player1.interact(kitchen.getKitchenStations());
 					player2.interact(kitchen.getKitchenStations());
 					player3.interact(kitchen.getKitchenStations());
+				} else if (keycode == Keys.TAB) {
+
 				}
 				return false;
 			}
@@ -211,16 +236,19 @@ public class PiazzaPanic extends ApplicationAdapter {
 		Gdx.input.setInputProcessor(inputProcessor);
 
 		spriteBatch.enableBlending();
-
+		customerManager.begin();
 
 	}
 
 	@Override
 	public void resize(int width, int height){
 		camera.update();
+		hud_cam.update();
+
 		viewport.update(width, height);
 
 		spriteBatch.setProjectionMatrix(camera.combined);
+		hud_batch.setProjectionMatrix(hud_cam.combined);
 	}
 
 	@Override
@@ -255,10 +283,10 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 
 		customerRenderer.renderCustomers();
-		bubbleRenderer.renderBubbles();
+
 		playerRenderer.renderPlayers();
 
-
+		bubbleRenderer.renderBubbles();
 
 
 
@@ -294,10 +322,12 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 
 		}
+
 		spriteBatch.begin();
 		mapRenderer.renderTileLayer(
 			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Tile Layer 3"));
 		spriteBatch.end();
+		customerManager.update(spriteBatch, hud_batch);
 	}
 
 	@Override

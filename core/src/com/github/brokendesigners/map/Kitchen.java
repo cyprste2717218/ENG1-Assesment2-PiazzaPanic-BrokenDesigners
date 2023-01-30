@@ -78,7 +78,7 @@ public class Kitchen {
 						rectangle.width * Constants.UNIT_SCALE,
 						rectangle.height * Constants.UNIT_SCALE,
 						handX,
-						handY));
+						handY, bubbleRenderer));
 			} else if (rectangleMapObject.getProperties().get("objectType").equals("CustomerCounter")){
 
 				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
@@ -89,7 +89,8 @@ public class Kitchen {
 					rectangle.width * Constants.UNIT_SCALE,
 					rectangle.height * Constants.UNIT_SCALE,
 					handX,
-					handY);
+					handY,
+					bubbleRenderer);
 
 				kitchenStations.add(station);
 				customerStations.add(station);
@@ -117,7 +118,8 @@ public class Kitchen {
 								objectPosition,
 								rectangle.width * Constants.UNIT_SCALE,
 								rectangle.height * Constants.UNIT_SCALE,
-								handPositions));
+								handPositions,
+							bubbleRenderer));
 			} else if (rectangleMapObject.getProperties().get("objectType").equals("Baking")){
 
 				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
