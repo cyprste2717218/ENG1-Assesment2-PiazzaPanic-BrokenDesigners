@@ -15,9 +15,10 @@ import com.github.brokendesigners.map.interactable.Station;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import com.github.brokendesigners.renderer.PlayerRenderer;
+import com.github.brokendesigners.textures.Animations;
 
 public class Player {
-	Vector3 worldPosition;
+	Vector3 worldPosition; // Position of the player in world-coords
 
 	public float MOVEMENT_SPEED = 2 * Constants.UNIT_SCALE;  // Movement Speed of Chef differs between vertical and horizontal due to following 2 lines
 
@@ -25,44 +26,48 @@ public class Player {
 	private float height;	//NOTE: NOT HEIGHT OF CHEF SPRITE
 
 	public final float SPRITE_WIDTH;		// Width of chef when drawn
-	public final float SPRITE_HEIGHT;
+	public final float SPRITE_HEIGHT;		// Height of chef when drawn
 
-	public Hand hand;
+	public Hand hand; // Items held by the chef
 
-	Rectangle playerRectangle;
+	Rectangle playerRectangle; // Rectangle representation of chef - Used for interactions/collisions
 
-	private boolean selected;
+	private boolean selected; // Is Player Selected
 
-	public Texture texture;
+	public Texture texture; // Texture of player if there are no animations for player
 	public ArrayList<Animation<TextureRegion>> animations; // A list of animations
-	public float keyFrame;
-	public boolean flipped;
-	public boolean moving_disabled = false;
+	public float keyFrame; // float updated every frame - used to determine which frame of animation of the player should render
+	public boolean flipped; // is flipped or not -- NOT USED
+	public boolean moving_disabled = false; // Is moving disabled? - Moving is disabled when interacting with most stations.
 
 	float renderOffsetX = 0;
+	// ^^ Offset where the sprite will render relative to the invisible rectangle
+	// which represents the players position/collision boundaries
 
 
 	public Player(PlayerRenderer renderer, Texture texture, Vector3 worldPosition){
 
 		this.worldPosition = worldPosition;
 
-		SPRITE_HEIGHT = this.texture.getHeight() * Constants.UNIT_SCALE;
-		SPRITE_WIDTH = this.texture.getWidth() * Constants.UNIT_SCALE;
+		SPRITE_HEIGHT = this.texture.getHeight() * Constants.UNIT_SCALE; // Sets height of player to height of player's texture
+		SPRITE_WIDTH = this.texture.getWidth() * Constants.UNIT_SCALE; // Sets width of player to width of player's texture
 
 
-		playerRectangle = new Rectangle(worldPosition.x, worldPosition.y, this.width, this.height);
+
 
 		this.texture = texture;
 
-		hand = new Hand();
+		hand = new Hand(); // Instantiates Hand so the player can pick items up
 
-		renderer.addPlayer(this);
+		renderer.addPlayer(this); // Adds player to the renderer's "List of Players to Render every frame"
 
 		boolean flipped = false;
 
-		this.width = 18 * Constants.UNIT_SCALE;
-		this.height = 4 * Constants.UNIT_SCALE;
+		this.width = 18 * Constants.UNIT_SCALE; // default values for the dimensions of the Player Rectangle
+		this.height = 4 * Constants.UNIT_SCALE; //
+		this.renderOffsetX = -1; // Default renderOffsetX
 
+		playerRectangle = new Rectangle(worldPosition.x, worldPosition.y, this.width, this.height);
 
 
 	}
@@ -73,10 +78,6 @@ public class Player {
 		SPRITE_HEIGHT = sprite_height;
 		SPRITE_WIDTH = sprite_width;
 
-
-
-		playerRectangle = new Rectangle(worldPosition.x, worldPosition.y, this.width, this.height);
-
 		this.animations = animations;
 
 		hand = new Hand();
@@ -84,9 +85,8 @@ public class Player {
 		renderer.addPlayer(this);
 		this.width = 18 * Constants.UNIT_SCALE;
 		this.height = 4 * Constants.UNIT_SCALE;
-		playerRectangle.width = this.width;
-		playerRectangle.height = this.height;
 
+		playerRectangle = new Rectangle(worldPosition.x, worldPosition.y, this.width, this.height);
 	}
 
 	public Rectangle getPlayerRectangle() {
@@ -115,10 +115,24 @@ public class Player {
 			this.updateRectangle();
 			if (Gdx.input.isKeyPressed(Keys.A)) {
 				this.moveLeft(objects);
-				this.flipped = true;
+				if (!this.flipped){
+					for (Animation animation : animations){
+						for (TextureRegion region : (TextureRegion[]) animation.getKeyFrames()){
+							region.flip(true, false);
+						}
+					}
+					this.flipped = true;
+				}
 			} else if (Gdx.input.isKeyPressed(Keys.D)) {
 				this.moveRight(objects);
-				this.flipped = false;
+				if (this.flipped){
+					for (Animation animation : animations){
+						for (TextureRegion region : (TextureRegion[]) animation.getKeyFrames()){
+							region.flip(true, false);
+						}
+					}
+					this.flipped = false;
+				}
 
 			}
 			this.updateRectangle();

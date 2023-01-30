@@ -2,7 +2,10 @@ package com.github.brokendesigners;
 
 import com.github.brokendesigners.item.*;
 
-
+/*
+* Initialises Items into the ItemRegister
+*
+*/
 public class ItemInitialiser {
 
     public ItemInitialiser(){

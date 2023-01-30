@@ -6,9 +6,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.github.brokendesigners.Constants;
 import com.github.brokendesigners.item.Item;
 import com.github.brokendesigners.renderer.BubbleRenderer;
+import com.github.brokendesigners.textures.Textures;
 
 public class ProgressBubble extends Bubble {
-	public static Texture texture = new Texture("bubbles/progress_bubble_1.png");
+	public static Texture texture = Textures.simple_bubble;
 	public static Vector2 relativeItemCoords = new Vector2(29 * Constants.UNIT_SCALE, 18 * Constants.UNIT_SCALE);
 	public Item item;
 

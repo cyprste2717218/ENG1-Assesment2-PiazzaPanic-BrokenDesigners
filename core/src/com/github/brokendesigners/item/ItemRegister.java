@@ -1,5 +1,7 @@
 package com.github.brokendesigners.item;
 
+import com.badlogic.gdx.utils.Disposable;
+
 import java.util.HashMap;
 
 public class ItemRegister {
@@ -12,10 +14,8 @@ public class ItemRegister {
     }
     public static void dispose(){
         for (String key : itemRegister.keySet()){
-            itemRegister.get(key).texture.dispose();
+            itemRegister.get(key).dispose();
 
         }
-
     }
-
 }
