@@ -2,18 +2,16 @@ package com.github.brokendesigners.character;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.map.interactable.CustomerStation;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.renderer.CustomerRenderer;
-import com.github.brokendesigners.textures.CustomerTextures;
+import com.github.brokendesigners.textures.Textures;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -59,7 +57,7 @@ public class CustomerManager {
 
 
 			customers.add(
-				new Customer(customerRenderer, bubbleRenderer, CustomerTextures.bluggus_texture, station, ItemRegister.itemRegister.get(meal)
+				new Customer(customerRenderer, bubbleRenderer, Textures.bluggus_customer_texture, station, ItemRegister.itemRegister.get(meal)
 			));
 
 		}

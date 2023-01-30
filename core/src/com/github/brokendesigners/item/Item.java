@@ -1,8 +1,9 @@
 package com.github.brokendesigners.item;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.Disposable;
 
-public abstract class Item {
+public abstract class Item implements Disposable {
 
 	public boolean active = false;
 	public Texture texture;
@@ -27,7 +28,10 @@ public abstract class Item {
 	{
 		this.name = x;
 	}
-
+	@Override
+	public void dispose(){
+		this.texture.dispose();
+	}
 
 
 }

@@ -8,9 +8,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.github.brokendesigners.Constants;
 import com.github.brokendesigners.renderer.BubbleRenderer;
+import com.github.brokendesigners.textures.Textures;
 
 public class ActionBubble extends Bubble{
-	public static Texture texture = new Texture("bubbles/simple_bubble.png");
+	public Texture texture = Textures.simple_bubble;
 	public static Vector2 relativeItemCoords = new Vector2(8 * Constants.UNIT_SCALE, 24 * Constants.UNIT_SCALE);
 
 	Vector2 itemPosition;
