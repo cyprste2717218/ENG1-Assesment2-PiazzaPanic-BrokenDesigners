@@ -60,10 +60,8 @@ public class PiazzaPanic extends ApplicationAdapter {
 	Player player3;
 
 	ArrayList<Player> playerList;
+	int selectedPlayer;
 
-	Customer bluggus;
-
-	Player selectedPlayer;
 
 	Kitchen kitchen;
 	KitchenCollisionObject kitchenCollisionObject;
@@ -157,7 +155,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 		kitchen.addKitchenObject(kitchenCollisionObject);
 
 		player1.setSelected(true);
-		selectedPlayer = player1;
+		selectedPlayer = 0;
 		camera.zoom = 2f;
 		box_texture = new Texture("characters/bluggus.png");
 		customerManager = new CustomerManager(customerRenderer, bubbleRenderer, 1, new Vector2((float)6.5 * 4, (float)3.5 * 4), kitchen.getCustomerStations());
@@ -194,6 +192,10 @@ public class PiazzaPanic extends ApplicationAdapter {
 					player3.interact(kitchen.getKitchenStations());
 				} else if (keycode == Keys.TAB) {
 
+					playerList.get(selectedPlayer).setSelected(false);
+					selectedPlayer += 1;
+					selectedPlayer = selectedPlayer % 3;
+					playerList.get(selectedPlayer).setSelected(true);
 				}
 				return false;
 			}
@@ -291,7 +293,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 
 
-		camera.position.set(selectedPlayer.worldPosition);
+		camera.position.set(playerList.get(selectedPlayer).worldPosition);
 
 		spriteBatch.begin();
 
@@ -301,19 +303,19 @@ public class PiazzaPanic extends ApplicationAdapter {
 			player1.setSelected(true);
 			player2.setSelected(false);
 			player3.setSelected(false);
-			selectedPlayer = player1;
+			selectedPlayer = 0;
 
 		} else if (Gdx.input.isKeyPressed(Keys.NUM_2)){
 			player1.setSelected(false);
 			player2.setSelected(true);
 			player3.setSelected(false);
-			selectedPlayer = player2;
+			selectedPlayer = 1;
 
 		} else if (Gdx.input.isKeyPressed(Keys.NUM_3)){
 			player1.setSelected(false);
 			player2.setSelected(false);
 			player3.setSelected(true);
-			selectedPlayer = player3;
+			selectedPlayer = 2;
 
 		}
 		if (Gdx.input.isKeyPressed(Keys.Q)){

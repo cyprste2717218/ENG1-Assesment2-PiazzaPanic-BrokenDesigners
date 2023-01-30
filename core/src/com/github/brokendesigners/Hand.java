@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Hand{
 
-	private ArrayList<Item> heldItems;
+	public ArrayList<Item> heldItems;
 
 	public Hand(){
 		this.heldItems = new ArrayList<Item>(3);

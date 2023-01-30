@@ -134,7 +134,7 @@
   </object>
   <object id="58" x="672.002" y="96.0082" width="30.7784" height="48">
    <properties>
-    <property name="itemType" value="Onion"/>
+    <property name="itemType" value="Cut_Onion"/>
     <property name="objectType" value="Dispenser"/>
    </properties>
   </object>
@@ -205,13 +205,13 @@
   </object>
   <object id="89" x="599.667" y="247.667" width="48" height="48">
    <properties>
-    <property name="itemType" value="Salad"/>
+    <property name="itemType" value="Cut_Tomato"/>
     <property name="objectType" value="Dispenser"/>
    </properties>
   </object>
   <object id="90" x="664.667" y="248.333" width="48" height="48">
    <properties>
-    <property name="itemType" value="Burger"/>
+    <property name="itemType" value="Cut_Lettuce"/>
     <property name="objectType" value="Dispenser"/>
    </properties>
   </object>
