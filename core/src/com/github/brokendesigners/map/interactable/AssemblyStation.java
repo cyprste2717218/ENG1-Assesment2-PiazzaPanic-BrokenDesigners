@@ -202,6 +202,7 @@ public class AssemblyStation extends Station{
 
                 this.dumpHand();
                 this.hand.give(this.Product);
+                this.Product = null;
 
             }
         }
