@@ -1,5 +1,7 @@
 package com.github.brokendesigners.character;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -22,6 +24,8 @@ public class Customer {
 	public final float HEIGHT;
 	SimpleItemBubble bubble;
 	private int phase = 3;
+	Sound success = Gdx.audio.newSound(Gdx.files.internal("assets/audio/success.wav"));
+	Sound failure = Gdx.audio.newSound(Gdx.files.internal("assets/audio/failure.wav"));
 
 	float movement_speed = 0; //Intentionally lowercase - NOT A CONSTANT
 
@@ -72,6 +76,7 @@ public class Customer {
 			case (1): // Phase 1 -- Customer is waiting for meal
 				if (!this.station.hasEmptyHand()) {
 					if (this.station.getItemInHand().equals(this.desiredMeal)) {
+						success.play();
 						this.phase += 1;
 						this.station.dumpHand();
 						this.bubble.setVisible(false);
@@ -119,6 +124,8 @@ public class Customer {
 
 	public void dispose(){
 		this.texture.dispose();
+		success.dispose();
+		failure.dispose();
 	}
 
 	public int getPhase() {
