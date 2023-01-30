@@ -5,12 +5,18 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 import com.github.brokendesigners.Constants;
 import com.github.brokendesigners.Player;
+import com.github.brokendesigners.bubble.ActionBubble;
+import com.github.brokendesigners.bubble.Bubble;
 import com.github.brokendesigners.item.Item;
 import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.Hand;
 
+import com.github.brokendesigners.renderer.BubbleRenderer;
+import com.github.brokendesigners.textures.Animations;
 import java.util.ArrayList;
 
 public class AssemblyStation extends Station{
@@ -18,11 +24,13 @@ public class AssemblyStation extends Station{
     private Item Product;
     private Integer Counter;
     private Hand hand;
+    private Bubble bubble;
 
     private ArrayList<Vector2> handPositions;
 
-    public AssemblyStation(Vector2 objectPosition, float width, float height, ArrayList<Vector2> handPositions){
+    public AssemblyStation(Vector2 objectPosition, float width, float height, ArrayList<Vector2> handPositions, BubbleRenderer bubbleRenderer){
         super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Assembly_Station");
+        this.bubble = new ActionBubble(bubbleRenderer, new Vector2(handPositions.get(2).x - 8 * Constants.UNIT_SCALE, handPositions.get(2).y), Animations.gearAnimation);
         this.handPositions = handPositions;
         this.hand = new Hand();
     }
@@ -134,10 +142,25 @@ public class AssemblyStation extends Station{
         
     }
     @Override
-    public boolean action(Player player){
+    public boolean action(final Player player){
         if (this.hand.isFull()){
             System.out.println("ENGAGED");
-            this.Construct();
+            player.disableMovement();
+            this.bubble.setVisible(true);
+
+            Timer timer = new Timer();
+            timer.scheduleTask(new Task() {
+                @Override
+                public void run() {
+                    Construct();
+                    bubble.setVisible(false);
+                    player.enableMovement();
+                }
+            }, 10f);
+
+
+
+
             return true;
         }
         return false;

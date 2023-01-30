@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class ChefTextures {
-	public static TextureAtlas atlasImages = new TextureAtlas("pack textures/chef.pack");
+	public static TextureAtlas atlasImages = new TextureAtlas("pack textures/chef.atlas");
 	public static TextureRegion chef_idle_one;
 	public static TextureRegion chef_idle_two;
 	public static TextureRegion chef_move_one;

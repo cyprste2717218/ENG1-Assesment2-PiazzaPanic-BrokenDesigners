@@ -8,8 +8,8 @@ import com.github.brokendesigners.item.Item;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 
 public class SimpleItemBubble extends Bubble {
-	public static Texture texture = new Texture("bubbles/simple_bubble.png");
-	public static Vector2 relativeItemCoords = new Vector2(8 * Constants.UNIT_SCALE, 40 * Constants.UNIT_SCALE);
+	public static Texture texture = new Texture("bubbles/simple_bubble_with_item.png");
+	public static Vector2 relativeItemCoords = new Vector2(8 * Constants.UNIT_SCALE, 24 * Constants.UNIT_SCALE);
 
 	Vector2 itemPosition;
 	Item item;
@@ -31,8 +31,8 @@ public class SimpleItemBubble extends Bubble {
 				texture,
 				this.worldPosition.x,
 				this.worldPosition.y,
-				32f * Constants.UNIT_SCALE,
-				64f * Constants.UNIT_SCALE);
+				texture.getWidth() * Constants.UNIT_SCALE,
+				texture.getHeight() * Constants.UNIT_SCALE);
 
 			batch.draw(
 				this.item.getTexture(),
