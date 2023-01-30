@@ -41,8 +41,8 @@ public class CustomerManager {
 		this.font = new BitmapFont();
 		this.font.getData().setScale(6, 6);
 		for (int i = 0; i < customerNumber; i++){
-			CustomerStation station = stations.get(random.nextInt(0,stations.size()-1));
-			int mealInt = random.nextInt(0,2);
+			CustomerStation station = stations.get(random.nextInt(stations.size()-1));
+			int mealInt = random.nextInt(2);
 			String meal;
 			switch (mealInt){
 				case(0):

@@ -59,6 +59,8 @@ public class PiazzaPanic extends ApplicationAdapter {
 	Player player2;
 	Player player3;
 
+	ArrayList<Player> playerList;
+
 	Customer bluggus;
 
 	Player selectedPlayer;
@@ -130,14 +132,17 @@ public class PiazzaPanic extends ApplicationAdapter {
 		bluggus_animations.add(bluggus_moveAnimation);
 		bluggus_animations.add(bluggus_idleAnimation);
 
+		playerList = new ArrayList<>();
 
 		player1 = new Player(playerRenderer, glibbert_animations, new Vector3((float)6.5 * 4, (float)3.5 * 4, 0), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
 		player1.setRenderOffsetX(-1 * Constants.UNIT_SCALE);
+		playerList.add(player1);
 		player2 = new Player(playerRenderer, bluggus_animations, new Vector3(0, 0, 0), 54 * Constants.UNIT_SCALE, 51 * Constants.UNIT_SCALE);
 		player2.setWidth(26 * Constants.UNIT_SCALE);
+		playerList.add(player2);
 		player2.setRenderOffsetX(-13 * Constants.UNIT_SCALE);
 		player3 = new Player(playerRenderer, glibbert_animations, new Vector3(1, 0, 0), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
-
+		playerList.add(player3);
 
 
 
@@ -187,6 +192,8 @@ public class PiazzaPanic extends ApplicationAdapter {
 					player1.interact(kitchen.getKitchenStations());
 					player2.interact(kitchen.getKitchenStations());
 					player3.interact(kitchen.getKitchenStations());
+				} else if (keycode == Keys.TAB) {
+
 				}
 				return false;
 			}
