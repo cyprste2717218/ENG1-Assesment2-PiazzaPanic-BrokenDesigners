@@ -130,7 +130,6 @@ public class AssemblyStation extends Station{
         System.out.println(Total);
         if(Total == 3)
         {
-
             return ItemRegister.itemRegister.get(n);
         }
         else
@@ -144,7 +143,6 @@ public class AssemblyStation extends Station{
     @Override
     public boolean action(final Player player){
         if (this.hand.isFull()){
-            System.out.println("ENGAGED");
             player.disableMovement();
             this.bubble.setVisible(true);
 
@@ -173,13 +171,10 @@ public class AssemblyStation extends Station{
         String[] ItemStack = new String[]{this.hand.getHeldItems().get(0).name, this.hand.getHeldItems().get(1).name, this.hand.getHeldItems().get(2).name};
         if((this.hand.isFull()))
         {
-            for (String i : ItemStack){
-
-            }
-
             //Testing data
             String[] SaladTest = new String[]{"Cut_Tomato","Cut_Lettuce","Cut_Onion"};
             String[] BurgerTest = new String[]{"Cooked_Bun","Cooked_Bun","Cooked_Patty"};
+            // String[] "Product"Test = new String[]{"Ingredient1","Ingredient2","Ingredient3"};
             // String[] *****Test = new String[]{"","",""};
             // String[] *****Test = new String[]{"","",""};
 
@@ -194,11 +189,11 @@ public class AssemblyStation extends Station{
             }
             // if(this.Product == null) //Test for
             // {
-            //     this.Product = TestingForFood();
+            //     this.Product = TestingForFood(*****Test,ItemStack,*******);
             // }
             // if(this.Product == null) //Test for
             // {
-            //     this.Product = TestingForFood();
+            //     this.Product = TestingForFood(*****Test,ItemStack,*******);
             // }
 
             System.out.println(this.Product);
