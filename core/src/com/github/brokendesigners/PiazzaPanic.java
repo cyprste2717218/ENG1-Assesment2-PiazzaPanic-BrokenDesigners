@@ -30,6 +30,8 @@ import com.github.brokendesigners.textures.Atlases;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Random;
+
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.renderer.CustomerRenderer;
 import com.github.brokendesigners.renderer.PlayerRenderer;
@@ -106,11 +108,11 @@ public class PiazzaPanic extends ApplicationAdapter {
 		kitchen = new Kitchen(camera, spriteBatch, bubbleRenderer);
 
 		ArrayList<KitchenCollisionObject> kitchenCollisionObjects = kitchen.getKitchenObstacles();
-
+		Random c = new Random();
 		customerManager = new CustomerManager( // Manages when customers should spawn in and holds the Timer
 				customerRenderer,
 				bubbleRenderer,
-				1,
+				c.nextInt(12),
 				new Vector2(
 						(float)6.5 * 4,
 						(float)3.5 * 4),

@@ -48,7 +48,7 @@ public class AssemblyStation extends Station{
 
     @Override
     public boolean pickUp(Player player) {
-        if (hand.isEmpty() || player.hand.isFull()){
+        if (hand.isEmpty() || player.hand.isFull()||this.inuse){
             return false;
         } else {
             player.hand.give(this.hand.drop());
@@ -142,6 +142,11 @@ public class AssemblyStation extends Station{
     }
     @Override
     public boolean action(final Player player){
+        if (this.inuse == true) {
+            return false;
+        } else{
+            this.inuse = true;
+        }
         if (this.hand.isFull()){
             player.disableMovement();
             this.bubble.setVisible(true);
@@ -153,6 +158,7 @@ public class AssemblyStation extends Station{
                     Construct();
                     bubble.setVisible(false);
                     player.enableMovement();
+                    inuse = false;
                 }
             }, 10f);
 
