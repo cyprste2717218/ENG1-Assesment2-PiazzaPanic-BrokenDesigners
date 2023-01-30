@@ -43,7 +43,7 @@ public class Customer {
 
 	public boolean spawn(){
 		this.visible = true;
-		this.movement_speed = 1 * Constants.UNIT_SCALE + 5;
+		this.movement_speed = 1 * Constants.UNIT_SCALE;
 		this.phase = 0;
 		// PLAY SOUND - DOOR OPENING / BELL RING / ETC
 		return true;

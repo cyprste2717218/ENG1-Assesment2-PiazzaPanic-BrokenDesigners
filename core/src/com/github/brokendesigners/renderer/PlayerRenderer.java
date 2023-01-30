@@ -25,6 +25,8 @@ public class PlayerRenderer {
 	}
 
 	public void renderPlayers(){
+		boolean[] current_axis = new boolean[]{false,false,false};
+		int c = -1;
 		this.batch.begin();
 
 		this.players.sort(new Comparator<Player>() {
@@ -38,24 +40,25 @@ public class PlayerRenderer {
 				return 0;
 			}
 		}); // This changes the "depth" of each player chef based on their relative y axes
-
 		for (Player player : players) {
+			c++;
 			if (player.animations != null) {
 				player.keyFrame += Gdx.graphics.getDeltaTime();
+				TextureRegion frame;
 
 				if (player.texture == null) {
-					TextureRegion frame;
 					if (player.moving_disabled) {
 						frame = player.animations.get(2).getKeyFrame(player.keyFrame);
+
 					} else if (player.isSelected()) {
-						 if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.S)
+						if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.S)
 							|| Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.D)){
-							frame = player.animations.get(1).getKeyFrame(player.keyFrame);
-						} else {
+							frame = player.animations.get(1).getKeyFrame(player.keyFrame); //selected and moving
+						} else {  //Player selected and not moving
 							frame = player.animations.get(0).getKeyFrame(player.keyFrame);
 						}
 
-					} else {
+					} else { //Idle and not selected
 						frame = player.animations.get(0).getKeyFrame((player.keyFrame));
 					}
 					this.batch.draw(frame, player.getWorldPosition().x + player.getRenderOffsetX(),
