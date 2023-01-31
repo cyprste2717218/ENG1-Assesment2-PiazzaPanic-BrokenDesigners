@@ -3,6 +3,8 @@ package com.github.brokendesigners.character;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.github.brokendesigners.Constants;
@@ -12,25 +14,32 @@ import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.map.interactable.CustomerStation;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.renderer.CustomerRenderer;
+import java.util.ArrayList;
 
 public class Customer {
 
 	boolean visible = false;
-	Texture texture;
-	Vector3 worldPosition;
-	CustomerStation station;
-	Item desiredMeal; // desired meal for the customer
+	public Texture texture;
+	public ArrayList<Animation<TextureRegion>> animations;
+	public Vector2 worldPosition;
+	protected CustomerStation station;
+	protected Item desiredMeal; // desired meal for the customer
 	public final float WIDTH;
 	public final float HEIGHT;
-	SimpleItemBubble bubble;
+	public SimpleItemBubble bubble;
 	private int phase = 3;
 	Sound success = Gdx.audio.newSound(Gdx.files.internal("assets/audio/success.wav"));
 	Sound failure = Gdx.audio.newSound(Gdx.files.internal("assets/audio/failure.wav"));
+	private Vector2 spawnPoint;
+	public float stateTime;
+
+
+
 
 	float movement_speed = 0; //Intentionally lowercase - NOT A CONSTANT
 
-	public Customer(CustomerRenderer customerRenderer, BubbleRenderer bubbleRenderer, Texture texture, CustomerStation station, Item desiredMeal){
-		worldPosition = new Vector3(1/8f,0,0);
+	public Customer(CustomerRenderer customerRenderer, BubbleRenderer bubbleRenderer, Texture texture, CustomerStation station, Item desiredMeal, Vector2 spawnPoint){
+		worldPosition = new Vector2(spawnPoint);
 		this.station = station;
 		this.texture = texture;
 		this.desiredMeal = desiredMeal;
@@ -38,16 +47,40 @@ public class Customer {
 		this.WIDTH = this.texture.getWidth() * Constants.UNIT_SCALE;
 		this.HEIGHT = this.texture.getHeight() * Constants.UNIT_SCALE;
 		this.phase = -1;
-
+		this.spawnPoint = spawnPoint;
 
 		bubble = new SimpleItemBubble(bubbleRenderer, this.desiredMeal, new Vector2(this.station.getCustomerPosition().x + 1f, this.station.getCustomerPosition().y + 2f));
 
 		customerRenderer.addCustomer(this);
+		this.stateTime = 0;
 	}
+
+	public Customer(CustomerRenderer customerRenderer, BubbleRenderer bubbleRenderer, ArrayList<Animation<TextureRegion>> animations, CustomerStation station, Item desiredMeal, Vector2 spawnPoint){
+		worldPosition = new Vector2(spawnPoint);
+		this.station = station;
+		this.animations = animations;
+		this.desiredMeal = desiredMeal;
+
+		this.phase = -1;
+		this.spawnPoint = spawnPoint;
+
+		bubble = new SimpleItemBubble(bubbleRenderer, this.desiredMeal, new Vector2(this.station.getCustomerPosition().x + 1f, this.station.getCustomerPosition().y + 2f));
+
+		customerRenderer.addCustomer(this);
+
+		this.stateTime = 0;
+
+		this.WIDTH = this.animations.get(0).getKeyFrame(0).getRegionWidth() * Constants.UNIT_SCALE;
+		this.HEIGHT = this.animations.get(0).getKeyFrame(0).getRegionHeight() * Constants.UNIT_SCALE;
+
+		this.texture = null;
+	}
+
+
 
 	public boolean spawn(){
 		this.visible = true;
-		this.movement_speed = 1 * Constants.UNIT_SCALE + 5;
+		this.movement_speed = 1 * Constants.UNIT_SCALE;
 		this.phase = 0;
 		// PLAY SOUND - DOOR OPENING / BELL RING / ETC
 		return true;
@@ -84,14 +117,14 @@ public class Customer {
 				}
 				break;
 			case (2): // Phase 2 -- Customer is walking to the exit
-				if (worldPosition.x != 0) {
+				if (worldPosition.x != spawnPoint.x) {
 					worldPosition.x -= this.movement_speed;
-					if (Math.abs(worldPosition.x) <= this.movement_speed){
-						this.worldPosition.x = 0;
+					if (Math.abs(worldPosition.x - this.spawnPoint.x) <= this.movement_speed){
+						this.worldPosition.x = spawnPoint.x;
 					}
 				} else if (worldPosition.y != 0) {
 					worldPosition.y -= this.movement_speed;
-					if (Math.abs(worldPosition.y) <= this.movement_speed) {
+					if (Math.abs(worldPosition.y - this.spawnPoint.y) <= this.movement_speed) {
 						this.worldPosition.y = 0;
 					}
 				} else {
@@ -114,7 +147,7 @@ public class Customer {
 		return texture;
 	}
 
-	public Vector3 getWorldPosition() {
+	public Vector2 getWorldPosition() {
 		return worldPosition;
 	}
 
@@ -134,5 +167,9 @@ public class Customer {
 
 	public void setPhase(int phase) {
 		this.phase = phase;
+	}
+
+	public Item getDesiredMeal() {
+		return desiredMeal;
 	}
 }

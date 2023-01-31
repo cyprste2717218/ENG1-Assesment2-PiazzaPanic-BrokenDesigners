@@ -4,6 +4,7 @@ import static java.lang.Math.abs;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -32,6 +33,9 @@ public class Kitchen {
 	private ArrayList<KitchenCollisionObject> kitchenObstacles;
 	private ArrayList<Station> kitchenStations;
 	private ArrayList<CustomerStation> customerStations;
+
+	private Vector2 playerSpawnPoint;
+	private Vector2 customerSpawnPoint;
 
 	public Kitchen(Camera camera, SpriteBatch spriteBatch, BubbleRenderer bubbleRenderer){
 
@@ -159,6 +163,15 @@ public class Kitchen {
 			}
 
 		}
+		MapObjects mapPoints = tileMap.getLayers().get("Map").getObjects();
+
+		RectangleMapObject playerSpawn = (RectangleMapObject)mapPoints.get("PlayerSpawn");
+		RectangleMapObject customerSpawn = (RectangleMapObject)mapPoints.get("CustomerSpawn");
+
+		this.playerSpawnPoint = new Vector2(playerSpawn.getRectangle().x * Constants.UNIT_SCALE, playerSpawn.getRectangle().y * Constants.UNIT_SCALE);
+		this.customerSpawnPoint = new Vector2(customerSpawn.getRectangle().x * Constants.UNIT_SCALE, customerSpawn.getRectangle().y * Constants.UNIT_SCALE);
+
+
 	}
 
 	public ArrayList getKitchenObstacles() {
@@ -183,5 +196,13 @@ public class Kitchen {
 
 	public ArrayList<CustomerStation> getCustomerStations() {
 		return customerStations;
+	}
+
+	public Vector2 getCustomerSpawnPoint() {
+		return customerSpawnPoint;
+	}
+
+	public Vector2 getPlayerSpawnPoint() {
+		return playerSpawnPoint;
 	}
 }

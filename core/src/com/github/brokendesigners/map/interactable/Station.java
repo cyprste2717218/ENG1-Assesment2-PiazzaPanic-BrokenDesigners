@@ -17,6 +17,7 @@ public abstract class Station {
 	public Item hand;
 	public Boolean storing;
 	public Vector2 handPosition = new Vector2(0,0);
+	public boolean inuse;
 
 
 	protected Station(Rectangle rectangle, String n) {
@@ -26,6 +27,7 @@ public abstract class Station {
 		this.interactionArea = rectangle;
 		this.handPosition.x = this.interactionArea.x;
 		this.handPosition.y = this.interactionArea.y;
+		this.inuse = false;
 	}
 
 
@@ -45,6 +47,7 @@ public abstract class Station {
 	public boolean action(Player player){
 		return false;
 	}
+
 
 	//Check if operation can be completed
 	public Boolean Applicable(String[] Conditions,String state, String itemName)

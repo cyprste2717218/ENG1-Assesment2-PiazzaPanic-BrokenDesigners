@@ -66,6 +66,11 @@ public class CounterStation extends Station {
 
 	@Override
 	public boolean action(final Player player){
+		if (this.inuse == true) {
+			return false;
+		} else{
+			this.inuse = true;
+		}
 		if (hand == null){
 			return false;
 		} else if (hand.equals(ItemRegister.itemRegister.get("Meat"))) {
@@ -81,6 +86,7 @@ public class CounterStation extends Station {
 					dumpHand();
 					hand = ItemRegister.itemRegister.get("Patty");
 					interacting = false;
+					inuse = false;
 				}
 			}, 10f);
 			return true;

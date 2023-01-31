@@ -28,33 +28,37 @@ public class CuttingStation extends Station {
 
     //Cutting Operation
     @Override
-    public boolean action(final Player player)
-    {
-        if (hand == null){
-            return false;
-        } else if(Applicable(Cuttables,"Cutting_Station",hand.getName())==true && this.interacting == false) {
-            player.moving_disabled = true;
-            this.bubble.setVisible(true);
-            this.interacting = true;
+    public boolean action(final Player player) {
+        if (this.inuse == false) {
+            this.inuse = true;
+            if (hand == null) {
+                return false;
+            } else if (Applicable(Cuttables, "Cutting_Station", hand.getName()) == true && this.interacting == false) {
+                player.moving_disabled = true;
+                this.bubble.setVisible(true);
+                this.interacting = true;
 
-            Timer timer = new Timer();
-            Task task = new Task() {
-                @Override
-                public void run() {
-                    hand = ItemRegister.itemRegister.get("Cut_" + hand.getName());
-                    bubble.setVisible(false);
-                    player.enableMovement();
-                    interacting = false;
-                }
-            };
-            timer.scheduleTask(task, 4f);
-
-            return true;
+                Timer timer = new Timer();
+                Task task = new Task() {
+                    @Override
+                    public void run() {
+                        hand = ItemRegister.itemRegister.get("Cut_" + hand.getName());
+                        bubble.setVisible(false);
+                        player.enableMovement();
+                        interacting = false;
+                        inuse = false;
+                    }
+                };
+                timer.scheduleTask(task, 4f);
+                return true;
+            } else //If operation should not be able to preformed, stops item being valid for other operations
+            {
+                hand = ItemRegister.itemRegister.get("Waste");
+                return true;
+            }
         }
-        else //If operation should not be able to preformed, stops item being valid for other operations
-        {
-            hand =  ItemRegister.itemRegister.get("Waste");
-            return true;
+        else {
+            return false;
         }
     }
     

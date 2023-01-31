@@ -11,13 +11,13 @@ import com.github.brokendesigners.renderer.BubbleRenderer;
 
 public class CustomerStation extends CounterStation{
 
-	public Vector3 customerPosition;
+	public Vector2 customerPosition;
 	public boolean servingCustomer;
 
 
 	public CustomerStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer) {
 		super(objectPosition, width, height, handX, handY, bubbleRenderer);
-		this.customerPosition = new Vector3(handX - (32 * Constants.UNIT_SCALE), handY, 0);
+		this.customerPosition = new Vector2(handX - (32 * Constants.UNIT_SCALE), handY);
 		System.out.println(customerPosition);
 		System.out.println(this.handPosition);
 		servingCustomer = false;
@@ -30,7 +30,7 @@ public class CustomerStation extends CounterStation{
 		this.servingCustomer = free;
 	}
 
-	public Vector3 getCustomerPosition(){
+	public Vector2 getCustomerPosition(){
 		return customerPosition;
 
 	}
