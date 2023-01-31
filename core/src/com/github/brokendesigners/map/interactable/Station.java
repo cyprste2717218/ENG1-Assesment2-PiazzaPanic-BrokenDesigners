@@ -95,7 +95,9 @@ public abstract class Station {
 
 	public boolean dropOff(Player player){
 		if (this.hasEmptyHand()){
-			put_down.play();
+			if (!player.hand.isEmpty()) {
+				put_down.play();
+			}
 			this.hand = player.hand.drop();
 			return true;
 		} else {
