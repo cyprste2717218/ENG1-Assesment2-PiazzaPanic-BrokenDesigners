@@ -28,8 +28,8 @@ public class Customer {
 	public final float HEIGHT;
 	public SimpleItemBubble bubble;
 	private int phase = 3;
-	Sound success = Gdx.audio.newSound(Gdx.files.internal("assets/audio/success.wav"));
-	Sound failure = Gdx.audio.newSound(Gdx.files.internal("assets/audio/failure.wav"));
+	Sound success = Gdx.audio.newSound(Gdx.files.internal("audio/success.wav"));
+	Sound failure = Gdx.audio.newSound(Gdx.files.internal("audio/failure.wav"));
 	private Vector2 spawnPoint;
 	public float stateTime;
 

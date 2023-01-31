@@ -21,8 +21,8 @@ public abstract class Station {
 	public Vector2 handPosition = new Vector2(0,0);
 	public boolean inuse;
 
-	Sound pick_up = Gdx.audio.newSound(Gdx.files.internal("assets/audio/pick_up.wav"));
-	Sound put_down = Gdx.audio.newSound(Gdx.files.internal("assets/audio/put_down.wav"));
+	Sound pick_up = Gdx.audio.newSound(Gdx.files.internal("audio/pick_up.wav"));
+	Sound put_down = Gdx.audio.newSound(Gdx.files.internal("audio/put_down.wav"));
 
 
 	protected Station(Rectangle rectangle, String n) {
