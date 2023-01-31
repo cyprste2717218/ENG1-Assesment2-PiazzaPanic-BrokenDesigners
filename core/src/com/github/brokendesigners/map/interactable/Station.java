@@ -1,5 +1,7 @@
 package com.github.brokendesigners.map.interactable;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -18,6 +20,9 @@ public abstract class Station {
 	public Boolean storing;
 	public Vector2 handPosition = new Vector2(0,0);
 	public boolean inuse;
+
+	Sound pick_up = Gdx.audio.newSound(Gdx.files.internal("audio/pick_up.wav"));
+	Sound put_down = Gdx.audio.newSound(Gdx.files.internal("audio/put_down.wav"));
 
 
 	protected Station(Rectangle rectangle, String n) {
@@ -81,6 +86,7 @@ public abstract class Station {
 		if (this.hasEmptyHand() || player.hand.isFull() || this.interacting){
 			return false;
 		} else {
+			pick_up.play();
 			player.hand.give(hand);
 			this.dumpHand();
 			return true;
@@ -89,6 +95,9 @@ public abstract class Station {
 
 	public boolean dropOff(Player player){
 		if (this.hasEmptyHand()){
+			if (!player.hand.isEmpty()) {
+				put_down.play();
+			}
 			this.hand = player.hand.drop();
 			return true;
 		} else {
@@ -102,6 +111,11 @@ public abstract class Station {
 		}
 		spriteBatch.end();
 
+	}
+
+	public void dispose(){
+		put_down.dispose();
+		pick_up.dispose();
 	}
 
 

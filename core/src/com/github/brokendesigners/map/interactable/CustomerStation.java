@@ -39,5 +39,15 @@ public class CustomerStation extends CounterStation{
 		return this.hand;
 	}
 
+	@Override
+	public boolean dropOff(Player player){
+		if (this.hasEmptyHand()){
+			this.hand = player.hand.drop();
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 
 }

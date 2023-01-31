@@ -1,5 +1,7 @@
 package com.github.brokendesigners;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.github.brokendesigners.item.Item;
 import java.util.ArrayList;
 
@@ -33,6 +35,7 @@ public class Hand{
 				amountOfItems - 1);
 			this.heldItems.remove(amountOfItems - 1);
 
+
 			return droppedItem;
 
 		} else {
@@ -55,4 +58,6 @@ public class Hand{
 	public ArrayList<Item> getHeldItems(){
 		return heldItems;
 	}
+
+
 }
