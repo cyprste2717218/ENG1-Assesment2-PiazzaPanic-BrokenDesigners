@@ -1,6 +1,8 @@
 package com.github.brokendesigners.character;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.github.brokendesigners.Constants;
@@ -10,19 +12,24 @@ import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.map.interactable.CustomerStation;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.renderer.CustomerRenderer;
+import java.util.ArrayList;
 
 public class Customer {
 
 	boolean visible = false;
-	Texture texture;
-	Vector2 worldPosition;
-	CustomerStation station;
-	Item desiredMeal; // desired meal for the customer
+	public Texture texture;
+	public ArrayList<Animation<TextureRegion>> animations;
+	public Vector2 worldPosition;
+	protected CustomerStation station;
+	protected Item desiredMeal; // desired meal for the customer
 	public final float WIDTH;
 	public final float HEIGHT;
-	SimpleItemBubble bubble;
+	public SimpleItemBubble bubble;
 	private int phase = 3;
 	private Vector2 spawnPoint;
+	public float stateTime;
+
+
 
 
 	float movement_speed = 0; //Intentionally lowercase - NOT A CONSTANT
@@ -41,7 +48,31 @@ public class Customer {
 		bubble = new SimpleItemBubble(bubbleRenderer, this.desiredMeal, new Vector2(this.station.getCustomerPosition().x + 1f, this.station.getCustomerPosition().y + 2f));
 
 		customerRenderer.addCustomer(this);
+		this.stateTime = 0;
 	}
+
+	public Customer(CustomerRenderer customerRenderer, BubbleRenderer bubbleRenderer, ArrayList<Animation<TextureRegion>> animations, CustomerStation station, Item desiredMeal, Vector2 spawnPoint){
+		worldPosition = new Vector2(spawnPoint);
+		this.station = station;
+		this.animations = animations;
+		this.desiredMeal = desiredMeal;
+
+		this.phase = -1;
+		this.spawnPoint = spawnPoint;
+
+		bubble = new SimpleItemBubble(bubbleRenderer, this.desiredMeal, new Vector2(this.station.getCustomerPosition().x + 1f, this.station.getCustomerPosition().y + 2f));
+
+		customerRenderer.addCustomer(this);
+
+		this.stateTime = 0;
+
+		this.WIDTH = this.animations.get(0).getKeyFrame(0).getRegionWidth() * Constants.UNIT_SCALE;
+		this.HEIGHT = this.animations.get(0).getKeyFrame(0).getRegionHeight() * Constants.UNIT_SCALE;
+
+		this.texture = null;
+	}
+
+
 
 	public boolean spawn(){
 		this.visible = true;
@@ -129,5 +160,9 @@ public class Customer {
 
 	public void setPhase(int phase) {
 		this.phase = phase;
+	}
+
+	public Item getDesiredMeal() {
+		return desiredMeal;
 	}
 }

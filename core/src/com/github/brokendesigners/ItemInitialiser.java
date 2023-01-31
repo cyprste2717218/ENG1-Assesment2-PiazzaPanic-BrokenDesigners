@@ -12,7 +12,6 @@ public class ItemInitialiser {
 
     }
     public void initialise(){
-        ItemRegister.addItem("wmd", new NuclearWeapon());
         ItemRegister.addItem("void", new VoidItem());
         ItemRegister.addItem("grapes", new grapes());
 

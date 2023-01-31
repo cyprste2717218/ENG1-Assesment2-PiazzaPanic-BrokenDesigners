@@ -1,8 +1,10 @@
 package com.github.brokendesigners.character;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
@@ -10,6 +12,7 @@ import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.map.interactable.CustomerStation;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.renderer.CustomerRenderer;
+import com.github.brokendesigners.textures.Animations;
 import com.github.brokendesigners.textures.Textures;
 
 import java.util.ArrayList;
@@ -44,6 +47,9 @@ public class CustomerManager {
 		this.timer = new Timer();
 		this.font = new BitmapFont();
 		this.font.getData().setScale(6, 6);
+		ArrayList<Animation<TextureRegion>> animations = new ArrayList<>();
+		animations.add(Animations.bluggus_idleAnimation);
+		animations.add(Animations.bluggus_moveAnimation);
 		for (int i = 0; i < customerNumber; i++){
 			CustomerStation station = stations.get(random.nextInt(stations.size()-1));
 			int mealInt = random.nextInt(2);
@@ -66,7 +72,7 @@ public class CustomerManager {
 				new Customer(
 					customerRenderer,
 					bubbleRenderer,
-					Textures.bluggus_customer_texture,
+					animations,
 					station,
 					ItemRegister.itemRegister.get(meal),
 					spawnPoint));
@@ -88,6 +94,7 @@ public class CustomerManager {
 	public void update(SpriteBatch batch, SpriteBatch hud_batch){
 		if (completeCustomers != customerNumber){
 			for (Customer customer : customers){
+				customer.update();
 				if (customer.getPhase() == 3){
 					completeCustomers += 1;
 					customer.station.setServingCustomer(false);
