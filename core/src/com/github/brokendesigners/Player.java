@@ -117,26 +117,26 @@ public class Player {
 			if (Gdx.input.isKeyPressed(Keys.A)) {
 				this.moveLeft(objects);
 				if (!this.flipped){
-					for (Animation animation : animations){
-						for (TextureRegion region : (TextureRegion[]) animation.getKeyFrames()){
-							region.flip(true, false);
-						}
-					}
+					this.flipAnimations();
 					this.flipped = true;
 				}
 			} else if (Gdx.input.isKeyPressed(Keys.D)) {
 				this.moveRight(objects);
 				if (this.flipped){
-					for (Animation animation : animations){
-						for (TextureRegion region : (TextureRegion[]) animation.getKeyFrames()){
-							region.flip(true, false);
-						}
-					}
+					this.flipAnimations();
 					this.flipped = false;
 				}
 
 			}
 			this.updateRectangle();
+		}
+	}
+
+	public void flipAnimations(){
+		for (Animation animation : animations){
+			for (TextureRegion region : (TextureRegion[]) animation.getKeyFrames()){
+				region.flip(true, false);
+			}
 		}
 	}
 

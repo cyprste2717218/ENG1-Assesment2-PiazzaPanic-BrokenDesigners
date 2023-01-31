@@ -10,7 +10,10 @@ public class Textures {
 
     public static Texture simple_item_bubble = new Texture("bubbles/simple_bubble_with_item.png");
 
+
     public static void dispose() {
         bluggus_customer_texture.dispose();
+        simple_bubble.dispose();
+        simple_item_bubble.dispose();
     }
 }

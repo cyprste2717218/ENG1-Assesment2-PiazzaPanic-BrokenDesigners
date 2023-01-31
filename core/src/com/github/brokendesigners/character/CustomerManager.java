@@ -31,7 +31,7 @@ public class CustomerManager {
 	private int customerNumber;
 	private int completeCustomers;
 	private BitmapFont font;
-
+	private int savedTime;
 
 	public CustomerManager(
 		CustomerRenderer customerRenderer,
@@ -47,6 +47,7 @@ public class CustomerManager {
 		this.timer = new Timer();
 		this.font = new BitmapFont();
 		this.font.getData().setScale(6, 6);
+		this.savedTime = 0;
 		ArrayList<Animation<TextureRegion>> animations = new ArrayList<>();
 		animations.add(Animations.bluggus_idleAnimation);
 		animations.add(Animations.bluggus_moveAnimation);
@@ -137,5 +138,27 @@ public class CustomerManager {
 		}
 		currentTime += seconds.toString();
 		return currentTime;
+	}
+	public void pause(){
+		this.savedTime = this.elapsedTime;
+	}
+
+	public void unpause(){
+		this.elapsedTime = this.savedTime;
+	}
+
+	public boolean isComplete(){
+		if (completeCustomers == customerNumber){
+			return true;
+		}
+		return false;
+	}
+
+	public int getFinalTime() {
+		return finalTime;
+	}
+
+	public void end(){
+		customers.clear();
 	}
 }

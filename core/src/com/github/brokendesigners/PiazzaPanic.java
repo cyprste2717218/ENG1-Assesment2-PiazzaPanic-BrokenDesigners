@@ -7,9 +7,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -25,12 +23,13 @@ import com.github.brokendesigners.map.Kitchen;
 import com.github.brokendesigners.map.KitchenCollisionObject;
 import com.github.brokendesigners.map.interactable.Station;
 
+import com.github.brokendesigners.menu.MenuScreen;
+import com.github.brokendesigners.menu.MenuTextures;
 import com.github.brokendesigners.textures.Animations;
 import com.github.brokendesigners.textures.Atlases;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Random;
 
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.renderer.CustomerRenderer;
@@ -39,6 +38,9 @@ import com.github.brokendesigners.textures.Textures;
 
 
 public class PiazzaPanic extends ApplicationAdapter {
+
+
+
 	Viewport viewport;
 	OrthographicCamera camera;
 	OrthographicCamera hud_cam;
@@ -52,7 +54,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 	CustomerRenderer customerRenderer;
 	BubbleRenderer bubbleRenderer;
 
-	TiledMap map_test;
+
 	OrthogonalTiledMapRenderer mapRenderer;
 
 	InputProcessor inputProcessor;
@@ -64,21 +66,30 @@ public class PiazzaPanic extends ApplicationAdapter {
 	int selectedPlayer;
 
 
+
 	Kitchen kitchen;
 	CustomerManager customerManager;
 	ItemInitialiser initialiser;
+
+	Boolean menu_mode;
+	MenuScreen menu;
+	MainGame game;
 
 
 
 	@Override
 	public void create () {
-		// ITEM BUILDING
-		initialiser = new ItemInitialiser();
-		initialiser.initialise();
+		// MENU BUILDING
+		menu_mode = true;
+		menu = new MenuScreen();
 
 		// CAMERA & VIEWPORT BUILDING
 		camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT); // Camera in charge of rendering the world
 		hud_cam = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT); // Camera in charge of rendering the HUD
+
+		// ITEM BUILDING
+		initialiser = new ItemInitialiser();
+		initialiser.initialise();
 
 		camera.setToOrtho(false, VIRTUAL_WIDTH/16, VIRTUAL_HEIGHT/16);
 		hud_cam.setToOrtho(false);
@@ -104,65 +115,102 @@ public class PiazzaPanic extends ApplicationAdapter {
 		customerRenderer = new CustomerRenderer(spriteBatch); // In charge
 		bubbleRenderer = new BubbleRenderer(spriteBatch);
 
-		// MAP & MAP OBJECT BUILDING
-		kitchen = new Kitchen(camera, spriteBatch, bubbleRenderer);
-
-		ArrayList<KitchenCollisionObject> kitchenCollisionObjects = kitchen.getKitchenObstacles();
-
-		customerManager = new CustomerManager( // Manages when customers should spawn in and holds the Timer
-				customerRenderer,
-				bubbleRenderer,
-				5,
-				kitchen.getCustomerSpawnPoint(),
-				kitchen.getCustomerStations());
-
-		// BUILD PLAYERS
-		initialisePlayers(); //initialisePlayers is at the end of this java class.
 
 
 		inputProcessor = new InputAdapter(){ // Processes the input
 
+
 			@Override
 			public boolean keyDown(int keycode) {
-				if (keycode == Keys.UP){
-					try {
-						player1.pickUp(kitchen.getKitchenStations());
-						player2.pickUp(kitchen.getKitchenStations());
-						//player3.pickUp(kitchen.getKitchenStations());
+				if (menu_mode == false) {
+					if (keycode == Keys.UP) {
+						try {
+							game.player1.pickUp(game.kitchen.getKitchenStations());
+							game.player2.pickUp(game.kitchen.getKitchenStations());
+							//player3.pickUp(kitchen.getKitchenStations());
+							return true;
+						} catch (InvocationTargetException e) {
+							e.printStackTrace();
+						} catch (NoSuchMethodException e) {
+							e.printStackTrace();
+						} catch (InstantiationException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						}
+					} else if (keycode == Keys.DOWN) {
+						game.player1.dropOff(game.kitchen.getKitchenStations());
+						game.player2.dropOff(game.kitchen.getKitchenStations());
+						//player3.dropOff(kitchen.getKitchenStations());
+
 						return true;
-					} catch (InvocationTargetException e) {
-						e.printStackTrace();
-					} catch (NoSuchMethodException e) {
-						e.printStackTrace();
-					} catch (InstantiationException e) {
-						e.printStackTrace();
-					} catch (IllegalAccessException e) {
-						e.printStackTrace();
+					} else if (keycode == Keys.SPACE) {
+						game.player1.interact(game.kitchen.getKitchenStations());
+						game.player2.interact(game.kitchen.getKitchenStations());
+						//player3.interact(kitchen.getKitchenStations());
+					} else if (keycode == Keys.TAB) {
+
+						game.playerList.get(game.selectedPlayer).setSelected(false);
+						game.selectedPlayer += 1;
+						game.selectedPlayer = game.selectedPlayer % game.playerList.size();
+						game.playerList.get(game.selectedPlayer).setSelected(true);
+					} else if (keycode == Keys.ESCAPE) {
+						game.customerManager.pause();
+						menu_mode = true;
 					}
-				} else if (keycode == Keys.DOWN){
-					player1.dropOff(kitchen.getKitchenStations());
-					player2.dropOff(kitchen.getKitchenStations());
-					//player3.dropOff(kitchen.getKitchenStations());
+				} else if (menu_mode == true){
+					if (keycode == Keys.W || keycode == Keys.UP){
+						menu.selectedButton -= 1;
+						if (menu.selectedButton == -1){
+							menu.selectedButton = 2;
+						}
+					} else if (keycode == Keys.S || keycode == Keys.DOWN) {
+						menu.selectedButton += 1;
+						if (menu.selectedButton == 3){
+							menu.selectedButton = 0;
+						}
+					} else if (keycode == Keys.SPACE) {
 
-					return true;
-				} else if (keycode == Keys.SPACE){
-					player1.interact(kitchen.getKitchenStations());
-					player2.interact(kitchen.getKitchenStations());
-					//player3.interact(kitchen.getKitchenStations());
-				} else if (keycode == Keys.TAB) {
+						int menuOutput = menu.input(game != null);
+						if (menuOutput == 1) {
+							menu_mode = false;
+							if (game != null){
+								game.customerRenderer.end();
+								game.customerRenderer.end();
+								game.bubbleRenderer.end();
+								game.end();
 
-					playerList.get(selectedPlayer).setSelected(false);
-					selectedPlayer += 1;
-					selectedPlayer = selectedPlayer % playerList.size();
-					playerList.get(selectedPlayer).setSelected(true);
+
+
+							}
+							game = new MainGame(
+								spriteBatch,
+								hud_batch,
+								camera,
+								hud_cam,
+								playerRenderer,
+								customerRenderer,
+								bubbleRenderer,
+								mapRenderer,
+								inputProcessor);
+							game.create();
+
+						} else if  (menuOutput == 0){
+							menu_mode = false;
+						}
+
+
+					} else if (keycode == Keys.ESCAPE && game != null) {
+						game.customerManager.unpause();
+						menu_mode = false;
+					}
+
 				}
 				return false;
 			}
 		};
-		Gdx.input.setInputProcessor(inputProcessor);
 
-		spriteBatch.enableBlending();
-		customerManager.begin();
+		Gdx.input.setInputProcessor(inputProcessor);
 
 	}
 
@@ -179,73 +227,18 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		Gdx.gl.glClearColor(14/255f, 104/255f, 44/255f, 1f);
 
-		camera.update();
-
-
-
-
-		spriteBatch.setProjectionMatrix(camera.combined);
-		mapRenderer.setView(camera);
-
-		player1.processMovement(kitchen.getKitchenObstacles());
-		player2.processMovement(kitchen.getKitchenObstacles());
-		//player3.processMovement(kitchen.getKitchenObstacles());
-
-		spriteBatch.begin();
-
-		mapRenderer.renderTileLayer(
-			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Floor"));
-		mapRenderer.renderTileLayer(
-			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Walls"));
-		mapRenderer.renderTileLayer(
-			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Extras"));
-		spriteBatch.end();
-
-
-
-
-		customerRenderer.renderCustomers();
-
-		playerRenderer.renderPlayers();
-
-		bubbleRenderer.renderBubbles();
-
-
-
-
-		camera.position.set(new Vector3(playerList.get(selectedPlayer).worldPosition, 1));
-
-		if (Gdx.input.isKeyPressed(Keys.NUM_1)){
-			player1.setSelected(true);
-			player2.setSelected(false);
-			//player3.setSelected(false);
-			selectedPlayer = 0;
-
-		} else if (Gdx.input.isKeyPressed(Keys.NUM_2)){
-			player1.setSelected(false);
-			player2.setSelected(true);
-			//player3.setSelected(false);
-			selectedPlayer = 1;
-
-		} /*else if (Gdx.input.isKeyPressed(Keys.NUM_3)){
-			player1.setSelected(false);
-			player2.setSelected(false);
-			player3.setSelected(true);
-			selectedPlayer = 2;
-		}*/
-
-		spriteBatch.begin();
-		mapRenderer.renderTileLayer(
-			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Front"));
-		spriteBatch.end();
-		customerManager.update(spriteBatch, hud_batch);
-
-		for (Station station : kitchen.getKitchenStations()){
-
-			station.renderCounter(spriteBatch);
+		if (menu_mode) {
+			menu.render(hud_batch);
+		} else {
+			game.renderGame();
+			if (game.customerManager.isComplete()){
+				menu_mode = true;
+				menu.setFinalTime(game.customerManager.timeToString(game.customerManager.getFinalTime()));
+				menu.complete = true;
+				game.end();
+				game = null;
+			}
 		}
 	}
 
@@ -253,50 +246,11 @@ public class PiazzaPanic extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		spriteBatch.dispose();
-		map_test.dispose();
-		Kitchen.dispose();
-		Textures.dispose();
-		Atlases.dispose();
-		ItemRegister.dispose();
+		//Kitchen.dispose();
+		//Textures.dispose();
+		//Atlases.dispose();
+		//ItemRegister.dispose();
 	}
 
-	public void initialisePlayers(){
 
-		//ANIMATION ARRAYS:
-		ArrayList<Animation<TextureRegion>> glibbert_animations = new ArrayList<>();
-		// Array of player animations
-		// Index 0 is idle animation
-		// Index 1 is move animation
-		// Index 2 is action animation
-		glibbert_animations.add(Animations.glibbert_idleAnimation);
-		glibbert_animations.add(Animations.glibbert_moveAnimation);
-		glibbert_animations.add(Animations.glibbert_actionAnimation);
-		playerRenderer = new PlayerRenderer(spriteBatch);
-
-		ArrayList<Animation<TextureRegion>> glibbert2_animations = new ArrayList<>();
-		glibbert2_animations.add(Animations.glibbert_idleAnimation2);
-		glibbert2_animations.add(Animations.glibbert_moveAnimation2);
-		glibbert2_animations.add(Animations.glibbert_actionAnimation2); // bluggus has no action animation but still needs to have an animation referenced
-
-
-		//BUILDING PLAYERS
-		playerList = new ArrayList<>(); // List of Players - used to determine which is active
-
-		player1 = new Player(playerRenderer, glibbert_animations, kitchen.getPlayerSpawnPoint(), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
-		player1.setRenderOffsetX(-1 * Constants.UNIT_SCALE);
-		// ^^ Offset where the sprite will render relative to the invisible rectangle
-		// which represents the players position/collision boundaries
-
-		playerList.add(player1);
-
-		// repeat for Player 2 & 3
-		player2 = new Player(playerRenderer, glibbert2_animations, new Vector2(kitchen.getPlayerSpawnPoint().x + 32 * Constants.UNIT_SCALE, kitchen.getPlayerSpawnPoint().y), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
-		playerList.add(player2);
-		player2.setRenderOffsetX(-1 * Constants.UNIT_SCALE);
-		//player3 = new Player(playerRenderer, glibbert_animations, new Vector3(1, 0, 0), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
-		//playerList.add(player3);
-		player1.setSelected(true);
-		selectedPlayer = 0;
-
-	}
 }

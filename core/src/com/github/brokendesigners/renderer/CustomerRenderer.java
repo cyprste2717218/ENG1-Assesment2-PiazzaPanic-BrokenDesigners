@@ -63,4 +63,8 @@ public class CustomerRenderer {
 		this.batch.end();
 	}
 
+	public void end(){
+		customers.clear();
+	}
+
 }

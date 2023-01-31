@@ -34,5 +34,8 @@ public class BubbleRenderer {
 			bubble.dispose();
 		}
 	}
+	public void end(){
+		bubbles.clear();
+	}
 
 }

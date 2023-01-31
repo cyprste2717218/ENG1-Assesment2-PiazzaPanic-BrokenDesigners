@@ -145,8 +145,9 @@ public class AssemblyStation extends Station{
         if (this.inuse == true) {
             return false;
         } else{
-            this.inuse = true;
+
             if (this.hand.isFull()){
+                this.inuse = true;
                 player.disableMovement();
                 this.bubble.setVisible(true);
 

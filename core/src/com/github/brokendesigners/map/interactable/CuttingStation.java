@@ -30,10 +30,11 @@ public class CuttingStation extends Station {
     @Override
     public boolean action(final Player player) {
         if (this.inuse == false) {
-            this.inuse = true;
+
             if (hand == null) {
                 return false;
             } else if (Applicable(Cuttables, "Cutting_Station", hand.getName()) == true && this.interacting == false) {
+                this.inuse = true;
                 player.moving_disabled = true;
                 this.bubble.setVisible(true);
                 this.interacting = true;

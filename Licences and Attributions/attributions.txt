@@ -1,0 +1,10 @@
+Libraries and software used:
+
+Tiled version 1.9.2 - available at https://thorbjorn.itch.io/tiled
+libGDX version 1.11.0 - available at https://libgdx.com/wiki/start/project-generation
+libGDX texture packer version 3.2.0 - Available at https://code.google.com/archive/p/libgdx-texturepacker-gui/downloads
+
+Audio - Available at https://opengameart.org/content/boiling-water-loops and
+https://mixkit.co/free-sound-effects/game/?page=2
+
+GIMP - Available at https://www.gimp.org/downloads/

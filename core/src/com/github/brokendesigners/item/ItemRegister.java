@@ -13,8 +13,19 @@ public class ItemRegister {
 
     }
     public static void dispose(){
+
         for (String key : itemRegister.keySet()){
-            itemRegister.get(key).dispose();
+            System.out.println(key);
+
+        }
+        System.out.println("////");
+        for (String key : itemRegister.keySet()){
+            System.out.println(key);
+            if (itemRegister.get(key).texture == null){
+                System.out.println("sad :(");
+                System.out.println(itemRegister.get(key));
+            }
+                itemRegister.get(key).dispose();
 
         }
     }

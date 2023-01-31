@@ -31,7 +31,10 @@ public abstract class Item implements Disposable {
 	@Override
 	public void dispose(){
 		this.texture.dispose();
+
 	}
 
-
 }
+
+
+

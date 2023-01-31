@@ -16,6 +16,7 @@ public class Atlases {
 		gearImages.dispose();
 		bluggusTextures.dispose();
 		glibbertTextures.dispose();
+		glibbertTextures2.dispose();
 		pattyTextures.dispose();
 		cuttingTextures.dispose();
 	}
