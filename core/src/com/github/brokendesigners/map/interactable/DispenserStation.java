@@ -27,6 +27,7 @@ public class DispenserStation extends Station {
 	public boolean pickUp(Player player) {
 
 		player.hand.give(dispenserItem);
+		pick_up.play();
 
 		return true;
 	}

@@ -15,6 +15,7 @@ public class BinStation extends Station{
 			return false;
 		}
 		player.hand.drop();
+		put_down.play();
 		return true;
 	}
 

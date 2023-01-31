@@ -13,15 +13,11 @@ public class Hand{
 		this.heldItems = new ArrayList<Item>(3);
 	}
 
-	Sound pick_up = Gdx.audio.newSound(Gdx.files.internal("assets/audio/pick_up.wav"));
-	Sound put_down = Gdx.audio.newSound(Gdx.files.internal("assets/audio/put_down.wav"));
-
 	public void give(Item item){
 
 		if (this.heldItems.size() == 3){
 			return;
 		}
-		pick_up.play();
 		this.heldItems.add(item);
 	}
 
@@ -39,7 +35,6 @@ public class Hand{
 				amountOfItems - 1);
 			this.heldItems.remove(amountOfItems - 1);
 
-			put_down.play();
 
 			return droppedItem;
 
@@ -64,8 +59,5 @@ public class Hand{
 		return heldItems;
 	}
 
-	public void dispose () {
-		pick_up.dispose();
-		put_down.dispose();
-	}
+
 }

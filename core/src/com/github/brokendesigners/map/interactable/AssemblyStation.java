@@ -52,6 +52,7 @@ public class AssemblyStation extends Station{
             return false;
         } else {
             player.hand.give(this.hand.drop());
+            pick_up.play();
             return true;
         }
     }
@@ -61,6 +62,7 @@ public class AssemblyStation extends Station{
             return false;
         } else {
             this.hand.give(player.hand.drop());
+            put_down.play();
             return true;
         }
     }

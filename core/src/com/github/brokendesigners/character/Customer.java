@@ -114,6 +114,10 @@ public class Customer {
 						this.station.dumpHand();
 						this.bubble.setVisible(false);
 					}
+					else{
+						failure.play();
+						this.station.dumpHand();
+					}
 				}
 				break;
 			case (2): // Phase 2 -- Customer is walking to the exit
