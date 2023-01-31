@@ -30,7 +30,13 @@ public class CustomerManager {
 	private BitmapFont font;
 
 
-	public CustomerManager(CustomerRenderer customerRenderer, BubbleRenderer bubbleRenderer, int customerNumber, Vector2 spawnPoint, ArrayList<CustomerStation> stations){
+	public CustomerManager(
+		CustomerRenderer customerRenderer,
+		BubbleRenderer bubbleRenderer,
+		int customerNumber,
+		Vector2 spawnPoint,
+		ArrayList<CustomerStation> stations){
+
 		Random random = new Random();
 		this.customerNumber = customerNumber;
 		this.completeCustomers = 0;
@@ -57,8 +63,13 @@ public class CustomerManager {
 
 
 			customers.add(
-				new Customer(customerRenderer, bubbleRenderer, Textures.bluggus_customer_texture, station, ItemRegister.itemRegister.get(meal)
-			));
+				new Customer(
+					customerRenderer,
+					bubbleRenderer,
+					Textures.bluggus_customer_texture,
+					station,
+					ItemRegister.itemRegister.get(meal),
+					spawnPoint));
 
 		}
 	}

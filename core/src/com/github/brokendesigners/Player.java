@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.github.brokendesigners.map.KitchenCollisionObject;
 import com.github.brokendesigners.map.interactable.Station;
@@ -18,7 +19,7 @@ import com.github.brokendesigners.renderer.PlayerRenderer;
 import com.github.brokendesigners.textures.Animations;
 
 public class Player {
-	Vector3 worldPosition; // Position of the player in world-coords
+	Vector2 worldPosition; // Position of the player in world-coords
 
 	public float MOVEMENT_SPEED = 2 * Constants.UNIT_SCALE;  // Movement Speed of Chef differs between vertical and horizontal due to following 2 lines
 
@@ -45,7 +46,7 @@ public class Player {
 	// which represents the players position/collision boundaries
 
 
-	public Player(PlayerRenderer renderer, Texture texture, Vector3 worldPosition){
+	public Player(PlayerRenderer renderer, Texture texture, Vector2 worldPosition){
 
 		this.worldPosition = worldPosition;
 
@@ -71,7 +72,7 @@ public class Player {
 
 
 	}
-	public Player(PlayerRenderer renderer, ArrayList<Animation<TextureRegion>> animations, Vector3 worldPosition, float sprite_width, float sprite_height){
+	public Player(PlayerRenderer renderer, ArrayList<Animation<TextureRegion>> animations, Vector2 worldPosition, float sprite_width, float sprite_height){
 
 		this.worldPosition = worldPosition;
 
@@ -99,7 +100,7 @@ public class Player {
 
 	}
 
-	public Vector3 getWorldPosition(){
+	public Vector2 getWorldPosition(){
 		return worldPosition;
 	}
 

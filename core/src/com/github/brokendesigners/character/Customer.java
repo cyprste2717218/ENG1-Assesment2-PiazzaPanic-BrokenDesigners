@@ -15,18 +15,20 @@ public class Customer {
 
 	boolean visible = false;
 	Texture texture;
-	Vector3 worldPosition;
+	Vector2 worldPosition;
 	CustomerStation station;
 	Item desiredMeal; // desired meal for the customer
 	public final float WIDTH;
 	public final float HEIGHT;
 	SimpleItemBubble bubble;
 	private int phase = 3;
+	private Vector2 spawnPoint;
+
 
 	float movement_speed = 0; //Intentionally lowercase - NOT A CONSTANT
 
-	public Customer(CustomerRenderer customerRenderer, BubbleRenderer bubbleRenderer, Texture texture, CustomerStation station, Item desiredMeal){
-		worldPosition = new Vector3(1/8f,0,0);
+	public Customer(CustomerRenderer customerRenderer, BubbleRenderer bubbleRenderer, Texture texture, CustomerStation station, Item desiredMeal, Vector2 spawnPoint){
+		worldPosition = new Vector2(spawnPoint);
 		this.station = station;
 		this.texture = texture;
 		this.desiredMeal = desiredMeal;
@@ -34,7 +36,7 @@ public class Customer {
 		this.WIDTH = this.texture.getWidth() * Constants.UNIT_SCALE;
 		this.HEIGHT = this.texture.getHeight() * Constants.UNIT_SCALE;
 		this.phase = -1;
-
+		this.spawnPoint = spawnPoint;
 
 		bubble = new SimpleItemBubble(bubbleRenderer, this.desiredMeal, new Vector2(this.station.getCustomerPosition().x + 1f, this.station.getCustomerPosition().y + 2f));
 
@@ -79,14 +81,14 @@ public class Customer {
 				}
 				break;
 			case (2): // Phase 2 -- Customer is walking to the exit
-				if (worldPosition.x != 0) {
+				if (worldPosition.x != spawnPoint.x) {
 					worldPosition.x -= this.movement_speed;
-					if (Math.abs(worldPosition.x) <= this.movement_speed){
-						this.worldPosition.x = 0;
+					if (Math.abs(worldPosition.x - this.spawnPoint.x) <= this.movement_speed){
+						this.worldPosition.x = spawnPoint.x;
 					}
 				} else if (worldPosition.y != 0) {
 					worldPosition.y -= this.movement_speed;
-					if (Math.abs(worldPosition.y) <= this.movement_speed) {
+					if (Math.abs(worldPosition.y - this.spawnPoint.y) <= this.movement_speed) {
 						this.worldPosition.y = 0;
 					}
 				} else {
@@ -109,7 +111,7 @@ public class Customer {
 		return texture;
 	}
 
-	public Vector3 getWorldPosition() {
+	public Vector2 getWorldPosition() {
 		return worldPosition;
 	}
 

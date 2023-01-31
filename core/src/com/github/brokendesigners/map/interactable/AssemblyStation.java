@@ -146,26 +146,22 @@ public class AssemblyStation extends Station{
             return false;
         } else{
             this.inuse = true;
-        }
-        if (this.hand.isFull()){
-            player.disableMovement();
-            this.bubble.setVisible(true);
+            if (this.hand.isFull()){
+                player.disableMovement();
+                this.bubble.setVisible(true);
 
-            Timer timer = new Timer();
-            timer.scheduleTask(new Task() {
-                @Override
-                public void run() {
-                    Construct();
-                    bubble.setVisible(false);
-                    player.enableMovement();
-                    inuse = false;
-                }
-            }, 10f);
-
-
-
-
-            return true;
+                Timer timer = new Timer();
+                timer.scheduleTask(new Task() {
+                    @Override
+                    public void run() {
+                        Construct();
+                        bubble.setVisible(false);
+                        player.enableMovement();
+                        inuse = false;
+                    }
+                }, 10f);
+                return true;
+            }
         }
         return false;
 

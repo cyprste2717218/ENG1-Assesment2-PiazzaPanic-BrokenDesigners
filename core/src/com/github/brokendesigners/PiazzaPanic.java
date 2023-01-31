@@ -108,14 +108,12 @@ public class PiazzaPanic extends ApplicationAdapter {
 		kitchen = new Kitchen(camera, spriteBatch, bubbleRenderer);
 
 		ArrayList<KitchenCollisionObject> kitchenCollisionObjects = kitchen.getKitchenObstacles();
-		Random c = new Random();
+
 		customerManager = new CustomerManager( // Manages when customers should spawn in and holds the Timer
 				customerRenderer,
 				bubbleRenderer,
-				c.nextInt(12),
-				new Vector2(
-						(float)6.5 * 4,
-						(float)3.5 * 4),
+				5,
+				kitchen.getCustomerSpawnPoint(),
 				kitchen.getCustomerStations());
 
 		// BUILD PLAYERS
@@ -199,9 +197,11 @@ public class PiazzaPanic extends ApplicationAdapter {
 		spriteBatch.begin();
 
 		mapRenderer.renderTileLayer(
-			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Tile Layer 2"));
+			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Floor"));
 		mapRenderer.renderTileLayer(
-			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Tile Layer 1"));
+			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Walls"));
+		mapRenderer.renderTileLayer(
+			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Extras"));
 		spriteBatch.end();
 
 
@@ -216,7 +216,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 
 
-		camera.position.set(playerList.get(selectedPlayer).worldPosition);
+		camera.position.set(new Vector3(playerList.get(selectedPlayer).worldPosition, 1));
 
 		if (Gdx.input.isKeyPressed(Keys.NUM_1)){
 			player1.setSelected(true);
@@ -239,7 +239,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 		spriteBatch.begin();
 		mapRenderer.renderTileLayer(
-			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Tile Layer 3"));
+			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Front"));
 		spriteBatch.end();
 		customerManager.update(spriteBatch, hud_batch);
 
@@ -282,7 +282,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 		//BUILDING PLAYERS
 		playerList = new ArrayList<>(); // List of Players - used to determine which is active
 
-		player1 = new Player(playerRenderer, glibbert_animations, new Vector3((float)6.5 * 4, (float)3.5 * 4, 0), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
+		player1 = new Player(playerRenderer, glibbert_animations, kitchen.getPlayerSpawnPoint(), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
 		player1.setRenderOffsetX(-1 * Constants.UNIT_SCALE);
 		// ^^ Offset where the sprite will render relative to the invisible rectangle
 		// which represents the players position/collision boundaries
@@ -290,7 +290,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 		playerList.add(player1);
 
 		// repeat for Player 2 & 3
-		player2 = new Player(playerRenderer, bluggus_animations, new Vector3(0, 0, 0), 54 * Constants.UNIT_SCALE, 51 * Constants.UNIT_SCALE);
+		player2 = new Player(playerRenderer, bluggus_animations, new Vector2(kitchen.getPlayerSpawnPoint().x + 32 * Constants.UNIT_SCALE, kitchen.getPlayerSpawnPoint().y), 54 * Constants.UNIT_SCALE, 51 * Constants.UNIT_SCALE);
 		player2.setWidth(26 * Constants.UNIT_SCALE);
 		playerList.add(player2);
 		player2.setRenderOffsetX(-13 * Constants.UNIT_SCALE);
