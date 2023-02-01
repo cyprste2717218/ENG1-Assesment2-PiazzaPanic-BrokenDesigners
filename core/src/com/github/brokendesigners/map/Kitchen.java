@@ -27,7 +27,15 @@ import com.github.brokendesigners.map.interactable.DispenserStation;
 import com.github.brokendesigners.map.interactable.Station;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import java.util.ArrayList;
-
+/*
+ * Handles building of the game map.
+ * It grabs all of the RectangleMapObjects in the TiledMap and decides which java class it belongs to.
+ * It also builds a few arrays -
+ * 	• An array of collision objects from the collision layer
+ * 	• An array of interaction objects from the interact layer.
+ *
+ * It also grabs the spawn point for customers and for players.
+ */
 public class Kitchen {
 	public static TiledMap tileMap = Constants.TILE_MAP;
 	private ArrayList<KitchenCollisionObject> kitchenObstacles;
@@ -37,6 +45,10 @@ public class Kitchen {
 	private Vector2 playerSpawnPoint;
 	private Vector2 customerSpawnPoint;
 
+
+	/*
+	 * Instantiates Kitchen.
+	 */
 	public Kitchen(Camera camera, SpriteBatch spriteBatch, BubbleRenderer bubbleRenderer){
 
 		Matrix4 inverseProjection = spriteBatch.getProjectionMatrix().cpy();
@@ -174,14 +186,23 @@ public class Kitchen {
 
 	}
 
+	/*
+	 * returns kitchen collision objects
+	 */
 	public ArrayList getKitchenObstacles() {
 		return kitchenObstacles;
 	}
 
+	/*
+	 * Returns array of stations
+	 */
 	public ArrayList<? extends Station> getKitchenStations(){
 		return kitchenStations;
 	}
 
+	/*
+	 * returns the tileMap itself.
+	 */
 	public static TiledMap getTileMap() {
 		return tileMap;
 	}

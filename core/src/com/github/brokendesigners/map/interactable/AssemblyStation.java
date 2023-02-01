@@ -28,11 +28,14 @@ public class AssemblyStation extends Station{
 
     private ArrayList<Vector2> handPositions;
 
+    /*
+     * Instantiates AssemblyStation
+     */
     public AssemblyStation(Vector2 objectPosition, float width, float height, ArrayList<Vector2> handPositions, BubbleRenderer bubbleRenderer){
         super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Assembly_Station");
         this.bubble = new ActionBubble(bubbleRenderer, new Vector2(handPositions.get(2).x - 8 * Constants.UNIT_SCALE, handPositions.get(2).y), Animations.gearAnimation);
         this.handPositions = handPositions;
-        this.hand = new Hand();
+        this.hand = new Hand(); // For this station, hand is the same hand as the player uses as it also holds 3 things.
     }
     {
         this.items = new Item[3];

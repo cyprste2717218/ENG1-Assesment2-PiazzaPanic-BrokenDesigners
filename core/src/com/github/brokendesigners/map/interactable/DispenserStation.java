@@ -6,7 +6,9 @@ import com.badlogic.gdx.math.Vector3;
 import com.github.brokendesigners.Player;
 import com.github.brokendesigners.item.Item;
 import java.lang.reflect.InvocationTargetException;
-
+/*
+ * Dispenser station - extends station.
+ */
 public class DispenserStation extends Station {
 
 	protected final Item dispenserItem;

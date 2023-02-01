@@ -15,29 +15,34 @@ import com.github.brokendesigners.map.interactable.CustomerStation;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.renderer.CustomerRenderer;
 import java.util.ArrayList;
-
+/*
+ * Customer
+ */
 public class Customer {
 
-	boolean visible = false;
-	public Texture texture;
+	boolean visible = false; // is visible?
+	public Texture texture; // texture
 	public ArrayList<Animation<TextureRegion>> animations;
-	public Vector2 worldPosition;
-	protected CustomerStation station;
+	// ^^ animation array - Customers dont interact though, so they only need 2 animations, Idle and move (in that order).
+	public Vector2 worldPosition; // position of customer
+	protected CustomerStation station; // station assigned to customer
 	protected Item desiredMeal; // desired meal for the customer
-	public final float WIDTH;
-	public final float HEIGHT;
-	public SimpleItemBubble bubble;
-	private int phase = 3;
+	public final float WIDTH; // width (sprite)
+	public final float HEIGHT; // height (sprite)
+	public SimpleItemBubble bubble; // the bubble associated with the customer.
+	private int phase = 3; // Phase of the customer - determines what they are doing (walking to station/spawn or being served)
 	Sound success = Gdx.audio.newSound(Gdx.files.internal("audio/success.wav"));
 	Sound failure = Gdx.audio.newSound(Gdx.files.internal("audio/failure.wav"));
 	private Vector2 spawnPoint;
-	public float stateTime;
+	public float stateTime; // used for the renderer to grab frame.
 
 
 
 
-	float movement_speed = 0; //Intentionally lowercase - NOT A CONSTANT
-
+	float movement_speed = 0; //Intentionally lowercase - NOT A CONSTANT - kind of a constant - you decide :)
+	/*
+	 * Instantiates customer without animations.
+	 */
 	public Customer(CustomerRenderer customerRenderer, BubbleRenderer bubbleRenderer, Texture texture, CustomerStation station, Item desiredMeal, Vector2 spawnPoint){
 		worldPosition = new Vector2(spawnPoint);
 		this.station = station;
@@ -54,7 +59,9 @@ public class Customer {
 		customerRenderer.addCustomer(this);
 		this.stateTime = 0;
 	}
-
+	/*
+	 * Instantiates Customer with animations
+	 */
 	public Customer(CustomerRenderer customerRenderer, BubbleRenderer bubbleRenderer, ArrayList<Animation<TextureRegion>> animations, CustomerStation station, Item desiredMeal, Vector2 spawnPoint){
 		worldPosition = new Vector2(spawnPoint);
 		this.station = station;
@@ -77,7 +84,9 @@ public class Customer {
 	}
 
 
-
+	/*
+	 * Spawns customer, makes them visible etc.
+	 */
 	public boolean spawn(){
 		this.visible = true;
 		this.movement_speed = 1 * Constants.UNIT_SCALE;
@@ -86,7 +95,9 @@ public class Customer {
 		return true;
 
 	}
-
+	/*
+	 * Updates the customer every frame similar to how the player is updated.
+	 */
 	public void update(){
 		switch (this.phase) {
 			case (0): // Phase 0 -- Customer is moving to Ordering Station

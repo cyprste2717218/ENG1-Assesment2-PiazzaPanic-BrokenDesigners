@@ -3,16 +3,24 @@ package com.github.brokendesigners.renderer;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.brokendesigners.bubble.Bubble;
 import java.util.ArrayList;
-
+/*
+ * Handles rendering for the bubbles.
+ */
 public class BubbleRenderer {
 	public ArrayList<Bubble> bubbles;
 	public SpriteBatch batch;
 
+	/*
+	 * Instantiates bubble renderer
+	 */
 	public BubbleRenderer(SpriteBatch batch){
 		this.batch = batch;
 		this.bubbles = new ArrayList<>();
 	}
 
+	/*
+	 * renders bubbles
+	 */
 	public void renderBubbles(){
 		this.batch.begin();
 		this.batch.setColor(1f, 1f, 1f, 0.5f);
@@ -25,6 +33,9 @@ public class BubbleRenderer {
 		this.batch.end();
 	}
 
+	/*
+	 * adds bubble to render queue.
+	 */
 	public void addBubble(Bubble bubble){
 		bubbles.add(bubble);
 	}
@@ -34,6 +45,9 @@ public class BubbleRenderer {
 			bubble.dispose();
 		}
 	}
+	/*
+	 * Clears the bubble render queue for new game to start.
+	 */
 	public void end(){
 		bubbles.clear();
 	}

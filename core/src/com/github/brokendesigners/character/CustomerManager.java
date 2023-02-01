@@ -18,12 +18,14 @@ import com.github.brokendesigners.textures.Textures;
 import java.util.ArrayList;
 import java.util.Random;
 
-
+/*
+ * Manages the spawning and timing of the customers.
+ */
 public class CustomerManager {
 
 
 
-	private ArrayList<Customer> customers;
+	private ArrayList<Customer> customers; // array of customers
 	private boolean running;
 	private Timer timer;
 	private int elapsedTime; // Time measured in seconds
@@ -32,7 +34,11 @@ public class CustomerManager {
 	private int completeCustomers;
 	private BitmapFont font;
 	private int savedTime;
-
+	/*
+	 * Instantiates CustomerManager
+	 * Makes customers equal to customerNumber
+	 * then assigns them to random CustomerStations.
+	 */
 	public CustomerManager(
 		CustomerRenderer customerRenderer,
 		BubbleRenderer bubbleRenderer,
@@ -55,7 +61,7 @@ public class CustomerManager {
 			CustomerStation station = stations.get(random.nextInt(stations.size()-1));
 			int mealInt = random.nextInt(2);
 			String meal;
-			switch (mealInt){
+			switch (mealInt){ // Which meal do they want? Add more cases as more are added.
 				case(0):
 					meal = "Salad";
 					break;
@@ -92,7 +98,7 @@ public class CustomerManager {
 		return true;
 	}
 
-	public void update(SpriteBatch batch, SpriteBatch hud_batch){
+	public void update(SpriteBatch batch, SpriteBatch hud_batch){ // Runs through the array of customers and updates them.
 		if (completeCustomers != customerNumber){
 			for (Customer customer : customers){
 				customer.update();
@@ -126,7 +132,7 @@ public class CustomerManager {
 		hud_batch.end();
 
 	}
-	public String timeToString(int time){
+	public String timeToString(int time){ // converts integer time to string MM:SS
 		String currentTime = "";
 		Integer minutes = time / 60;
 		Integer seconds = time - (minutes * 60);

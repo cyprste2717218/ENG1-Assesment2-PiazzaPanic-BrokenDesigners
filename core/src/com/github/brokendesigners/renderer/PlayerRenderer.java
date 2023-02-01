@@ -15,21 +15,30 @@ public class PlayerRenderer {
 	ArrayList<Player> players;
 	SpriteBatch batch;
 
+	/*
+	 * Instantiates PlayerRenderer
+	 */
 	public PlayerRenderer(SpriteBatch batch){
 		this.batch = batch;
 		players = new ArrayList<>();
 	}
-
+	/*
+	 * Adds player to render queue
+	 */
 	public void addPlayer(Player player){
 		this.players.add(player);
 	}
 
+	/*
+	 * Renders all players in the queue
+	 */
 	public void renderPlayers(){
 		boolean[] current_axis = new boolean[]{false,false,false};
 		int c = -1;
 		this.batch.begin();
 
 		this.players.sort(new Comparator<Player>() {
+			// Sorts players so that players on a lower y value render in front of ones with a higher y value.
 			@Override
 			public int compare(Player o1, Player o2) {
 				if(o1.getWorldPosition().y < o2.getWorldPosition().y){
@@ -42,7 +51,7 @@ public class PlayerRenderer {
 		}); // This changes the "depth" of each player chef based on their relative y axes
 		for (Player player : players) {
 			c++;
-			if (player.animations != null) {
+			if (player.animations != null) { // Following code decides which frame of code each player needs to render.
 				player.keyFrame += Gdx.graphics.getDeltaTime();
 				TextureRegion frame;
 
@@ -69,7 +78,7 @@ public class PlayerRenderer {
 						player.getWorldPosition().y, player.SPRITE_WIDTH, player.SPRITE_HEIGHT);
 				}
 
-				if (!player.hand.isEmpty()) {
+				if (!player.hand.isEmpty()) { // renders all items the player may have.
 					float stackOffset = 7 * Constants.UNIT_SCALE;
 					for (Item item : player.hand.getHeldItems()) {
 						this.batch.draw(

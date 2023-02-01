@@ -2,7 +2,10 @@ package com.github.brokendesigners.map;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-
+/*
+ * Defines the Kitchen collision boundaries.
+ * Looking back on it, this could have been done with a simple rectangle ¯\_(ツ)_/¯
+ */
 public class KitchenCollisionObject {
 
 	private final Vector3 worldPosition;

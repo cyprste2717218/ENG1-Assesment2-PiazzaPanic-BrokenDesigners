@@ -1,7 +1,9 @@
 package com.github.brokendesigners.menu;
 
 import com.badlogic.gdx.graphics.Texture;
-
+/*
+ * Holds all textures for main menu.
+ */
 public class MenuTextures {
 	public static Texture playButtonUnselected = new Texture("menu_assets/play_unselected.png");
 	public static Texture playButtonSelected = new Texture("menu_assets/play_selected.png");

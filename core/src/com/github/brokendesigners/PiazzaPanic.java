@@ -41,14 +41,14 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 
 
-	Viewport viewport;
-	OrthographicCamera camera;
-	OrthographicCamera hud_cam;
+	Viewport viewport; // Used for window resizing purposes.
+	OrthographicCamera camera; // camera responsible for rendering the game world in the right place.
+	OrthographicCamera hud_cam; // used for rendering the HUD and Main Menu in a constant place.
 	private float VIRTUAL_WIDTH  = 32; // Width of the world
 	private float VIRTUAL_HEIGHT = 18; // Height of the world
 
-	SpriteBatch spriteBatch;
-	SpriteBatch hud_batch;
+	SpriteBatch spriteBatch; // Spritebatch for game camera.
+	SpriteBatch hud_batch;   // Spritebatch for HUD camera.
 
 	PlayerRenderer playerRenderer;
 	CustomerRenderer customerRenderer;
@@ -117,13 +117,15 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 
 
-		inputProcessor = new InputAdapter(){ // Processes the input
+		inputProcessor = new InputAdapter(){
+			// Handles all non-polling inputs  --
+			// Inputs that shouldn't be hold-downable are handled here. like picking up to the stack.
 
 
 			@Override
 			public boolean keyDown(int keycode) {
-				if (menu_mode == false) {
-					if (keycode == Keys.UP) {
+				if (menu_mode == false) { // If menu is not active
+					if (keycode == Keys.UP) { // Handles player pickup
 						try {
 							game.player1.pickUp(game.kitchen.getKitchenStations());
 							game.player2.pickUp(game.kitchen.getKitchenStations());
@@ -138,41 +140,41 @@ public class PiazzaPanic extends ApplicationAdapter {
 						} catch (IllegalAccessException e) {
 							e.printStackTrace();
 						}
-					} else if (keycode == Keys.DOWN) {
+					} else if (keycode == Keys.DOWN) { // handles player drop off
 						game.player1.dropOff(game.kitchen.getKitchenStations());
 						game.player2.dropOff(game.kitchen.getKitchenStations());
 						//player3.dropOff(kitchen.getKitchenStations());
 
 						return true;
-					} else if (keycode == Keys.SPACE) {
+					} else if (keycode == Keys.SPACE) { // handles player interact.
 						game.player1.interact(game.kitchen.getKitchenStations());
 						game.player2.interact(game.kitchen.getKitchenStations());
 						//player3.interact(kitchen.getKitchenStations());
-					} else if (keycode == Keys.TAB) {
+					} else if (keycode == Keys.TAB) { // handles player switching - *shouldn't* need to be updated
 
 						game.playerList.get(game.selectedPlayer).setSelected(false);
 						game.selectedPlayer += 1;
 						game.selectedPlayer = game.selectedPlayer % game.playerList.size();
 						game.playerList.get(game.selectedPlayer).setSelected(true);
-					} else if (keycode == Keys.ESCAPE) {
+					} else if (keycode == Keys.ESCAPE) { // activates menu.
 						game.customerManager.pause();
 						menu_mode = true;
 					}
-				} else if (menu_mode == true){
-					if (keycode == Keys.W || keycode == Keys.UP){
+				} else if (menu_mode == true){ // if menu is active
+					if (keycode == Keys.W || keycode == Keys.UP && menu.howToScreen == false){ // Moves between menu options
 						menu.selectedButton -= 1;
 						if (menu.selectedButton == -1){
 							menu.selectedButton = 2;
 						}
-					} else if (keycode == Keys.S || keycode == Keys.DOWN) {
+					} else if (keycode == Keys.S || keycode == Keys.DOWN && menu.howToScreen == false) { // Moves between menu options
 						menu.selectedButton += 1;
 						if (menu.selectedButton == 3){
 							menu.selectedButton = 0;
 						}
-					} else if (keycode == Keys.SPACE) {
+					} else if (keycode == Keys.SPACE) { // activates selected menu button
 
 						int menuOutput = menu.input(game != null);
-						if (menuOutput == 1) {
+						if (menuOutput == 1) { // If a new game is selected, it resumes the game or instantiates a new one
 							menu_mode = false;
 							if (game != null){
 								game.customerRenderer.end();
@@ -229,10 +231,10 @@ public class PiazzaPanic extends ApplicationAdapter {
 	public void render () {
 
 		if (menu_mode) {
-			menu.render(hud_batch);
+			menu.render(hud_batch); // renders menu
 		} else {
-			game.renderGame();
-			if (game.customerManager.isComplete()){
+			game.renderGame(); // renders game
+			if (game.customerManager.isComplete()){ // if game is complete, ends the game.
 				menu_mode = true;
 				menu.setFinalTime(game.customerManager.timeToString(game.customerManager.getFinalTime()));
 				menu.complete = true;
@@ -246,10 +248,10 @@ public class PiazzaPanic extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		spriteBatch.dispose();
-		//Kitchen.dispose();
-		//Textures.dispose();
-		//Atlases.dispose();
-		//ItemRegister.dispose();
+		Kitchen.dispose();
+		Textures.dispose();
+		Atlases.dispose();
+		ItemRegister.dispose();
 	}
 
 

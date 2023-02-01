@@ -10,15 +10,19 @@ import com.github.brokendesigners.Player;
 import com.github.brokendesigners.item.Item;
 
 import java.lang.reflect.InvocationTargetException;
-
+/*
+ * Abstract class station. All stations inherit from this.
+ * should only really be handled by Kitchen class
+ */
 public abstract class Station {
 
-	protected Rectangle interactionArea;
-	protected String station_name;
-	protected boolean interacting = false;
-	public Item hand;
-	public Boolean storing;
+	protected Rectangle interactionArea; // The area that the player has to stand in to interact with an object.
+	protected String station_name; // name of the station.
+	protected boolean interacting = false; // is the station being interacted with?
+	public Item hand; // the item in the hand.
+	public Boolean storing; // is the station storing
 	public Vector2 handPosition = new Vector2(0,0);
+	// where should the item be rendered - In the TiledMap, the co-ords for HandX and HandY are relative to the bottom left of the interact area.
 	public boolean inuse;
 
 	Sound pick_up = Gdx.audio.newSound(Gdx.files.internal("audio/pick_up.wav"));
@@ -82,6 +86,10 @@ public abstract class Station {
 		this.hand = null;
 	}
 
+	/*
+	 * Handles PickUp from player.
+	 */
+
 	public boolean pickUp(Player player){
 		if (this.hasEmptyHand() || player.hand.isFull() || this.interacting){
 			return false;
@@ -92,7 +100,9 @@ public abstract class Station {
 			return true;
 		}
 	}
-
+	/*
+	 * Handles dropOff from player
+	 */
 	public boolean dropOff(Player player){
 		if (this.hasEmptyHand()){
 			if (!player.hand.isEmpty()) {
@@ -104,6 +114,9 @@ public abstract class Station {
 			return false;
 		}
 	}
+	/*
+	 * Renders the items on the counter - not the counter itself, that is done by the TiledMapRenderer in MainGame.java
+	 */
 	public void renderCounter(SpriteBatch spriteBatch) {
 		spriteBatch.begin();
 		if (!this.hasEmptyHand()) {

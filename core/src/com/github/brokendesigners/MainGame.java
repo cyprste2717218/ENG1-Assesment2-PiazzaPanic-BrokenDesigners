@@ -151,7 +151,7 @@ public class MainGame {
 
 
 			spriteBatch.begin();
-
+			// Renders map in specific order to allow some cool rendering effects.
 			mapRenderer.renderTileLayer(
 				(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Floor"));
 			mapRenderer.renderTileLayer(
@@ -167,10 +167,12 @@ public class MainGame {
 			bubbleRenderer.renderBubbles();
 
 			camera.position.set(new Vector3(playerList.get(selectedPlayer).worldPosition, 1));
+			// ^^ camera follows selected player
 
 			spriteBatch.begin();
 			mapRenderer.renderTileLayer(
 				(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Front"));
+			// ^^ renders this layer after player which allows the player to go behind walls.
 			spriteBatch.end();
 			customerManager.update(spriteBatch, hud_batch);
 
