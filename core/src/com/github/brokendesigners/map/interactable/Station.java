@@ -27,6 +27,7 @@ public abstract class Station {
 
 	Sound pick_up = Gdx.audio.newSound(Gdx.files.internal("audio/pick_up.wav"));
 	Sound put_down = Gdx.audio.newSound(Gdx.files.internal("audio/put_down.wav"));
+	Sound failure = Gdx.audio.newSound(Gdx.files.internal("audio/failure.wav"));
 
 
 	protected Station(Rectangle rectangle, String n) {
@@ -91,7 +92,10 @@ public abstract class Station {
 	 */
 
 	public boolean pickUp(Player player){
-		if (this.hasEmptyHand() || player.hand.isFull() || this.interacting){
+		if (this.hasEmptyHand() || this.interacting){
+			return false;
+		} else if (player.hand.isFull()) {
+			failure.play();
 			return false;
 		} else {
 			pick_up.play();
@@ -129,6 +133,7 @@ public abstract class Station {
 	public void dispose(){
 		put_down.dispose();
 		pick_up.dispose();
+		failure.dispose();
 	}
 
 
