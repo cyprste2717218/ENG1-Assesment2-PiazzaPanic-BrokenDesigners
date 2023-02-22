@@ -27,7 +27,10 @@ public class DispenserStation extends Station {
 
 	@Override
 	public boolean pickUp(Player player) {
-
+		if (player.hand.isFull())	{
+			failure.play();
+			return false;
+		}
 		player.hand.give(dispenserItem);
 		pick_up.play();
 
