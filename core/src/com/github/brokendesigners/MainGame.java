@@ -43,10 +43,6 @@ public class MainGame {
 	OrthogonalTiledMapRenderer mapRenderer;
 
 	InputProcessor inputProcessor;
-
-	Player player1;
-	Player player2;
-	//Player player3;
 	ArrayList<Player> playerList;
 	int selectedPlayer;
 
@@ -126,21 +122,15 @@ public class MainGame {
 			spriteBatch.setProjectionMatrix(camera.combined);
 			mapRenderer.setView(camera);
 
-			player1.processMovement(kitchen.getKitchenObstacles());
-			player2.processMovement(kitchen.getKitchenObstacles());
-			//player3.processMovement(kitchen.getKitchenObstacles());
+			for(Player player : playerList){
+				player.processMovement(kitchen.getKitchenObstacles());
+			}
 
 			if (Gdx.input.isKeyPressed(Keys.NUM_1)) {
-				player1.setSelected(true);
-				player2.setSelected(false);
-				//player3.setSelected(false);
-				selectedPlayer = 0;
+				setSelectedPlayer(0);
 
 			} else if (Gdx.input.isKeyPressed(Keys.NUM_2)) {
-				player1.setSelected(false);
-				player2.setSelected(true);
-				//player3.setSelected(false);
-				selectedPlayer = 1;
+				setSelectedPlayer(1);
 
 			} /*else if (Gdx.input.isKeyPressed(Keys.NUM_3)){
 			player1.setSelected(false);
@@ -204,7 +194,7 @@ public class MainGame {
 		//BUILDING PLAYERS
 		playerList = new ArrayList<>(); // List of Players - used to determine which is active
 
-		player1 = new Player(playerRenderer, glibbert_animations, kitchen.getPlayerSpawnPoint(), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
+		Player player1 = new Player(playerRenderer, glibbert_animations, kitchen.getPlayerSpawnPoint(), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
 		player1.setRenderOffsetX(-1 * Constants.UNIT_SCALE);
 		// ^^ Offset where the sprite will render relative to the invisible rectangle
 		// which represents the players position/collision boundaries
@@ -212,15 +202,22 @@ public class MainGame {
 		playerList.add(player1);
 
 		// repeat for Player 2 & 3
-		player2 = new Player(playerRenderer, glibbert2_animations, new Vector2(kitchen.getPlayerSpawnPoint().x + 32 * Constants.UNIT_SCALE, kitchen.getPlayerSpawnPoint().y), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
+		Player player2 = new Player(playerRenderer, glibbert2_animations, new Vector2(kitchen.getPlayerSpawnPoint().x + 32 * Constants.UNIT_SCALE, kitchen.getPlayerSpawnPoint().y), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
 		playerList.add(player2);
 		player2.setRenderOffsetX(-1 * Constants.UNIT_SCALE);
-		//player3 = new Player(playerRenderer, glibbert_animations, new Vector3(1, 0, 0), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
+		//Player player3 = new Player(playerRenderer, glibbert_animations, new Vector3(1, 0, 0), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
 		//playerList.add(player3);
-		player1.setSelected(true);
-		selectedPlayer = 0;
+		setSelectedPlayer(0);
 
 	}
+
+	private void setSelectedPlayer(int selected){
+		selectedPlayer = selected;
+		for(int i = 0; i< playerList.size(); i++){
+			playerList.get(i).setSelected(selected == i);
+		}
+	}
+
 	public void end(){
 		customerManager.end();
 		for (Player player : playerList){
