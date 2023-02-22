@@ -127,9 +127,9 @@ public class PiazzaPanic extends ApplicationAdapter {
 				if (menu_mode == false) { // If menu is not active
 					if (keycode == Keys.UP) { // Handles player pickup
 						try {
-							game.player1.pickUp(game.kitchen.getKitchenStations());
-							game.player2.pickUp(game.kitchen.getKitchenStations());
-							//player3.pickUp(kitchen.getKitchenStations());
+							for(Player player : game.playerList){
+								player.pickUp(game.kitchen.getKitchenStations());
+							}
 							return true;
 						} catch (InvocationTargetException e) {
 							e.printStackTrace();
@@ -141,15 +141,15 @@ public class PiazzaPanic extends ApplicationAdapter {
 							e.printStackTrace();
 						}
 					} else if (keycode == Keys.DOWN) { // handles player drop off
-						game.player1.dropOff(game.kitchen.getKitchenStations());
-						game.player2.dropOff(game.kitchen.getKitchenStations());
-						//player3.dropOff(kitchen.getKitchenStations());
+						for(Player player : game.playerList){
+							player.dropOff(game.kitchen.getKitchenStations());
+						}
 
 						return true;
 					} else if (keycode == Keys.SPACE) { // handles player interact.
-						game.player1.interact(game.kitchen.getKitchenStations());
-						game.player2.interact(game.kitchen.getKitchenStations());
-						//player3.interact(kitchen.getKitchenStations());
+						for(Player player : game.playerList){
+							player.interact(game.kitchen.getKitchenStations());
+						}
 					} else if (keycode == Keys.TAB) { // handles player switching - *shouldn't* need to be updated
 
 						game.playerList.get(game.selectedPlayer).setSelected(false);
@@ -181,9 +181,6 @@ public class PiazzaPanic extends ApplicationAdapter {
 								game.customerRenderer.end();
 								game.bubbleRenderer.end();
 								game.end();
-
-
-
 							}
 							game = new MainGame(
 								spriteBatch,
