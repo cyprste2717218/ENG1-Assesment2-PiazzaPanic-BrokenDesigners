@@ -74,15 +74,11 @@ public class PiazzaPanic extends ApplicationAdapter {
 	Boolean menu_mode;
 	MenuScreen menu;
 	MainGame game;
-
+	Match match;
 
 
 	@Override
 	public void create () {
-		// MENU BUILDING
-		menu_mode = true;
-		menu = new MenuScreen();
-
 		// CAMERA & VIEWPORT BUILDING
 		camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT); // Camera in charge of rendering the world
 		hud_cam = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT); // Camera in charge of rendering the HUD
@@ -102,6 +98,10 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 		viewport = new FitViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera);
 
+		// MENU BUILDING
+		menu_mode = true;
+		menu = new MenuScreen(hud_cam);
+
 		// SpriteBatch BUILDING
 		spriteBatch = new SpriteBatch();
 		spriteBatch.setProjectionMatrix(camera.combined); // Renderer for everything except HUD
@@ -115,7 +115,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 		customerRenderer = new CustomerRenderer(spriteBatch); // In charge
 		bubbleRenderer = new BubbleRenderer(spriteBatch);
 
-
+		//region inputProcessor
 
 		inputProcessor = new InputAdapter(){
 			// Handles all non-polling inputs  --
@@ -124,7 +124,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 			@Override
 			public boolean keyDown(int keycode) {
-				if (menu_mode == false) { // If menu is not active
+				if (!menu.active) { // If menu is not active
 					if (keycode == Keys.UP) { // Handles player pickup
 						try {
 							for(Player player : game.playerList){
@@ -151,67 +151,28 @@ public class PiazzaPanic extends ApplicationAdapter {
 							player.interact(game.kitchen.getKitchenStations());
 						}
 					} else if (keycode == Keys.TAB) { // handles player switching - *shouldn't* need to be updated
-
 						game.playerList.get(game.selectedPlayer).setSelected(false);
 						game.selectedPlayer += 1;
 						game.selectedPlayer = game.selectedPlayer % game.playerList.size();
 						game.playerList.get(game.selectedPlayer).setSelected(true);
 					} else if (keycode == Keys.ESCAPE) { // activates menu.
 						game.customerManager.pause();
-						menu_mode = true;
+						menu.active = true;
 					}
-				} else if (menu_mode == true){ // if menu is active
-					if (keycode == Keys.W || keycode == Keys.UP && menu.howToScreen == false){ // Moves between menu options
-						menu.selectedButton -= 1;
-						if (menu.selectedButton == -1){
-							menu.selectedButton = 2;
-						}
-					} else if (keycode == Keys.S || keycode == Keys.DOWN && menu.howToScreen == false) { // Moves between menu options
-						menu.selectedButton += 1;
-						if (menu.selectedButton == 3){
-							menu.selectedButton = 0;
-						}
-					} else if (keycode == Keys.SPACE) { // activates selected menu button
-
-						int menuOutput = menu.input(game != null);
-						if (menuOutput == 1) { // If a new game is selected, it resumes the game or instantiates a new one
-							menu_mode = false;
-							if (game != null){
-								game.customerRenderer.end();
-								game.customerRenderer.end();
-								game.bubbleRenderer.end();
-								game.end();
-							}
-							game = new MainGame(
-								spriteBatch,
-								hud_batch,
-								camera,
-								hud_cam,
-								playerRenderer,
-								customerRenderer,
-								bubbleRenderer,
-								mapRenderer,
-								inputProcessor);
-							game.create();
-
-						} else if  (menuOutput == 0){
-							menu_mode = false;
-						}
-
-
-					} else if (keycode == Keys.ESCAPE && game != null) {
+				} else { // if menu is active
+					if (keycode == Keys.ESCAPE && game != null) {
 						game.customerManager.unpause();
 						menu_mode = false;
 					}
-
 				}
 				return false;
 			}
 		};
 
 		Gdx.input.setInputProcessor(inputProcessor);
-
+		//endregion
 	}
+
 
 	@Override
 	public void resize(int width, int height){
@@ -227,12 +188,13 @@ public class PiazzaPanic extends ApplicationAdapter {
 	@Override
 	public void render () {
 
-		if (menu_mode) {
+		startGame();
+		if (menu.active) {
 			menu.render(hud_batch); // renders menu
-		} else {
+		} else if(game != null){
 			game.renderGame(); // renders game
 			if (game.customerManager.isComplete()){ // if game is complete, ends the game.
-				menu_mode = true;
+				menu.active = true;
 				menu.setFinalTime(game.customerManager.timeToString(game.customerManager.getFinalTime()));
 				menu.complete = true;
 				game.end();
@@ -241,6 +203,17 @@ public class PiazzaPanic extends ApplicationAdapter {
 		}
 	}
 
+	public void startGame(){
+		// If a new game is selected, it resumes the game or instantiates a new one
+		if(!menu.tryActivateGame) return;
+		menu.tryActivateGame = false;
+		if(game == null){
+			game = new MainGame(spriteBatch, hud_batch, camera, hud_cam, playerRenderer,
+					customerRenderer, bubbleRenderer, mapRenderer, inputProcessor);
+			game.create();
+			menu_mode = false;
+		}
+	}
 
 	@Override
 	public void dispose () {
@@ -250,6 +223,4 @@ public class PiazzaPanic extends ApplicationAdapter {
 		Atlases.dispose();
 		ItemRegister.dispose();
 	}
-
-
 }

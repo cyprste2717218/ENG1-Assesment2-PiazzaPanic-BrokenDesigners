@@ -148,7 +148,6 @@ public class Customer {
 				}
 				break;
 			case (3): // Phase 3 -- Customer has completed its tasks, despawns.
-
 				this.visible = false;
 				break;
 			default:

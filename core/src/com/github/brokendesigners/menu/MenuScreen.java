@@ -1,11 +1,18 @@
 package com.github.brokendesigners.menu;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import java.awt.Font;
+import com.badlogic.gdx.math.Rectangle;
+import com.github.brokendesigners.menu.Buttons.*;
+
+import java.util.ArrayList;
+
 /*
  * Handles rendering and controls for menu.
  * I did not have as much time for this one :3
@@ -16,21 +23,47 @@ public class MenuScreen {
 	public String finalTime; // Final time to be displayed at end of game.
 	public boolean howToScreen; // is howToScreen being displayed?
 	public boolean complete; // has game been completed?
-
 	public int selectedButton; // Which button has been selected?
 	BitmapFont font;
+
+	public ArrayList<Button> menuButtons = new ArrayList<>(); //A list of all the buttons, which is automatically created in the constructor of Button
+	Button playButton, exitGameButton, exitHowToPlayButton, showHowToPlayButton;
+	OrthographicCamera camera;
+	public boolean tryActivateGame;
+
 
 	/*
 	 * Instantiates MenuScreen
 	 */
-	public MenuScreen(){
+
+	//TODO: Add button to create mode choice for endless or scenario
+	public MenuScreen(OrthographicCamera camera){
 		active = true;
+		tryActivateGame = false;
 		selectedButton = 0;
 		complete = false;
 		font = new BitmapFont();
 		this.font.getData().setScale(10, 10);
 		font.setColor(Color.RED);
+		this.camera = camera;
+		initialiseButtons();
 	}
+
+	public void initialiseButtons(){
+		playButton = new PlayButton(new Rectangle(700, 515, 200, 100),
+				MenuTextures.playButtonSelected, MenuTextures.playButtonUnselected, this);
+
+		showHowToPlayButton = new HowToPlayButton(new Rectangle(700, 400, 200, 100),
+				MenuTextures.howtoplayButtonSelected, MenuTextures.howtoplayButtonUnselected, this);
+
+		exitHowToPlayButton = new ExitHowToPlayButton(new Rectangle(700, 285, 200, 100),
+				MenuTextures.exitButtonSelected, MenuTextures.exitButtonUnselected, this);
+
+		exitGameButton = new ExitGameButton(new Rectangle(700, 285, 200, 100),
+				MenuTextures.exitButtonSelected, MenuTextures.exitButtonUnselected, this);
+	}
+
+
 	/*
 	 * Renders menu screen.
 	 *
@@ -38,75 +71,67 @@ public class MenuScreen {
 	 *
 	 */
 	public void render(SpriteBatch batch){
+		if(!active) return;
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.gl.glClearColor(119/255f, 179/255f, 210/255f, 1f);
+		setSelectedButton();
 		batch.begin();
-		if (this.active && this.howToScreen == false) {
-			renderMain(batch);
-
-
-		} else if (this.active && this.howToScreen == true){
-			batch.draw(MenuTextures.title, 405, 400, 800, 400);
-			batch.draw(MenuTextures.exitButtonSelected, 700, 285, 200, 100);
+		for(Button button : menuButtons){
+			button.render(batch, camera);
+			button.onActivate(camera);
 		}
-		if (this.active && this.complete && this.howToScreen == false){
-			renderMain(batch);
+		if(howToScreen) {
+			batch.draw(MenuTextures.how_to_play, 405, 400, 800, 400);
+			exitHowToPlayButton.setRendered(true);
+			exitGameButton.setRendered(false);
+		}
+		else if(complete){
+			exitHowToPlayButton.setRendered(false);
+			exitGameButton.setRendered(true);
 			batch.draw(MenuTextures.you_win, 405, 400, 800, 400);
 			font.draw(batch, finalTime, 650, 200);
-
 		}
+		else{
+			exitHowToPlayButton.setRendered(false);
+			exitGameButton.setRendered(true);
+			batch.draw(MenuTextures.updown, 1000, 400, 400, 200);
+			batch.draw(MenuTextures.wsad, 100, 500, 400, 200);
+			batch.draw(MenuTextures.tabSpace, 100, 160, 400, 200);
+		}
+
 		batch.end();
 	}
-	/*
-	 * Handles input for menu screen - whether to start a new game, display the how to screen etc.
+
+
+	/***
+	 * A function that allows scrolling through the different available buttons using up/w and down/s
 	 */
-	public int input(boolean gameRunning){
-
-		switch (selectedButton){
-			case (0): // Selected button is "play"
-				if (gameRunning == true){
-					return 0;
+	void setSelectedButton(){
+		if(Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.UP)){
+			for(int i = 0; i < menuButtons.size(); i++){
+				int selection = selectedButton - (i+1) >= 0 ? (selectedButton - (i + 1)) : menuButtons.size() - ((i + 1) - selectedButton);
+				if(menuButtons.get(selection).isRendered()){
+					selectedButton = selection;
+					return;
 				}
-				return 1;
-			case (1): // Selected button is "how to play"
-				this.howToScreen = true;
-				this.selectedButton = 3;
-				return 2;
-			case (2): // selected button is "exit"
-				Gdx.app.exit();
-				break;
-			case (3): // selected button is "Exit" on the how to screen.
-				this.howToScreen = false;
-				this.selectedButton = 0;
-				return 2;
+			}
 		}
-		return 0;
+		else if(Gdx.input.isKeyJustPressed(Input.Keys.S) || Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
+			for(int i = 0; i < menuButtons.size(); i++){
+				int selection = selectedButton + (i+1) < menuButtons.size() ? (selectedButton + (i + 1)) : (selectedButton + (i + 1)) - (menuButtons.size());
+				if(menuButtons.get(selection).isRendered()){
+					selectedButton = selection;
+					return;
+				}
+			}
+		}
 
+		for(int i = 0; i < menuButtons.size(); i++){
+			menuButtons.get(i).setSelected(selectedButton == i);
+		}
 	}
 
 	public void setFinalTime(String finalTime) {
 		this.finalTime = finalTime;
-	}
-
-	public void renderMain(SpriteBatch batch){
-		switch (selectedButton){
-			case (0):
-				batch.draw(MenuTextures.playButtonSelected, 700, 515, 200, 100);
-				batch.draw(MenuTextures.howtoplayButtonUnselected, 700, 400, 200, 100);
-				batch.draw(MenuTextures.exitButtonUnselected, 700, 285, 200, 100);
-				break;
-			case (1):
-				batch.draw(MenuTextures.playButtonUnselected, 700, 515, 200, 100);
-				batch.draw(MenuTextures.howtoplayButtonSelected, 700, 400, 200, 100);
-				batch.draw(MenuTextures.exitButtonUnselected, 700, 285, 200, 100);
-				break;
-			case (2):
-				batch.draw(MenuTextures.playButtonUnselected, 700, 515, 200, 100);
-				batch.draw(MenuTextures.howtoplayButtonUnselected, 700, 400, 200, 100);
-				batch.draw(MenuTextures.exitButtonSelected, 700, 285, 200, 100);
-		}
-		batch.draw(MenuTextures.updown, 1000, 400, 400, 200);
-		batch.draw(MenuTextures.wsad, 100, 500, 400, 200);
-		batch.draw(MenuTextures.tabSpace, 100, 160, 400, 200);
 	}
 }

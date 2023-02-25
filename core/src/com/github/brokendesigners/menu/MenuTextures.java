@@ -21,7 +21,7 @@ public class MenuTextures {
 	public static Texture you_win = new Texture("menu_assets/finaltime.png");
 
 
-	public static Texture title = new Texture("menu_assets/how_to_play.png");
+	public static Texture how_to_play = new Texture("menu_assets/how_to_play.png");
 
 	public void dispose(){
 		playButtonSelected.dispose();

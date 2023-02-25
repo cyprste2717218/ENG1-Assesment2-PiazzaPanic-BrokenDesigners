@@ -39,14 +39,13 @@ public class MainGame {
 	CustomerRenderer customerRenderer;
 	BubbleRenderer bubbleRenderer;
 
+	Match match;
 	TiledMap map;
 	OrthogonalTiledMapRenderer mapRenderer;
 
 	InputProcessor inputProcessor;
 	ArrayList<Player> playerList;
 	int selectedPlayer;
-
-
 	Kitchen kitchen;
 	CustomerManager customerManager;
 	ItemInitialiser initialiser;
@@ -86,12 +85,6 @@ public class MainGame {
 
 
 	public void create(){
-
-
-
-
-
-
 		// MAP & MAP OBJECT BUILDING
 		this.kitchen = new Kitchen(camera, spriteBatch, bubbleRenderer);
 
@@ -106,7 +99,6 @@ public class MainGame {
 
 		// BUILD PLAYERS
 		initialisePlayers(); //initialisePlayers is at the end of this java class.
-
 
 		spriteBatch.enableBlending();
 		customerManager.begin();
@@ -131,13 +123,7 @@ public class MainGame {
 
 			} else if (Gdx.input.isKeyPressed(Keys.NUM_2)) {
 				setSelectedPlayer(1);
-
-			} /*else if (Gdx.input.isKeyPressed(Keys.NUM_3)){
-			player1.setSelected(false);
-			player2.setSelected(false);
-			player3.setSelected(true);
-			selectedPlayer = 2;
-			}*/
+			}
 
 
 			spriteBatch.begin();
@@ -167,12 +153,14 @@ public class MainGame {
 			customerManager.update(spriteBatch, hud_batch);
 
 			for (Station station : kitchen.getKitchenStations()) {
-
 				station.renderCounter(spriteBatch);
 			}
 		}
 
 	public void initialisePlayers(){
+
+		//A list that holds all the animations for the players
+		ArrayList<ArrayList<Animation<TextureRegion>>> playerAnimations = new ArrayList<>();
 
 		//ANIMATION ARRAYS:
 		ArrayList<Animation<TextureRegion>> glibbert_animations = new ArrayList<>();
@@ -184,31 +172,23 @@ public class MainGame {
 		glibbert_animations.add(Animations.glibbert_moveAnimation);
 		glibbert_animations.add(Animations.glibbert_actionAnimation);
 		playerRenderer = new PlayerRenderer(spriteBatch);
+		playerAnimations.add(glibbert_animations);
 
 		ArrayList<Animation<TextureRegion>> glibbert2_animations = new ArrayList<>();
 		glibbert2_animations.add(Animations.glibbert_idleAnimation2);
 		glibbert2_animations.add(Animations.glibbert_moveAnimation2);
 		glibbert2_animations.add(Animations.glibbert_actionAnimation2); // bluggus has no action animation but still needs to have an animation referenced
-
+		playerAnimations.add(glibbert2_animations);
 
 		//BUILDING PLAYERS
 		playerList = new ArrayList<>(); // List of Players - used to determine which is active
 
-		Player player1 = new Player(playerRenderer, glibbert_animations, kitchen.getPlayerSpawnPoint(), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
-		player1.setRenderOffsetX(-1 * Constants.UNIT_SCALE);
-		// ^^ Offset where the sprite will render relative to the invisible rectangle
-		// which represents the players position/collision boundaries
-
-		playerList.add(player1);
-
-		// repeat for Player 2 & 3
-		Player player2 = new Player(playerRenderer, glibbert2_animations, new Vector2(kitchen.getPlayerSpawnPoint().x + 32 * Constants.UNIT_SCALE, kitchen.getPlayerSpawnPoint().y), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
-		playerList.add(player2);
-		player2.setRenderOffsetX(-1 * Constants.UNIT_SCALE);
-		//Player player3 = new Player(playerRenderer, glibbert_animations, new Vector3(1, 0, 0), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
-		//playerList.add(player3);
+		for(int i  = 0; i < 2; i++){
+			Player player = new Player(playerRenderer, playerAnimations.get(i), new Vector2(kitchen.getPlayerSpawnPoint().x + (i * 32 * Constants.UNIT_SCALE), kitchen.getPlayerSpawnPoint().y), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
+			player.setRenderOffsetX(-1 * Constants.UNIT_SCALE);
+			playerList.add(player);
+		}
 		setSelectedPlayer(0);
-
 	}
 
 	private void setSelectedPlayer(int selected){
