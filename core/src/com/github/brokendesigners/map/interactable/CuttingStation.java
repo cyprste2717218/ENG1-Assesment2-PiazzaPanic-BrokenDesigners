@@ -29,16 +29,12 @@ public class CuttingStation extends Station {
     //Cutting Operation
     @Override
     public boolean action(final Player player) {
-        if (this.inuse == false) {
-
-            if (hand == null) {
-                return false;
-            } else if (Applicable(Cuttables, "Cutting_Station", hand.getName()) == true && this.interacting == false) {
+        if (this.inuse == false && this.hand != null) {
+            if (Applicable(Cuttables, "Cutting_Station", hand.getName()) == true) {
                 this.inuse = true;
-                player.moving_disabled = true;
+                player.disableMovement();
+                player.hand.disable_hand_ability();
                 this.bubble.setVisible(true);
-                this.interacting = true;
-
                 Timer timer = new Timer();
                 Task task = new Task() {
                     @Override
@@ -46,21 +42,18 @@ public class CuttingStation extends Station {
                         hand = ItemRegister.itemRegister.get("Cut_" + hand.getName());
                         bubble.setVisible(false);
                         player.enableMovement();
-                        interacting = false;
+                        player.hand.enable_hand_ability();
                         inuse = false;
                     }
                 };
                 timer.scheduleTask(task, 4f);
                 return true;
-            } else //If operation should not be able to preformed, stops item being valid for other operations
-            {
-                hand = ItemRegister.itemRegister.get("Waste");
-                return true;
+            } else {
+                System.out.println("Incorrect Item");
+                failure.play();
             }
         }
-        else {
-            return false;
-        }
+        return false;
     }
     
 }

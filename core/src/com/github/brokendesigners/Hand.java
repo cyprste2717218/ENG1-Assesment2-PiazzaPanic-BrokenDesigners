@@ -14,8 +14,12 @@ public class Hand{
 	/*
 	 * Instantiates Hand
 	 */
+	// a boolean to enable/disable the ability to pickup items
+	// i.e. when interacting with station, cannot pickup item
+	public boolean hand_ability;
 	public Hand(){ // Instantiates Hand
 		this.heldItems = new ArrayList<Item>(3);
+		hand_ability = true;
 	}
 
 
@@ -23,11 +27,10 @@ public class Hand{
 	 * Gives item to hand. Use an ItemRegister reference for the item to be recognisable to stations.
 	 */
 	public void give(Item item){
-
-		if (this.heldItems.size() == 3){
-			return;
+		if (this.heldItems.size() <= 3 && hand_ability){
+			this.heldItems.add(item);
+			System.out.println("hand ability:"+ hand_ability);
 		}
-		this.heldItems.add(item);
 	}
 	/*
 	 * drops a specific item - not used
@@ -79,6 +82,11 @@ public class Hand{
 	public ArrayList<Item> getHeldItems(){
 		return heldItems;
 	}
-
+	public void disable_hand_ability()	{
+		hand_ability = false;
+	}
+	public void enable_hand_ability()	{
+		hand_ability = true;
+	}
 
 }
