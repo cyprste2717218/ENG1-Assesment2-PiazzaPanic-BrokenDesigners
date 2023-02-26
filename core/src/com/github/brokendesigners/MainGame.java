@@ -69,7 +69,8 @@ public class MainGame {
 		CustomerRenderer customerRenderer,
 		BubbleRenderer bubbleRenderer,
 		OrthogonalTiledMapRenderer mapRenderer,
-		InputProcessor inputProcessor
+		InputProcessor inputProcessor,
+		Match match
 	){
 		this.playerRenderer = playerRenderer;
 		this.customerRenderer = customerRenderer;
@@ -81,6 +82,7 @@ public class MainGame {
 		this.camera = gameCamera;
 		this.hud_cam = hudCamera;
 		this.hud_batch = hud_batch;
+		this.match = match;
 	}
 
 
@@ -95,7 +97,8 @@ public class MainGame {
 			this.bubbleRenderer,
 			5,
 			kitchen.getCustomerSpawnPoint(),
-			kitchen.getCustomerStations());
+			kitchen.getCustomerStations(),
+				match);
 
 		// BUILD PLAYERS
 		initialisePlayers(); //initialisePlayers is at the end of this java class.

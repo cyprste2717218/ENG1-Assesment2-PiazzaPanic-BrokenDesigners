@@ -18,6 +18,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.brokendesigners.character.CustomerManager;
+import com.github.brokendesigners.enums.GameMode;
 import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.map.Kitchen;
 import com.github.brokendesigners.map.KitchenCollisionObject;
@@ -38,8 +39,6 @@ import com.github.brokendesigners.textures.Textures;
 
 
 public class PiazzaPanic extends ApplicationAdapter {
-
-
 
 	Viewport viewport; // Used for window resizing purposes.
 	OrthographicCamera camera; // camera responsible for rendering the game world in the right place.
@@ -66,12 +65,10 @@ public class PiazzaPanic extends ApplicationAdapter {
 	int selectedPlayer;
 
 
-
 	Kitchen kitchen;
 	CustomerManager customerManager;
 	ItemInitialiser initialiser;
 
-	Boolean menu_mode;
 	MenuScreen menu;
 	MainGame game;
 	Match match;
@@ -99,8 +96,8 @@ public class PiazzaPanic extends ApplicationAdapter {
 		viewport = new FitViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera);
 
 		// MENU BUILDING
-		menu_mode = true;
 		menu = new MenuScreen(hud_cam);
+		menu.active = true;
 
 		// SpriteBatch BUILDING
 		spriteBatch = new SpriteBatch();
@@ -162,7 +159,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 				} else { // if menu is active
 					if (keycode == Keys.ESCAPE && game != null) {
 						game.customerManager.unpause();
-						menu_mode = false;
+						menu.active = false;
 					}
 				}
 				return false;
@@ -187,7 +184,6 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-
 		startGame();
 		if (menu.active) {
 			menu.render(hud_batch); // renders menu
@@ -208,10 +204,11 @@ public class PiazzaPanic extends ApplicationAdapter {
 		if(!menu.tryActivateGame) return;
 		menu.tryActivateGame = false;
 		if(game == null){
+			match = new Match(GameMode.ENDLESS);
 			game = new MainGame(spriteBatch, hud_batch, camera, hud_cam, playerRenderer,
-					customerRenderer, bubbleRenderer, mapRenderer, inputProcessor);
+					customerRenderer, bubbleRenderer, mapRenderer, inputProcessor, match);
 			game.create();
-			menu_mode = false;
+			menu.active = false;
 		}
 	}
 

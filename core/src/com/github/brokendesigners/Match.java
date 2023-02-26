@@ -5,22 +5,26 @@ import com.github.brokendesigners.enums.GameMode;
 public class Match {
 
     public Match(GameMode gameMode){
+        this.gameMode = gameMode;
         money = 0;
-        reputationPoints = 0;
+        reputationPoints = 3;
         customersServed = 0;
+        customersSoFar = 0;
     }
 
-    public Match(GameMode gameMode, int money, int reputationPoints, int customersServed){
+    public Match(GameMode gameMode, int money, int reputationPoints, int customersServed, int customersSoFar){
         this.gameMode = gameMode;
         this.money = money;
         this.reputationPoints = reputationPoints;
         this.customersServed = customersServed;
+        this.customersSoFar = customersSoFar;
     }
 
     private GameMode gameMode;
     private int money;
     private int reputationPoints;
     private int customersServed;
+    private int customersSoFar;
 
     public GameMode getGameMode() {
         return gameMode;
@@ -53,10 +57,12 @@ public class Match {
     public void incrementReputationPoints(){
         reputationPoints++;
     }
-
+    public void decrementReputationPoints() {reputationPoints--;}
     public int getCustomersServed() {
         return customersServed;
     }
+    public int getCustomersSoFar() {return customersSoFar;}
+    public void incrementCustomersSoFar(){customersSoFar++;}
 
     public void setCustomersServed(int customersServed) {
         this.customersServed = customersServed;
