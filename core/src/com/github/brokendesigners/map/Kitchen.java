@@ -159,7 +159,7 @@ public class Kitchen {
 						rectangle.width * Constants.UNIT_SCALE,
 						rectangle.height * Constants.UNIT_SCALE,
 						handX,
-						handY));
+						handY, bubbleRenderer));
 			} else if (rectangleMapObject.getProperties().get("objectType").equals("Cutting")){
 
 				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
