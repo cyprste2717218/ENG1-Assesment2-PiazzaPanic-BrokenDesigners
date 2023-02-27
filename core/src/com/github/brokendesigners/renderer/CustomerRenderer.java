@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.github.brokendesigners.Constants;
 import com.github.brokendesigners.character.Customer;
+import com.github.brokendesigners.enums.CustomerPhase;
+
 import java.util.ArrayList;
 
 public class CustomerRenderer {
@@ -44,7 +46,7 @@ public class CustomerRenderer {
 					customer.stateTime += Gdx.graphics.getDeltaTime();
 
 					TextureRegion frame;
-					if (customer.getPhase() == 1) {
+					if (customer.getPhase() == CustomerPhase.WAITING) {
 
 						frame = customer.animations.get(0).getKeyFrame(customer.stateTime);
 						// ^^ renders idle animation if customer is at station
@@ -61,7 +63,7 @@ public class CustomerRenderer {
 							customer.getWorldPosition().y, customer.WIDTH, customer.HEIGHT);
 					// ^^ renders customer without animation if they only have a texture.
 				}
-				if (customer.getPhase() == 2) { // renders the customer with their item if they are leaving the restaurant.
+				if (customer.getPhase() == CustomerPhase.LEAVING && customer.beenServed) { // renders the customer with their item if they are leaving the restaurant.
 					this.batch.draw(customer.getDesiredMeal().getTexture(),
 							customer.getWorldPosition().x + 19 * Constants.UNIT_SCALE,
 							customer.getWorldPosition().y + 5 * Constants.UNIT_SCALE,

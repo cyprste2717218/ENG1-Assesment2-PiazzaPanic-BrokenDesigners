@@ -6,8 +6,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
+import com.github.brokendesigners.Match;
+import com.github.brokendesigners.enums.CustomerPhase;
+import com.github.brokendesigners.enums.GameMode;
 import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.map.interactable.CustomerStation;
 import com.github.brokendesigners.renderer.BubbleRenderer;
@@ -22,69 +26,50 @@ import java.util.Random;
  * Manages the spawning and timing of the customers.
  */
 public class CustomerManager {
-
-
-
 	private ArrayList<Customer> customers; // array of customers
+	private ArrayList<CustomerStation> customerStations; //list of customer stations
 	private boolean running;
 	private Timer timer;
 	private int elapsedTime; // Time measured in seconds
 	private int finalTime;
 	private int customerNumber;
-	private int completeCustomers;
 	private BitmapFont font;
 	private int savedTime;
+
+	private long spawningTime;
+	Match match;
+	CustomerRenderer customerRenderer;
+	BubbleRenderer bubbleRenderer;
+	Vector2 spawnPoint;
+	ArrayList<Animation<TextureRegion>> animations;
+
+
 	/*
 	 * Instantiates CustomerManager
 	 * Makes customers equal to customerNumber
 	 * then assigns them to random CustomerStations.
 	 */
-	public CustomerManager(
-		CustomerRenderer customerRenderer,
-		BubbleRenderer bubbleRenderer,
-		int customerNumber,
-		Vector2 spawnPoint,
-		ArrayList<CustomerStation> stations){
+	public CustomerManager(CustomerRenderer customerRenderer, BubbleRenderer bubbleRenderer, int customerNumber,
+			Vector2 spawnPoint, ArrayList<CustomerStation> stations, Match match){
 
 		Random random = new Random();
-		this.customerNumber = customerNumber;
-		this.completeCustomers = 0;
 		this.customers = new ArrayList<>();
 		this.timer = new Timer();
 		this.font = new BitmapFont();
 		this.font.getData().setScale(6, 6);
 		this.savedTime = 0;
+		this.match = match;
+		this.customerNumber = customerNumber;
+
 		ArrayList<Animation<TextureRegion>> animations = new ArrayList<>();
 		animations.add(Animations.bluggus_idleAnimation);
 		animations.add(Animations.bluggus_moveAnimation);
-		for (int i = 0; i < customerNumber; i++){
-			CustomerStation station = stations.get(random.nextInt(stations.size()-1));
-			int mealInt = random.nextInt(2);
-			String meal;
-			switch (mealInt){ // Which meal do they want? Add more cases as more are added.
-				case(0):
-					meal = "Salad";
-					break;
-				case(1):
-					meal = "Burger";
-					break;
-				default:
-					meal = "VoidItem";
-					break;
-			}
-
-
-
-			customers.add(
-				new Customer(
-					customerRenderer,
-					bubbleRenderer,
-					animations,
-					station,
-					ItemRegister.itemRegister.get(meal),
-					spawnPoint));
-
-		}
+		spawningTime = TimeUtils.millis();
+		customerStations = stations;
+		this.customerRenderer = customerRenderer;
+		this.bubbleRenderer = bubbleRenderer;
+		this.animations = animations;
+		this.spawnPoint = spawnPoint;
 	}
 
 	public boolean begin(){
@@ -98,39 +83,74 @@ public class CustomerManager {
 		return true;
 	}
 
-	public void update(SpriteBatch batch, SpriteBatch hud_batch){ // Runs through the array of customers and updates them.
-		if (completeCustomers != customerNumber){
-			for (Customer customer : customers){
-				customer.update();
-				if (customer.getPhase() == 3){
-					completeCustomers += 1;
-					customer.station.setServingCustomer(false);
-					customer.setPhase(4);
-					customer.visible = false;
+	String getMeal(){
+		Random rnd = new Random();
+		int mealInt = rnd.nextInt(2);
+		switch (mealInt){ // Which meal do they want? Add more cases as more are added.
+			case(0):
+				return "Salad";
+			case(1):
+				return "Burger";
+			default:
+				return "VoidItem";
+		}
+	}
 
-				} else if ((!customer.isVisible()) && !customer.station.isServingCustomer() && customer.getPhase() == -1) {
-					customer.station.setServingCustomer(true);
-					customer.spawn();
-				}
+	//Checks for endless or scenario mode
+	//In scenario mode, we take a number, in endless we keep going
+	//We periodically spawn a customer
+
+
+
+	void handleCustomerPhases(){
+		for (Customer customer : customers){
+			customer.update();
+			if (customer.getPhase() == CustomerPhase.DESPAWNING){
+				if(customer.beenServed)	match.incrementCustomersServed();
+				else match.decrementReputationPoints();
+
+				customer.station.setServingCustomer(false);
+				customer.setPhase(CustomerPhase.UNLOADING);
+				customer.visible = false;
+
+			} else if ((!customer.isVisible()) && !customer.station.isServingCustomer() && customer.getPhase() == CustomerPhase.SPAWNING) {
+				customer.station.setServingCustomer(true);
+				customer.spawn();
 			}
-			if (completeCustomers == customerNumber){
-				System.out.println("upda");
+		}
+	}
+
+	void handleHUD(SpriteBatch hud_batch){
+		hud_batch.begin();
+		CharSequence str;
+		str = isComplete() ? timeToString(finalTime) : timeToString(elapsedTime);
+		font.draw(hud_batch, str, 100, 100);
+		font.draw(hud_batch, "Rep Points:" + match.getReputationPoints() , 100, 200);
+		hud_batch.end();
+	}
+
+	void spawnCustomer(){
+		if(TimeUtils.timeSinceMillis(spawningTime) > 10000L){
+			spawningTime = TimeUtils.millis();
+			Random random = new Random();
+			CustomerStation station = customerStations.get(random.nextInt(customerStations.size()-1));
+
+			customers.add(new Customer(customerRenderer, bubbleRenderer, animations,
+					station, ItemRegister.itemRegister.get(getMeal()), spawnPoint, match));
+		}
+	}
+
+	public void update(SpriteBatch batch, SpriteBatch hud_batch){ // Runs through the array of customers and updates them.
+		if (!isComplete()){
+			spawnCustomer();
+			handleCustomerPhases();
+
+			if(isComplete()){
 				finalTime = elapsedTime;
 				font.setColor(Color.RED);
 			}
 		}
-		hud_batch.begin();
-		CharSequence str;
-		if (!(completeCustomers == customerNumber)){
-			str = timeToString(elapsedTime);
-		} else {
-			str = timeToString(finalTime);
-		}
-
-		font.draw(hud_batch, str, 100, 100);
-
-		hud_batch.end();
-
+		handleHUD(hud_batch);
 	}
 	public String timeToString(int time){ // converts integer time to string MM:SS
 		String currentTime = "";
@@ -154,10 +174,7 @@ public class CustomerManager {
 	}
 
 	public boolean isComplete(){
-		if (completeCustomers == customerNumber){
-			return true;
-		}
-		return false;
+		return match.getCustomersSoFar() == customerNumber && match.getGameMode() == GameMode.SCENARIO || match.getGameMode() == GameMode.ENDLESS && match.getReputationPoints() <= 0;
 	}
 
 	public int getFinalTime() {
