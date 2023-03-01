@@ -122,8 +122,7 @@ public class CustomerManager {
 
 	void handleHUD(SpriteBatch hud_batch){
 		hud_batch.begin();
-		CharSequence str;
-		str = isComplete() ? timeToString(finalTime) : timeToString(elapsedTime);
+		CharSequence str = isComplete() ? timeToString(finalTime) : timeToString(elapsedTime);
 		font.draw(hud_batch, str, 100, 100);
 		font.draw(hud_batch, "Rep Points:" + match.getReputationPoints() , 100, 200);
 		hud_batch.end();

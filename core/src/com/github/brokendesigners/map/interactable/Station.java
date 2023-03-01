@@ -92,7 +92,7 @@ public abstract class Station {
 	 */
 
 	public boolean pickUp(Player player){
-		if (this.hasEmptyHand() || this.interacting){
+		if (this.hasEmptyHand() || this.interacting || this.inuse){
 			return false;
 		} else if (player.hand.isFull()) {
 			failure.play();

@@ -193,6 +193,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 				menu.active = true;
 				menu.setFinalTime(game.customerManager.timeToString(game.customerManager.getFinalTime()));
 				menu.complete = true;
+				bubbleRenderer.end();
 				game.end();
 				game = null;
 			}
@@ -204,7 +205,8 @@ public class PiazzaPanic extends ApplicationAdapter {
 		if(!menu.tryActivateGame) return;
 		menu.tryActivateGame = false;
 		if(game == null){
-			match = new Match(GameMode.ENDLESS);
+
+			match = new Match(menu.isEndless ? GameMode.ENDLESS : GameMode.SCENARIO);
 			game = new MainGame(spriteBatch, hud_batch, camera, hud_cam, playerRenderer,
 					customerRenderer, bubbleRenderer, mapRenderer, inputProcessor, match);
 			game.create();
