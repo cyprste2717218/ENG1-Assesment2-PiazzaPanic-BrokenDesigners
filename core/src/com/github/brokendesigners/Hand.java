@@ -18,7 +18,7 @@ public class Hand{
 	// i.e. when interacting with station, cannot pickup item
 	public boolean hand_ability;
 	public Hand(){ // Instantiates Hand
-		this.heldItems = new ArrayList<Item>(3);
+		this.heldItems = new ArrayList<Item>(4);
 		hand_ability = true;
 	}
 

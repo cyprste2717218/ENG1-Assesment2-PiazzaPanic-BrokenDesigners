@@ -15,7 +15,7 @@ import com.github.brokendesigners.textures.Animations;
 
 public class CuttingStation extends Station {
 
-    static final String[] Cuttables = {"Tomato", "Lettuce", "Onion","Bun"};
+    static final String[] Cuttables = {"Tomato", "Lettuce", "Onion", "Bun", "Potato"};
     Bubble bubble;
 
     public CuttingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer){

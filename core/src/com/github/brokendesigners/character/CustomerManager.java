@@ -85,12 +85,16 @@ public class CustomerManager {
 
 	String getMeal(){
 		Random rnd = new Random();
-		int mealInt = rnd.nextInt(2);
+		int mealInt = rnd.nextInt(4);
 		switch (mealInt){ // Which meal do they want? Add more cases as more are added.
 			case(0):
 				return "Salad";
 			case(1):
 				return "Burger";
+			case(2):
+				return "Baked_Pizza";
+			case(3):
+				return "Baked_JacketPotato";
 			default:
 				return "VoidItem";
 		}

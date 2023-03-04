@@ -176,12 +176,14 @@ public class AssemblyStation extends Station{
     //Construct Product
     public void Construct()
     {
-        String[] ItemStack = new String[]{this.hand.getHeldItems().get(0).name, this.hand.getHeldItems().get(1).name, this.hand.getHeldItems().get(2).name};
+        String[] ItemStack = new String[]{this.hand.getHeldItems().get(0).name, this.hand.getHeldItems().get(1).name, this.hand.getHeldItems().get(2).name, this.hand.getHeldItems().get(3).name};
         if((this.hand.isFull()))
         {
             //Testing data
-            String[] SaladTest = new String[]{"Cut_Tomato","Cut_Lettuce","Cut_Onion"};
-            String[] BurgerTest = new String[]{"Cooked_Bun","Cooked_Bun","Cooked_Patty"};
+            String[] SaladTest = new String[]{"Cut_Tomato","Cut_Lettuce","Cut_Onion",null};
+            String[] BurgerTest = new String[]{"Cooked_Bun","Cooked_Bun","Cooked_Patty",null};
+            String[] Raw_PizzaTest = new String[]{"Base","Cooked_Tomato","Cheese","Meat"};
+            String[] Raw_JacketPotatoTest = new String[]{"Cut_Potato","Cheese",null,null};
             // String[] "Product"Test = new String[]{"Ingredient1","Ingredient2","Ingredient3"};
             // String[] *****Test = new String[]{"","",""};
             // String[] *****Test = new String[]{"","",""};
@@ -195,14 +197,14 @@ public class AssemblyStation extends Station{
             {
                 this.Product = TestingForFood(SaladTest,ItemStack,"Salad");
             }
-            // if(this.Product == null) //Test for
-            // {
-            //     this.Product = TestingForFood(*****Test,ItemStack,*******);
-            // }
-            // if(this.Product == null) //Test for
-            // {
-            //     this.Product = TestingForFood(*****Test,ItemStack,*******);
-            // }
+             if(this.Product == null) //Test for Raw Pizza
+             {
+                 this.Product = TestingForFood(Raw_PizzaTest,ItemStack,"Raw_Pizza");
+             }
+             if(this.Product == null) //Test for Raw Jacket Potato
+             {
+                 this.Product = TestingForFood(Raw_JacketPotatoTest,ItemStack,"Raw_JacketPotato");
+             }
 
             System.out.println(this.Product);
             if(this.Product != null) //Delete ingredients and leave Product only waiting to go to stack.

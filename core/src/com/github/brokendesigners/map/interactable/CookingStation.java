@@ -18,7 +18,7 @@ import com.badlogic.gdx.utils.Timer.Task;
 
 public class CookingStation extends Station {
 
-    static final String[] Cookables = {"Patty","Bun"};
+    static final String[] Cookables = {"Patty","Bun", "Tomato"};
     static final String[] Flippables = {"Patty"};
 
     Bubble bubble;

@@ -73,7 +73,7 @@ public class CounterStation extends Station {
 		}
 		if (hand == null){
 			return false;
-		} else if (hand.equals(ItemRegister.itemRegister.get("Meat"))) {
+		} else if (hand.equals(ItemRegister.itemRegister.get("Meat")) || hand.equals(ItemRegister.itemRegister.get("Dough"))) {
 			this.bubble.setVisible(true);
 			interacting = true;
 			Timer timer = new Timer();
@@ -84,7 +84,11 @@ public class CounterStation extends Station {
 					player.enableMovement();
 					bubble.setVisible(false);
 					dumpHand();
-					hand = ItemRegister.itemRegister.get("Patty");
+					String temp = "Patty";
+					if (hand.equals(ItemRegister.itemRegister.get("Dough"))){
+						temp = "Base";
+					}
+					hand = ItemRegister.itemRegister.get(temp);
 					interacting = false;
 					inuse = false;
 				}
