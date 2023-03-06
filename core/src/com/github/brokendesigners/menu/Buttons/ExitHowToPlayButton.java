@@ -18,6 +18,7 @@ public class ExitHowToPlayButton extends Button{
     public boolean performTask() {
         System.out.println("Returning to main menu");
         menuScreen.howToScreen = false;
+        menuScreen.playOptions = false;
         menuScreen.selectedButton = 0;
         return true;
     }
