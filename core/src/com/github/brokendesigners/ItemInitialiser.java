@@ -27,8 +27,8 @@ public class ItemInitialiser {
         ItemRegister.addItem("Patty", new Patty());
         ItemRegister.addItem("Base", new Base());
 
-        ItemRegister.addItem("Raw_Pizza", new Raw_Pizza());
-        ItemRegister.addItem("Raw_JacketPotato", new Raw_JacketPotato());
+        ItemRegister.addItem("Pizza", new Pizza());
+        ItemRegister.addItem("JacketPotato", new JacketPotato());
 
         ItemRegister.addItem("Cut_Lettuce", new Cut_Lettuce());
         ItemRegister.addItem("Cut_Tomato", new Cut_Tomato());

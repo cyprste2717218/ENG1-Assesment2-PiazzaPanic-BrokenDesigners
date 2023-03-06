@@ -7,7 +7,7 @@ public class Baked_JacketPotato extends Item {
     public Texture texture = new Texture("items/jacketpotato_baked.png");
 
     public Baked_JacketPotato() {
-        super("Baked_JacketPotato");
+        super("Baked_JacketPotato",10);
     }
 
     @Override

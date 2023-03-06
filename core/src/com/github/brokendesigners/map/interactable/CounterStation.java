@@ -78,17 +78,27 @@ public class CounterStation extends Station {
 			interacting = true;
 			Timer timer = new Timer();
 			player.disableMovement();
+			if (hand.equals(ItemRegister.itemRegister.get("Meat"))) {
+				timer.scheduleTask(new Task() {
+					@Override
+					public void run() {
+						player.enableMovement();
+						bubble.setVisible(false);
+						dumpHand();
+						hand = ItemRegister.itemRegister.get("Patty");
+						interacting = false;
+						inuse = false;
+					}
+				}, 10f);
+				return true;
+			}
 			timer.scheduleTask(new Task() {
 				@Override
 				public void run() {
 					player.enableMovement();
 					bubble.setVisible(false);
 					dumpHand();
-					String temp = "Patty";
-					if (hand.equals(ItemRegister.itemRegister.get("Dough"))){
-						temp = "Base";
-					}
-					hand = ItemRegister.itemRegister.get(temp);
+					hand = ItemRegister.itemRegister.get("Base");
 					interacting = false;
 					inuse = false;
 				}

@@ -2,12 +2,12 @@ package com.github.brokendesigners.item;
 
 import com.badlogic.gdx.graphics.Texture;
 
-public class Baked_Pizza extends Item{
+public class Pizza extends Item{
 
-    public Texture texture = new Texture("items/pizza_baked.png");
+    public Texture texture = new Texture("items/pizza.png");
 
-    public Baked_Pizza() {
-        super("Baked_Pizza",30);
+    public Pizza() {
+        super("Pizza");
     }
 
     @Override

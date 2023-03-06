@@ -13,11 +13,13 @@ public abstract class Item implements Disposable {
 	public Texture texture;
 	public String name;
 	public Boolean Cooking;
+	public Boolean Baking;
 	private int reward;
 
 	public Item(String n){
 		this.name = n;
 		this.Cooking = false;
+		this.Baking = false;
 		reward = 0;
 	}
 	public Item(String n, int reward){
