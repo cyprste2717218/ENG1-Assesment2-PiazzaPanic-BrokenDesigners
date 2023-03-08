@@ -81,7 +81,7 @@ public class MenuScreen {
 			button.onActivate(camera);
 		}
 		if(howToScreen) {
-			batch.draw(MenuTextures.how_to_play, 405, 400, 800, 400);
+			batch.draw(MenuTextures.how_to_play, 0, Gdx.graphics.getHeight()/2 - 355, 700, 720);
 			exitHowToPlayButton.setRendered(true);
 			exitGameButton.setRendered(false);
 		}

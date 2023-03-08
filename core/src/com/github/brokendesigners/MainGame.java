@@ -126,6 +126,8 @@ public class MainGame {
 
 			} else if (Gdx.input.isKeyPressed(Keys.NUM_2)) {
 				setSelectedPlayer(1);
+			} else if (Gdx.input.isKeyPressed(Keys.NUM_3)) {
+				setSelectedPlayer(2);
 			}
 
 
@@ -165,33 +167,36 @@ public class MainGame {
 		//A list that holds all the animations for the players
 		ArrayList<ArrayList<Animation<TextureRegion>>> playerAnimations = new ArrayList<>();
 
-		//ANIMATION ARRAYS:
-		ArrayList<Animation<TextureRegion>> glibbert_animations = new ArrayList<>();
-		// Array of player animations
-		// Index 0 is idle animation
-		// Index 1 is move animation
-		// Index 2 is action animation
-		glibbert_animations.add(Animations.glibbert_idleAnimation);
-		glibbert_animations.add(Animations.glibbert_moveAnimation);
-		glibbert_animations.add(Animations.glibbert_actionAnimation);
-		playerRenderer = new PlayerRenderer(spriteBatch);
-		playerAnimations.add(glibbert_animations);
+		// Default three chefs
+		playerAnimations.add(addGlibbert(Animations.glibbert_idleAnimation,Animations.glibbert_moveAnimation,Animations.glibbert_actionAnimation));
+		playerAnimations.add(addGlibbert(Animations.glibbert_idleAnimation2,Animations.glibbert_moveAnimation2,Animations.glibbert_actionAnimation2));
+		playerAnimations.add(addGlibbert(Animations.glibbert_idleAnimation3,Animations.glibbert_moveAnimation3,Animations.glibbert_actionAnimation3));
 
-		ArrayList<Animation<TextureRegion>> glibbert2_animations = new ArrayList<>();
-		glibbert2_animations.add(Animations.glibbert_idleAnimation2);
-		glibbert2_animations.add(Animations.glibbert_moveAnimation2);
-		glibbert2_animations.add(Animations.glibbert_actionAnimation2); // bluggus has no action animation but still needs to have an animation referenced
-		playerAnimations.add(glibbert2_animations);
+		playerRenderer = new PlayerRenderer(spriteBatch);
 
 		//BUILDING PLAYERS
 		playerList = new ArrayList<>(); // List of Players - used to determine which is active
 
-		for(int i  = 0; i < 2; i++){
+		for(int i  = 0; i < 3; i++){
 			Player player = new Player(playerRenderer, playerAnimations.get(i), new Vector2(kitchen.getPlayerSpawnPoint().x + (i * 32 * Constants.UNIT_SCALE), kitchen.getPlayerSpawnPoint().y), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
 			player.setRenderOffsetX(-1 * Constants.UNIT_SCALE);
 			playerList.add(player);
 		}
 		setSelectedPlayer(0);
+	}
+
+	/**
+	 * @param idle Index 0 is idle animation
+	 * @param move Index 1 is move animation
+	 * @param action Index 2 is action animation
+	 * @return list of the player's animation
+	 */
+	private ArrayList<Animation<TextureRegion>> addGlibbert(Animation<TextureRegion> idle, Animation<TextureRegion> move, Animation<TextureRegion> action){
+		ArrayList<Animation<TextureRegion>> glibbert_animations = new ArrayList<>();
+		glibbert_animations.add(idle);
+		glibbert_animations.add(move);
+		glibbert_animations.add(action);
+		return glibbert_animations;
 	}
 
 	private void setSelectedPlayer(int selected){

@@ -192,9 +192,6 @@ public class AssemblyStation extends Station{
             String[] BurgerTest = new String[]{"Cooked_Bun","Cooked_Bun","Cooked_Patty"};
             String[] PizzaTest = new String[]{"Base","Cooked_Tomato","Cheese","Meat"};
             String[] JacketPotatoTest = new String[]{"Cut_Potato","Cheese"};
-            // String[] "Product"Test = new String[]{"Ingredient1","Ingredient2","Ingredient3"};
-            // String[] *****Test = new String[]{"","",""};
-            // String[] *****Test = new String[]{"","",""};
 
             if(this.Product == null) //Test for burger
             {

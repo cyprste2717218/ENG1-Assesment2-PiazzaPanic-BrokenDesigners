@@ -1,5 +1,7 @@
 package com.github.brokendesigners.map.interactable;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -11,9 +13,12 @@ import com.github.brokendesigners.bubble.ActionBubble;
 import com.github.brokendesigners.bubble.Bubble;
 import com.github.brokendesigners.item.Item;
 import com.github.brokendesigners.item.ItemRegister;
+import com.github.brokendesigners.menu.Buttons.Button;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.textures.Animations;
 import com.badlogic.gdx.utils.Timer.Task;
+
+import java.security.Key;
 
 
 public class CookingStation extends Station {
@@ -120,8 +125,13 @@ public class CookingStation extends Station {
     }
 */
     //Flipping
-    private Item Flipping() //Once key to flup is pushed
+    private Item isFlipped() //Once key to flip is pushed
     {
+//
+//        timer.scheduleTask(task, 0.5f);
+//
+//        return temp[0];
+
 //        if(this.hand != null) //only if a value is held
 //        {
 //            if(Applicable(Flippables,"Cooking_Station",hand.getName())==true)
