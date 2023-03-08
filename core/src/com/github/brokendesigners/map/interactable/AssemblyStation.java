@@ -136,7 +136,7 @@ public class AssemblyStation extends Station{
 
         }
         System.out.println(Total);
-        if(Total == this.hand.getHeldItems().size())
+        if(Total == Test.length)
         {
             return ItemRegister.itemRegister.get(n);
         }
@@ -183,7 +183,7 @@ public class AssemblyStation extends Station{
         for (Item temp : this.hand.getHeldItems()){
             ItemStackTemp.add(temp.name);
         }
-        String[] ItemStack = ItemStackTemp.toArray(new String[ItemStackTemp.size()]);
+        String[] ItemStack = ItemStackTemp.toArray(new String[0]);
 
         if((this.hand.getHeldItems().size() > 1))
         {
@@ -193,23 +193,24 @@ public class AssemblyStation extends Station{
             String[] PizzaTest = new String[]{"Base","Cooked_Tomato","Cheese","Meat"};
             String[] JacketPotatoTest = new String[]{"Cut_Potato","Cheese"};
 
+
             if(this.Product == null) //Test for burger
             {
-                //Test for burger
                 this.Product = TestingForFood(BurgerTest,ItemStack,"Burger");
             }
             if(this.Product == null) //Test for Salad
             {
                 this.Product = TestingForFood(SaladTest,ItemStack,"Salad");
             }
-             if(this.Product == null) //Test for Pizza
-             {
-                 this.Product = TestingForFood(PizzaTest,ItemStack,"Pizza");
-             }
-             if(this.Product == null) //Test for Jacket Potato
-             {
-                 this.Product = TestingForFood(JacketPotatoTest,ItemStack,"JacketPotato");
-             }
+            if(this.Product == null) //Test for Pizza
+            {
+                this.Product = TestingForFood(PizzaTest,ItemStack,"Pizza");
+            }
+            if(this.Product == null) //Test for Jacket Potato
+            {
+                this.Product = TestingForFood(JacketPotatoTest,ItemStack,"JacketPotato");
+            }
+
 
             System.out.println(this.Product);
             if(this.Product != null) //Delete ingredients and leave Product only waiting to go to stack.

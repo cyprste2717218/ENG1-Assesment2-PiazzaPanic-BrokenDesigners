@@ -57,9 +57,9 @@
 174,174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,174,
 174,174,0,0,0,223,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,207,0,0,0,0,174,174,
 174,174,0,0,0,223,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,208,0,0,0,0,174,174,
-174,174,0,0,0,223,0,0,0,0,0,0,0,196,0,0,0,0,0,0,0,0,0,205,0,0,0,0,174,174,
-174,174,0,0,0,223,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,222,0,0,0,0,174,174,
-174,174,0,0,0,223,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,209,0,0,0,0,174,174,
+174,174,0,0,0,223,0,0,0,0,0,0,0,196,0,0,0,0,0,0,0,0,0,205,0,224,0,0,174,174,
+174,174,0,0,0,223,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,222,0,225,0,0,174,174,
+174,174,0,0,0,223,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,209,0,226,0,0,174,174,
 174,174,0,0,0,223,0,0,0,0,0,0,190,0,191,0,191,0,0,0,0,0,0,204,0,0,0,0,174,174,
 174,174,0,0,0,157,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,174,
 174,174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,174,
@@ -387,27 +387,24 @@
     <property name="objectType" value="Dispenser"/>
    </properties>
   </object>
-  <object id="145" x="799" y="192" width="36" height="32">
+  <object id="145" x="798" y="192" width="36" height="32">
    <properties>
     <property name="itemType" value="Dough"/>
     <property name="objectType" value="Dispenser"/>
    </properties>
   </object>
-  <object id="146" x="799" y="224" width="36" height="32">
+  <object id="146" x="798" y="224" width="36" height="32">
    <properties>
     <property name="itemType" value="Cheese"/>
     <property name="objectType" value="Dispenser"/>
    </properties>
   </object>
-  <object id="147" x="799" y="256" width="36" height="32">
+  <object id="147" x="798" y="256" width="36" height="32">
    <properties>
     <property name="itemType" value="Potato"/>
     <property name="objectType" value="Dispenser"/>
    </properties>
   </object>
-  <object id="152" gid="224" x="804.583" y="217.417" width="21.6667" height="18.3333"/>
-  <object id="153" gid="225" x="804.333" y="248.667" width="22.6667" height="16.3333"/>
-  <object id="154" gid="226" x="804.667" y="280.667" width="22.3333" height="17.3333"/>
  </objectgroup>
  <objectgroup id="8" name="Map" visible="0">
   <object id="142" name="CustomerSpawn" x="96" y="608" width="32" height="32">
