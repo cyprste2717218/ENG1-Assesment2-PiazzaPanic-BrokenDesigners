@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.github.brokendesigners.Constants;
+import com.github.brokendesigners.Hand;
 import com.github.brokendesigners.Player;
 import com.github.brokendesigners.item.Item;
 
@@ -25,12 +26,15 @@ public abstract class Station {
 	// where should the item be rendered - In the TiledMap, the co-ords for HandX and HandY are relative to the bottom left of the interact area.
 	public boolean inuse;
 
-	Sound pick_up = Gdx.audio.newSound(Gdx.files.internal("audio/pick_up.wav"));
-	Sound put_down = Gdx.audio.newSound(Gdx.files.internal("audio/put_down.wav"));
-	Sound failure = Gdx.audio.newSound(Gdx.files.internal("audio/failure.wav"));
+	public Sound pick_up;
+	public Sound put_down;
+	public Sound failure;
 
 
 	protected Station(Rectangle rectangle, String n) {
+		this.pick_up = Gdx.audio.newSound(Gdx.files.internal("audio/pick_up.wav"));
+		this.put_down = Gdx.audio.newSound(Gdx.files.internal("audio/put_down.wav"));
+		this.failure = Gdx.audio.newSound(Gdx.files.internal("audio/failure.wav"));
 		this.station_name = n;
 		this.hand = null;
 		this.storing = false;
@@ -38,6 +42,10 @@ public abstract class Station {
 		this.handPosition.x = this.interactionArea.x;
 		this.handPosition.y = this.interactionArea.y;
 		this.inuse = false;
+	}
+	// empty constructor used for tests
+	public Station()	{
+		this.hand = null;
 	}
 
 
