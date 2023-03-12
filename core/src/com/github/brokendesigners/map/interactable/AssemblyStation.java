@@ -3,8 +3,6 @@ package com.github.brokendesigners.map.interactable;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.github.brokendesigners.Constants;
@@ -45,6 +43,12 @@ public class AssemblyStation extends Station{
         this.Product = null;
         this.Counter = 0;
     }
+    // empty constructor used for tests
+    public AssemblyStation()    {
+        this.Product = null;
+        this.hand = null;
+    }
+
     //Override storing products
 
     //return Product or spare ingredients
@@ -113,7 +117,7 @@ public class AssemblyStation extends Station{
         return 0;
     }
 
-    private Item TestingForFood(String[] Test, String[] data, String n)
+    public Item TestingForFood(String[] Test, String[] data, String n)
     {
         int Total = 0;
         for(int i = 0; i<Test.length;i++)
@@ -121,7 +125,6 @@ public class AssemblyStation extends Station{
             for(int j = 0; j<data.length;j++)
             {
                 int adder = Compare(Test[i], data[j]);
-                System.out.println(Compare(Test[i], data[j]));
                 Total = Total + adder;
                 if(adder==1)
                 {
@@ -132,7 +135,6 @@ public class AssemblyStation extends Station{
 
 
         }
-        System.out.println(Total);
         if(Total == 3)
         {
             return ItemRegister.itemRegister.get(n);
@@ -145,6 +147,7 @@ public class AssemblyStation extends Station{
         
         
     }
+
     @Override
     public boolean action(final Player player){
         if (this.inuse == true) {
