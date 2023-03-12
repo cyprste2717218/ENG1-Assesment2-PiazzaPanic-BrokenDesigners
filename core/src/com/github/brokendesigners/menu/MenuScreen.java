@@ -21,6 +21,7 @@ public class MenuScreen {
 
 	public boolean active; // Is the menu active? (Should it render)
 	public String finalTime; // Final time to be displayed at end of game.
+	public String totalMoney; // Total amount of money the player has
 	public boolean howToScreen; // is howToScreen being displayed?
 	public boolean complete; // has game been completed?
 	public int selectedButton; // Which button has been selected?
@@ -90,6 +91,7 @@ public class MenuScreen {
 			exitGameButton.setRendered(true);
 			batch.draw(MenuTextures.you_win, 405, 400, 800, 400);
 			font.draw(batch, finalTime, 650, 200);
+			font.draw(batch, totalMoney, 650, 300);
 		}
 		else{
 			exitHowToPlayButton.setRendered(false);
@@ -134,4 +136,5 @@ public class MenuScreen {
 	public void setFinalTime(String finalTime) {
 		this.finalTime = finalTime;
 	}
+	public void setMoney(String totalMoney) { this.totalMoney = totalMoney; }
 }

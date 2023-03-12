@@ -136,6 +136,8 @@ public class Customer {
 					if (station.getItemInHand().equals(desiredMeal)) {
 						beenServed = true;
 						match.incrementReputationPoints();
+						match.addMoney(15.00);
+						match.addTip();
 						success.play();
 						setPhase(CustomerPhase.LEAVING);
 						station.dumpHand();
@@ -144,6 +146,7 @@ public class Customer {
 					else{
 						failure.play();
 						station.dumpHand();
+						match.addMoney(10);
 					}
 				}
 				break;

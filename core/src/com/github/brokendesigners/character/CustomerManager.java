@@ -17,7 +17,6 @@ import com.github.brokendesigners.map.interactable.CustomerStation;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.renderer.CustomerRenderer;
 import com.github.brokendesigners.textures.Animations;
-import com.github.brokendesigners.textures.Textures;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -38,6 +37,7 @@ public class CustomerManager {
 
 	private long spawningTime;
 	Match match;
+
 	CustomerRenderer customerRenderer;
 	BubbleRenderer bubbleRenderer;
 	Vector2 spawnPoint;
@@ -126,6 +126,7 @@ public class CustomerManager {
 		str = isComplete() ? timeToString(finalTime) : timeToString(elapsedTime);
 		font.draw(hud_batch, str, 100, 100);
 		font.draw(hud_batch, "Rep Points:" + match.getReputationPoints() , 100, 200);
+		font.draw(hud_batch, "Money: £" + match.getMoney(), 1050, 800);
 		hud_batch.end();
 	}
 
