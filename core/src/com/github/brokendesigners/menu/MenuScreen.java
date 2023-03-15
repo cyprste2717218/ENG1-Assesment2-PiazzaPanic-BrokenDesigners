@@ -23,14 +23,15 @@ public class MenuScreen {
 	public String finalTime; // Final time to be displayed at end of game.
 	public String totalMoney; // Total amount of money the player has
 	public boolean howToScreen; // is howToScreen being displayed?
+	public boolean playOptions;
 	public boolean complete; // has game been completed?
 	public int selectedButton; // Which button has been selected?
 	BitmapFont font;
 
 	public ArrayList<Button> menuButtons = new ArrayList<>(); //A list of all the buttons, which is automatically created in the constructor of Button
-	Button playButton, exitGameButton, exitHowToPlayButton, showHowToPlayButton;
+	Button playButton, exitGameButton, exitHowToPlayButton, showHowToPlayButton, scenarioModeButton, endlessModeButton;
 	OrthographicCamera camera;
-	public boolean tryActivateGame;
+	public boolean tryActivateGame, isEndless;
 
 
 	/*
@@ -62,6 +63,12 @@ public class MenuScreen {
 
 		exitGameButton = new ExitGameButton(new Rectangle(700, 285, 200, 100),
 				MenuTextures.exitButtonSelected, MenuTextures.exitButtonUnselected, this);
+
+		scenarioModeButton = new ScenarioModeButton(new Rectangle(700, 515 , 200,100),
+				MenuTextures.scenarioButtonSelected, MenuTextures.scenarioButtonUnselected, this);
+
+		endlessModeButton = new EndlessModeButton(new Rectangle(700, 400 , 200,100),
+				MenuTextures.endlessButtonSelected, MenuTextures.endlessButtonUnselected, this);
 	}
 
 
@@ -81,21 +88,36 @@ public class MenuScreen {
 			button.render(batch, camera);
 			button.onActivate(camera);
 		}
-		if(howToScreen) {
+		if(complete){
+			exitHowToPlayButton.setRendered(false);
+			exitGameButton.setRendered(true);
+			scenarioModeButton.setRendered(false);
+			endlessModeButton.setRendered(false);
+			playButton.setRendered(true);
+			showHowToPlayButton.setRendered(true);
+			batch.draw(MenuTextures.you_win, 405, 400, 800, 400);
+
+		}
+		else if(howToScreen) {
 			batch.draw(MenuTextures.how_to_play, 405, 400, 800, 400);
 			exitHowToPlayButton.setRendered(true);
 			exitGameButton.setRendered(false);
 		}
-		else if(complete){
-			exitHowToPlayButton.setRendered(false);
-			exitGameButton.setRendered(true);
-			batch.draw(MenuTextures.you_win, 405, 400, 800, 400);
-			font.draw(batch, finalTime, 650, 200);
-			//font.draw(batch, totalMoney, 650, 300);
+		else if(playOptions){
+			exitHowToPlayButton.setRendered(true);
+			scenarioModeButton.setRendered(true);
+			exitGameButton.setRendered(false);
+			endlessModeButton.setRendered(true);
+			playButton.setRendered(false);
+			showHowToPlayButton.setRendered(false);
 		}
 		else{
+			playButton.setRendered(true);
+			showHowToPlayButton.setRendered(true);
 			exitHowToPlayButton.setRendered(false);
 			exitGameButton.setRendered(true);
+			endlessModeButton.setRendered(false);
+			scenarioModeButton.setRendered(false);
 			batch.draw(MenuTextures.updown, 1000, 400, 400, 200);
 			batch.draw(MenuTextures.wsad, 100, 500, 400, 200);
 			batch.draw(MenuTextures.tabSpace, 100, 160, 400, 200);
@@ -136,5 +158,6 @@ public class MenuScreen {
 	public void setFinalTime(String finalTime) {
 		this.finalTime = finalTime;
 	}
+
 	public void setMoney(String totalMoney) { this.totalMoney = totalMoney; }
 }
