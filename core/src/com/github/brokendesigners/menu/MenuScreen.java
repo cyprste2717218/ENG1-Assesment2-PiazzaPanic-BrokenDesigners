@@ -91,7 +91,7 @@ public class MenuScreen {
 			exitGameButton.setRendered(true);
 			batch.draw(MenuTextures.you_win, 405, 400, 800, 400);
 			font.draw(batch, finalTime, 650, 200);
-			font.draw(batch, totalMoney, 650, 300);
+			//font.draw(batch, totalMoney, 650, 300);
 		}
 		else{
 			exitHowToPlayButton.setRendered(false);
