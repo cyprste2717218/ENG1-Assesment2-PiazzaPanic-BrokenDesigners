@@ -72,6 +72,12 @@ public class CustomerManager {
 		this.spawnPoint = spawnPoint;
 	}
 
+	public CustomerManager(int customerNumber, Vector2 spawnPoint, Match match){
+		this.match = match;
+		this.customerNumber = customerNumber;
+		this.spawnPoint = spawnPoint;
+	}
+
 	public boolean begin(){
 		this.running = true;
 		timer.scheduleTask(new Task() {
@@ -83,7 +89,7 @@ public class CustomerManager {
 		return true;
 	}
 
-	String getMeal(){
+	public String getMeal(){
 		Random rnd = new Random();
 		int mealInt = rnd.nextInt(2);
 		switch (mealInt){ // Which meal do they want? Add more cases as more are added.
@@ -153,6 +159,7 @@ public class CustomerManager {
 		handleHUD(hud_batch);
 	}
 	public String timeToString(int time){ // converts integer time to string MM:SS
+		if(time < 0) return "";
 		String currentTime = "";
 		Integer minutes = time / 60;
 		Integer seconds = time - (minutes * 60);
@@ -183,5 +190,21 @@ public class CustomerManager {
 
 	public void end(){
 		customers.clear();
+	}
+
+	public int getCustomerNumber() {
+		return customerNumber;
+	}
+
+	public int getElapsedTime() {
+		return elapsedTime;
+	}
+
+	public void setElapsedTime(int elapsedTime){
+		this.elapsedTime = elapsedTime;
+	}
+
+	public Match getMatch() {
+		return match;
 	}
 }
