@@ -18,6 +18,7 @@ import com.github.brokendesigners.Hand;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.textures.Animations;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AssemblyStation extends Station{
@@ -118,18 +119,19 @@ public class AssemblyStation extends Station{
 
     private Item TestingForFood(String[] Test, String[] data, String n)
     {
+        String[] copiedData = Arrays.copyOf(data, data.length);
         int Total = 0;
         for(int i = 0; i<Test.length;i++)
         {
-            for(int j = 0; j<data.length;j++)
+            for(int j = 0; j<copiedData.length;j++)
             {
-                int adder = Compare(Test[i], data[j]);
-                System.out.println(Compare(Test[i], data[j]));
+                int adder = Compare(Test[i], copiedData[j]);
+                System.out.println(Compare(Test[i], copiedData[j]));
                 Total = Total + adder;
                 if(adder==1)
                 {
                     Test[i] = "found";
-                    data[j] = "found";
+                    copiedData[j] = "found";
                 }
             }
 
