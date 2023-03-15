@@ -112,8 +112,12 @@ public class CustomerManager {
 		for (Customer customer : customers){
 			customer.update();
 			if (customer.getPhase() == CustomerPhase.DESPAWNING){
-				if(customer.beenServed)	match.incrementCustomersServed();
-				else match.decrementReputationPoints();
+
+				if(customer.beenServed)	{
+					match.incrementCustomersServed();
+				} else {
+					match.decrementReputationPoints();
+				}
 
 				customer.station.setServingCustomer(false);
 				customer.setPhase(CustomerPhase.UNLOADING);
@@ -154,6 +158,7 @@ public class CustomerManager {
 			if(isComplete()){
 				finalTime = elapsedTime;
 				font.setColor(Color.RED);
+
 			}
 		}
 		handleHUD(hud_batch);

@@ -1,6 +1,9 @@
 package com.github.brokendesigners;
 
+import com.badlogic.gdx.utils.TimeUtils;
 import com.github.brokendesigners.enums.GameMode;
+import com.github.brokendesigners.character.Customer;
+import com.github.brokendesigners.character.CustomerManager;
 import java.util.Formatter;
 import java.util.Random;
 
@@ -23,6 +26,8 @@ public class Match {
     }
 
     private GameMode gameMode;
+
+    private Customer customer;
     private int reputationPoints;
     private int customersServed;
     private int customersSoFar;
@@ -54,10 +59,16 @@ public class Match {
     }
 
     public void addTip() { // potentially add functionality to base this value off of time spent on order
-        Random random = new Random();
+        // Randomrandom = new Random();
 
-        double tip = random.nextDouble();
-        money += tip;
+        //double tip = random.nextDouble();
+        //money += tip;
+
+        // does this work for each customer instance?
+        if (TimeUtils.timeSinceMillis(customer.waitingStartTime/1000 ) < (0.5*customer.customerWaitTime)) {
+
+        }
+
     }
 
     public void subtractMoney(double value) {
