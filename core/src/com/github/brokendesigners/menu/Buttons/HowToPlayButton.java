@@ -12,6 +12,7 @@ public class HowToPlayButton extends Button{
 
     @Override
     public boolean performTask() {
+        menuScreen.complete = false;
         menuScreen.howToScreen = true;
         menuScreen.selectedButton = 2;
         return true;

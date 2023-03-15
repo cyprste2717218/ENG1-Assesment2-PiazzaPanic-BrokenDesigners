@@ -60,3 +60,35 @@ project(":core") {
         
     }
 }
+
+project(":tests") {
+    apply plugin: "java"
+
+    sourceSets.test.java.srcDirs = ["src/"]
+
+    dependencies {
+
+        /**
+         * If you do have some classes to test in os specific code you may want to uncomment
+         * some of these lines.
+         *
+         * BUT: I recommend to create seperate test sub projects for each platform. Trust me :)
+         */
+
+        //project(":desktop")
+        implementation project(":core")
+
+        implementation "junit:junit:4.13.1"
+        implementation "org.mockito:mockito-core:3.5.13"
+
+        implementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+
+        testImplementation 'junit:junit:4.13.1'
+        testImplementation 'org.mockito:mockito-core:3.5.13'
+
+        testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+    }
+}
