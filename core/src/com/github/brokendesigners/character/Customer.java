@@ -41,7 +41,8 @@ public class Customer {
 	public float stateTime; // used for the renderer to grab frame.
 	Match match;
 
-	private long waitingStartTime = -1L;
+	public long waitingStartTime = -1L;
+	public long customerWaitTime = 60000L;
 
 	float movement_speed = 0; //Intentionally lowercase - NOT A CONSTANT - kind of a constant - you decide :)
 	/*
@@ -91,6 +92,25 @@ public class Customer {
 		beenServed = false;
 	}
 
+	//This is a headless implementation of the customer constructor
+	public Customer(CustomerStation station, Item desiredMeal, Vector2 spawnPoint, Match match){
+		worldPosition = new Vector2(spawnPoint);
+		this.station = station;
+		this.animations = new ArrayList<>();
+		this.desiredMeal = desiredMeal;
+		this.phase = CustomerPhase.SPAWNING;
+		this.spawnPoint = spawnPoint;
+
+		this.stateTime = 0;
+
+		this.WIDTH = 32;
+		this.HEIGHT = 32;
+
+		this.texture = null;
+		this.match = match;
+		beenServed = false;
+	}
+
 
 	/*
 	 * Spawns customer, makes them visible etc.
@@ -121,15 +141,16 @@ public class Customer {
 					}
 				} else if (worldPosition.equals(station.getCustomerPosition())) {
 					setPhase(CustomerPhase.WAITING);
-					bubble.setVisible(true);
+					if(bubble != null) bubble.setVisible(true);
 				}
 				break;
 			case WAITING: // Phase 1 -- Customer is waiting for meal
 				if(waitingStartTime == -1L) waitingStartTime = TimeUtils.millis();
+				System.out.println(TimeUtils.timeSinceMillis(waitingStartTime));
 				//TODO: Improve timer to be pausable, have a visual and work with difficulty modes
-				if(TimeUtils.timeSinceMillis(waitingStartTime) > 40000L){
-					bubble.setVisible(false);
-					failure.play();
+				if(TimeUtils.timeSinceMillis(waitingStartTime) > customerWaitTime){
+					if(bubble != null)	bubble.setVisible(false);
+					if(failure != null) failure.play();
 					setPhase(CustomerPhase.LEAVING);
 				}
 				if (!station.hasEmptyHand()) {
@@ -139,10 +160,10 @@ public class Customer {
 						success.play();
 						setPhase(CustomerPhase.LEAVING);
 						station.dumpHand();
-						bubble.setVisible(false);
+						if(bubble != null)  bubble.setVisible(false);
 					}
 					else{
-						failure.play();
+						if(failure != null)	failure.play();
 						station.dumpHand();
 					}
 				}
@@ -200,4 +221,6 @@ public class Customer {
 	public Item getDesiredMeal() {
 		return desiredMeal;
 	}
+
+	public Match getMatch(){ return match;}
 }
