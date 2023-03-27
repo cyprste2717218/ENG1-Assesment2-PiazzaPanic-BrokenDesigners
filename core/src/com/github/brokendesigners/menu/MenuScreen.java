@@ -89,6 +89,7 @@ public class MenuScreen {
 			exitHowToPlayButton.setRendered(false);
 			exitGameButton.setRendered(true);
 			batch.draw(MenuTextures.you_win, 405, 400, 800, 400);
+			//TODO: Make sure this is merged
 			font.draw(batch, finalTime, 650, 200);
 		}
 		else{
