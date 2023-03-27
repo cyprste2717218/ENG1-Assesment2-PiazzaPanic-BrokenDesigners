@@ -17,7 +17,6 @@ import com.github.brokendesigners.map.interactable.CustomerStation;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.renderer.CustomerRenderer;
 import com.github.brokendesigners.textures.Animations;
-import com.github.brokendesigners.textures.Textures;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -38,6 +37,7 @@ public class CustomerManager {
 
 	private long spawningTime;
 	Match match;
+
 	CustomerRenderer customerRenderer;
 	BubbleRenderer bubbleRenderer;
 	Vector2 spawnPoint;
@@ -72,6 +72,12 @@ public class CustomerManager {
 		this.spawnPoint = spawnPoint;
 	}
 
+	public CustomerManager(int customerNumber, Vector2 spawnPoint, Match match){
+		this.match = match;
+		this.customerNumber = customerNumber;
+		this.spawnPoint = spawnPoint;
+	}
+
 	public boolean begin(){
 		this.running = true;
 		timer.scheduleTask(new Task() {
@@ -83,7 +89,7 @@ public class CustomerManager {
 		return true;
 	}
 
-	String getMeal(){
+	public String getMeal(){
 		Random rnd = new Random();
 		int mealInt = rnd.nextInt(4);
 		switch (mealInt){ // Which meal do they want? Add more cases as more are added.
@@ -158,10 +164,10 @@ public class CustomerManager {
 
 	void handleHUD(SpriteBatch hud_batch){
 		hud_batch.begin();
-		CharSequence str;
-		str = isComplete() ? timeToString(finalTime) : timeToString(elapsedTime);
+		CharSequence str = isComplete() ? timeToString(finalTime) : timeToString(elapsedTime);
 		font.draw(hud_batch, str, 100, 100);
 		font.draw(hud_batch, "Rep Points:" + match.getReputationPoints() , 100, 200);
+		font.draw(hud_batch, "Money: £" + match.getMoney(), 1050, 800);
 		hud_batch.end();
 	}
 
@@ -188,6 +194,7 @@ public class CustomerManager {
 		handleHUD(hud_batch);
 	}
 	public String timeToString(int time){ // converts integer time to string MM:SS
+		if(time < 0) return "";
 		String currentTime = "";
 		Integer minutes = time / 60;
 		Integer seconds = time - (minutes * 60);
@@ -218,5 +225,21 @@ public class CustomerManager {
 
 	public void end(){
 		customers.clear();
+	}
+
+	public int getCustomerNumber() {
+		return customerNumber;
+	}
+
+	public int getElapsedTime() {
+		return elapsedTime;
+	}
+
+	public void setElapsedTime(int elapsedTime){
+		this.elapsedTime = elapsedTime;
+	}
+
+	public Match getMatch() {
+		return match;
 	}
 }

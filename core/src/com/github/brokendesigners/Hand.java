@@ -29,6 +29,8 @@ public class Hand{
 	public void give(Item item){
 		if (this.heldItems.size() <= 4 && hand_ability){
 			this.heldItems.add(item);
+
+			System.out.println("held: " + this.heldItems);
 			System.out.println("hand ability:"+ hand_ability);
 		}
 	}

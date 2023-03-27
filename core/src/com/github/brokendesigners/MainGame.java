@@ -2,9 +2,7 @@ package com.github.brokendesigners;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -15,21 +13,16 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.github.brokendesigners.character.CustomerManager;
 import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.map.Kitchen;
 import com.github.brokendesigners.map.KitchenCollisionObject;
 import com.github.brokendesigners.map.interactable.Station;
-import com.github.brokendesigners.menu.MenuScreen;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.renderer.CustomerRenderer;
 import com.github.brokendesigners.renderer.PlayerRenderer;
 import com.github.brokendesigners.textures.Animations;
-import com.github.brokendesigners.textures.Atlases;
-import com.github.brokendesigners.textures.Textures;
-import java.lang.reflect.InvocationTargetException;
+
 import java.util.ArrayList;
 
 public class MainGame {
@@ -109,58 +102,58 @@ public class MainGame {
 
 	public void renderGame(){
 
-			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-			Gdx.gl.glClearColor(14 / 255f, 104 / 255f, 44 / 255f, 1f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClearColor(14 / 255f, 104 / 255f, 44 / 255f, 1f);
 
-			camera.update();
+		camera.update();
 
-			spriteBatch.setProjectionMatrix(camera.combined);
-			mapRenderer.setView(camera);
+		spriteBatch.setProjectionMatrix(camera.combined);
+		mapRenderer.setView(camera);
 
-			for(Player player : playerList){
-				player.processMovement(kitchen.getKitchenObstacles());
-			}
-
-			if (Gdx.input.isKeyPressed(Keys.NUM_1)) {
-				setSelectedPlayer(0);
-
-			} else if (Gdx.input.isKeyPressed(Keys.NUM_2)) {
-				setSelectedPlayer(1);
-			} else if (Gdx.input.isKeyPressed(Keys.NUM_3)) {
-				setSelectedPlayer(2);
-			}
-
-
-			spriteBatch.begin();
-			// Renders map in specific order to allow some cool rendering effects.
-			mapRenderer.renderTileLayer(
-				(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Floor"));
-			mapRenderer.renderTileLayer(
-				(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Walls"));
-			mapRenderer.renderTileLayer(
-				(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Extras"));
-			spriteBatch.end();
-
-			customerRenderer.renderCustomers();
-
-			playerRenderer.renderPlayers();
-
-			bubbleRenderer.renderBubbles();
-
-			camera.position.set(new Vector3(playerList.get(selectedPlayer).worldPosition, 1));
-			// ^^ camera follows selected player
-
-			spriteBatch.begin();
-			mapRenderer.renderTileLayer(
-				(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Front"));
-			// ^^ renders this layer after player which allows the player to go behind walls.
-			spriteBatch.end();
-			customerManager.update(spriteBatch, hud_batch);
-
-			for (Station station : kitchen.getKitchenStations()) {
-				station.renderCounter(spriteBatch);
-			}
+		for(Player player : playerList){
+			player.processMovement(kitchen.getKitchenObstacles());
 		}
+
+
+		if (Gdx.input.isKeyPressed(Keys.NUM_1)) {
+			setSelectedPlayer(0);			
+    } 
+    else if (Gdx.input.isKeyPressed(Keys.NUM_2)) {
+      setSelectedPlayer(1);
+    }
+    else if (Gdx.input.isKeyPressed(Keys.NUM_3)) {
+      setSelectedPlayer(2);
+    }
+
+		spriteBatch.begin();
+		// Renders map in specific order to allow some cool rendering effects.
+		mapRenderer.renderTileLayer(
+			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Floor"));
+		mapRenderer.renderTileLayer(
+			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Walls"));
+		mapRenderer.renderTileLayer(
+			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Extras"));
+		spriteBatch.end();
+
+		customerRenderer.renderCustomers();
+
+		playerRenderer.renderPlayers();
+
+		camera.position.set(new Vector3(playerList.get(selectedPlayer).worldPosition, 1));
+		// ^^ camera follows selected player
+
+		spriteBatch.begin();
+		mapRenderer.renderTileLayer(
+			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Front"));
+		// ^^ renders this layer after player which allows the player to go behind walls.
+		spriteBatch.end();
+		customerManager.update(spriteBatch, hud_batch);
+
+		for (Station station : kitchen.getKitchenStations()) {
+			station.renderCounter(spriteBatch);
+		}
+		bubbleRenderer.renderBubbles();
+	}
 
 	public void initialisePlayers(){
 
