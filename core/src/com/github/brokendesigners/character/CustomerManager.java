@@ -91,12 +91,16 @@ public class CustomerManager {
 
 	public String getMeal(){
 		Random rnd = new Random();
-		int mealInt = rnd.nextInt(2);
+		int mealInt = rnd.nextInt(4);
 		switch (mealInt){ // Which meal do they want? Add more cases as more are added.
 			case(0):
 				return "Salad";
 			case(1):
 				return "Burger";
+			case(2):
+				return "Baked_Pizza";
+			case(3):
+				return "Baked_JacketPotato";
 			default:
 				return "VoidItem";
 		}
@@ -109,6 +113,38 @@ public class CustomerManager {
 
 
 	void handleCustomerPhases(){
+
+//		Random random = new Random();
+//		int temp;
+//
+//		for (int i = 0; i < customers.size(); i++){
+//			Customer elem = customers.get(i);
+//			elem.update();
+//			if (elem.getPhase() == CustomerPhase.DESPAWNING){
+//				if(elem.beenServed)	match.incrementCustomersServed();
+//				else match.decrementReputationPoints();
+//
+//				elem.station.setServingCustomer(false);
+//				elem.setPhase(CustomerPhase.UNLOADING);
+//				elem.visible = false;
+//
+//			} else if ((!elem.isVisible()) && !elem.station.isServingCustomer() && elem.getPhase() == CustomerPhase.SPAWNING) {
+//				if(i == customers.size()-3){
+//					temp = random.nextInt(1,2);
+//				} else if(i >= customers.size()-2){
+//					temp = 1;
+//				} else{
+//					temp = random.nextInt(1,3);
+//				}
+//				for(int j = 0; j<temp; j++,i++){
+//					customers.get(i).station.setServingCustomer(true);
+//					customers.get(i).spawn();
+//					customers.get(i).update();
+//				}
+//
+//			}
+//		}
+
 		for (Customer customer : customers){
 			customer.update();
 			if (customer.getPhase() == CustomerPhase.DESPAWNING){
@@ -140,9 +176,8 @@ public class CustomerManager {
 			spawningTime = TimeUtils.millis();
 			Random random = new Random();
 			CustomerStation station = customerStations.get(random.nextInt(customerStations.size()-1));
-
 			customers.add(new Customer(customerRenderer, bubbleRenderer, animations,
-					station, ItemRegister.itemRegister.get(getMeal()), spawnPoint, match));
+						station, ItemRegister.itemRegister.get(getMeal()), spawnPoint, match));
 		}
 	}
 

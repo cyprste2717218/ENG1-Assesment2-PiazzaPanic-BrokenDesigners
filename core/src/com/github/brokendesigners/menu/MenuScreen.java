@@ -102,6 +102,7 @@ public class MenuScreen {
 			batch.draw(MenuTextures.how_to_play, 405, 400, 800, 400);
 			exitHowToPlayButton.setRendered(true);
 			exitGameButton.setRendered(false);
+      font.draw(batch, finalTime, 650, 200);
 		}
 		else if(playOptions){
 			exitHowToPlayButton.setRendered(true);

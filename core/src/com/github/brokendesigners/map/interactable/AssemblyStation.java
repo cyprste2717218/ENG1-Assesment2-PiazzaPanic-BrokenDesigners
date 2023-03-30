@@ -16,6 +16,8 @@ import com.github.brokendesigners.Hand;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.textures.Animations;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class AssemblyStation extends Station{
     private Item[] items;
@@ -33,13 +35,14 @@ public class AssemblyStation extends Station{
         super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Assembly_Station");
         this.bubble = new ActionBubble(bubbleRenderer, new Vector2(handPositions.get(2).x - 8 * Constants.UNIT_SCALE, handPositions.get(2).y), Animations.gearAnimation);
         this.handPositions = handPositions;
-        this.hand = new Hand(); // For this station, hand is the same hand as the player uses as it also holds 3 things.
+        this.hand = new Hand(); // For this station, hand is the same hand as the player uses as it also holds 4 things.
     }
     {
-        this.items = new Item[3];
+        this.items = new Item[4];
         this.items[0] = null;
         this.items[1] = null;
         this.items[2] = null;
+        this.items[3] = null;
         this.Product = null;
         this.Counter = 0;
     }
@@ -75,6 +78,7 @@ public class AssemblyStation extends Station{
     }
     @Override
     public void dumpHand(){
+        this.hand.drop();
         this.hand.drop();
         this.hand.drop();
         this.hand.drop();
@@ -119,23 +123,27 @@ public class AssemblyStation extends Station{
 
     public Item TestingForFood(String[] Test, String[] data, String n)
     {
+        String[] copiedData = Arrays.copyOf(data, data.length);
         int Total = 0;
         for(int i = 0; i<Test.length;i++)
         {
-            for(int j = 0; j<data.length;j++)
+            for(int j = 0; j<copiedData.length;j++)
             {
-                int adder = Compare(Test[i], data[j]);
+                int adder = Compare(Test[i], copiedData[j]);
+                System.out.println(Compare(Test[i], copiedData[j]));
+
                 Total = Total + adder;
                 if(adder==1)
                 {
                     Test[i] = "found";
-                    data[j] = "found";
+                    copiedData[j] = "found";
                 }
             }
 
 
         }
-        if(Total == 3)
+        System.out.println(Total);
+        if(Total == Test.length)
         {
             return ItemRegister.itemRegister.get(n);
         }
@@ -154,7 +162,7 @@ public class AssemblyStation extends Station{
             return false;
         } else{
 
-            if (this.hand.isFull()){
+            if (this.hand.getHeldItems().size()>1){
                 this.inuse = true;
                 player.disableMovement();
                 this.bubble.setVisible(true);
@@ -179,33 +187,38 @@ public class AssemblyStation extends Station{
     //Construct Product
     public void Construct()
     {
-        String[] ItemStack = new String[]{this.hand.getHeldItems().get(0).name, this.hand.getHeldItems().get(1).name, this.hand.getHeldItems().get(2).name};
-        if((this.hand.isFull()))
+        List<String> ItemStackTemp = new ArrayList<>();
+        for (Item temp : this.hand.getHeldItems()){
+            ItemStackTemp.add(temp.name);
+        }
+        String[] ItemStack = ItemStackTemp.toArray(new String[0]);
+
+        if((this.hand.getHeldItems().size() > 1))
         {
             //Testing data
             String[] SaladTest = new String[]{"Cut_Tomato","Cut_Lettuce","Cut_Onion"};
             String[] BurgerTest = new String[]{"Cooked_Bun","Cooked_Bun","Cooked_Patty"};
-            // String[] "Product"Test = new String[]{"Ingredient1","Ingredient2","Ingredient3"};
-            // String[] *****Test = new String[]{"","",""};
-            // String[] *****Test = new String[]{"","",""};
+            String[] PizzaTest = new String[]{"Base","Cooked_Tomato","Cheese","Meat"};
+            String[] JacketPotatoTest = new String[]{"Cut_Potato","Cheese"};
+
 
             if(this.Product == null) //Test for burger
             {
-                //Test for burger
                 this.Product = TestingForFood(BurgerTest,ItemStack,"Burger");
             }
             if(this.Product == null) //Test for Salad
             {
                 this.Product = TestingForFood(SaladTest,ItemStack,"Salad");
             }
-            // if(this.Product == null) //Test for
-            // {
-            //     this.Product = TestingForFood(*****Test,ItemStack,*******);
-            // }
-            // if(this.Product == null) //Test for
-            // {
-            //     this.Product = TestingForFood(*****Test,ItemStack,*******);
-            // }
+            if(this.Product == null) //Test for Pizza
+            {
+                this.Product = TestingForFood(PizzaTest,ItemStack,"Pizza");
+            }
+            if(this.Product == null) //Test for Jacket Potato
+            {
+                this.Product = TestingForFood(JacketPotatoTest,ItemStack,"JacketPotato");
+            }
+
 
             System.out.println(this.Product);
             if(this.Product != null) //Delete ingredients and leave Product only waiting to go to stack.
