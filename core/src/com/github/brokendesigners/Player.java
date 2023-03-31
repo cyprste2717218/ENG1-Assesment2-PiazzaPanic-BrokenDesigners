@@ -21,7 +21,7 @@ import com.github.brokendesigners.textures.Animations;
 public class Player {
 	Vector2 worldPosition; // Position of the player in world-coords
 
-	public float MOVEMENT_SPEED = 2 * Constants.UNIT_SCALE;  // Movement Speed of Chef differs between vertical and horizontal due to following 2 lines
+	public static float MOVEMENT_SPEED = 2 * Constants.UNIT_SCALE;  // Movement Speed of Chef differs between vertical and horizontal due to following 2 lines
 
 	private float width; //NOTE:  NOT THE WIDTH OF CHEF SPRITE
 	private float height;	//NOTE: NOT HEIGHT OF CHEF SPRITE
@@ -172,11 +172,13 @@ public class Player {
 		this.playerRectangle.y += (this.MOVEMENT_SPEED);
 		for (KitchenCollisionObject object : objects){
 			if(Intersector.overlaps(object.getRectangle(), this.getPlayerRectangle())){
+
 				this.worldPosition.y = object.getRectangle().y - this.height;
 
 				return false;
 			}
 		}
+
 		this.worldPosition.y += (this.MOVEMENT_SPEED);
 		this.updateRectangle();
 		return true;
@@ -335,5 +337,12 @@ public class Player {
 	 */
 	public float getRenderOffsetX() {
 		return renderOffsetX;
+	}
+
+	/*
+	 * Used by Speed power to increase speed of chef
+	 */
+	public static void speedIncrease(int factor) {
+		MOVEMENT_SPEED *= 2;
 	}
 }
