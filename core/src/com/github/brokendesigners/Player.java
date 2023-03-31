@@ -21,7 +21,7 @@ import com.github.brokendesigners.textures.Animations;
 public class Player {
 	Vector2 worldPosition; // Position of the player in world-coords
 
-	public static float MOVEMENT_SPEED = 2 * Constants.UNIT_SCALE;  // Movement Speed of Chef differs between vertical and horizontal due to following 2 lines
+	float movementSpeed = 2 * Constants.UNIT_SCALE;  // Movement Speed of Chef differs between vertical and horizontal due to following 2 lines
 
 	private float width; //NOTE:  NOT THE WIDTH OF CHEF SPRITE
 	private float height;	//NOTE: NOT HEIGHT OF CHEF SPRITE
@@ -169,7 +169,7 @@ public class Player {
 	* so we set the players position to where they are making contact with the object they're colliding with.
 	 */
 	public boolean moveUp(ArrayList<KitchenCollisionObject> objects){
-		this.playerRectangle.y += (this.MOVEMENT_SPEED);
+		this.playerRectangle.y += (getMovementSpeed());
 		for (KitchenCollisionObject object : objects){
 			if(Intersector.overlaps(object.getRectangle(), this.getPlayerRectangle())){
 
@@ -179,26 +179,26 @@ public class Player {
 			}
 		}
 
-		this.worldPosition.y += (this.MOVEMENT_SPEED);
+		this.worldPosition.y += (getMovementSpeed());
 		this.updateRectangle();
 		return true;
 
 	}
 	public boolean moveDown(ArrayList<KitchenCollisionObject> objects){
-		this.playerRectangle.y -= (this.MOVEMENT_SPEED);
+		this.playerRectangle.y -= (getMovementSpeed());
 		for (KitchenCollisionObject object : objects){
 			if(Intersector.overlaps(object.getRectangle(), this.getPlayerRectangle())){
 				this.worldPosition.y = object.getRectangle().y + object.getHEIGHT();
 				return false;
 			}
 		}
-		this.worldPosition.y -= (this.MOVEMENT_SPEED);
+		this.worldPosition.y -= (getMovementSpeed());
 		this.updateRectangle();
 		return true;
 
 	}
 	public boolean moveRight(ArrayList<KitchenCollisionObject> objects){
-		this.playerRectangle.x += (this.MOVEMENT_SPEED);
+		this.playerRectangle.x += (getMovementSpeed());
 		for (KitchenCollisionObject object : objects){
 			if(Intersector.overlaps(object.getRectangle(), this.getPlayerRectangle())){
 				this.worldPosition.x = object.getRectangle().x - this.width;
@@ -206,20 +206,20 @@ public class Player {
 			}
 		}
 
-		this.worldPosition.x += (this.MOVEMENT_SPEED);
+		this.worldPosition.x += (getMovementSpeed());
 		this.updateRectangle();
 		return true;
 
 	}
 	public boolean moveLeft(ArrayList<KitchenCollisionObject> objects){
-		this.playerRectangle.x -= (this.MOVEMENT_SPEED);
+		this.playerRectangle.x -= (getMovementSpeed());
 		for (KitchenCollisionObject object : objects){
 			if(Intersector.overlaps(object.getRectangle(), this.getPlayerRectangle())){
 				this.worldPosition.x = object.getRectangle().x + object.getWIDTH();
 				return false;
 			}
 		}
-		this.worldPosition.x -= (this.MOVEMENT_SPEED);
+		this.worldPosition.x -= (getMovementSpeed());
 		this.updateRectangle();
 		return true;
 
@@ -276,16 +276,22 @@ public class Player {
 	 * Scans through an array of kitchen objects, finds if they are intersecting with any, and if it does, it initiates
 	 * a station.action(Player player) method.
 	 */
-	public boolean interact(ArrayList<? extends Station> stations){
+
+	public Station getInteractingStation(ArrayList<? extends Station> stations){
 		if (this.isSelected()) {
 			for (Station station : stations) {
 				if (Intersector.overlaps(station.getInteractionArea(), this.getPlayerRectangle())) {
-					station.action(this);
-					return true;
+					return station;
 				}
 			}
 		}
-		return false;
+		return null;
+	}
+	public boolean interact(ArrayList<? extends Station> stations){
+		Station interactingStation = getInteractingStation(stations);
+		if(interactingStation == null) return false;
+		interactingStation.action(this);
+		return true;
 	}
 
 	/*
@@ -339,10 +345,13 @@ public class Player {
 		return renderOffsetX;
 	}
 
-	/*
-	 * Used by Speed power to increase speed of chef
-	 */
-	public static void speedIncrease(int factor) {
-		MOVEMENT_SPEED *= 2;
+
+	public void setMovementSpeed(float speed){
+		movementSpeed = speed;
 	}
+	public float getMovementSpeed(){
+		return movementSpeed;
+	}
+
+
 }

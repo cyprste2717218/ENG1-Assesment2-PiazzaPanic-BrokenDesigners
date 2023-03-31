@@ -18,11 +18,16 @@ import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.map.Kitchen;
 import com.github.brokendesigners.map.KitchenCollisionObject;
 import com.github.brokendesigners.map.interactable.Station;
+import com.github.brokendesigners.map.powerups.CarryCapacityPowerUp;
+import com.github.brokendesigners.map.powerups.CustomerWaitTimePowerUp;
+import com.github.brokendesigners.map.powerups.DoubleMoneyPowerUp;
+import com.github.brokendesigners.map.powerups.SpeedPowerUp;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.renderer.CustomerRenderer;
 import com.github.brokendesigners.renderer.PlayerRenderer;
 import com.github.brokendesigners.textures.Animations;
 
+import java.security.Key;
 import java.util.ArrayList;
 
 public class MainGame {
@@ -32,7 +37,7 @@ public class MainGame {
 	CustomerRenderer customerRenderer;
 	BubbleRenderer bubbleRenderer;
 
-	Match match;
+	public Match match;
 	TiledMap map;
 	OrthogonalTiledMapRenderer mapRenderer;
 
@@ -114,16 +119,20 @@ public class MainGame {
 			player.processMovement(kitchen.getKitchenObstacles());
 		}
 
-
 		if (Gdx.input.isKeyPressed(Keys.NUM_1)) {
 			setSelectedPlayer(0);			
-    } 
-    else if (Gdx.input.isKeyPressed(Keys.NUM_2)) {
-      setSelectedPlayer(1);
-    }
-    else if (Gdx.input.isKeyPressed(Keys.NUM_3)) {
-      setSelectedPlayer(2);
-    }
+    	}
+		else if (Gdx.input.isKeyPressed(Keys.NUM_2)) {
+		  setSelectedPlayer(1);
+		}
+		else if (Gdx.input.isKeyPressed(Keys.NUM_3)) {
+		  setSelectedPlayer(2);
+		}
+		else if(Gdx.input.isKeyJustPressed(Keys.F)){
+			//SpeedPowerUp speedPowerUp = new SpeedPowerUp(new Vector3(5,5,5),1,1,playerList.get(selectedPlayer), this);
+			CarryCapacityPowerUp powerUp = new CarryCapacityPowerUp(new Vector3(5,5,5),1,1,playerList.get(selectedPlayer), this, 10);
+			powerUp.usePowerUp();
+		}
 
 		spriteBatch.begin();
 		// Renders map in specific order to allow some cool rendering effects.

@@ -6,8 +6,6 @@ import java.util.Random;
 
 public class Match {
 
-    public static boolean moneyPower = false; // if money power is used, then effects how much is added in 'addMoney'.
-
     public Match(GameMode gameMode){
         this.gameMode = gameMode;
         money = 0.00;
@@ -23,7 +21,7 @@ public class Match {
         this.customersServed = customersServed;
         this.customersSoFar = customersSoFar;
     }
-
+    public boolean hasMoneyPower = false; // if money power is used, then effects how much is added in 'addMoney'.
     private GameMode gameMode;
     private int reputationPoints;
     private int customersServed;
@@ -52,9 +50,7 @@ public class Match {
     public void decrementReputationPoints() {reputationPoints--;}
 
     public void addMoney(double value) {
-        if (moneyPower) {money += value*2;}
-        else {money += value;}
-
+        money += hasMoneyPower ? value * 2: value;
     }
 
     public void addTip() { // potentially add functionality to base this value off of time spent on order

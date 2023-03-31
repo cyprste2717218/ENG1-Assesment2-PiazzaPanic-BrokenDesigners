@@ -242,4 +242,8 @@ public class CustomerManager {
 	public Match getMatch() {
 		return match;
 	}
+
+	public ArrayList<Customer> getCustomers(){
+		return customers;
+	}
 }
