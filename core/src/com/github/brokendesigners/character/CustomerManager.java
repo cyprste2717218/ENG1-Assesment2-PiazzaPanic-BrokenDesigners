@@ -175,9 +175,12 @@ public class CustomerManager {
 		if(TimeUtils.timeSinceMillis(spawningTime) > 10000L){
 			spawningTime = TimeUtils.millis();
 			Random random = new Random();
-			CustomerStation station = customerStations.get(random.nextInt(customerStations.size()-1));
-			customers.add(new Customer(customerRenderer, bubbleRenderer, animations,
+			for(int i = 0; i < random.nextInt(1,4); i++){
+				if(customerStations == null || customerStations.isEmpty()) continue;
+				CustomerStation station = customerStations.get(random.nextInt(customerStations.size()-1));
+				customers.add(new Customer(customerRenderer, bubbleRenderer, animations,
 						station, ItemRegister.itemRegister.get(getMeal()), spawnPoint, match));
+			}
 		}
 	}
 
