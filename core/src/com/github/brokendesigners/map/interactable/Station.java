@@ -30,6 +30,8 @@ public abstract class Station {
 	public Sound put_down;
 	public Sound failure;
 
+	public float stationUseTime = 0f;
+
 
 	protected Station(Rectangle rectangle, String n) {
 		this.pick_up = Gdx.audio.newSound(Gdx.files.internal("audio/pick_up.wav"));

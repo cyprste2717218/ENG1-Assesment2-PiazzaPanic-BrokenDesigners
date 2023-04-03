@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -18,10 +19,7 @@ import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.map.Kitchen;
 import com.github.brokendesigners.map.KitchenCollisionObject;
 import com.github.brokendesigners.map.interactable.Station;
-import com.github.brokendesigners.map.powerups.CarryCapacityPowerUp;
-import com.github.brokendesigners.map.powerups.CustomerWaitTimePowerUp;
-import com.github.brokendesigners.map.powerups.DoubleMoneyPowerUp;
-import com.github.brokendesigners.map.powerups.SpeedPowerUp;
+import com.github.brokendesigners.map.powerups.*;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.renderer.CustomerRenderer;
 import com.github.brokendesigners.renderer.PlayerRenderer;
@@ -57,6 +55,7 @@ public class MainGame {
 
 	OrthographicCamera camera;
 	OrthographicCamera hud_cam;
+	PowerUpManager powerUpManager;
 
 	public MainGame(
 		SpriteBatch spriteBatch,
@@ -103,6 +102,7 @@ public class MainGame {
 
 		spriteBatch.enableBlending();
 		customerManager.begin();
+		powerUpManager = new PowerUpManager(playerList.get(selectedPlayer), this, customerManager);
 	}
 
 	public void renderGame(){
@@ -128,11 +128,9 @@ public class MainGame {
 		else if (Gdx.input.isKeyPressed(Keys.NUM_3)) {
 		  setSelectedPlayer(2);
 		}
-		else if(Gdx.input.isKeyJustPressed(Keys.F)){
-			//SpeedPowerUp speedPowerUp = new SpeedPowerUp(new Vector3(5,5,5),1,1,playerList.get(selectedPlayer), this);
-			CarryCapacityPowerUp powerUp = new CarryCapacityPowerUp(new Vector3(5,5,5),1,1,playerList.get(selectedPlayer), this, 10);
-			powerUp.usePowerUp();
-		}
+		powerUpManager.setPlayer(playerList.get(selectedPlayer));
+		powerUpManager.handlePowerUps();
+
 
 		spriteBatch.begin();
 		// Renders map in specific order to allow some cool rendering effects.
@@ -155,6 +153,9 @@ public class MainGame {
 		mapRenderer.renderTileLayer(
 			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Front"));
 		// ^^ renders this layer after player which allows the player to go behind walls.
+		for(PowerUp powerUp: powerUpManager.getActivePowerUps()){
+			powerUp.getSprite().draw(spriteBatch);
+		}
 		spriteBatch.end();
 		customerManager.update(spriteBatch, hud_batch);
 
@@ -216,6 +217,10 @@ public class MainGame {
 			}
 		}
 		customerRenderer.end();
+	}
+
+	public Kitchen getKitchen(){
+		return kitchen;
 	}
 
 
