@@ -47,7 +47,8 @@ public class StationTests {
 
     }
     @Test
-    public void testApplicable() {
+    public void testApplicableItem() {
+        // Attempting to chop onion
         Texture fakeTexture = Mockito.mock(Texture.class);
         Item Onion = new Onion(fakeTexture);
 
@@ -55,6 +56,18 @@ public class StationTests {
         fakeCuttingStation.inuse = false;
         fakeCuttingStation.setName("Cutting_Station");
         assertTrue(fakeCuttingStation.Applicable(fakeCuttingStation.getCuttables(), "Cutting_Station",Onion.name));
+
+    }
+    @Test
+    public void testNonApplicableItem() {
+        // Attempting to chop meat
+        Texture fakeTexture = Mockito.mock(Texture.class);
+        Item Meat = new Meat(fakeTexture);
+
+        CuttingStation fakeCuttingStation = new CuttingStation();
+        fakeCuttingStation.inuse = false;
+        fakeCuttingStation.setName("Cutting_Station");
+        assertFalse(fakeCuttingStation.Applicable(fakeCuttingStation.getCuttables(), "Cutting_Station",Meat.name));
 
     }
 }
