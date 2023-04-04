@@ -3,9 +3,8 @@ package com.github.brokendesigners;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.github.brokendesigners.enums.GameMode;
 import com.github.brokendesigners.character.Customer;
-import com.github.brokendesigners.character.CustomerManager;
+
 import java.util.Formatter;
-import java.util.Random;
 
 public class Match {
 
@@ -54,22 +53,77 @@ public class Match {
     }
     public void decrementReputationPoints() {reputationPoints--;}
 
-    public void addMoney(double value) {
-        money += value;
-    }
 
-    public void addTip() { // potentially add functionality to base this value off of time spent on order
-        // Randomrandom = new Random();
+    public void failedOrder() {money += 0;}
 
-        //double tip = random.nextDouble();
-        //money += tip;
 
-        // does this work for each customer instance?
-        if (TimeUtils.timeSinceMillis(customer.waitingStartTime/1000 ) < (0.5*customer.customerWaitTime)) {
+    /*
+     *  Methodology:
+     *
+     * each meal that can be ordered has a different max wait time customers are willing to wait,
+     * the method will give a tip if the order is served before 75% of max customer waiting time for the order is elapsed,
+     * with:
+     *  - customer waiting time being between 75% and 50% of max customer wait time inclusive getting a 10% tip of order total
+     *  - customer waiting time being between 50% and 25% of max customer wait time inclusive getting a 20% tip of order total
+     *  - customer waiting time being between 0% and 25% of max customer waiting time inclusive getting a 50% tip of order total
+     *
+     *
+     *  */
+    public void addMoney(String mealBeenServed, long customerWaitingStartTime, long customerMaxWaitTime) {
+
+
+
+        double orderTotal = 0;
+        double orderTip = 0;
+
+        switch(mealBeenServed) {
+            case "Salad":
+                orderTotal = 7;
+                break;
+            case "Burger":
+                orderTotal = 12;
+                break;
+            case "Pizza":
+                orderTotal = 15;
+                break;
+            default:
+                orderTotal += 0; //test
+                System.out.println("Not a valid meal name");
 
         }
 
+        money += orderTotal;
+        // test print to see meal argument passed
+        // System.out.println("meal served: " + mealBeenServed);
+
+
+        // determining amount of tip
+
+        if ((TimeUtils.timeSinceMillis(customerWaitingStartTime/1000 ) < (0.75*customerMaxWaitTime)) && (TimeUtils.timeSinceMillis(customerWaitingStartTime/1000 ) >= (0.5*customer.customerWaitTime))) {
+
+            orderTip = orderTotal*0.1;
+            System.out.println("Order time between 75% and 50%");
+        } else if ((TimeUtils.timeSinceMillis(customerWaitingStartTime/1000 ) < (0.5*customerMaxWaitTime)) && (TimeUtils.timeSinceMillis(customerWaitingStartTime/1000 ) >= (0.25*customer.customerWaitTime))) {
+
+            orderTip = orderTotal*0.2;
+            System.out.println("Order time between 50% and 25%");
+        } else if ((TimeUtils.timeSinceMillis(customerWaitingStartTime/1000 ) < (0.25*customerMaxWaitTime))) {
+
+            orderTip = orderTotal*0.5;
+            System.out.println("Order time less than 25%");
+        } else {
+            money += 0;
+            System.out.println("Too long wait time so no tip");
+        }
+
+
+        money += orderTip;
+        System.out.println("order tip amount: £" + orderTip);
+
+
     }
+
+
 
     public void subtractMoney(double value) {
         money -= value;
