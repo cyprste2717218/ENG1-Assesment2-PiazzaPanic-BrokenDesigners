@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.github.brokendesigners.item.Item;
 import com.github.brokendesigners.map.KitchenCollisionObject;
 import com.github.brokendesigners.map.interactable.Station;
 import java.lang.reflect.InvocationTargetException;
@@ -335,5 +336,8 @@ public class Player {
 	 */
 	public float getRenderOffsetX() {
 		return renderOffsetX;
+	}
+	public Item getTopOfHand()	{
+		return hand.heldItems.get(0);
 	}
 }
