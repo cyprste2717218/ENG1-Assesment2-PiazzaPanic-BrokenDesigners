@@ -42,7 +42,7 @@ public class Customer {
 	Match match;
 
 	public long waitingStartTime = -1L;
-	public long customerWaitTime = 60000L;
+	public long customerWaitTime = 150000L;
 
 	float movement_speed = 0; //Intentionally lowercase - NOT A CONSTANT - kind of a constant - you decide :)
 	/*
