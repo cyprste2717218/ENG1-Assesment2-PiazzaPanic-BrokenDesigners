@@ -28,11 +28,12 @@ public class CookingStation extends Station {
 
     Bubble bubble;
 
-    public CookingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer){
+    public CookingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer, boolean locked){
         super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Cooking_Station");
         this.handPosition = new Vector2(handX, handY);
         this.bubble = new ActionBubble(bubbleRenderer, new Vector2(handPosition.x - 8f * Constants.UNIT_SCALE, handPosition.y),
                 Animations.gearAnimation);
+        this.locked = locked;
     }
 
     //Cooking Operation

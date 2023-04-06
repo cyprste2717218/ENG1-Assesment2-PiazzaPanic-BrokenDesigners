@@ -160,7 +160,19 @@ public class Kitchen {
 						rectangle.width * Constants.UNIT_SCALE,
 						rectangle.height * Constants.UNIT_SCALE,
 						handX,
-						handY, bubbleRenderer));
+						handY, bubbleRenderer, false));
+			} else if (rectangleMapObject.getProperties().get("objectType").equals("Cooking_Locked")){
+
+				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
+				float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
+
+				kitchenStations.add(
+						new CookingStation(
+								objectPosition,
+								rectangle.width * Constants.UNIT_SCALE,
+								rectangle.height * Constants.UNIT_SCALE,
+								handX,
+								handY, bubbleRenderer, true));
 			} else if (rectangleMapObject.getProperties().get("objectType").equals("Cutting")){
 
 				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;

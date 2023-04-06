@@ -25,6 +25,7 @@ public abstract class Station {
 	public Vector2 handPosition = new Vector2(0,0);
 	// where should the item be rendered - In the TiledMap, the co-ords for HandX and HandY are relative to the bottom left of the interact area.
 	public boolean inuse;
+	public boolean locked;
 
 	public Sound pick_up;
 	public Sound put_down;
@@ -116,7 +117,10 @@ public abstract class Station {
 	 * Handles dropOff from player
 	 */
 	public boolean dropOff(Player player){
-		if (this.hasEmptyHand()){
+		if (this.locked)	{
+			failure.play();
+			System.out.println("Station Locked");
+		} else if (this.hasEmptyHand()) {
 			if (!player.hand.isEmpty()) {
 				put_down.play();
 			}
@@ -125,6 +129,7 @@ public abstract class Station {
 		} else {
 			return false;
 		}
+		return false;
 	}
 	/*
 	 * Renders the items on the counter - not the counter itself, that is done by the TiledMapRenderer in MainGame.java
