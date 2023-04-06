@@ -5,7 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.github.brokendesigners.item.Item;
 import java.util.ArrayList;
 /*
- * Hand stack of size 3.
+ * Hand stack of size 4.
  * Acts as a FIFO stack.
  */
 public class Hand{
@@ -18,7 +18,7 @@ public class Hand{
 	// i.e. when interacting with station, cannot pickup item
 	public boolean hand_ability;
 	public Hand(){ // Instantiates Hand
-		this.heldItems = new ArrayList<Item>(3);
+		this.heldItems = new ArrayList<Item>(4);
 		hand_ability = true;
 	}
 
@@ -27,7 +27,7 @@ public class Hand{
 	 * Gives item to hand. Use an ItemRegister reference for the item to be recognisable to stations.
 	 */
 	public void give(Item item){
-		if (this.heldItems.size() <= 3 && hand_ability){
+		if (this.heldItems.size() <= 4 && hand_ability){
 			this.heldItems.add(item);
 
 			System.out.println("held: " + this.heldItems);
@@ -70,7 +70,7 @@ public class Hand{
 	 * Returns if hand is full
 	 */
 	public boolean isFull(){
-		if (this.heldItems.size() == 3){
+		if (this.heldItems.size() == 4){
 			return true;
 		}
 		else{

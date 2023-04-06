@@ -15,7 +15,7 @@ import com.github.brokendesigners.textures.Animations;
 
 public class CuttingStation extends Station {
 
-    static final String[] Cuttables = {"Tomato", "Lettuce", "Onion","Bun"};
+    static final String[] Cuttables = {"Tomato", "Lettuce", "Onion", "Bun", "Potato"};
     Bubble bubble;
 
     public CuttingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer){
@@ -25,12 +25,15 @@ public class CuttingStation extends Station {
             Animations.cuttingAnimation);
 
     }
+    public CuttingStation() {}
+
 
     //Cutting Operation
     @Override
     public boolean action(final Player player) {
         if (this.inuse == false && this.hand != null) {
             if (Applicable(Cuttables, "Cutting_Station", hand.getName()) == true) {
+                System.out.println("Worked");
                 this.inuse = true;
                 player.disableMovement();
                 player.hand.disable_hand_ability();
@@ -54,6 +57,13 @@ public class CuttingStation extends Station {
             }
         }
         return false;
+    }
+    // Both functions used for testing
+    public String[] getCuttables()  {
+        return Cuttables;
+    }
+    public void setName(String name)   {
+        this.station_name = name;
     }
     
 }

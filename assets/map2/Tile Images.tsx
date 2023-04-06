@@ -74,6 +74,15 @@
  <tile id="208">
   <image width="32" height="32" source="Stations/Dispensers/bun_dispenser.png"/>
  </tile>
+ <tile id="223">
+  <image width="32" height="32" source="Stations/Dispensers/dough_dispenser.png"/>
+ </tile>
+ <tile id="224">
+   <image width="32" height="32" source="Stations/Dispensers/cheese_dispenser.png"/>
+ </tile>
+ <tile id="225">
+   <image width="32" height="32" source="Stations/Dispensers/potato_dispenser.png"/>
+ </tile>
  <tile id="210">
   <image width="32" height="32" source="Counters/counter_BL_top.png"/>
  </tile>

@@ -13,23 +13,20 @@ public abstract class Item implements Disposable {
 	public Texture texture;
 	public String name;
 	public Boolean Cooking;
+	public Boolean Baking;
 	private int reward;
-
-	public String difficultyToMake;
 
 	public Item(String n){
 		this.name = n;
 		this.Cooking = false;
-		this.difficultyToMake = "Invalid";
+		this.Baking = false;
 		reward = 0;
 	}
-	public Item(String n, int reward, String difficultyToMake){
+	public Item(String n, int reward){
 		this.name = n;
 		this.Cooking = false;
-		this.difficultyToMake = difficultyToMake;
 		this.reward = reward;
 	}
-
 
 	public Texture getTexture(){
 		return this.texture;

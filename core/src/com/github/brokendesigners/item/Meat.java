@@ -4,11 +4,14 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Meat extends Item{
 
-	public Texture texture = new Texture("items/meat.png");
+	public Texture texture;
 
 	public Meat() {
 		super("Meat");
-
+		texture = new Texture("items/meat.png");
+	}
+	public Meat(Texture texture)	{
+		super("Meat");
 	}
 
 

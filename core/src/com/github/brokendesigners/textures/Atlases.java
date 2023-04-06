@@ -17,7 +17,8 @@ public class Atlases {
 	public static TextureAtlas glibbertTextures = new TextureAtlas("pack textures/chef.atlas");
 	// frames for glibbertTextures
 	public static TextureAtlas glibbertTextures2 = new TextureAtlas("pack textures/chef2.atlas");
-	// frames for blue glibbert
+	public static TextureAtlas glibbertTextures3 = new TextureAtlas("pack textures/chef3.atlas");
+
 	public static TextureAtlas pattyTextures = new TextureAtlas("indicators/patty forming/meat.atlas");
 	// frames for patty forming animation
 	public static TextureAtlas cuttingTextures = new TextureAtlas("indicators/cutting/cutting.atlas");
@@ -30,6 +31,7 @@ public class Atlases {
 		bluggusTextures.dispose();
 		glibbertTextures.dispose();
 		glibbertTextures2.dispose();
+		glibbertTextures3.dispose();
 		pattyTextures.dispose();
 		cuttingTextures.dispose();
 	}

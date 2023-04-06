@@ -1,5 +1,7 @@
 package com.github.brokendesigners.map.interactable;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -11,14 +13,17 @@ import com.github.brokendesigners.bubble.ActionBubble;
 import com.github.brokendesigners.bubble.Bubble;
 import com.github.brokendesigners.item.Item;
 import com.github.brokendesigners.item.ItemRegister;
+import com.github.brokendesigners.menu.Buttons.Button;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.textures.Animations;
 import com.badlogic.gdx.utils.Timer.Task;
 
+import java.security.Key;
+
 
 public class CookingStation extends Station {
 
-    static final String[] Cookables = {"Patty","Bun"};
+    static final String[] Cookables = {"Patty","Bun", "Tomato"};
     static final String[] Flippables = {"Patty"};
 
     Bubble bubble;
@@ -27,7 +32,7 @@ public class CookingStation extends Station {
         super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Cooking_Station");
         this.handPosition = new Vector2(handX, handY);
         this.bubble = new ActionBubble(bubbleRenderer, new Vector2(handPosition.x - 8f * Constants.UNIT_SCALE, handPosition.y),
-                Animations.cuttingAnimation);
+                Animations.gearAnimation);
     }
 
     //Cooking Operation
@@ -121,8 +126,13 @@ public class CookingStation extends Station {
     }
 */
     //Flipping
-    private Item Flipping() //Once key to flup is pushed
+    private Item isFlipped() //Once key to flip is pushed
     {
+//
+//        timer.scheduleTask(task, 0.5f);
+//
+//        return temp[0];
+
 //        if(this.hand != null) //only if a value is held
 //        {
 //            if(Applicable(Flippables,"Cooking_Station",hand.getName())==true)
