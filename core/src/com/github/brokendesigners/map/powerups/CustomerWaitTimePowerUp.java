@@ -19,7 +19,7 @@ public class CustomerWaitTimePowerUp extends PowerUp{
     public CustomerWaitTimePowerUp(Vector2 worldPosition, Player player, MainGame game, CustomerManager customerManager, PowerUpManager powerUpManager) {
         super(worldPosition, player, game, 30f, powerUpManager);
         this.customerManager = customerManager;
-        sprite = new Sprite(new Texture(Gdx.files.internal("items/burger.png")));
+        sprite = new Sprite(new Texture(Gdx.files.internal("items/Customer.png")));
         sprite.setPosition(worldPosition.x, worldPosition.y);
         sprite.setScale(0.125f);
         System.out.println("Spawned customer wait time power up");

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class PrepTimePowerUp extends PowerUp{
     public PrepTimePowerUp(Vector2 worldPosition, Player player, MainGame game, PowerUpManager powerUpManager) {
         super(worldPosition, player, game, 15f, powerUpManager);
-        sprite = new Sprite(new Texture(Gdx.files.internal("items/burger.png")));
+        sprite = new Sprite(new Texture(Gdx.files.internal("items/Cooking.png")));
         sprite.setScale(0.125f);
         System.out.println("Spawned prep time power up");
     }

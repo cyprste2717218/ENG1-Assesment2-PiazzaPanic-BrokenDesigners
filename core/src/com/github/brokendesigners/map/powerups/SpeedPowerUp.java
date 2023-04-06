@@ -13,7 +13,7 @@ public class SpeedPowerUp extends PowerUp{
 
     public SpeedPowerUp(Vector2 worldPosition, Player player, MainGame game, PowerUpManager powerUpManager) {
         super(worldPosition, player, game, 15f, powerUpManager);
-        sprite = new Sprite(new Texture(Gdx.files.internal("items/burger.png")));
+        sprite = new Sprite(new Texture(Gdx.files.internal("items/Speed.png")));
         sprite.setPosition(worldPosition.x, worldPosition.y);
         sprite.setScale(0.125f);
         System.out.println("Spawned speed power up");
