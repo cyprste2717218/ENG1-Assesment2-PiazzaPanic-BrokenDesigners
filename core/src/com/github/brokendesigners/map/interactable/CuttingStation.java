@@ -18,12 +18,12 @@ public class CuttingStation extends Station {
     static final String[] Cuttables = {"Tomato", "Lettuce", "Onion", "Bun", "Potato"};
     Bubble bubble;
 
-    public CuttingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer){
+    public CuttingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer, boolean locked){
         super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Cutting_Station");
         this.handPosition = new Vector2(handX, handY);
         this.bubble = new ActionBubble(bubbleRenderer, new Vector2(handPosition.x - 8f * Constants.UNIT_SCALE, handPosition.y),
             Animations.cuttingAnimation);
-
+        this.locked = locked;
     }
     public CuttingStation() {}
 
@@ -31,6 +31,12 @@ public class CuttingStation extends Station {
     //Cutting Operation
     @Override
     public boolean action(final Player player) {
+        // to unlock the station
+        if (this.locked)    {
+            this.unlcockStation();
+            unlockFX.play();
+            System.out.println("Station Unlocked");
+        }
         if (this.inuse == false && this.hand != null) {
             if (Applicable(Cuttables, "Cutting_Station", hand.getName()) == true) {
                 System.out.println("Worked");

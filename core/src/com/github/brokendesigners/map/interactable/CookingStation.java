@@ -39,7 +39,12 @@ public class CookingStation extends Station {
     //Cooking Operation
     @Override
     public boolean action(final Player player) {
-        
+        // to unlock the station
+        if (this.locked)    {
+            this.unlcockStation();
+            unlockFX.play();
+            System.out.println("Station Unlocked");
+        }
         // if player is holding something, station is not already in use and item
         // in hand has not already been cooked
         if (this.inuse == false && this.hand != null && this.hand.Cooking == false) {

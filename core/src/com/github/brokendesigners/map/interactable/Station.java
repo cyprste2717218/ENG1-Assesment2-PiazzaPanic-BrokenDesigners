@@ -2,6 +2,8 @@ package com.github.brokendesigners.map.interactable;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -26,16 +28,19 @@ public abstract class Station {
 	// where should the item be rendered - In the TiledMap, the co-ords for HandX and HandY are relative to the bottom left of the interact area.
 	public boolean inuse;
 	public boolean locked;
+	public static Sprite lockSprite;
 
 	public Sound pick_up;
 	public Sound put_down;
 	public Sound failure;
+	public Sound unlockFX;
 
 
 	protected Station(Rectangle rectangle, String n) {
 		this.pick_up = Gdx.audio.newSound(Gdx.files.internal("audio/pick_up.wav"));
 		this.put_down = Gdx.audio.newSound(Gdx.files.internal("audio/put_down.wav"));
 		this.failure = Gdx.audio.newSound(Gdx.files.internal("audio/failure.wav"));
+		this.unlockFX = Gdx.audio.newSound(Gdx.files.internal("audio/unlock.wav"));
 		this.station_name = n;
 		this.hand = null;
 		this.storing = false;
@@ -142,11 +147,23 @@ public abstract class Station {
 		spriteBatch.end();
 
 	}
+	public void activateLock(SpriteBatch spriteBatch)  {
+		lockSprite = new Sprite(new Texture(Gdx.files.internal("items/lock.png")));
+		spriteBatch.begin();
+		if (this.locked)	{
+			spriteBatch.draw(lockSprite, (float) (this.handPosition.x-0.5), this.handPosition.y, 24 * Constants.UNIT_SCALE, 24 * Constants.UNIT_SCALE);
+		}
+		spriteBatch.end();
+	}
+	public void unlcockStation()	{
+		this.locked = false;
+	}
 
 	public void dispose(){
 		put_down.dispose();
 		pick_up.dispose();
 		failure.dispose();
+		unlockFX.dispose();
 	}
 
 

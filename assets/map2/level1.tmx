@@ -1,6 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="left-up" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="161">
- <tileset firstgid="1" source="Tile Images.tsx"/>
+ <tileset firstgid="1" name="Tile Images" tilewidth="36" tileheight="32" tilecount="41" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <transformations hflip="1" vflip="1" rotate="1" preferuntransformed="0"/>
+  <tile id="139">
+   <image width="32" height="32" source="tile.png"/>
+  </tile>
+  <tile id="150">
+   <image width="32" height="32" source="Walls/bottom_lower.png"/>
+  </tile>
+  <tile id="151">
+   <image width="32" height="32" source="Walls/bottom_lower_window.png"/>
+  </tile>
+  <tile id="154">
+   <image width="32" height="32" source="Walls/bottom_upper.png"/>
+  </tile>
+  <tile id="155">
+   <image width="32" height="32" source="Walls/bottom_upper_window.png"/>
+  </tile>
+  <tile id="156">
+   <image width="32" height="32" source="Walls/side.png"/>
+  </tile>
+  <tile id="173">
+   <image width="32" height="32" source="Setting/grass.png"/>
+  </tile>
+  <tile id="174">
+   <image width="32" height="32" source="Setting/grass_path.png"/>
+  </tile>
+  <tile id="175">
+   <image width="32" height="32" source="Setting/Pathement Test.png"/>
+  </tile>
+  <tile id="176">
+   <image width="32" height="32" source="Setting/road middle.png"/>
+  </tile>
+  <tile id="177">
+   <image width="32" height="32" source="Setting/roadchunk.png"/>
+  </tile>
+  <tile id="181">
+   <image width="32" height="32" source="Stations/cooker_lower.png"/>
+  </tile>
+  <tile id="187">
+   <image width="32" height="32" source="Stations/baking_top.png"/>
+  </tile>
+  <tile id="188">
+   <image width="32" height="32" source="Stations/CookingTop.png"/>
+  </tile>
+  <tile id="189">
+   <image width="32" height="32" source="Stations/assembler.png"/>
+  </tile>
+  <tile id="190">
+   <image width="32" height="32" source="Stations/cutting.png"/>
+  </tile>
+  <tile id="195">
+   <image width="32" height="32" source="Stations/bin.png"/>
+  </tile>
+  <tile id="198">
+   <image width="32" height="32" source="Stations/dispenser_centre.png"/>
+  </tile>
+  <tile id="201">
+   <image width="32" height="32" source="Stations/dispenser_top.png"/>
+  </tile>
+  <tile id="203">
+   <image width="32" height="32" source="Stations/Dispensers/meat_dispenser.png"/>
+  </tile>
+  <tile id="204">
+   <image width="32" height="32" source="Stations/Dispensers/tomato_dispenser.png"/>
+  </tile>
+  <tile id="206">
+   <image width="32" height="32" source="Stations/Dispensers/onion_dispenser.png"/>
+  </tile>
+  <tile id="207">
+   <image width="32" height="32" source="Stations/Dispensers/lettuce_dispenser.png"/>
+  </tile>
+  <tile id="208">
+   <image width="32" height="32" source="Stations/Dispensers/bun_dispenser.png"/>
+  </tile>
+  <tile id="223">
+   <image width="36" height="32" source="Stations/Dispensers/dough_dispenser.png"/>
+  </tile>
+  <tile id="224">
+   <image width="36" height="32" source="Stations/Dispensers/cheese_dispenser.png"/>
+  </tile>
+  <tile id="225">
+   <image width="36" height="32" source="Stations/Dispensers/potato_dispenser.png"/>
+  </tile>
+  <tile id="210">
+   <image width="32" height="32" source="Counters/counter_BL_top.png"/>
+  </tile>
+  <tile id="211">
+   <image width="32" height="32" source="Counters/counter_BR_top.png"/>
+  </tile>
+  <tile id="212">
+   <image width="32" height="32" source="Counters/counter_centre.png"/>
+  </tile>
+  <tile id="213">
+   <image width="32" height="32" source="Counters/counter_left.png"/>
+  </tile>
+  <tile id="214">
+   <image width="32" height="32" source="Counters/counter_right.png"/>
+  </tile>
+  <tile id="215">
+   <image width="32" height="32" source="Counters/counter_side_left.png"/>
+  </tile>
+  <tile id="216">
+   <image width="32" height="32" source="Counters/counter_side_right.png"/>
+  </tile>
+  <tile id="217">
+   <image width="32" height="32" source="Counters/counter_TL_bottom.png"/>
+  </tile>
+  <tile id="218">
+   <image width="32" height="32" source="Counters/counter_TL_top.png"/>
+  </tile>
+  <tile id="219">
+   <image width="32" height="32" source="Counters/counter_TR_bottom.png"/>
+  </tile>
+  <tile id="220">
+   <image width="32" height="32" source="Counters/counter_TR_top.png"/>
+  </tile>
+  <tile id="221">
+   <image width="32" height="32" source="Stations/dispenser.png"/>
+  </tile>
+  <tile id="222">
+   <image width="32" height="32" source="Counters/serving_counter.png"/>
+  </tile>
+  <tile id="226">
+   <image width="32" height="32" source="Stations/cooker_lower_locked.png"/>
+  </tile>
+ </tileset>
  <layer id="4" name="Floor" width="30" height="20">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -31,12 +157,12 @@
 0,0,157,155,155,157,155,155,155,155,155,155,155,155,155,155,155,155,155,155,155,157,155,155,155,155,155,157,0,0,
 0,0,157,151,151,157,151,151,151,151,151,151,151,151,151,151,151,151,151,151,151,222,151,151,151,151,151,157,0,0,
 0,0,157,0,0,155,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,157,0,202,0,202,0,157,0,0,
-0,0,157,0,0,151,0,0,219,213,182,227,215,0,214,213,182,213,221,0,0,157,0,199,0,199,0,157,0,0,
+0,0,157,0,0,151,0,0,219,213,182,182,215,0,214,182,182,213,221,0,0,157,0,199,0,199,0,157,0,0,
 0,0,157,0,0,0,0,0,216,0,0,0,0,0,0,0,0,0,217,0,0,155,0,199,0,199,0,157,0,0,
 0,0,157,0,0,0,0,0,218,0,0,214,213,213,213,215,0,0,220,0,0,151,0,199,0,199,0,157,0,0,
 0,0,157,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,202,0,199,0,157,0,0,
 0,0,157,0,0,0,0,0,211,0,0,0,0,0,0,0,0,0,212,0,0,0,0,199,0,199,0,157,0,0,
-0,0,157,0,0,0,0,0,214,213,190,213,215,0,214,213,213,213,215,0,0,157,0,199,0,199,0,157,0,0,
+0,0,157,0,0,0,0,0,214,213,190,213,190,0,214,213,213,213,215,0,0,157,0,199,0,199,0,157,0,0,
 0,0,157,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,157,0,222,0,222,0,157,0,0,
 0,0,155,140,140,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,151,140,140,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -60,7 +186,7 @@
 174,174,0,0,0,223,0,0,0,0,0,0,0,196,0,0,0,0,0,0,0,0,0,205,0,224,0,0,174,174,
 174,174,0,0,0,223,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,222,0,225,0,0,174,174,
 174,174,0,0,0,223,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,209,0,226,0,0,174,174,
-174,174,0,0,0,223,0,0,0,0,0,0,190,0,191,0,191,0,0,0,0,0,0,204,0,0,0,0,174,174,
+174,174,0,0,0,223,0,0,0,0,0,0,0,0,191,191,191,0,0,0,0,0,0,204,0,0,0,0,174,174,
 174,174,0,0,0,157,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,174,
 174,174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,174,
 174,174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,174,
@@ -78,7 +204,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,189,189,0,0,0,0,188,0,0,0,0,0,0,202,0,202,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,189,189,0,0,0,188,188,0,0,0,0,0,0,202,0,202,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -97,7 +223,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="3" name="Interact" visible="0">
+ <objectgroup id="3" name="Interact">
   <object id="98" x="352" y="190" width="32" height="36">
    <properties>
     <property name="handX" type="float" value="9"/>
@@ -163,7 +289,7 @@
    <properties>
     <property name="handX" type="float" value="9"/>
     <property name="handY" type="float" value="23"/>
-    <property name="objectType" value="Counter"/>
+    <property name="objectType" value="Baking_Locked"/>
    </properties>
   </object>
   <object id="109" x="512" y="126" width="32" height="36">
@@ -291,7 +417,7 @@
    <properties>
     <property name="handX" type="float" value="9"/>
     <property name="handY" type="float" value="23"/>
-    <property name="objectType" value="Counter"/>
+    <property name="objectType" value="Cutting_Locked"/>
    </properties>
   </object>
   <object id="127" x="512" y="286" width="32" height="36">
