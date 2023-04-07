@@ -26,12 +26,15 @@ public class CuttingStation extends Station {
         stationUseTime = 4f;
 
     }
+    public CuttingStation() {}
+
 
     //Cutting Operation
     @Override
     public boolean action(final Player player) {
         if (this.inuse == false && this.hand != null) {
             if (Applicable(Cuttables, "Cutting_Station", hand.getName()) == true) {
+                System.out.println("Worked");
                 this.inuse = true;
                 player.disableMovement();
                 player.hand.disable_hand_ability();
@@ -55,6 +58,13 @@ public class CuttingStation extends Station {
             }
         }
         return false;
+    }
+    // Both functions used for testing
+    public String[] getCuttables()  {
+        return Cuttables;
+    }
+    public void setName(String name)   {
+        this.station_name = name;
     }
     
 }
