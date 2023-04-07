@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -18,11 +19,13 @@ import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.map.Kitchen;
 import com.github.brokendesigners.map.KitchenCollisionObject;
 import com.github.brokendesigners.map.interactable.Station;
+import com.github.brokendesigners.map.powerups.*;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.renderer.CustomerRenderer;
 import com.github.brokendesigners.renderer.PlayerRenderer;
 import com.github.brokendesigners.textures.Animations;
 
+import java.security.Key;
 import java.util.ArrayList;
 
 public class MainGame {
@@ -32,7 +35,7 @@ public class MainGame {
 	CustomerRenderer customerRenderer;
 	BubbleRenderer bubbleRenderer;
 
-	Match match;
+	public Match match;
 	TiledMap map;
 	OrthogonalTiledMapRenderer mapRenderer;
 
@@ -52,6 +55,7 @@ public class MainGame {
 
 	OrthographicCamera camera;
 	OrthographicCamera hud_cam;
+	PowerUpManager powerUpManager;
 
 	public MainGame(
 		SpriteBatch spriteBatch,
@@ -98,6 +102,7 @@ public class MainGame {
 
 		spriteBatch.enableBlending();
 		customerManager.begin();
+		powerUpManager = new PowerUpManager(playerList.get(selectedPlayer), this, customerManager);
 	}
 
 	public void renderGame(){
@@ -114,16 +119,18 @@ public class MainGame {
 			player.processMovement(kitchen.getKitchenObstacles());
 		}
 
-
 		if (Gdx.input.isKeyPressed(Keys.NUM_1)) {
 			setSelectedPlayer(0);			
-    } 
-    else if (Gdx.input.isKeyPressed(Keys.NUM_2)) {
-      setSelectedPlayer(1);
-    }
-    else if (Gdx.input.isKeyPressed(Keys.NUM_3)) {
-      setSelectedPlayer(2);
-    }
+    	}
+		else if (Gdx.input.isKeyPressed(Keys.NUM_2)) {
+		  setSelectedPlayer(1);
+		}
+		else if (Gdx.input.isKeyPressed(Keys.NUM_3)) {
+		  setSelectedPlayer(2);
+		}
+		powerUpManager.setPlayer(playerList.get(selectedPlayer));
+		powerUpManager.handlePowerUps();
+
 
 		spriteBatch.begin();
 		// Renders map in specific order to allow some cool rendering effects.
@@ -146,6 +153,9 @@ public class MainGame {
 		mapRenderer.renderTileLayer(
 			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Front"));
 		// ^^ renders this layer after player which allows the player to go behind walls.
+		for(PowerUp powerUp: powerUpManager.getActivePowerUps()){
+			powerUp.getSprite().draw(spriteBatch);
+		}
 		spriteBatch.end();
 		customerManager.update(spriteBatch, hud_batch);
 
@@ -207,6 +217,10 @@ public class MainGame {
 			}
 		}
 		customerRenderer.end();
+	}
+
+	public Kitchen getKitchen(){
+		return kitchen;
 	}
 
 

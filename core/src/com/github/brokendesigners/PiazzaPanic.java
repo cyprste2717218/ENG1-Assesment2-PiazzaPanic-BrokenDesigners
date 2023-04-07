@@ -8,6 +8,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.brokendesigners.character.CustomerManager;
@@ -15,6 +16,7 @@ import com.github.brokendesigners.enums.GameMode;
 import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.map.Kitchen;
 
+import com.github.brokendesigners.map.powerups.SpeedPowerUp;
 import com.github.brokendesigners.menu.MenuScreen;
 import com.github.brokendesigners.textures.Atlases;
 

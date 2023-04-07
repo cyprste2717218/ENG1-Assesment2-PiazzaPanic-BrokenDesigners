@@ -146,7 +146,7 @@ public class Customer {
 				break;
 			case WAITING: // Phase 1 -- Customer is waiting for meal
 				if(waitingStartTime == -1L) waitingStartTime = TimeUtils.millis();
-				System.out.println("Current customer waiting time " + TimeUtils.timeSinceMillis(waitingStartTime));
+				//System.out.println(TimeUtils.timeSinceMillis(waitingStartTime));
 				//TODO: Improve timer to be pausable, have a visual and work with difficulty modes
 				if(TimeUtils.timeSinceMillis(waitingStartTime) > customerWaitTime){
 					if(bubble != null)	bubble.setVisible(false);

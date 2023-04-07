@@ -23,7 +23,7 @@ public class Match {
         this.customersServed = customersServed;
         this.customersSoFar = customersSoFar;
     }
-
+    public boolean hasMoneyPower = false; // if money power is used, then effects how much is added in 'addMoney'.
     private GameMode gameMode;
 
     private Customer customer;
@@ -52,7 +52,6 @@ public class Match {
         reputationPoints++;
     }
     public void decrementReputationPoints() {reputationPoints--;}
-
 
     public void failedOrder() {money += 0;}
 
@@ -92,7 +91,7 @@ public class Match {
                 System.out.println("Not a valid meal name");
 
         }
-
+        orderTotal = hasMoneyPower ? orderTotal * 2: orderTotal;
         money += orderTotal;
         // test print to see meal argument passed
         // System.out.println("meal served: " + mealBeenServed);

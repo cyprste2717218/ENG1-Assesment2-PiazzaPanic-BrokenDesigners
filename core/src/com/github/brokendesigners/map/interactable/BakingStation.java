@@ -22,6 +22,7 @@ public class BakingStation extends Station {
         this.handPosition = new Vector2(handX, handY);
         this.bubble = new ActionBubble(bubbleRenderer, new Vector2(handPosition.x - 8f * Constants.UNIT_SCALE, handPosition.y),
                 Animations.gearAnimation);
+        stationUseTime = 4f;
     }
 
     @Override
@@ -43,7 +44,7 @@ public class BakingStation extends Station {
                         inuse = false;
                     }
                 };
-                timer.scheduleTask(task, 4f);
+                timer.scheduleTask(task, stationUseTime);
                 return true;
 
             } else {

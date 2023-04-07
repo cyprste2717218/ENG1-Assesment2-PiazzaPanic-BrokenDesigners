@@ -23,6 +23,7 @@ public class CuttingStation extends Station {
         this.handPosition = new Vector2(handX, handY);
         this.bubble = new ActionBubble(bubbleRenderer, new Vector2(handPosition.x - 8f * Constants.UNIT_SCALE, handPosition.y),
             Animations.cuttingAnimation);
+        stationUseTime = 4f;
 
     }
     public CuttingStation() {}
@@ -49,7 +50,7 @@ public class CuttingStation extends Station {
                         inuse = false;
                     }
                 };
-                timer.scheduleTask(task, 4f);
+                timer.scheduleTask(task, stationUseTime);
                 return true;
             } else {
                 System.out.println("Incorrect Item");
