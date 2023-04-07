@@ -148,8 +148,12 @@ public class CustomerManager {
 		for (Customer customer : customers){
 			customer.update();
 			if (customer.getPhase() == CustomerPhase.DESPAWNING){
-				if(customer.beenServed)	match.incrementCustomersServed();
-				else match.decrementReputationPoints();
+
+				if(customer.beenServed)	{
+					match.incrementCustomersServed();
+				} else {
+					match.decrementReputationPoints();
+				}
 
 				customer.station.setServingCustomer(false);
 				customer.setPhase(CustomerPhase.UNLOADING);
@@ -167,7 +171,7 @@ public class CustomerManager {
 		CharSequence str = isComplete() ? timeToString(finalTime) : timeToString(elapsedTime);
 		font.draw(hud_batch, str, 100, 100);
 		font.draw(hud_batch, "Rep Points:" + match.getReputationPoints() , 100, 200);
-		font.draw(hud_batch, "Money: £" + match.getMoney(), 1050, 800);
+		font.draw(hud_batch, "Money: £" + match.getMoney(), 1000, 800);
 		hud_batch.end();
 	}
 
@@ -192,6 +196,7 @@ public class CustomerManager {
 			if(isComplete()){
 				finalTime = elapsedTime;
 				font.setColor(Color.RED);
+
 			}
 		}
 		handleHUD(hud_batch);

@@ -42,7 +42,7 @@ public class Customer {
 	Match match;
 
 	public long waitingStartTime = -1L;
-	public long customerWaitTime = 60000L;
+	public long customerWaitTime = 30000L;
 
 	float movement_speed = 0; //Intentionally lowercase - NOT A CONSTANT - kind of a constant - you decide :)
 	/*
@@ -146,7 +146,7 @@ public class Customer {
 				break;
 			case WAITING: // Phase 1 -- Customer is waiting for meal
 				if(waitingStartTime == -1L) waitingStartTime = TimeUtils.millis();
-				System.out.println(TimeUtils.timeSinceMillis(waitingStartTime));
+				System.out.println("Current customer waiting time " + TimeUtils.timeSinceMillis(waitingStartTime));
 				//TODO: Improve timer to be pausable, have a visual and work with difficulty modes
 				if(TimeUtils.timeSinceMillis(waitingStartTime) > customerWaitTime){
 					if(bubble != null)	bubble.setVisible(false);
@@ -157,8 +157,8 @@ public class Customer {
 					if (station.getItemInHand().equals(desiredMeal)) {
 						beenServed = true;
 						match.incrementReputationPoints();
-						match.addMoney(15.00);
-						match.addTip();
+						match.addMoney(desiredMeal.name.toString(), desiredMeal.difficultyToMake.toString(), waitingStartTime, customerWaitTime/1000 );
+						//match.addTip();
 						success.play();
 						setPhase(CustomerPhase.LEAVING);
 						station.dumpHand();
@@ -167,7 +167,7 @@ public class Customer {
 					else{
 						if(failure != null)	failure.play();
 						station.dumpHand();
-						match.addMoney(10);
+						match.failedOrder();
 					}
 				}
 				break;
