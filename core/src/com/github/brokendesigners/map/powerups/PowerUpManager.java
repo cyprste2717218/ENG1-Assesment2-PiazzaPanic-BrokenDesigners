@@ -46,7 +46,7 @@ public class PowerUpManager {
 
     private PowerUp spawnRandomPowerUp(){
         Random rnd = new Random();
-        int powerUpOption = rnd.nextInt(0,5);
+        int powerUpOption = rnd.nextInt(5);
         Vector2 spawnPoint = getPowerUpSpawnPoint();
 
         switch (powerUpOption){
@@ -65,7 +65,7 @@ public class PowerUpManager {
 
     private Vector2 getPowerUpSpawnPoint(){
         Random rnd = new Random();
-        int spawnPointOption = rnd.nextInt(0,4);
+        int spawnPointOption = rnd.nextInt(4);
 
         switch (spawnPointOption){
             case 0:
