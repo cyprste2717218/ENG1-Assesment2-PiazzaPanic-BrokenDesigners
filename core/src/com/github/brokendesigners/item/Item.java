@@ -25,6 +25,14 @@ public abstract class Item implements Disposable {
 		this.difficultyToMake = "Invalid";
 		reward = 0;
 	}
+
+
+	public Item(String n, int reward) {
+		this.name = n;
+		this.reward = reward;
+		this.difficultyToMake = "Invalid";
+	}
+
 	public Item(String n, int reward, String difficultyToMake){
 		this.name = n;
 		this.Cooking = false;
