@@ -36,6 +36,7 @@ public class AssemblyStation extends Station{
         this.bubble = new ActionBubble(bubbleRenderer, new Vector2(handPositions.get(2).x - 8 * Constants.UNIT_SCALE, handPositions.get(2).y), Animations.gearAnimation);
         this.handPositions = handPositions;
         this.hand = new Hand(); // For this station, hand is the same hand as the player uses as it also holds 4 things.
+        hand.currentHandSize = hand.baseHandSize + 1;
         stationUseTime = 10f;
     }
     {
