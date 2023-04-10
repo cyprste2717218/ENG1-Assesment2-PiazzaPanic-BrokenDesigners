@@ -60,7 +60,8 @@ public class Kitchen {
 				new KitchenCollisionObject(
 					objectPosition,
 					rectangle.width * Constants.UNIT_SCALE,
-					rectangle.height * Constants.UNIT_SCALE));
+					rectangle.height * Constants.UNIT_SCALE
+						));
 
 		}
 		MapObjects mapStations = tileMap.getLayers().get("Interact").getObjects();
@@ -222,7 +223,7 @@ public class Kitchen {
 		this.playerSpawnPoint = new Vector2(playerSpawn.getRectangle().x * Constants.UNIT_SCALE, playerSpawn.getRectangle().y * Constants.UNIT_SCALE);
 		this.customerSpawnPoint = new Vector2(customerSpawn.getRectangle().x * Constants.UNIT_SCALE, customerSpawn.getRectangle().y * Constants.UNIT_SCALE);
 
-
+		// kitchenObstacles.add(new KitchenCollisionObject(new Vector3(5,5,0),10,10,true));
 	}
 
 	/*
@@ -256,6 +257,7 @@ public class Kitchen {
 	public void addKitchenObject(KitchenCollisionObject kitchenCollisionObject){
 		kitchenObstacles.add(kitchenCollisionObject);
 	}
+
 
 	public ArrayList<CustomerStation> getCustomerStations() {
 		return customerStations;

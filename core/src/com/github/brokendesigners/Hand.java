@@ -11,6 +11,8 @@ import java.util.ArrayList;
 public class Hand{
 
 	public ArrayList<Item> heldItems;
+	public int baseHandSize = 3;
+	public int currentHandSize = baseHandSize;
 	/*
 	 * Instantiates Hand
 	 */
@@ -18,7 +20,7 @@ public class Hand{
 	// i.e. when interacting with station, cannot pickup item
 	public boolean hand_ability;
 	public Hand(){ // Instantiates Hand
-		this.heldItems = new ArrayList<Item>(4);
+		this.heldItems = new ArrayList<Item>(baseHandSize);
 		hand_ability = true;
 	}
 
@@ -27,7 +29,7 @@ public class Hand{
 	 * Gives item to hand. Use an ItemRegister reference for the item to be recognisable to stations.
 	 */
 	public void give(Item item){
-		if (this.heldItems.size() <= 4 && hand_ability){
+		if (this.heldItems.size() <= currentHandSize && hand_ability){
 			this.heldItems.add(item);
 
 			System.out.println("held: " + this.heldItems);
@@ -70,12 +72,7 @@ public class Hand{
 	 * Returns if hand is full
 	 */
 	public boolean isFull(){
-		if (this.heldItems.size() == 4){
-			return true;
-		}
-		else{
-			return false;
-		}
+		return heldItems.size() >= currentHandSize;
 	}
 
 	/*

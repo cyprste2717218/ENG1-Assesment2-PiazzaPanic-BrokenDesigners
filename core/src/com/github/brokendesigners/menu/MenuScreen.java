@@ -96,6 +96,7 @@ public class MenuScreen {
 			playButton.setRendered(true);
 			showHowToPlayButton.setRendered(true);
 			batch.draw(MenuTextures.you_win, 405, 400, 800, 400);
+			font.draw(batch, finalTime, 650, 200);
 
 		}
 		else if(howToScreen) {

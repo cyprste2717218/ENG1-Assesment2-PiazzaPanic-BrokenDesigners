@@ -35,6 +35,8 @@ public abstract class Station {
 	public Sound failure;
 	public Sound unlockFX;
 
+	public float stationUseTime = 0f;
+
 
 	protected Station(Rectangle rectangle, String n) {
 		this.pick_up = Gdx.audio.newSound(Gdx.files.internal("audio/pick_up.wav"));
