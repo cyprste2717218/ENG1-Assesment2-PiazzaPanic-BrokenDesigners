@@ -17,16 +17,23 @@ public class BakingStation extends Station {
     static final String[] Bakeables = {"Pizza","JacketPotato"};
     Bubble bubble;
 
-    public BakingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer){
+    public BakingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer, boolean locked){
         super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Baking_Station");
         this.handPosition = new Vector2(handX, handY);
         this.bubble = new ActionBubble(bubbleRenderer, new Vector2(handPosition.x - 8f * Constants.UNIT_SCALE, handPosition.y),
                 Animations.gearAnimation);
+        this.locked = locked;
         stationUseTime = 4f;
     }
 
     @Override
     public boolean action(final Player player) {
+        // to unlock the station
+        if (this.locked)    {
+            this.unlcockStation();
+            unlockFX.play();
+            System.out.println("Station Unlocked");
+        }
         // if player is holding something, station is not already in use and item
         // in hand has not already been cooked
         if (this.inuse == false && this.hand != null && this.hand.Baking == false) {
