@@ -160,6 +160,7 @@ public class MainGame {
 
 		for (Station station : kitchen.getKitchenStations()) {
 			station.renderCounter(spriteBatch);
+			//Handles station preparation steps
 			if(station instanceof IFailable){
 				((IFailable) station).handleStationInteraction();
 			}
