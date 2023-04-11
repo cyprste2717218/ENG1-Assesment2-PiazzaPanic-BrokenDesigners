@@ -28,6 +28,7 @@ public class BakingStation extends Station implements IFailable {
         canBurn = false;
     }
 
+    //Burns the food if required
     Timer.Task burnFood = new Timer.Task() {
         @Override
         public void run() {
@@ -45,6 +46,7 @@ public class BakingStation extends Station implements IFailable {
         // in hand has not already been cooked
         if(inuse || hand == null || hand.Baking) return false;
 
+        //If an item is bakeable, successfully bake the item, otherwise prevent the player from using the station
         if (Applicable(Bakeables, "Baking_Station", hand.getName())) {
             this.inuse = true;
             this.bakingBubble.setVisible(true);
@@ -55,6 +57,7 @@ public class BakingStation extends Station implements IFailable {
         }
     }
 
+    //Handles the burning of items and its prevention
     @Override
     public void handleStationInteraction() {
         if(hand == null){
@@ -77,6 +80,7 @@ public class BakingStation extends Station implements IFailable {
     @Override
     public boolean finishSuccessfulOperation(Player player, float endingStationTime) {
         Timer timer = new Timer();
+        //Gives the player the baked item after the correct amount of time
         Timer.Task finishBaking = new Timer.Task() {
             @Override
             public void run() {
@@ -85,6 +89,7 @@ public class BakingStation extends Station implements IFailable {
                 System.out.println("Hand: "+ hand.getName());
                 bakingBubble.setVisible(false);
                 inuse = false;
+                //Starts the burning timer
                 canBurn = true;
             }
         };
@@ -101,7 +106,7 @@ public class BakingStation extends Station implements IFailable {
 
     @Override
     public void generalFinish(Player player) {
-
+        //Left empty for this class
     }
 }
 
