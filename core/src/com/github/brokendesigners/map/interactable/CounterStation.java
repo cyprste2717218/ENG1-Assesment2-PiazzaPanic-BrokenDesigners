@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.github.brokendesigners.Constants;
+import com.github.brokendesigners.Match;
 import com.github.brokendesigners.Player;
 import com.github.brokendesigners.bubble.ActionBubble;
 import com.github.brokendesigners.bubble.Bubble;
@@ -22,11 +23,13 @@ public class CounterStation extends Station {
 
 	Vector2 handPosition;
 	Bubble bubble;
+	Match match;
 
 
-	public CounterStation(Rectangle interactionArea, float handX, float handY, BubbleRenderer bubbleRenderer) {
+	public CounterStation(Rectangle interactionArea, float handX, float handY, BubbleRenderer bubbleRenderer, Match match) {
 
 		super(interactionArea,"Counter_Station");
+		this.match = match;
 
 		handPosition = new Vector2(handX, handY);
 
@@ -35,12 +38,14 @@ public class CounterStation extends Station {
 
 
 	}
-	public CounterStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer){
+	public CounterStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer, Match match){
 		super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Counter_Station");
 		handPosition = new Vector2(handX, handY);
+		this.match = match;
 		System.out.println(handX);
 		System.out.println(handY);
 		this.bubble = new ActionBubble(bubbleRenderer, this.handPosition, Animations.pattyFormingAnimation);
+		this.match = match;
 	}
 
 
@@ -88,7 +93,7 @@ public class CounterStation extends Station {
 					interacting = false;
 					inuse = false;
 				}
-			}, 10f);
+			}, 10f* match.getDifficultyLevel().getSpeedMultiplier());
 			return true;
 
 		}

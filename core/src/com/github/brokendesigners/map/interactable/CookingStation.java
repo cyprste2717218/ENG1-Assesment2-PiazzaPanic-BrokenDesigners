@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Timer;
 import com.github.brokendesigners.Constants;
 import com.github.brokendesigners.Hand;
+import com.github.brokendesigners.Match;
 import com.github.brokendesigners.Player;
 import com.github.brokendesigners.bubble.ActionBubble;
 import com.github.brokendesigners.bubble.Bubble;
@@ -22,12 +23,14 @@ public class CookingStation extends Station {
     static final String[] Flippables = {"Patty"};
 
     Bubble bubble;
+    Match match;
 
-    public CookingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer){
+    public CookingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer, Match match){
         super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Cooking_Station");
         this.handPosition = new Vector2(handX, handY);
         this.bubble = new ActionBubble(bubbleRenderer, new Vector2(handPosition.x - 8f * Constants.UNIT_SCALE, handPosition.y),
                 Animations.cuttingAnimation);
+        this.match = match;
     }
 
     //Cooking Operation
@@ -55,7 +58,7 @@ public class CookingStation extends Station {
                         inuse = false;
                     }
                 };
-                timer.scheduleTask(task, 4f);
+                timer.scheduleTask(task, 4f * match.getDifficultyLevel().getSpeedMultiplier()); //4f is the time of the cooking station
                 return true;
 
             } else {
@@ -141,5 +144,6 @@ public class CookingStation extends Station {
         hand = ItemRegister.itemRegister.get("Cooked_"+hand.getName());
         return hand;
     }
+
     
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.github.brokendesigners.Constants;
+import com.github.brokendesigners.Match;
 import com.github.brokendesigners.Player;
 import com.github.brokendesigners.character.Customer;
 import com.github.brokendesigners.item.Item;
@@ -15,8 +16,10 @@ public class CustomerStation extends CounterStation{
 	public boolean servingCustomer;
 
 
-	public CustomerStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer) {
-		super(objectPosition, width, height, handX, handY, bubbleRenderer);
+
+
+	public CustomerStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer, Match match) {
+		super(objectPosition, width, height, handX, handY, bubbleRenderer, match);
 		this.customerPosition = new Vector2(handX - (32 * Constants.UNIT_SCALE), handY);
 		System.out.println(customerPosition);
 		System.out.println(this.handPosition);

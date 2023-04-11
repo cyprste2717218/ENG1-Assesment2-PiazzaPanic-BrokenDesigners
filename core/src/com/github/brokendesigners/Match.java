@@ -1,5 +1,6 @@
 package com.github.brokendesigners;
 
+import com.github.brokendesigners.enums.DifficultyLevel;
 import com.github.brokendesigners.enums.GameMode;
 import java.util.Formatter;
 import java.util.Random;
@@ -24,6 +25,8 @@ public class Match {
 
     private GameMode gameMode;
     private int reputationPoints;
+
+    private DifficultyLevel difficultyLevel;
     private int customersServed;
     private int customersSoFar;
     private double money;
@@ -84,6 +87,14 @@ public class Match {
 
     public void incrementCustomersServed(){
         customersServed++;
+    }
+
+    public DifficultyLevel getDifficultyLevel() {
+        return difficultyLevel;
+    }
+
+    public void setDifficultyLevel(DifficultyLevel difficultyLevel) {
+        this.difficultyLevel = difficultyLevel;
     }
 
 

@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.github.brokendesigners.Constants;
+import com.github.brokendesigners.Match;
 import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.map.interactable.AssemblyStation;
 import com.github.brokendesigners.map.interactable.BakingStation;
@@ -44,13 +45,15 @@ public class Kitchen {
 
 	private Vector2 playerSpawnPoint;
 	private Vector2 customerSpawnPoint;
+	private Match match;
 
 
 	/*
 	 * Instantiates Kitchen.
 	 */
-	public Kitchen(Camera camera, SpriteBatch spriteBatch, BubbleRenderer bubbleRenderer){
+	public Kitchen(Camera camera, SpriteBatch spriteBatch, BubbleRenderer bubbleRenderer, Match match){
 
+		this.match = match;
 		Matrix4 inverseProjection = spriteBatch.getProjectionMatrix().cpy();
 		inverseProjection.inv();
 
@@ -94,7 +97,8 @@ public class Kitchen {
 						rectangle.width * Constants.UNIT_SCALE,
 						rectangle.height * Constants.UNIT_SCALE,
 						handX,
-						handY, bubbleRenderer));
+						handY, bubbleRenderer,
+							match));
 			} else if (rectangleMapObject.getProperties().get("objectType").equals("CustomerCounter")){
 
 				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
@@ -106,7 +110,8 @@ public class Kitchen {
 					rectangle.height * Constants.UNIT_SCALE,
 					handX,
 					handY,
-					bubbleRenderer);
+					bubbleRenderer,
+						match);
 
 				kitchenStations.add(station);
 				customerStations.add(station);
@@ -135,7 +140,8 @@ public class Kitchen {
 								rectangle.width * Constants.UNIT_SCALE,
 								rectangle.height * Constants.UNIT_SCALE,
 								handPositions,
-							bubbleRenderer));
+							bubbleRenderer,
+								match));
 			} else if (rectangleMapObject.getProperties().get("objectType").equals("Baking")){
 
 				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
@@ -147,7 +153,7 @@ public class Kitchen {
 						rectangle.width * Constants.UNIT_SCALE,
 						rectangle.height * Constants.UNIT_SCALE,
 						handX,
-						handY));
+						handY, match));
 			} else if (rectangleMapObject.getProperties().get("objectType").equals("Cooking")){
 
 				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
@@ -159,7 +165,7 @@ public class Kitchen {
 						rectangle.width * Constants.UNIT_SCALE,
 						rectangle.height * Constants.UNIT_SCALE,
 						handX,
-						handY, bubbleRenderer));
+						handY, bubbleRenderer, match));
 			} else if (rectangleMapObject.getProperties().get("objectType").equals("Cutting")){
 
 				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
@@ -171,7 +177,7 @@ public class Kitchen {
 						rectangle.width * Constants.UNIT_SCALE,
 						rectangle.height * Constants.UNIT_SCALE,
 						handX,
-						handY, bubbleRenderer));
+						handY, bubbleRenderer,match));
 			}
 
 		}

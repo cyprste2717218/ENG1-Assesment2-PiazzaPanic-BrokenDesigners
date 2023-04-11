@@ -63,6 +63,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 	Match match;
 
 
+
 	@Override
 	public void create () {
 		// CAMERA & VIEWPORT BUILDING
@@ -196,6 +197,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 		if(game == null){
 
 			match = new Match(menu.isEndless ? GameMode.ENDLESS : GameMode.SCENARIO);
+			match.setDifficultyLevel(menu.getDifficulty());
 			game = new MainGame(spriteBatch, hud_batch, camera, hud_cam, playerRenderer,
 					customerRenderer, bubbleRenderer, mapRenderer, inputProcessor, match);
 			game.create();

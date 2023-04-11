@@ -143,6 +143,10 @@ public abstract class Station {
 		pick_up.dispose();
 		failure.dispose();
 	}
+	public void getDifficultyModifier(){
+
+	}
+
 
 
 }

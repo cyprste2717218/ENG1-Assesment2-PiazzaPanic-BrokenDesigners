@@ -1,6 +1,5 @@
 package com.github.brokendesigners.menu;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -9,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.github.brokendesigners.enums.DifficultyLevel;
 import com.github.brokendesigners.menu.Buttons.*;
 
 import java.util.ArrayList;
@@ -29,9 +29,13 @@ public class MenuScreen {
 	BitmapFont font;
 
 	public ArrayList<Button> menuButtons = new ArrayList<>(); //A list of all the buttons, which is automatically created in the constructor of Button
-	Button playButton, exitGameButton, exitHowToPlayButton, showHowToPlayButton, scenarioModeButton, endlessModeButton;
+	Button playButton, exitGameButton, exitHowToPlayButton, showHowToPlayButton, scenarioModeButton, endlessModeButton,difficultyModeButtonEasy,difficultyModeButtonMedium,difficultyModeButtonHard, exitDifficultyButton,DifficultySettingsButton;
 	OrthographicCamera camera;
 	public boolean tryActivateGame, isEndless;
+
+	DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
+
+	public boolean DifficultyScreen;
 
 
 	/*
@@ -49,6 +53,7 @@ public class MenuScreen {
 		font.setColor(Color.RED);
 		this.camera = camera;
 		initialiseButtons();
+		DifficultyScreen = false;
 	}
 
 	public void initialiseButtons(){
@@ -69,6 +74,25 @@ public class MenuScreen {
 
 		endlessModeButton = new EndlessModeButton(new Rectangle(700, 400 , 200,100),
 				MenuTextures.endlessButtonSelected, MenuTextures.endlessButtonUnselected, this);
+
+		exitDifficultyButton = new ExitDifficultyButton(new Rectangle(700, 170 , 200,100),
+				MenuTextures.endlessButtonSelected, MenuTextures.endlessButtonUnselected, this);
+
+		DifficultySettingsButton = new SettingsButton(new Rectangle(1000, 700, 200, 100),
+				MenuTextures.exitButtonSelected, MenuTextures.exitButtonUnselected, this);
+
+
+
+
+		difficultyModeButtonEasy = new DifficultyButton(new Rectangle(700, 515, 200, 100),
+				MenuTextures.endlessButtonSelected, MenuTextures.endlessButtonUnselected, this, difficultyLevel.EASY);
+
+		difficultyModeButtonMedium = new DifficultyButton(new Rectangle(700, 400, 200, 100),
+				MenuTextures.scenarioButtonSelected, MenuTextures.scenarioButtonUnselected, this, difficultyLevel.MEDIUM);
+
+		difficultyModeButtonHard = new DifficultyButton(new Rectangle(700, 285, 200, 100),
+				MenuTextures.exitButtonSelected, MenuTextures.exitButtonUnselected, this, difficultyLevel.HARD);
+
 	}
 
 
@@ -98,6 +122,18 @@ public class MenuScreen {
 			batch.draw(MenuTextures.you_win, 405, 400, 800, 400);
 
 		}
+		else if(DifficultyScreen){
+			difficultyModeButtonEasy.setRendered(true);
+			difficultyModeButtonMedium.setRendered(true);
+			difficultyModeButtonHard.setRendered(true);
+			exitDifficultyButton.setRendered(true);
+			DifficultySettingsButton.setRendered(false);
+			playButton.setRendered(false);
+			exitGameButton.setRendered(false);
+			showHowToPlayButton.setRendered(false);
+
+
+		}
 		else if(howToScreen) {
 			batch.draw(MenuTextures.how_to_play, 405, 400, 800, 400);
 			exitHowToPlayButton.setRendered(true);
@@ -112,6 +148,11 @@ public class MenuScreen {
 			showHowToPlayButton.setRendered(false);
 		}
 		else{
+			difficultyModeButtonEasy.setRendered(false);
+			difficultyModeButtonMedium.setRendered(false);
+			difficultyModeButtonHard.setRendered(false);
+			exitDifficultyButton.setRendered(false);
+			DifficultySettingsButton.setRendered(true);
 			playButton.setRendered(true);
 			showHowToPlayButton.setRendered(true);
 			exitHowToPlayButton.setRendered(false);
@@ -160,4 +201,11 @@ public class MenuScreen {
 	}
 
 	public void setMoney(String totalMoney) { this.totalMoney = totalMoney; }
+
+	public DifficultyLevel getDifficulty(){
+		return difficultyLevel;
+	}
+	public void setDifficultyLevel(DifficultyLevel difficultyLevel){
+		this.difficultyLevel = difficultyLevel;
+	}
 }

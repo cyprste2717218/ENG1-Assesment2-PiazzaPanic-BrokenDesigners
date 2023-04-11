@@ -24,6 +24,8 @@ import com.github.brokendesigners.renderer.PlayerRenderer;
 import com.github.brokendesigners.textures.Animations;
 
 import java.util.ArrayList;
+import com.github.brokendesigners.enums.DifficultyLevel;
+
 
 public class MainGame {
 	ItemInitialiser itemInitialiser;
@@ -76,21 +78,24 @@ public class MainGame {
 		this.hud_cam = hudCamera;
 		this.hud_batch = hud_batch;
 		this.match = match;
+
+	}
+	public void show() {
+
 	}
 
-
-	public void create(){
+	public void create() {
 		// MAP & MAP OBJECT BUILDING
-		this.kitchen = new Kitchen(camera, spriteBatch, bubbleRenderer);
+		this.kitchen = new Kitchen(camera, spriteBatch, bubbleRenderer, match);
 
 		ArrayList<KitchenCollisionObject> kitchenCollisionObjects = kitchen.getKitchenObstacles();
 
 		customerManager = new CustomerManager( // Manages when customers should spawn in and holds the Timer
-			customerRenderer,
-			this.bubbleRenderer,
-			5,
-			kitchen.getCustomerSpawnPoint(),
-			kitchen.getCustomerStations(),
+				customerRenderer,
+				this.bubbleRenderer,
+				5,
+				kitchen.getCustomerSpawnPoint(),
+				kitchen.getCustomerStations(),
 				match);
 
 		// BUILD PLAYERS
@@ -100,7 +105,7 @@ public class MainGame {
 		customerManager.begin();
 	}
 
-	public void renderGame(){
+	public void renderGame () {
 
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.gl.glClearColor(14 / 255f, 104 / 255f, 44 / 255f, 1f);
@@ -110,7 +115,7 @@ public class MainGame {
 		spriteBatch.setProjectionMatrix(camera.combined);
 		mapRenderer.setView(camera);
 
-		for(Player player : playerList){
+		for (Player player : playerList) {
 			player.processMovement(kitchen.getKitchenObstacles());
 		}
 
@@ -125,11 +130,11 @@ public class MainGame {
 		spriteBatch.begin();
 		// Renders map in specific order to allow some cool rendering effects.
 		mapRenderer.renderTileLayer(
-			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Floor"));
+				(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Floor"));
 		mapRenderer.renderTileLayer(
-			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Walls"));
+				(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Walls"));
 		mapRenderer.renderTileLayer(
-			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Extras"));
+				(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Extras"));
 		spriteBatch.end();
 
 		customerRenderer.renderCustomers();
@@ -141,7 +146,7 @@ public class MainGame {
 
 		spriteBatch.begin();
 		mapRenderer.renderTileLayer(
-			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Front"));
+				(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Front"));
 		// ^^ renders this layer after player which allows the player to go behind walls.
 		spriteBatch.end();
 		customerManager.update(spriteBatch, hud_batch);
@@ -152,7 +157,7 @@ public class MainGame {
 		bubbleRenderer.renderBubbles();
 	}
 
-	public void initialisePlayers(){
+	public void initialisePlayers () {
 
 		//A list that holds all the animations for the players
 		ArrayList<ArrayList<Animation<TextureRegion>>> playerAnimations = new ArrayList<>();
@@ -178,7 +183,7 @@ public class MainGame {
 		//BUILDING PLAYERS
 		playerList = new ArrayList<>(); // List of Players - used to determine which is active
 
-		for(int i  = 0; i < 2; i++){
+		for (int i = 0; i < 2; i++) {
 			Player player = new Player(playerRenderer, playerAnimations.get(i), new Vector2(kitchen.getPlayerSpawnPoint().x + (i * 32 * Constants.UNIT_SCALE), kitchen.getPlayerSpawnPoint().y), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
 			player.setRenderOffsetX(-1 * Constants.UNIT_SCALE);
 			playerList.add(player);
@@ -188,15 +193,15 @@ public class MainGame {
 
 	private void setSelectedPlayer(int selected){
 		selectedPlayer = selected;
-		for(int i = 0; i< playerList.size(); i++){
+		for (int i = 0; i < playerList.size(); i++) {
 			playerList.get(i).setSelected(selected == i);
 		}
 	}
 
-	public void end(){
+	public void end () {
 		customerManager.end();
-		for (Player player : playerList){
-			if (player.flipped){
+		for (Player player : playerList) {
+			if (player.flipped) {
 				player.flipAnimations();
 			}
 		}
@@ -204,4 +209,8 @@ public class MainGame {
 	}
 
 
+
+
 }
+
+
