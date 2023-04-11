@@ -22,7 +22,7 @@ public class CuttingStation extends Station implements IFailable{
 
     public boolean needsInteraction, cutToEarly, isValidCuttingTime;
 
-    public CuttingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer){
+    public CuttingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer, boolean locked){
         super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Cutting_Station");
         this.handPosition = new Vector2(handX, handY);
         this.cuttingBubble = new ActionBubble(bubbleRenderer, new Vector2(handPosition.x - 8f * Constants.UNIT_SCALE, handPosition.y),
@@ -33,7 +33,8 @@ public class CuttingStation extends Station implements IFailable{
         needsInteraction = false;
         cutToEarly = false;
         isValidCuttingTime = false;
-
+        this.locked = locked;
+        stationUseTime = 4f;
     }
     public CuttingStation() {}
 
@@ -48,6 +49,7 @@ public class CuttingStation extends Station implements IFailable{
         player.hand.disable_hand_ability();
         cuttingBubble.setVisible(true);
     }
+
 
     //If the player interacted with the station at the right moment, the cutting succeeds, otherwise it fails.
     private void handleCuttingInteraction(final Timer timer, final Player player){
@@ -85,6 +87,13 @@ public class CuttingStation extends Station implements IFailable{
     //Cutting Operation
     @Override
     public boolean action(final Player player) {
+        // to unlock the station
+        if (this.locked)    {
+            this.unlcockStation();
+            unlockFX.play();
+            System.out.println("Station Unlocked");
+            return;
+        }
         if(inuse || hand == null) return false;
         if (Applicable(Cuttables, "Cutting_Station", hand.getName())) {
             setUpCutting(player);

@@ -38,6 +38,9 @@
  <tile id="181">
   <image width="32" height="32" source="Stations/cooker_lower.png"/>
  </tile>
+<tile id="226">
+ <image width="32" height="32" source="Stations/cooker_lower_locked.png"/>
+</tile>
  <tile id="187">
   <image width="32" height="32" source="Stations/baking_top.png"/>
  </tile>

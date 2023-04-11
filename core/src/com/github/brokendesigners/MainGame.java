@@ -137,6 +137,7 @@ public class MainGame {
 			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Floor"));
 		mapRenderer.renderTileLayer(
 			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Walls"));
+
 		mapRenderer.renderTileLayer(
 			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Extras"));
 		spriteBatch.end();
@@ -152,6 +153,7 @@ public class MainGame {
 		mapRenderer.renderTileLayer(
 			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Front"));
 		// ^^ renders this layer after player which allows the player to go behind walls.
+
 		for(PowerUp powerUp: powerUpManager.getActivePowerUps()){
 			powerUp.getSprite().draw(spriteBatch);
 		}
@@ -164,6 +166,9 @@ public class MainGame {
 			if(station instanceof IFailable){
 				((IFailable) station).handleStationInteraction();
 			}
+		}
+		for (Station station : kitchen.getLockedKitchenStations())	{
+			station.activateLock(spriteBatch);
 		}
 		bubbleRenderer.renderBubbles();
 	}

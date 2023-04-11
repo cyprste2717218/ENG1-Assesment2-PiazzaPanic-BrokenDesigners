@@ -27,13 +27,14 @@ public class CookingStation extends Station implements IFailable {
 
     public Bubble cookingBubble, attentionBubble;
 
-    public CookingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer){
+    public CookingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer, boolean locked){
         super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Cooking_Station");
         this.handPosition = new Vector2(handX, handY);
         this.cookingBubble = new ActionBubble(bubbleRenderer, new Vector2(handPosition.x - 8f * Constants.UNIT_SCALE, handPosition.y),
                 Animations.gearAnimation);
         this.attentionBubble = new ActionBubble(bubbleRenderer, new Vector2(handPosition.x - 8f * Constants.UNIT_SCALE, handPosition.y),
                 Animations.attentionAnimation);
+        this.locked = locked;
         stationUseTime = 4f;
         canBurn = false;
         needsInput = false;
@@ -77,7 +78,12 @@ public class CookingStation extends Station implements IFailable {
     //Cooking Operation
     @Override
     public boolean action(final Player player) {
-
+        // to unlock the station
+        if (this.locked)    {
+            this.unlcockStation();
+            unlockFX.play();
+            System.out.println("Station Unlocked");
+        }
         // if player is holding something, station is not already in use and item
         // in hand has not already been cooked
         if(inuse || hand == null || hand.Cooking) return false;
