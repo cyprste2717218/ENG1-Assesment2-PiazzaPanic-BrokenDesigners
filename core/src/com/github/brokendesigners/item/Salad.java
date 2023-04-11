@@ -7,7 +7,7 @@ public class Salad extends Item{
 	public Texture texture = new Texture("items/salad.png");
 
 	public Salad() {
-		super("Salad", 15, "Hard");
+		super("Salad", 15);
 
 	}
 

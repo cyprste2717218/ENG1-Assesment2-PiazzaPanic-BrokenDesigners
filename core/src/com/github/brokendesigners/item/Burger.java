@@ -7,7 +7,7 @@ public class Burger extends Item{
 	public Texture texture = new Texture("items/burger.png");
 
 	public Burger() {
-		super("Burger", 20, "Medium");
+		super("Burger", 20);
 
 	}
 
