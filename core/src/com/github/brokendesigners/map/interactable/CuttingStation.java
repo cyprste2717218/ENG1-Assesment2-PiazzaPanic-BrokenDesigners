@@ -1,5 +1,7 @@
 package com.github.brokendesigners.map.interactable;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
@@ -13,49 +15,79 @@ import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.textures.Animations;
 
-public class CuttingStation extends Station {
+public class CuttingStation extends Station implements IFailable{
 
     static final String[] Cuttables = {"Tomato", "Lettuce", "Onion", "Bun", "Potato"};
-    Bubble bubble;
+    Bubble bubble, countdownBubble;
+
+    public boolean needsInteraction, cutToEarly, isValidCuttingTime;
 
     public CuttingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer){
         super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Cutting_Station");
         this.handPosition = new Vector2(handX, handY);
         this.bubble = new ActionBubble(bubbleRenderer, new Vector2(handPosition.x - 8f * Constants.UNIT_SCALE, handPosition.y),
             Animations.cuttingAnimation);
-        stationUseTime = 4f;
+        countdownBubble = new ActionBubble(bubbleRenderer, new Vector2(handPosition.x - 8f * Constants.UNIT_SCALE, handPosition.y),
+                Animations.countdownAnimation);
+        stationUseTime = 1f;
+        needsInteraction = false;
+        cutToEarly = false;
+        isValidCuttingTime = false;
 
     }
     public CuttingStation() {}
 
+    private void setUpCutting(Player player){
+        countdownBubble.resetStateTime();
+        System.out.println("Worked");
+        inuse = true;
+        player.disableMovement();
+        player.hand.disable_hand_ability();
+        bubble.setVisible(true);
+    }
+
+    private void handleCuttingInteraction(final Timer timer, final Player player){
+        needsInteraction = true;
+        timer.scheduleTask(new Task() {
+            @Override
+            public void run() {
+                countdownBubble.setVisible(false);
+                boolean wasSuccessful = (cutToEarly || needsInteraction) ? finishFailedOperation(player, stationUseTime) : finishSuccessfulOperation(player, stationUseTime);
+            }
+        }, 1f);
+    }
+
+
+    private void handleCutttingCountdown(final Timer timer, final Player player){
+        Task task = new Task() {
+            @Override
+            public void run() {
+                bubble.setVisible(false);
+                countdownBubble.setVisible(true);
+                isValidCuttingTime = true;
+                timer.scheduleTask(new Task() {
+                    @Override
+                    public void run() {
+                       handleCuttingInteraction(timer, player);
+                    }
+                }, 3f);
+            }
+        };
+        timer.scheduleTask(task, stationUseTime);
+    }
 
     //Cutting Operation
     @Override
     public boolean action(final Player player) {
-        if (this.inuse == false && this.hand != null) {
-            if (Applicable(Cuttables, "Cutting_Station", hand.getName()) == true) {
-                System.out.println("Worked");
-                this.inuse = true;
-                player.disableMovement();
-                player.hand.disable_hand_ability();
-                this.bubble.setVisible(true);
-                Timer timer = new Timer();
-                Task task = new Task() {
-                    @Override
-                    public void run() {
-                        hand = ItemRegister.itemRegister.get("Cut_" + hand.getName());
-                        bubble.setVisible(false);
-                        player.enableMovement();
-                        player.hand.enable_hand_ability();
-                        inuse = false;
-                    }
-                };
-                timer.scheduleTask(task, stationUseTime);
-                return true;
-            } else {
-                System.out.println("Incorrect Item");
-                failure.play();
-            }
+        if(inuse || hand == null) return false;
+        if (Applicable(Cuttables, "Cutting_Station", hand.getName())) {
+            setUpCutting(player);
+            final Timer timer = new Timer();
+            handleCutttingCountdown(timer, player);
+            return true;
+        } else {
+            System.out.println("Incorrect Item");
+            failure.play();
         }
         return false;
     }
@@ -66,5 +98,42 @@ public class CuttingStation extends Station {
     public void setName(String name)   {
         this.station_name = name;
     }
-    
+
+    @Override
+    public void handleStationInteraction() {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && isValidCuttingTime){
+            if(needsInteraction){
+                needsInteraction = false;
+            }
+            else{
+                cutToEarly = true;
+            }
+        }
+    }
+
+    @Override
+    public boolean finishSuccessfulOperation(Player player, float endingStationTime) {
+        hand = ItemRegister.itemRegister.get("Cut_" + hand.getName());
+        generalFinish(player);
+        return true;
+    }
+
+    @Override
+    public boolean finishFailedOperation(Player player, float endingStationTime) {
+        System.out.println("Cut to Early: "+ cutToEarly);
+        System.out.println("Meeds Interaction: " + needsInteraction);
+        hand = ItemRegister.itemRegister.get("Waste");
+        generalFinish(player);
+        return false;
+    }
+
+    @Override
+    public void generalFinish(Player player) {
+        player.enableMovement();
+        player.hand.enable_hand_ability();
+        inuse = false;
+        needsInteraction = false;
+        cutToEarly = false;
+        isValidCuttingTime = false;
+    }
 }

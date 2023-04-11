@@ -18,7 +18,7 @@ import com.github.brokendesigners.character.CustomerManager;
 import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.map.Kitchen;
 import com.github.brokendesigners.map.KitchenCollisionObject;
-import com.github.brokendesigners.map.interactable.Station;
+import com.github.brokendesigners.map.interactable.*;
 import com.github.brokendesigners.map.powerups.*;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.renderer.CustomerRenderer;
@@ -131,7 +131,6 @@ public class MainGame {
 		powerUpManager.setPlayer(playerList.get(selectedPlayer));
 		powerUpManager.handlePowerUps();
 
-
 		spriteBatch.begin();
 		// Renders map in specific order to allow some cool rendering effects.
 		mapRenderer.renderTileLayer(
@@ -161,6 +160,9 @@ public class MainGame {
 
 		for (Station station : kitchen.getKitchenStations()) {
 			station.renderCounter(spriteBatch);
+			if(station instanceof IFailable){
+				((IFailable) station).handleStationInteraction();
+			}
 		}
 		bubbleRenderer.renderBubbles();
 	}
@@ -206,6 +208,8 @@ public class MainGame {
 		selectedPlayer = selected;
 		for(int i = 0; i< playerList.size(); i++){
 			playerList.get(i).setSelected(selected == i);
+			if(powerUpManager != null)
+				powerUpManager.setPlayer(playerList.get(selectedPlayer));
 		}
 	}
 

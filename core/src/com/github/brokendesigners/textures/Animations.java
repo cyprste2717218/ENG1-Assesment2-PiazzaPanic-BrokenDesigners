@@ -15,6 +15,12 @@ public class Animations {
 
 	public static Animation<TextureRegion> gearAnimation =
 		new Animation<TextureRegion>(0.15f, Atlases.gearImages.findRegions("gear"), PlayMode.LOOP);
+
+	public static Animation<TextureRegion> countdownAnimation =
+			new Animation<TextureRegion>(1f, Atlases.countdownImages.findRegions("number"), PlayMode.NORMAL);
+
+	public static Animation<TextureRegion> attentionAnimation =
+			new Animation<TextureRegion>(0.15f, Atlases.attentionImages.findRegions("attention"), PlayMode.LOOP);
 	public static Animation<TextureRegion> glibbert_moveAnimation =
 			new Animation<TextureRegion>(0.15f, Atlases.glibbertTextures.findRegions("running"), PlayMode.LOOP);
 	public static Animation<TextureRegion> glibbert_idleAnimation =
