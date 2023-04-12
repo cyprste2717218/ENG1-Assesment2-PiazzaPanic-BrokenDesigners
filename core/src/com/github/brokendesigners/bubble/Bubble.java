@@ -25,4 +25,6 @@ public class Bubble {
 
 	public void dispose(){}
 
+	public void resetStateTime() {
+	}
 }
