@@ -86,7 +86,7 @@ public class Match {
             case "Pizza":
                 orderTotal = 15;
                 break;
-            case "JacketPotato":
+            case "Baked_JacketPotato":
                 orderTotal = 10;
             default:
                 orderTotal += 0; //test
