@@ -9,9 +9,12 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.github.brokendesigners.PiazzaPanic;
 import com.github.brokendesigners.menu.Buttons.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /*
  * Handles rendering and controls for menu.
@@ -19,17 +22,19 @@ import java.util.ArrayList;
  */
 public class MenuScreen {
 
+	PiazzaPanic panic;
 	public boolean active; // Is the menu active? (Should it render)
 	public String finalTime; // Final time to be displayed at end of game.
 	public String totalMoney; // Total amount of money the player has
 	public boolean howToScreen; // is howToScreen being displayed?
 	public boolean playOptions;
+	public boolean cont;
 	public boolean complete; // has game been completed?
 	public int selectedButton; // Which button has been selected?
 	BitmapFont font;
 
 	public ArrayList<Button> menuButtons = new ArrayList<>(); //A list of all the buttons, which is automatically created in the constructor of Button
-	Button playButton, exitGameButton, exitHowToPlayButton, showHowToPlayButton, scenarioModeButton, endlessModeButton;
+	Button playButton, resumeButton, loadButton, saveButton, showHowToPlayButton, backButton, exitGameButton, quitButton, scenarioModeButton, endlessModeButton;
 	OrthographicCamera camera;
 	public boolean tryActivateGame, isEndless;
 
@@ -39,10 +44,10 @@ public class MenuScreen {
 	 */
 
 	//TODO: Add button to create mode choice for endless or scenario
-	public MenuScreen(OrthographicCamera camera){
+	public MenuScreen(OrthographicCamera camera, PiazzaPanic panic){
+		this.panic = panic;
 		active = true;
 		tryActivateGame = false;
-		selectedButton = 0;
 		complete = false;
 		font = new BitmapFont();
 		this.font.getData().setScale(10, 10);
@@ -55,14 +60,26 @@ public class MenuScreen {
 		playButton = new PlayButton(new Rectangle(700, 515, 200, 100),
 				MenuTextures.playButtonSelected, MenuTextures.playButtonUnselected, this);
 
-		showHowToPlayButton = new HowToPlayButton(new Rectangle(700, 400, 200, 100),
+		resumeButton = new ResumeButton(new Rectangle(700, 515, 200, 100),
+				MenuTextures.resumeButtonSelected, MenuTextures.resumeButtonUnselected, this);
+
+		loadButton = new LoadButton(new Rectangle(700, 400, 200, 100),
+				MenuTextures.loadButtonSelected, MenuTextures.loadButtonUnselected, this);
+
+		saveButton = new SaveButton(new Rectangle(700, 400, 200, 100),
+				MenuTextures.saveButtonSelected, MenuTextures.saveButtonUnselected, this);
+
+		showHowToPlayButton = new HowToPlayButton(new Rectangle(700, 285, 200, 100),
 				MenuTextures.howtoplayButtonSelected, MenuTextures.howtoplayButtonUnselected, this);
 
-		exitHowToPlayButton = new ExitHowToPlayButton(new Rectangle(700, 285, 200, 100),
+		backButton = new BackButton(new Rectangle(700, 170, 200, 100),
+				MenuTextures.backButtonSelected, MenuTextures.backButtonUnselected, this);
+
+		exitGameButton = new ExitGameButton(new Rectangle(700, 170, 200, 100),
 				MenuTextures.exitButtonSelected, MenuTextures.exitButtonUnselected, this);
 
-		exitGameButton = new ExitGameButton(new Rectangle(700, 285, 200, 100),
-				MenuTextures.exitButtonSelected, MenuTextures.exitButtonUnselected, this);
+		quitButton = new QuitButton(new Rectangle(700, 170, 200, 100),
+				MenuTextures.quitButtonSelected, MenuTextures.quitButtonUnselected, this);
 
 		scenarioModeButton = new ScenarioModeButton(new Rectangle(700, 515 , 200,100),
 				MenuTextures.scenarioButtonSelected, MenuTextures.scenarioButtonUnselected, this);
@@ -89,37 +106,29 @@ public class MenuScreen {
 			button.onActivate(camera);
 		}
 		if(complete){
-			exitHowToPlayButton.setRendered(false);
-			exitGameButton.setRendered(true);
-			scenarioModeButton.setRendered(false);
-			endlessModeButton.setRendered(false);
-			playButton.setRendered(true);
-			showHowToPlayButton.setRendered(true);
+			selectedButton = 7;
+			setButtons(Arrays.asList(quitButton));
 			batch.draw(MenuTextures.you_win, 405, 400, 800, 400);
-			font.draw(batch, finalTime, 650, 200);
-
+			font.draw(batch, finalTime, 650, 560);
 		}
 		else if(howToScreen) {
-			batch.draw(MenuTextures.how_to_play, 405, 400, 800, 400);
-			exitHowToPlayButton.setRendered(true);
-			exitGameButton.setRendered(false);
-      font.draw(batch, finalTime, 650, 200);
+			batch.draw(MenuTextures.how_to_play, 0, Gdx.graphics.getHeight()/2 - 355, 700, 720);
+			selectedButton = 5;
+			setButtons(Arrays.asList(backButton));
 		}
 		else if(playOptions){
-			exitHowToPlayButton.setRendered(true);
-			scenarioModeButton.setRendered(true);
-			exitGameButton.setRendered(false);
-			endlessModeButton.setRendered(true);
-			playButton.setRendered(false);
-			showHowToPlayButton.setRendered(false);
+			setButtons(Arrays.asList(scenarioModeButton,endlessModeButton,backButton));
 		}
 		else{
-			playButton.setRendered(true);
-			showHowToPlayButton.setRendered(true);
-			exitHowToPlayButton.setRendered(false);
-			exitGameButton.setRendered(true);
-			endlessModeButton.setRendered(false);
-			scenarioModeButton.setRendered(false);
+			if (cont) {
+				selectedButton = 1;
+				setButtons(Arrays.asList(resumeButton,saveButton,showHowToPlayButton,quitButton));
+			}
+			else {
+				selectedButton = 0;
+				setButtons(Arrays.asList(playButton, loadButton, showHowToPlayButton, exitGameButton));
+			}
+
 			batch.draw(MenuTextures.updown, 1000, 400, 400, 200);
 			batch.draw(MenuTextures.wsad, 100, 500, 400, 200);
 			batch.draw(MenuTextures.tabSpace, 100, 160, 400, 200);
@@ -128,6 +137,21 @@ public class MenuScreen {
 		batch.end();
 	}
 
+	private void setButtons(List<Button> setButtonsTrue){
+		for (Button menuButton : menuButtons) {
+			menuButton.setRendered(false);
+		}
+		for (Button button : setButtonsTrue) {
+			button.setRendered(true);
+		}
+	}
+
+	public void setGameNull(){
+		panic.setGameNull();
+	}
+	public void unpauseGame(){
+		panic.getGame().getCustomerManager().unpause();
+	}
 
 	/***
 	 * A function that allows scrolling through the different available buttons using up/w and down/s

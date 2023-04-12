@@ -219,6 +219,10 @@ public class MainGame {
 		}
 	}
 
+	public CustomerManager getCustomerManager(){
+		return customerManager;
+	}
+
 	public void end(){
 		customerManager.end();
 		for (Player player : playerList){

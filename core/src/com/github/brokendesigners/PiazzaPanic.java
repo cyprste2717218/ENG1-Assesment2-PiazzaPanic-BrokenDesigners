@@ -87,7 +87,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 		viewport = new FitViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera);
 
 		// MENU BUILDING
-		menu = new MenuScreen(hud_cam);
+		menu = new MenuScreen(hud_cam,this);
 		menu.active = true;
 
 		// SpriteBatch BUILDING
@@ -145,6 +145,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 						game.playerList.get(game.selectedPlayer).setSelected(true);
 					} else if (keycode == Keys.ESCAPE) { // activates menu.
 						game.customerManager.pause();
+						menu.cont = true;
 						menu.active = true;
 					}
 				} else { // if menu is active
@@ -189,6 +190,15 @@ public class PiazzaPanic extends ApplicationAdapter {
 				game = null;
 			}
 		}
+	}
+
+	public MainGame getGame(){
+		return game;
+	}
+	public void setGameNull(){
+		customerRenderer = new CustomerRenderer(spriteBatch);
+		bubbleRenderer = new BubbleRenderer(spriteBatch);
+		game = null;
 	}
 
 	public void startGame(){
