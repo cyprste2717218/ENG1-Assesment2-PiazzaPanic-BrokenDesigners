@@ -9,7 +9,6 @@ import com.github.brokendesigners.Constants;
 import com.github.brokendesigners.Player;
 import com.github.brokendesigners.bubble.ActionBubble;
 import com.github.brokendesigners.bubble.Bubble;
-import com.github.brokendesigners.item.Item;
 import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.textures.Animations;
@@ -80,7 +79,7 @@ public class CookingStation extends Station implements IFailable {
     public boolean action(final Player player) {
         // to unlock the station
         if (this.locked)    {
-            this.unlcockStation();
+            this.unlockStation();
             unlockFX.play();
             System.out.println("Station Unlocked");
         }

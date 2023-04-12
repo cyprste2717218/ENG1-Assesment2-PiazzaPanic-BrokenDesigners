@@ -45,7 +45,7 @@ public class BakingStation extends Station implements IFailable {
     public boolean action(final Player player) {
         // to unlock the station
         if (this.locked)    {
-            this.unlcockStation();
+            this.unlockStation();
             unlockFX.play();
             System.out.println("Station Unlocked");
         }

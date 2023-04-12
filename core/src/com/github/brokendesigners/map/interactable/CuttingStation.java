@@ -89,10 +89,10 @@ public class CuttingStation extends Station implements IFailable{
     public boolean action(final Player player) {
         // to unlock the station
         if (this.locked)    {
-            this.unlcockStation();
+            this.unlockStation();
             unlockFX.play();
             System.out.println("Station Unlocked");
-            return;
+            return false;
         }
         if(inuse || hand == null) return false;
         if (Applicable(Cuttables, "Cutting_Station", hand.getName())) {
