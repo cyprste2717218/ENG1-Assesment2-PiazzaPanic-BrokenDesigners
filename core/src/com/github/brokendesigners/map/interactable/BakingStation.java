@@ -2,9 +2,9 @@ package com.github.brokendesigners.map.interactable;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Timer;
 import com.github.brokendesigners.Constants;
+import com.github.brokendesigners.Match;
 import com.github.brokendesigners.Player;
 import com.github.brokendesigners.bubble.ActionBubble;
 import com.github.brokendesigners.bubble.Bubble;
@@ -17,7 +17,7 @@ public class BakingStation extends Station {
     static final String[] Bakeables = {"Pizza","JacketPotato"};
     Bubble bubble;
 
-    public BakingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer, boolean locked){
+    public BakingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer, boolean locked, Match match){
         super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Baking_Station");
         this.handPosition = new Vector2(handX, handY);
         this.bubble = new ActionBubble(bubbleRenderer, new Vector2(handPosition.x - 8f * Constants.UNIT_SCALE, handPosition.y),
@@ -28,12 +28,7 @@ public class BakingStation extends Station {
 
     @Override
     public boolean action(final Player player) {
-        // to unlock the station
-        if (this.locked)    {
-            this.unlcockStation();
-            unlockFX.play();
-            System.out.println("Station Unlocked");
-        }
+        this.unlockStation();
         // if player is holding something, station is not already in use and item
         // in hand has not already been cooked
         if (this.inuse == false && this.hand != null && this.hand.Baking == false) {

@@ -4,7 +4,6 @@ import static java.lang.Math.abs;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -13,13 +12,12 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Array;
 import com.github.brokendesigners.Constants;
+import com.github.brokendesigners.Match;
 import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.map.interactable.*;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import java.util.ArrayList;
-import java.util.concurrent.locks.Lock;
 
 /*
  * Handles building of the game map.
@@ -37,14 +35,14 @@ public class Kitchen {
 	private ArrayList<Station> lockedKitchenStations;
  	private ArrayList<CustomerStation> customerStations;
 
-	private Vector2 playerSpawnPoint;
+	private ArrayList<Vector2> playerSpawnPoints;
 	private Vector2 customerSpawnPoint;
 
 
 	/*
 	 * Instantiates Kitchen.
 	 */
-	public Kitchen(Camera camera, SpriteBatch spriteBatch, BubbleRenderer bubbleRenderer){
+	public Kitchen(Camera camera, SpriteBatch spriteBatch, BubbleRenderer bubbleRenderer, Match match){
 
 		Matrix4 inverseProjection = spriteBatch.getProjectionMatrix().cpy();
 		inverseProjection.inv();
@@ -144,7 +142,7 @@ public class Kitchen {
 						rectangle.width * Constants.UNIT_SCALE,
 						rectangle.height * Constants.UNIT_SCALE,
 						handX,
-						handY, bubbleRenderer, false));
+						handY, bubbleRenderer, false, match));
 			} else if (rectangleMapObject.getProperties().get("objectType").equals("Baking_Locked")){
 
 				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
@@ -155,7 +153,7 @@ public class Kitchen {
 						rectangle.width * Constants.UNIT_SCALE,
 						rectangle.height * Constants.UNIT_SCALE,
 						handX,
-						handY, bubbleRenderer, true);
+						handY, bubbleRenderer, true, match);
 				kitchenStations.add(LockedBakingStation);
 				lockedKitchenStations.add(LockedBakingStation);
 
@@ -170,7 +168,7 @@ public class Kitchen {
 						rectangle.width * Constants.UNIT_SCALE,
 						rectangle.height * Constants.UNIT_SCALE,
 						handX,
-						handY, bubbleRenderer, false));
+						handY, bubbleRenderer, false, match));
 			} else if (rectangleMapObject.getProperties().get("objectType").equals("Cooking_Locked")){
 
 				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
@@ -183,7 +181,7 @@ public class Kitchen {
 						rectangle.width * Constants.UNIT_SCALE,
 						rectangle.height * Constants.UNIT_SCALE,
 						handX,
-						handY, bubbleRenderer, true);
+						handY, bubbleRenderer, true, match);
 				kitchenStations.add(LockedCuttingStation);
 				lockedKitchenStations.add(LockedCuttingStation);
 			} else if (rectangleMapObject.getProperties().get("objectType").equals("Cutting")){
@@ -197,7 +195,7 @@ public class Kitchen {
 						rectangle.width * Constants.UNIT_SCALE,
 						rectangle.height * Constants.UNIT_SCALE,
 						handX,
-						handY, bubbleRenderer, false));
+						handY, bubbleRenderer, false, match));
 			} else if (rectangleMapObject.getProperties().get("objectType").equals("Cutting_Locked")){
 
 				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
@@ -208,7 +206,7 @@ public class Kitchen {
 						rectangle.width * Constants.UNIT_SCALE,
 						rectangle.height * Constants.UNIT_SCALE,
 						handX,
-						handY, bubbleRenderer, true);
+						handY, bubbleRenderer, true, match);
 				kitchenStations.add(LockedCuttingStation);
 				lockedKitchenStations.add(LockedCuttingStation);
 			}
@@ -216,12 +214,23 @@ public class Kitchen {
 		}
 		MapObjects mapPoints = tileMap.getLayers().get("Map").getObjects();
 
+		ArrayList<Vector2> playerSpawnPoints = new ArrayList<>();
 		RectangleMapObject playerSpawn = (RectangleMapObject)mapPoints.get("PlayerSpawn");
+		RectangleMapObject playerSpawn2 = (RectangleMapObject)mapPoints.get("PlayerSpawn2");
+		RectangleMapObject playerSpawn3 = (RectangleMapObject)mapPoints.get("PlayerSpawn3");
+
+
 		RectangleMapObject customerSpawn = (RectangleMapObject)mapPoints.get("CustomerSpawn");
 
-		this.playerSpawnPoint = new Vector2(playerSpawn.getRectangle().x * Constants.UNIT_SCALE, playerSpawn.getRectangle().y * Constants.UNIT_SCALE);
-		this.customerSpawnPoint = new Vector2(customerSpawn.getRectangle().x * Constants.UNIT_SCALE, customerSpawn.getRectangle().y * Constants.UNIT_SCALE);
+		Vector2 playerSpawnPoint = new Vector2(playerSpawn.getRectangle().x * Constants.UNIT_SCALE, playerSpawn.getRectangle().y * Constants.UNIT_SCALE);
+		playerSpawnPoints.add(playerSpawnPoint);
+		Vector2 playerSpawn2Point = new Vector2(playerSpawn2.getRectangle().x * Constants.UNIT_SCALE, playerSpawn2.getRectangle().y * Constants.UNIT_SCALE);
+		playerSpawnPoints.add(playerSpawn2Point);
+		Vector2 playerSpawn3Point = new Vector2(playerSpawn3.getRectangle().x * Constants.UNIT_SCALE, playerSpawn3.getRectangle().y * Constants.UNIT_SCALE);
+		playerSpawnPoints.add(playerSpawn3Point);
 
+		this.customerSpawnPoint = new Vector2(customerSpawn.getRectangle().x * Constants.UNIT_SCALE, customerSpawn.getRectangle().y * Constants.UNIT_SCALE);
+		this.playerSpawnPoints = playerSpawnPoints;
 		// kitchenObstacles.add(new KitchenCollisionObject(new Vector3(5,5,0),10,10,true));
 	}
 
@@ -266,8 +275,8 @@ public class Kitchen {
 		return customerSpawnPoint;
 	}
 
-	public Vector2 getPlayerSpawnPoint() {
-		return playerSpawnPoint;
+	public ArrayList<Vector2> getPlayerSpawnPoints() {
+		return playerSpawnPoints;
 	}
 
 }

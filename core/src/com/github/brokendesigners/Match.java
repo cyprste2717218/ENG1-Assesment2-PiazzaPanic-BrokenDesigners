@@ -135,7 +135,9 @@ public class Match {
         Formatter formatter = new Formatter();
         formatter.format("%.2f", money);
         return formatter.toString();
-
+    }
+    public double getIntMoney()  {
+        return money;
     }
 
     public int getCustomersServed() {

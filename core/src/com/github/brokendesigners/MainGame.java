@@ -6,7 +6,6 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -25,7 +24,6 @@ import com.github.brokendesigners.renderer.CustomerRenderer;
 import com.github.brokendesigners.renderer.PlayerRenderer;
 import com.github.brokendesigners.textures.Animations;
 
-import java.security.Key;
 import java.util.ArrayList;
 
 public class MainGame {
@@ -85,7 +83,7 @@ public class MainGame {
 
 	public void create(){
 		// MAP & MAP OBJECT BUILDING
-		this.kitchen = new Kitchen(camera, spriteBatch, bubbleRenderer);
+		this.kitchen = new Kitchen(camera, spriteBatch, bubbleRenderer, match);
 
 		ArrayList<KitchenCollisionObject> kitchenCollisionObjects = kitchen.getKitchenObstacles();
 
@@ -162,6 +160,7 @@ public class MainGame {
 		customerManager.update(spriteBatch, hud_batch);
 
 		for (Station station : kitchen.getKitchenStations()) {
+			station.setMatch(match);
 			station.renderCounter(spriteBatch);
 		}
 		for (Station station : kitchen.getLockedKitchenStations())	{
@@ -186,9 +185,13 @@ public class MainGame {
 		playerList = new ArrayList<>(); // List of Players - used to determine which is active
 
 		for(int i  = 0; i < 3; i++){
-			Player player = new Player(playerRenderer, playerAnimations.get(i), new Vector2(kitchen.getPlayerSpawnPoint().x + (i * 32 * Constants.UNIT_SCALE), kitchen.getPlayerSpawnPoint().y), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
+
+			Player player = new Player(playerRenderer, playerAnimations.get(i), new Vector2(kitchen.getPlayerSpawnPoints().get(i).x + (8 * Constants.UNIT_SCALE), kitchen.getPlayerSpawnPoints().get(i).y), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
 			player.setRenderOffsetX(-1 * Constants.UNIT_SCALE);
 			playerList.add(player);
+
+
+
 		}
 		setSelectedPlayer(0);
 	}
@@ -226,6 +229,9 @@ public class MainGame {
 
 	public Kitchen getKitchen(){
 		return kitchen;
+	}
+	public Match getMatch()	{
+		return match;
 	}
 
 
