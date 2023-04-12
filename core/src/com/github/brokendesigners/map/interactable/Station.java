@@ -8,11 +8,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.github.brokendesigners.Constants;
-import com.github.brokendesigners.Hand;
 import com.github.brokendesigners.Player;
 import com.github.brokendesigners.item.Item;
 
-import java.lang.reflect.InvocationTargetException;
 /*
  * Abstract class station. All stations inherit from this.
  * should only really be handled by Kitchen class
@@ -157,7 +155,7 @@ public abstract class Station {
 		}
 		spriteBatch.end();
 	}
-	public void unlcockStation()	{
+	public void unlockStation()	{
 		this.locked = false;
 	}
 
