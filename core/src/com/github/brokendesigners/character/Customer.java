@@ -157,8 +157,7 @@ public class Customer {
 					if (station.getItemInHand().equals(desiredMeal)) {
 						beenServed = true;
 						match.incrementReputationPoints();
-						match.addMoney(desiredMeal.name.toString(), desiredMeal.difficultyToMake, waitingStartTime, customerWaitTime/1000 );
-						//match.addTip();
+						match.addMoney(desiredMeal.name.toString(), waitingStartTime, customerWaitTime/1000 );
 						success.play();
 						setPhase(CustomerPhase.LEAVING);
 						station.dumpHand();
