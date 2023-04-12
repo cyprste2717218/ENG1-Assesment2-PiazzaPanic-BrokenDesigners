@@ -16,7 +16,6 @@ public abstract class Item implements Disposable {
 	public Boolean Baking;
 	private int reward;
 
-
 	public Item(String n){
 		this.name = n;
 		this.Cooking = false;
@@ -47,9 +46,7 @@ public abstract class Item implements Disposable {
 	@Override
 	public void dispose(){
 		this.texture.dispose();
-
 	}
-
 }
 
 
