@@ -161,7 +161,6 @@ public abstract class Station {
 			unlockFX.play();
 			System.out.println("Station Unlocked");
 			this.match.subtractMoney(10);
-			System.out.println(this.match.getIntMoney());
 		} else{
 
 		}

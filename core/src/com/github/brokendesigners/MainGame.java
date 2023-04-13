@@ -39,6 +39,7 @@ public class MainGame {
 
 	InputProcessor inputProcessor;
 	ArrayList<Player> playerList;
+	ArrayList<Player> lockedPlayerList;
 	int selectedPlayer;
 	Kitchen kitchen;
 	CustomerManager customerManager;
@@ -118,13 +119,18 @@ public class MainGame {
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.NUM_1)) {
-			setSelectedPlayer(0);			
-    	}
+			if (!this.playerList.get(0).isLocked()){
+				setSelectedPlayer(0);
+			}    	}
 		else if (Gdx.input.isKeyPressed(Keys.NUM_2)) {
-		  setSelectedPlayer(1);
+			if (!this.playerList.get(1).isLocked()){
+				setSelectedPlayer(1);
+			}
 		}
 		else if (Gdx.input.isKeyPressed(Keys.NUM_3)) {
-		  setSelectedPlayer(2);
+			if (!this.playerList.get(2).isLocked()){
+				setSelectedPlayer(2);
+			}
 		}
 		powerUpManager.setPlayer(playerList.get(selectedPlayer));
 		powerUpManager.handlePowerUps();
@@ -166,6 +172,10 @@ public class MainGame {
 		for (Station station : kitchen.getLockedKitchenStations())	{
 			station.activateLock(spriteBatch);
 		}
+		for (Player player : playerList)	{
+			player.activateLockSprite(spriteBatch, playerList.indexOf(player));
+
+		}
 		bubbleRenderer.renderBubbles();
 	}
 
@@ -183,15 +193,19 @@ public class MainGame {
 
 		//BUILDING PLAYERS
 		playerList = new ArrayList<>(); // List of Players - used to determine which is active
+		lockedPlayerList = new ArrayList<>(); // List of locked Players
 
 		for(int i  = 0; i < 3; i++){
 
-			Player player = new Player(playerRenderer, playerAnimations.get(i), new Vector2(kitchen.getPlayerSpawnPoints().get(i).x + (8 * Constants.UNIT_SCALE), kitchen.getPlayerSpawnPoints().get(i).y), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
+			Player player = new Player(playerRenderer, playerAnimations.get(i), new Vector2(kitchen.getPlayerSpawnPoints().get(i).x + (8 * Constants.UNIT_SCALE), kitchen.getPlayerSpawnPoints().get(i).y), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE, this, kitchen, match);
 			player.setRenderOffsetX(-1 * Constants.UNIT_SCALE);
 			if (i==1 || i==2)	{
 				player.lockPlayer();
+				lockedPlayerList.add(player);
 			}
 			playerList.add(player);
+
+
 
 
 
@@ -239,6 +253,19 @@ public class MainGame {
 	}
 	public ArrayList<Player> getPlayerList()	{
 		return playerList;
+	}
+	public ArrayList<Player> getLockedPlayerList()	{
+		return lockedPlayerList;
+	}
+	public void addUnlockedPlayer(Player player)	{
+		if (player != null)	{
+			this.playerList.add(player);
+			this.lockedPlayerList.remove(player);
+			System.out.println("LISTS="+this.playerList);
+			System.out.println(this.lockedPlayerList);
+
+		}
+
 	}
 
 

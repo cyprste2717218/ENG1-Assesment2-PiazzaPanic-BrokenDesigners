@@ -4,20 +4,27 @@ import static java.lang.Math.abs;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.actions.RemoveActorAction;
 import com.github.brokendesigners.item.Item;
+import com.github.brokendesigners.map.Kitchen;
 import com.github.brokendesigners.map.KitchenCollisionObject;
 import com.github.brokendesigners.map.interactable.Station;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import com.github.brokendesigners.renderer.PlayerRenderer;
 import com.github.brokendesigners.textures.Animations;
+import jdk.tools.jmod.Main;
+import org.w3c.dom.css.Rect;
 
 public class Player {
 	Vector2 worldPosition; // Position of the player in world-coords
@@ -26,6 +33,8 @@ public class Player {
 
 	private float width; //NOTE:  NOT THE WIDTH OF CHEF SPRITE
 	private float height;	//NOTE: NOT HEIGHT OF CHEF SPRITE
+	private float interactionWidth; // height used for chef on chef interaction
+	private float interactionHeight; // height used for chef on chef interaction
 
 	public final float SPRITE_WIDTH;		// Width of chef when drawn
 	public final float SPRITE_HEIGHT;		// Height of chef when drawn
@@ -33,7 +42,7 @@ public class Player {
 	public Hand hand; // Items held by the chef
 
 	Rectangle playerRectangle; // Rectangle representation of chef - Used for interactions/collisions
-
+	Rectangle interactingPlayerRectangle; // Rectangle representation of chef - Used for chef on chef interactions
 	private boolean selected; // Is Player Selected
 
 	public Texture texture; // Texture of player if there are no animations for player
@@ -42,6 +51,12 @@ public class Player {
 	public boolean flipped; // is flipped or not -- NOT USED
 	public boolean moving_disabled = false; // Is moving disabled? - Moving is disabled when interacting with most stations.
 	public boolean locked = false;
+	public static Sprite lockSprite;
+	public Sound unlockFX;
+
+	MainGame game;
+	Kitchen kitchen;
+	Match match;
 
 	float renderOffsetX = 0;
 	// ^^ Offset where the sprite will render relative to the invisible rectangle
@@ -83,7 +98,7 @@ public class Player {
 	* 		Index 1 : Move animation
 	* 		Index 2 : Interaction Animation
 	 */
-	public Player(PlayerRenderer renderer, ArrayList<Animation<TextureRegion>> animations, Vector2 worldPosition, float sprite_width, float sprite_height){
+	public Player(PlayerRenderer renderer, ArrayList<Animation<TextureRegion>> animations, Vector2 worldPosition, float sprite_width, float sprite_height, MainGame game, Kitchen kitchen, Match match){
 
 		this.worldPosition = worldPosition;
 
@@ -97,8 +112,17 @@ public class Player {
 		renderer.addPlayer(this);
 		this.width = 18 * Constants.UNIT_SCALE;
 		this.height = 4 * Constants.UNIT_SCALE;
+		this.interactionWidth = 20 * Constants.UNIT_SCALE;
+		this.interactionHeight = 36 * Constants.UNIT_SCALE;
+
 
 		playerRectangle = new Rectangle(worldPosition.x, worldPosition.y, this.width, this.height);
+		interactingPlayerRectangle = new Rectangle(worldPosition.x, worldPosition.y, this.interactionWidth, this.interactionHeight);
+
+		this.unlockFX = Gdx.audio.newSound(Gdx.files.internal("audio/unlock.wav"));
+		this.game = game;
+		this.kitchen = kitchen;
+		this.match = match;
 	}
 	/*
 	* Gets player rectangle, used for calculating collisions and interactions.
@@ -106,12 +130,17 @@ public class Player {
 	public Rectangle getPlayerRectangle() {
 		return playerRectangle;
 	}
+	public Rectangle getInteractingPlayerRectangle()	{
+		return interactingPlayerRectangle;
+	}
 	/*
 	* updates position of rectangle - ideally size of rectangle should stay constant.
 	 */
 	private void updateRectangle(){
 		playerRectangle.x = worldPosition.x;
 		playerRectangle.y = worldPosition.y;
+		interactingPlayerRectangle.x = worldPosition.x;
+		interactingPlayerRectangle.y = worldPosition.y;
 
 	}
 	/*
@@ -295,6 +324,12 @@ public class Player {
 		interactingStation.action(this);
 		return true;
 	}
+	public boolean isLocked()	{
+		if (this.locked)	{
+			return true;
+		}
+		return false;
+	}
 	public void lockPlayer()	{
 		this.locked = true;
 		this.disableMovement();
@@ -303,27 +338,42 @@ public class Player {
 	public void unlockPlayer()	{
 		this.locked = false;
 		this.enableMovement();
-		System.out.println("Player Unlocked"+this.moving_disabled);
+		unlockFX.play();
+		this.match.subtractMoney(10);
+		System.out.println("Player Unlocked");
+	}
+	public void activateLockSprite(SpriteBatch spriteBatch, int index)  {
+		lockSprite = new Sprite(new Texture(Gdx.files.internal("items/lock.png")));
+		spriteBatch.begin();
+		if (this.locked)	{
+			spriteBatch.draw(lockSprite, (float) (kitchen.getPlayerSpawnPoints().get(index).x+0.5), (float) (kitchen.getPlayerSpawnPoints().get(index).y+0.5), 24 * Constants.UNIT_SCALE, 24 * Constants.UNIT_SCALE);
+		}
+		spriteBatch.end();
 	}
 	// A function to find the player that is being interacted with
-	public Player getInteractingPlayer(ArrayList<Player> playerList)	{
+	public Player getInteractingPlayer(ArrayList<Player> lockedPlayerList)	{
 		if (this.isSelected())	{
-			for (Player player : playerList)	{
-				if (Intersector.overlaps(player.getPlayerRectangle(), this.getPlayerRectangle()))	{
-					return player;
+			for (Player player : lockedPlayerList)	{
+				if (this != player)	{
+					System.out.println(this.getInteractingPlayerRectangle());
+					System.out.println(player.getInteractingPlayerRectangle());
+					if (Intersector.overlaps(this.getInteractingPlayerRectangle(), player.getInteractingPlayerRectangle()))	{
+						return player;
+					}
 				}
+
 			}
 		}
 		return null;
 	}
-	public boolean playerInteract(ArrayList<Player> playerList)	{
-		Player interactingPlayer = getInteractingPlayer(playerList);
-		if (interactingPlayer == null) return false;
-		if (interactingPlayer.locked)	{
+	public Player playerInteract(ArrayList<Player> lockedPlayerList)	{
+		Player interactingPlayer = getInteractingPlayer(lockedPlayerList);
+		if (interactingPlayer == null) return null;
+		if (interactingPlayer.locked && this.match.getIntMoney() >= 10)	{
 				interactingPlayer.unlockPlayer();
 		}
 
-		return true;
+		return interactingPlayer;
 	}
 
 	/*
