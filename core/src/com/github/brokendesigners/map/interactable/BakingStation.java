@@ -45,11 +45,7 @@ public class BakingStation extends Station implements IFailable {
     @Override
     public boolean action(final Player player) {
         // to unlock the station
-        if (this.locked)    {
-            this.unlockStation();
-            unlockFX.play();
-            System.out.println("Station Unlocked");
-        }
+        unlockStation();
         // if player is holding something, station is not already in use and item
         // in hand has not already been cooked
         if(inuse || hand == null || hand.Baking) return false;

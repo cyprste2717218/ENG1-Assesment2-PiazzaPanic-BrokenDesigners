@@ -89,12 +89,7 @@ public class CuttingStation extends Station implements IFailable{
     @Override
     public boolean action(final Player player) {
         // to unlock the station
-        if (this.locked)    {
-            this.unlockStation();
-            unlockFX.play();
-            System.out.println("Station Unlocked");
-            return false;
-        }
+        unlockStation();
         if(inuse || hand == null) return false;
         if (Applicable(Cuttables, "Cutting_Station", hand.getName())) {
             setUpCutting(player);
@@ -103,7 +98,7 @@ public class CuttingStation extends Station implements IFailable{
             return true;
         } else {
             System.out.println("Incorrect Item");
-            failure.play();
+            //failure.play();
         }
         return false;
     }

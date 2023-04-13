@@ -1,5 +1,7 @@
 package com.github.brokendesigners.map.interactable;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
@@ -78,11 +80,7 @@ public class CookingStation extends Station implements IFailable {
     @Override
     public boolean action(final Player player) {
         // to unlock the station
-        if (this.locked)    {
-            this.unlockStation();
-            unlockFX.play();
-            System.out.println("Station Unlocked");
-        }
+        unlockStation();
         // if player is holding something, station is not already in use and item
         // in hand has not already been cooked
         if(inuse || hand == null || hand.Cooking) return false;

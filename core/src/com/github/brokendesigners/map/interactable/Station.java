@@ -162,7 +162,8 @@ public abstract class Station {
 			System.out.println("Station Unlocked");
 			this.match.subtractMoney(10);
 		} else{
-
+			System.out.println("Insufficient Funds");
+			failure.play();
 		}
 	}
 
