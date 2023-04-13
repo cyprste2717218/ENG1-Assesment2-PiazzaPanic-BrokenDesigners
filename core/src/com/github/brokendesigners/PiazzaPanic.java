@@ -146,6 +146,8 @@ public class PiazzaPanic extends ApplicationAdapter {
 					} else if (keycode == Keys.ESCAPE) { // activates menu.
 						game.customerManager.pause();
 						menu.active = true;
+						menu.playOptions = false;
+						menu.howToScreen = true;
 					}
 				} else { // if menu is active
 					if (keycode == Keys.ESCAPE && game != null) {

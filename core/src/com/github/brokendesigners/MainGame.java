@@ -158,7 +158,7 @@ public class MainGame {
 			powerUp.getSprite().draw(spriteBatch);
 		}
 		spriteBatch.end();
-		customerManager.update(spriteBatch, hud_batch);
+
 
 		for (Station station : kitchen.getKitchenStations()) {
 			station.renderCounter(spriteBatch);
@@ -171,6 +171,8 @@ public class MainGame {
 			station.activateLock(spriteBatch);
 		}
 		bubbleRenderer.renderBubbles();
+		customerManager.update(spriteBatch, hud_batch);
+		//customerManager.handleHUD(spriteBatch);
 	}
 
 	public void initialisePlayers(){

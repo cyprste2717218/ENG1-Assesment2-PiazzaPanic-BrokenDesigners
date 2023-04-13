@@ -165,6 +165,7 @@ public class Customer {
 					}
 					else{
 						if(failure != null)	failure.play();
+
 						station.dumpHand();
 						match.failedOrder();
 					}
