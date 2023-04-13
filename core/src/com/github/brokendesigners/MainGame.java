@@ -6,7 +6,6 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -25,7 +24,6 @@ import com.github.brokendesigners.renderer.CustomerRenderer;
 import com.github.brokendesigners.renderer.PlayerRenderer;
 import com.github.brokendesigners.textures.Animations;
 
-import java.security.Key;
 import java.util.ArrayList;
 
 public class MainGame {
@@ -41,6 +39,7 @@ public class MainGame {
 
 	InputProcessor inputProcessor;
 	ArrayList<Player> playerList;
+	ArrayList<Player> lockedPlayerList;
 	int selectedPlayer;
 	Kitchen kitchen;
 	CustomerManager customerManager;
@@ -85,7 +84,7 @@ public class MainGame {
 
 	public void create(){
 		// MAP & MAP OBJECT BUILDING
-		this.kitchen = new Kitchen(camera, spriteBatch, bubbleRenderer);
+		this.kitchen = new Kitchen(camera, spriteBatch, bubbleRenderer, match);
 
 		ArrayList<KitchenCollisionObject> kitchenCollisionObjects = kitchen.getKitchenObstacles();
 
@@ -120,13 +119,18 @@ public class MainGame {
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.NUM_1)) {
-			setSelectedPlayer(0);			
-    	}
+			if (!this.playerList.get(0).isLocked()){
+				setSelectedPlayer(0);
+			}    	}
 		else if (Gdx.input.isKeyPressed(Keys.NUM_2)) {
-		  setSelectedPlayer(1);
+			if (!this.playerList.get(1).isLocked()){
+				setSelectedPlayer(1);
+			}
 		}
 		else if (Gdx.input.isKeyPressed(Keys.NUM_3)) {
-		  setSelectedPlayer(2);
+			if (!this.playerList.get(2).isLocked()){
+				setSelectedPlayer(2);
+			}
 		}
 		powerUpManager.setPlayer(playerList.get(selectedPlayer));
 		powerUpManager.handlePowerUps();
@@ -161,6 +165,7 @@ public class MainGame {
 		customerManager.update(spriteBatch, hud_batch);
 
 		for (Station station : kitchen.getKitchenStations()) {
+			station.setMatch(match);
 			station.renderCounter(spriteBatch);
 			//Handles station preparation steps
 			if(station instanceof IFailable){
@@ -169,6 +174,10 @@ public class MainGame {
 		}
 		for (Station station : kitchen.getLockedKitchenStations())	{
 			station.activateLock(spriteBatch);
+		}
+		for (Player player : playerList)	{
+			player.activateLockSprite(spriteBatch, playerList.indexOf(player));
+
 		}
 		bubbleRenderer.renderBubbles();
 	}
@@ -187,11 +196,23 @@ public class MainGame {
 
 		//BUILDING PLAYERS
 		playerList = new ArrayList<>(); // List of Players - used to determine which is active
+		lockedPlayerList = new ArrayList<>(); // List of locked Players
 
 		for(int i  = 0; i < 3; i++){
-			Player player = new Player(playerRenderer, playerAnimations.get(i), new Vector2(kitchen.getPlayerSpawnPoint().x + (i * 32 * Constants.UNIT_SCALE), kitchen.getPlayerSpawnPoint().y), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
+
+			Player player = new Player(playerRenderer, playerAnimations.get(i), new Vector2(kitchen.getPlayerSpawnPoints().get(i).x + (8 * Constants.UNIT_SCALE), kitchen.getPlayerSpawnPoints().get(i).y), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE, this, kitchen, match);
 			player.setRenderOffsetX(-1 * Constants.UNIT_SCALE);
+			if (i==1 || i==2)	{
+				player.lockPlayer();
+				lockedPlayerList.add(player);
+			}
 			playerList.add(player);
+
+
+
+
+
+
 		}
 		setSelectedPlayer(0);
 	}
@@ -231,6 +252,25 @@ public class MainGame {
 
 	public Kitchen getKitchen(){
 		return kitchen;
+	}
+	public Match getMatch()	{
+		return match;
+	}
+	public ArrayList<Player> getPlayerList()	{
+		return playerList;
+	}
+	public ArrayList<Player> getLockedPlayerList()	{
+		return lockedPlayerList;
+	}
+	public void addUnlockedPlayer(Player player)	{
+		if (player != null)	{
+			this.playerList.add(player);
+			this.lockedPlayerList.remove(player);
+			System.out.println("LISTS="+this.playerList);
+			System.out.println(this.lockedPlayerList);
+
+		}
+
 	}
 
 

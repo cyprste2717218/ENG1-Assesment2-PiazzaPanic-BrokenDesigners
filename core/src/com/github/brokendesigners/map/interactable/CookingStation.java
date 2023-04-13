@@ -1,10 +1,9 @@
 package com.github.brokendesigners.map.interactable;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
+import com.github.brokendesigners.*;
 import com.github.brokendesigners.Constants;
 import com.github.brokendesigners.Player;
 import com.github.brokendesigners.bubble.ActionBubble;
@@ -13,6 +12,7 @@ import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.textures.Animations;
 import com.badlogic.gdx.utils.Timer.Task;
+
 
 
 public class CookingStation extends Station implements IFailable {
@@ -26,7 +26,7 @@ public class CookingStation extends Station implements IFailable {
 
     public Bubble cookingBubble, attentionBubble;
 
-    public CookingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer, boolean locked){
+    public CookingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer, boolean locked, Match match){
         super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Cooking_Station");
         this.handPosition = new Vector2(handX, handY);
         this.cookingBubble = new ActionBubble(bubbleRenderer, new Vector2(handPosition.x - 8f * Constants.UNIT_SCALE, handPosition.y),
