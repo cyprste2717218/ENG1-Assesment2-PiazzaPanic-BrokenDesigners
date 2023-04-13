@@ -41,6 +41,7 @@ public class Player {
 	public float keyFrame; // float updated every frame - used to determine which frame of animation of the player should render
 	public boolean flipped; // is flipped or not -- NOT USED
 	public boolean moving_disabled = false; // Is moving disabled? - Moving is disabled when interacting with most stations.
+	public boolean locked = false;
 
 	float renderOffsetX = 0;
 	// ^^ Offset where the sprite will render relative to the invisible rectangle
@@ -292,6 +293,36 @@ public class Player {
 		Station interactingStation = getInteractingStation(stations);
 		if(interactingStation == null) return false;
 		interactingStation.action(this);
+		return true;
+	}
+	public void lockPlayer()	{
+		this.locked = true;
+		this.disableMovement();
+
+	}
+	public void unlockPlayer()	{
+		this.locked = false;
+		this.enableMovement();
+		System.out.println("Player Unlocked"+this.moving_disabled);
+	}
+	// A function to find the player that is being interacted with
+	public Player getInteractingPlayer(ArrayList<Player> playerList)	{
+		if (this.isSelected())	{
+			for (Player player : playerList)	{
+				if (Intersector.overlaps(player.getPlayerRectangle(), this.getPlayerRectangle()))	{
+					return player;
+				}
+			}
+		}
+		return null;
+	}
+	public boolean playerInteract(ArrayList<Player> playerList)	{
+		Player interactingPlayer = getInteractingPlayer(playerList);
+		if (interactingPlayer == null) return false;
+		if (interactingPlayer.locked)	{
+				interactingPlayer.unlockPlayer();
+		}
+
 		return true;
 	}
 

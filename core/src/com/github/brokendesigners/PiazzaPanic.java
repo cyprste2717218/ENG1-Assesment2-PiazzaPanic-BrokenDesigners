@@ -138,6 +138,9 @@ public class PiazzaPanic extends ApplicationAdapter {
 						for(Player player : game.playerList){
 							player.interact(game.kitchen.getKitchenStations());
 						}
+						for(Player player : game.playerList)	{
+							player.playerInteract(game.getPlayerList());
+						}
 					} else if (keycode == Keys.TAB) { // handles player switching - *shouldn't* need to be updated
 						game.playerList.get(game.selectedPlayer).setSelected(false);
 						game.selectedPlayer += 1;

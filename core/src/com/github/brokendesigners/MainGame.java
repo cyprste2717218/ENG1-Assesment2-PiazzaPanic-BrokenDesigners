@@ -188,7 +188,11 @@ public class MainGame {
 
 			Player player = new Player(playerRenderer, playerAnimations.get(i), new Vector2(kitchen.getPlayerSpawnPoints().get(i).x + (8 * Constants.UNIT_SCALE), kitchen.getPlayerSpawnPoints().get(i).y), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
 			player.setRenderOffsetX(-1 * Constants.UNIT_SCALE);
+			if (i==1 || i==2)	{
+				player.lockPlayer();
+			}
 			playerList.add(player);
+
 
 
 
@@ -232,6 +236,9 @@ public class MainGame {
 	}
 	public Match getMatch()	{
 		return match;
+	}
+	public ArrayList<Player> getPlayerList()	{
+		return playerList;
 	}
 
 
