@@ -12,6 +12,12 @@ import com.badlogic.gdx.utils.Disposable;
 public class Atlases {
 	public static TextureAtlas gearImages = new TextureAtlas("indicators/gear/gear.atlas");
 	// Frames for gear animation
+
+	public static TextureAtlas countdownImages = new TextureAtlas("indicators/countdown/countdown.atlas");
+	// Frames for countdown animation
+
+	public static TextureAtlas attentionImages = new TextureAtlas("indicators/attention/attention.atlas");
+	//Frames for attention animation
 	public static TextureAtlas bluggusTextures = new TextureAtlas("characters/bluggus.pack");
 	//frames for customer bluggus
 	public static TextureAtlas glibbertTextures = new TextureAtlas("pack textures/chef.atlas");

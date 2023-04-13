@@ -68,7 +68,7 @@ public class Match {
      *
      *
      *  */
-    public void addMoney(String mealBeenServed, String mealDifficulty, long customerWaitingStartTime, long customerMaxWaitTime) {
+    public void addMoney(String mealBeenServed, long customerWaitingStartTime, long customerMaxWaitTime) {
 
         //note: infrastruture mostly set up to account for meal difficulty in profit yield for customer order
         // just needs mealBeenServed argument to be placed into method below as needed
@@ -86,6 +86,8 @@ public class Match {
             case "Pizza":
                 orderTotal = 15;
                 break;
+            case "Baked_JacketPotato":
+                orderTotal = 10;
             default:
                 orderTotal += 0; //test
                 System.out.println("Not a valid meal name");

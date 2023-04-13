@@ -16,28 +16,19 @@ public abstract class Item implements Disposable {
 	public Boolean Baking;
 	private int reward;
 
-	public String difficultyToMake;
-
 	public Item(String n){
 		this.name = n;
 		this.Cooking = false;
 		this.Baking = false;
-		this.difficultyToMake = "Invalid";
+
 		reward = 0;
 	}
 
-
-	public Item(String n, int reward) {
-		this.name = n;
-		this.reward = reward;
-		this.difficultyToMake = "Invalid";
-	}
-
-	public Item(String n, int reward, String difficultyToMake){
+	public Item(String n, int reward){
 		this.name = n;
 		this.Cooking = false;
 		this.reward = reward;
-		this.difficultyToMake = difficultyToMake;
+
 	}
 
 	public Texture getTexture(){
@@ -55,9 +46,7 @@ public abstract class Item implements Disposable {
 	@Override
 	public void dispose(){
 		this.texture.dispose();
-
 	}
-
 }
 
 

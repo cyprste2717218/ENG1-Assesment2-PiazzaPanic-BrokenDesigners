@@ -28,6 +28,10 @@ public class ActionBubble extends Bubble{
 
 	}
 
+	public void resetStateTime(){
+		stateTime = 0;
+	}
+
 	@Override
 	public void render(SpriteBatch batch) {
 		stateTime += Gdx.graphics.getDeltaTime();

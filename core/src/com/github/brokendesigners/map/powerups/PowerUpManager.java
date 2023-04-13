@@ -69,13 +69,13 @@ public class PowerUpManager {
 
         switch (spawnPointOption){
             case 0:
-                return new Vector2(26,42);
+                return new Vector2(18,34);
             case 1:
-                return new Vector2(46,34);
+                return new Vector2(38,26);
             case 2:
-                return new Vector2(66,42);
+                return new Vector2(58,34);
             default:
-                return new Vector2(46,54);
+                return new Vector2(38,46);
         }
     }
 
