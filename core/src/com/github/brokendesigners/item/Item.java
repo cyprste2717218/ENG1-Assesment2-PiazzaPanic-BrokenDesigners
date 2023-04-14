@@ -43,6 +43,11 @@ public abstract class Item implements Disposable {
 	{
 		this.name = x;
 	}
+
+	public String toString(){
+		return name;
+	}
+
 	@Override
 	public void dispose(){
 		this.texture.dispose();

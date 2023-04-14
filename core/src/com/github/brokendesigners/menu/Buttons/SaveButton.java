@@ -2,6 +2,7 @@ package com.github.brokendesigners.menu.Buttons;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
+import com.github.brokendesigners.MainGame;
 import com.github.brokendesigners.menu.MenuScreen;
 
 public class SaveButton extends Button{
@@ -12,7 +13,9 @@ public class SaveButton extends Button{
 
     @Override
     public boolean performTask() {
-//        menuScreen.gameSaved = true;
+        if(MainGame.saveGame.save()){
+            menuScreen.gameSaved = true;
+        }
         return true;
     }
 }

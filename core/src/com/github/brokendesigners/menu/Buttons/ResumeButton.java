@@ -13,6 +13,7 @@ public class ResumeButton extends Button{
     @Override
     public boolean performTask() {
         menuScreen.active = false;
+        menuScreen.gameSaved = false;
         menuScreen.unpauseGame();
         return true;
     }

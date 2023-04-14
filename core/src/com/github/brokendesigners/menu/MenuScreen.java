@@ -29,9 +29,11 @@ public class MenuScreen {
 	public boolean howToScreen; // is howToScreen being displayed?
 	public boolean playOptions;
 	public boolean cont;
+	public boolean gameSaved;
 	public boolean complete; // has game been completed?
 	public int selectedButton; // Which button has been selected?
 	BitmapFont font;
+	BitmapFont savedGameFont;
 
 	public ArrayList<Button> menuButtons = new ArrayList<>(); //A list of all the buttons, which is automatically created in the constructor of Button
 	Button playButton, resumeButton, loadButton, saveButton, showHowToPlayButton, backButton, exitGameButton, quitButton, scenarioModeButton, endlessModeButton;
@@ -52,6 +54,9 @@ public class MenuScreen {
 		font = new BitmapFont();
 		this.font.getData().setScale(10, 10);
 		font.setColor(Color.RED);
+		savedGameFont = new BitmapFont();
+		savedGameFont.getData().setScale(5,5);
+		savedGameFont.setColor(Color.RED);
 		this.camera = camera;
 		initialiseButtons();
 	}
@@ -123,6 +128,9 @@ public class MenuScreen {
 			if (cont) {
 				selectedButton = 1;
 				setButtons(Arrays.asList(resumeButton,saveButton,showHowToPlayButton,quitButton));
+				if(gameSaved){
+					savedGameFont.draw(batch, "Game saved", 590, 800);
+				}
 			}
 			else {
 				selectedButton = 0;

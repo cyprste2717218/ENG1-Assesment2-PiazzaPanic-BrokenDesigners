@@ -58,6 +58,10 @@ public class AssemblyStation extends Station{
 
     //return Product or spare ingredients
 
+    public Item[] getItems(){
+        return items;
+    }
+
     @Override
     public boolean pickUp(Player player) {
         if (hand.isEmpty() || player.hand.isFull()||this.inuse){
