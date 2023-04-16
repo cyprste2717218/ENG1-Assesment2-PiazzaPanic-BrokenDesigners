@@ -166,7 +166,7 @@ public class CustomerManager {
 		}
 	}
 
-	void handleHUD(SpriteBatch hud_batch){
+	public void handleHUD(SpriteBatch hud_batch){
 		hud_batch.begin();
 		CharSequence str = isComplete() ? timeToString(finalTime) : timeToString(elapsedTime);
 		font.draw(hud_batch, str, 100, 100);

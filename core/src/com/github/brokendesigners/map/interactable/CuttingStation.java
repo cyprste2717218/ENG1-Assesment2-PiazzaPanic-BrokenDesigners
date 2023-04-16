@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.github.brokendesigners.Constants;
+import com.github.brokendesigners.Match;
 import com.github.brokendesigners.Player;
 import com.github.brokendesigners.bubble.Bubble;
 import com.github.brokendesigners.bubble.ActionBubble;
@@ -17,12 +18,12 @@ import com.github.brokendesigners.textures.Animations;
 
 public class CuttingStation extends Station implements IFailable{
 
-    static final String[] Cuttables = {"Tomato", "Lettuce", "Onion", "Bun", "Potato"};
+    static final String[] Cuttables = {"Tomato", "Lettuce", "Onion", "Potato"};
     Bubble cuttingBubble, countdownBubble;
 
     public boolean needsInteraction, cutToEarly, isValidCuttingTime;
 
-    public CuttingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer, boolean locked){
+    public CuttingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer, boolean locked, Match match){
         super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Cutting_Station");
         this.handPosition = new Vector2(handX, handY);
         this.cuttingBubble = new ActionBubble(bubbleRenderer, new Vector2(handPosition.x - 8f * Constants.UNIT_SCALE, handPosition.y),
@@ -88,12 +89,7 @@ public class CuttingStation extends Station implements IFailable{
     @Override
     public boolean action(final Player player) {
         // to unlock the station
-        if (this.locked)    {
-            this.unlockStation();
-            unlockFX.play();
-            System.out.println("Station Unlocked");
-            return false;
-        }
+        unlockStation();
         if(inuse || hand == null) return false;
         if (Applicable(Cuttables, "Cutting_Station", hand.getName())) {
             setUpCutting(player);
@@ -102,7 +98,7 @@ public class CuttingStation extends Station implements IFailable{
             return true;
         } else {
             System.out.println("Incorrect Item");
-            failure.play();
+            //failure.play();
         }
         return false;
     }

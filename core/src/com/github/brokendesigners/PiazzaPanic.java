@@ -138,15 +138,26 @@ public class PiazzaPanic extends ApplicationAdapter {
 						for(Player player : game.playerList){
 							player.interact(game.kitchen.getKitchenStations());
 						}
+						for(Player player : game.playerList)	{
+							//game.addUnlockedPlayer(player.playerInteract(game.getLockedPlayerList()));
+							player.playerInteract(game.getPlayerList());
+						}
 					} else if (keycode == Keys.TAB) { // handles player switching - *shouldn't* need to be updated
 						game.playerList.get(game.selectedPlayer).setSelected(false);
 						game.selectedPlayer += 1;
 						game.selectedPlayer = game.selectedPlayer % game.playerList.size();
+						while (game.playerList.get(game.selectedPlayer).isLocked()) {
+							game.selectedPlayer +=1;
+							game.selectedPlayer = game.selectedPlayer % game.playerList.size();
+						}
 						game.playerList.get(game.selectedPlayer).setSelected(true);
+
 					} else if (keycode == Keys.ESCAPE) { // activates menu.
 						game.customerManager.pause();
 						menu.cont = true;
 						menu.active = true;
+						menu.playOptions = false;
+						menu.howToScreen = true;
 					}
 				} else { // if menu is active
 					if (keycode == Keys.ESCAPE && game != null) {
