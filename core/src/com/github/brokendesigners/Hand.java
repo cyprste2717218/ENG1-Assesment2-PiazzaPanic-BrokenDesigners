@@ -87,10 +87,4 @@ public class Hand{
 	public void enable_hand_ability()	{
 		hand_ability = true;
 	}
-	public void setHeldItems(ArrayList<String> items){
-		for(String i : items){
-			heldItems.add(item);
-		}
-	}
-
 }

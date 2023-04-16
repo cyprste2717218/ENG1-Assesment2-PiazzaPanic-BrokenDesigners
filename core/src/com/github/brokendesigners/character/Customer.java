@@ -67,6 +67,7 @@ public class Customer {
 	/*
 	 * Instantiates Customer with animations
 	 */
+
 	public Customer(CustomerRenderer customerRenderer, BubbleRenderer bubbleRenderer, ArrayList<Animation<TextureRegion>> animations, CustomerStation station, Item desiredMeal, Vector2 spawnPoint, Match match){
 		worldPosition = new Vector2(spawnPoint);
 		this.setStation(station);
