@@ -16,7 +16,7 @@ public class Match {
         customersSoFar = 0;
     }
 
-    public Match(GameMode gameMode, int reputationPoints, int money, int customersServed, int customersSoFar){
+    public Match(GameMode gameMode, int reputationPoints, float money, int customersServed, int customersSoFar){
         this.gameMode = gameMode;
         this.reputationPoints = reputationPoints;
         this.money = money;
@@ -139,6 +139,10 @@ public class Match {
         return formatter.toString();
     }
     public double getIntMoney()  {
+        return money;
+    }
+
+    public double getMoneyDouble(){
         return money;
     }
 

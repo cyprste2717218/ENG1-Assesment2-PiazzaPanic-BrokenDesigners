@@ -9,7 +9,6 @@ public class QuitButton extends Button{
 
     public QuitButton(Rectangle rectangle, Texture selectedTexture, Texture unselectedTexture, MenuScreen menuScreen) {
         super(rectangle, selectedTexture, unselectedTexture, menuScreen);
-        this.menuScreen = menuScreen;
         setRendered(false);
     }
 
@@ -17,6 +16,7 @@ public class QuitButton extends Button{
     public boolean performTask() {
         System.out.println("Returning to main menu");
         menuScreen.setGameNull();
+        menuScreen.gameSaved = false;
         menuScreen.complete = false;
         menuScreen.cont = false;
         return true;

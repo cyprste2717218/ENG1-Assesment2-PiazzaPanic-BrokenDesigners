@@ -65,6 +65,10 @@ public abstract class Station {
 		return interactionArea;
 	}
 
+	public String getStation_name(){
+		return station_name;
+	}
+
 //	public boolean dropOff(Player player){
 //		return false;
 //	}
