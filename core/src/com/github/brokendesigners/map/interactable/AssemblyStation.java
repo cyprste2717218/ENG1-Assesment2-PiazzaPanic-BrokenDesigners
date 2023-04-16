@@ -17,11 +17,11 @@ import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.textures.Animations;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class AssemblyStation extends Station{
     private Item[] items;
-    private Item Product;
     private Integer Counter;
     private Hand hand;
     private Bubble bubble;
@@ -45,12 +45,10 @@ public class AssemblyStation extends Station{
         this.items[1] = null;
         this.items[2] = null;
         this.items[3] = null;
-        this.Product = null;
         this.Counter = 0;
     }
     // empty constructor used for tests
     public AssemblyStation()    {
-        this.Product = null;
         this.hand = null;
     }
 
@@ -60,7 +58,7 @@ public class AssemblyStation extends Station{
 
     @Override
     public boolean pickUp(Player player) {
-        if (hand.isEmpty() || player.hand.isFull()||this.inuse){
+        if (hand.isEmpty() || player.hand.isFull()|| inuse){
             return false;
         } else {
             player.hand.give(this.hand.drop());
@@ -70,7 +68,7 @@ public class AssemblyStation extends Station{
     }
     @Override
     public boolean dropOff(Player player){
-        if (hand.isFull() || player.hand.isEmpty()){
+        if (hand.isFull() || player.hand.isEmpty() || inuse){
             return false;
         } else {
             this.hand.give(player.hand.drop());
@@ -145,92 +143,67 @@ public class AssemblyStation extends Station{
 
         }
         System.out.println(Total);
-        if(Total == Test.length)
-        {
-            return ItemRegister.itemRegister.get(n);
-        }
-        else
-        {
-            return null;
-        }
-
-        
-        
+        return Total == Test.length ? ItemRegister.itemRegister.get(n) : null;
     }
 
     @Override
     public boolean action(final Player player){
-        if (this.inuse == true) {
-            return false;
-        } else{
+        if(inuse) return false;
+        if (this.hand.getHeldItems().size()>1){
+            final Item product = getProduct();
+            if(product == null) return false;
+            inuse = true;
+            player.disableMovement();
+            this.bubble.setVisible(true);
 
-            if (this.hand.getHeldItems().size()>1){
-                this.inuse = true;
-                player.disableMovement();
-                this.bubble.setVisible(true);
-
-                Timer timer = new Timer();
-                timer.scheduleTask(new Task() {
-                    @Override
-                    public void run() {
-                        Construct();
-                        bubble.setVisible(false);
-                        player.enableMovement();
-                        inuse = false;
-                    }
-                }, stationUseTime);
-                return true;
-            }
+            Timer timer = new Timer();
+            timer.scheduleTask(new Task() {
+                @Override
+                public void run() {
+                    Construct(product);
+                    bubble.setVisible(false);
+                    player.enableMovement();
+                    inuse = false;
+                }
+            }, stationUseTime);
+            return true;
         }
         return false;
 
     }
 
-    //Construct Product
-    public void Construct()
-    {
+    //Gets the product created by the given list of items
+    private Item getProduct(){
         List<String> ItemStackTemp = new ArrayList<>();
+        Item product = null;
         for (Item temp : this.hand.getHeldItems()){
             ItemStackTemp.add(temp.name);
         }
         String[] ItemStack = ItemStackTemp.toArray(new String[0]);
 
-        if((this.hand.getHeldItems().size() > 1))
-        {
+        if((this.hand.getHeldItems().size() > 1)) {
+            HashMap<String, String[]> validRecipes = new HashMap<>();
             //Testing data
-            String[] SaladTest = new String[]{"Cut_Tomato","Cut_Lettuce","Cut_Onion"};
-            String[] BurgerTest = new String[]{"Cooked_Bun","Cooked_Bun","Cooked_Patty"};
-            String[] PizzaTest = new String[]{"Base","Cooked_Tomato","Cheese","Meat"};
-            String[] JacketPotatoTest = new String[]{"Cut_Potato","Cheese"};
+            validRecipes.put("Salad", new String[]{"Cut_Tomato", "Cut_Lettuce", "Cut_Onion"});
+            validRecipes.put("Burger", new String[]{"Cooked_Bun", "Cooked_Bun", "Cooked_Patty"});
+            validRecipes.put("Pizza", new String[]{"Base", "Cooked_Tomato", "Cheese", "Meat"});
+            validRecipes.put("JacketPotato", new String[]{"Cut_Potato", "Cheese"});
 
-
-            if(this.Product == null) //Test for burger
-            {
-                this.Product = TestingForFood(BurgerTest,ItemStack,"Burger");
+            for (String foodOutput : validRecipes.keySet()) {
+                product = TestingForFood(validRecipes.get(foodOutput), ItemStack, foodOutput);
+                if (product != null) return product;
             }
-            if(this.Product == null) //Test for Salad
-            {
-                this.Product = TestingForFood(SaladTest,ItemStack,"Salad");
-            }
-            if(this.Product == null) //Test for Pizza
-            {
-                this.Product = TestingForFood(PizzaTest,ItemStack,"Pizza");
-            }
-            if(this.Product == null) //Test for Jacket Potato
-            {
-                this.Product = TestingForFood(JacketPotatoTest,ItemStack,"JacketPotato");
-            }
+        }
+        return null;
+    }
 
-
-            System.out.println(this.Product);
-            if(this.Product != null) //Delete ingredients and leave Product only waiting to go to stack.
-            {
-
-                this.dumpHand();
-                this.hand.give(this.Product);
-                this.Product = null;
-
-            }
+    //Construct Product
+    public void Construct(Item product)
+    {
+        if(product != null) //Delete ingredients and leave Product only waiting to go to stack.
+        {
+            this.dumpHand();
+            this.hand.give(product);
         }
     }
 

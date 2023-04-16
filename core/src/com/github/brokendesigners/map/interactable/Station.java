@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.github.brokendesigners.Constants;
+import com.github.brokendesigners.Match;
 import com.github.brokendesigners.Player;
 import com.github.brokendesigners.item.Item;
 
@@ -27,7 +28,7 @@ public abstract class Station {
 	public boolean inuse;
 	public boolean locked;
 	public static Sprite lockSprite;
-
+	public Match match;
 	public Sound pick_up;
 	public Sound put_down;
 	public Sound failure;
@@ -68,9 +69,7 @@ public abstract class Station {
 //		return false;
 //	}
 
-	public boolean action(Player player){
-		return false;
-	}
+	public boolean action(Player player){return false;}
 
 
 	//Check if operation can be completed
@@ -155,8 +154,21 @@ public abstract class Station {
 		}
 		spriteBatch.end();
 	}
+	// to unlock the station
 	public void unlockStation()	{
-		this.locked = false;
+		if (this.locked && this.match.getIntMoney() >= 10) {
+			this.locked = false;
+			unlockFX.play();
+			System.out.println("Station Unlocked");
+			this.match.subtractMoney(10);
+		} else{
+			System.out.println("Insufficient Funds");
+			failure.play();
+		}
+	}
+
+	public void setMatch(Match match)	{
+		this.match = match;
 	}
 
 	public void dispose(){
