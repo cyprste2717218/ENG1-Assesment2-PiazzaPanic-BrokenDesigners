@@ -162,7 +162,7 @@ public class MainGame {
 			powerUp.getSprite().draw(spriteBatch);
 		}
 		spriteBatch.end();
-		customerManager.update(spriteBatch, hud_batch);
+
 
 		for (Station station : kitchen.getKitchenStations()) {
 			station.setMatch(match);
@@ -180,6 +180,8 @@ public class MainGame {
 
 		}
 		bubbleRenderer.renderBubbles();
+		customerManager.update(spriteBatch, hud_batch);
+		//customerManager.handleHUD(spriteBatch);
 	}
 
 	public void initialisePlayers(){

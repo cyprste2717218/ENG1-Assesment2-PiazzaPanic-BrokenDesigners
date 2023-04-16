@@ -18,7 +18,7 @@ import com.github.brokendesigners.textures.Animations;
 
 public class CuttingStation extends Station implements IFailable{
 
-    static final String[] Cuttables = {"Tomato", "Lettuce", "Onion", "Bun", "Potato"};
+    static final String[] Cuttables = {"Tomato", "Lettuce", "Onion", "Potato"};
     Bubble cuttingBubble, countdownBubble;
 
     public boolean needsInteraction, cutToEarly, isValidCuttingTime;
