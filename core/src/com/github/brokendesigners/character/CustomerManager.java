@@ -155,12 +155,12 @@ public class CustomerManager {
 					match.decrementReputationPoints();
 				}
 
-				customer.station.setServingCustomer(false);
+				customer.getStation().setServingCustomer(false);
 				customer.setPhase(CustomerPhase.UNLOADING);
 				customer.visible = false;
 
-			} else if ((!customer.isVisible()) && !customer.station.isServingCustomer() && customer.getPhase() == CustomerPhase.SPAWNING) {
-				customer.station.setServingCustomer(true);
+			} else if ((!customer.isVisible()) && !customer.getStation().isServingCustomer() && customer.getPhase() == CustomerPhase.SPAWNING) {
+				customer.getStation().setServingCustomer(true);
 				customer.spawn();
 			}
 		}
@@ -180,8 +180,8 @@ public class CustomerManager {
 			spawningTime = TimeUtils.millis();
 			Random random = new Random();
 			for(int i = 0; i < random.nextInt(4); i++){
-				if(customerStations == null || customerStations.isEmpty()) continue;
-				CustomerStation station = customerStations.get(random.nextInt(customerStations.size()-1));
+				if(getCustomerStations() == null || getCustomerStations().isEmpty()) continue;
+				CustomerStation station = getCustomerStations().get(random.nextInt(getCustomerStations().size()-1));
 				customers.add(new Customer(customerRenderer, bubbleRenderer, animations,
 						station, ItemRegister.itemRegister.get(getMeal()), spawnPoint, match));
 			}
@@ -253,5 +253,9 @@ public class CustomerManager {
 
 	public ArrayList<Customer> getCustomers(){
 		return customers;
+	}
+
+	public ArrayList<CustomerStation> getCustomerStations() {
+		return customerStations;
 	}
 }
