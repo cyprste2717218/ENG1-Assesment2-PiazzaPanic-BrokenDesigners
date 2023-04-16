@@ -35,7 +35,7 @@ public class CustomerManager {
 	private BitmapFont font;
 	private int savedTime;
 
-	private long spawningTime;
+	public long spawningTime;
 	Match match;
 
 	CustomerRenderer customerRenderer;

@@ -42,7 +42,7 @@ public class SaveGame {
         pref.putInteger("Reputation Points", match.getReputationPoints());
         pref.putInteger("Customers served", match.getCustomersServed());
         pref.putInteger("Customers so far", match.getCustomersSoFar());
-        //pref.putInteger("Difficulty Level", match.getDifficultyLevel().ordinal());
+        //pref.putInteger("Difficulty Level", match.getDifficultyLevel().toString());
 
         if(saveChefs() && saveStations() && saveCustomers()){
             pref.flush();
@@ -54,6 +54,26 @@ public class SaveGame {
     private boolean saveStations(){
 
         String temp;
+        ArrayList<? extends Station> stations = kitchen.getKitchenStations();
+        for(Station station : stations){
+            if(station instanceof AssemblyStation){
+                AssemblyStation assemble = (AssemblyStation)station;
+                temp = (assemble.getItems()==null)? "" : assemble.getItems().toString();
+                pref.putString(assemble.getStation_name() + " " + kitchen.getAssembly().indexOf(assemble) + stack, temp);
+                pref.putBoolean(assemble.getStation_name() + " " + kitchen.getAssembly().indexOf(assemble) + "locked", assemble.locked);
+            }
+            else{
+                temp = (station.hand == null)? "" : station.hand.toString();
+                pref.putString(station.getStation_name() + " " + stations.indexOf(station) + stack, temp);
+                pref.putBoolean(station.getStation_name() + " " + stations.indexOf(station) + "locked", station.locked);
+                if(station instanceof CustomerStation){
+                    pref.putBoolean(station.getStation_name() + " " + stations.indexOf(station) + "serving customer", ((CustomerStation) station).isServingCustomer());
+                }
+            }
+        }
+/*
+
+
 
         ArrayList<AssemblyStation> assembly = kitchen.getAssembly();
         for (AssemblyStation assemble : assembly){
@@ -93,8 +113,8 @@ public class SaveGame {
         for (CustomerStation customerStation : customerStations){
             temp = (customerStation.hand == null)? "" : customerStation.hand.toString();
             pref.putString(customerStation.getStation_name() + " " + counters.indexOf(customerStation) + stack, temp);
-            pref.putBoolean(customerStation.getStation_name() + " " + counters.indexOf(customerStation) + "serving customer", customerStation.isServingCustomer());
-        }
+            pref.putBoolean(customerStation.getStation_name() + " " + stations.indexOf(customerStation) + "serving customer", customerStation.isServingCustomer());
+        }*/
         return true;
     }
 
@@ -114,6 +134,8 @@ public class SaveGame {
     private boolean saveCustomers(){
         ArrayList<Customer> customers = customerManager.getCustomers();
         pref.putInteger("Customer size", customers.size());
+        pref.putLong("CustomerManager spawnStartTime", customerManager.spawningTime);
+        pref.putLong("CustomerManager time spent waiting", TimeUtils.timeSinceMillis(customerManager.spawningTime));
         String customerN;
         for (Customer customer : customers){
             customerN = "Customer" + customers.indexOf(customer);
