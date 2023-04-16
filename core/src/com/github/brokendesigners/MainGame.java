@@ -307,17 +307,21 @@ public class MainGame {
 	}
 
 	public ArrayList<String> stringToArray(String input){
-		input.replace("[", "");
-		input.replace("]", "");
-		return new ArrayList<String>(Arrays.asList(input.split(",")));
+		input = input.replace("[", "");
+		input = input.replace("]", "");
+		return new ArrayList<String>(Arrays.asList(input.split(", ")));
 	}
 
 	public ArrayList<Item> stringToItemArray(String input){
+
 		ArrayList<String> itemStrings = stringToArray(input);
+
 		ArrayList<Item> items = new ArrayList<>();
 		for(String item: itemStrings){
+			if(input == "") return new ArrayList<Item>();
 			items.add(ItemRegister.itemRegister.get(item));
 		}
+
 		return items;
 	}
 

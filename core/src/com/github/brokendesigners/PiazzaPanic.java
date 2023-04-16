@@ -1,10 +1,9 @@
 package com.github.brokendesigners;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -31,6 +30,7 @@ import com.github.brokendesigners.textures.Textures;
 
 public class PiazzaPanic extends ApplicationAdapter {
 
+	Preferences pref;
 	Viewport viewport; // Used for window resizing purposes.
 	OrthographicCamera camera; // camera responsible for rendering the game world in the right place.
 	OrthographicCamera hud_cam; // used for rendering the HUD and Main Menu in a constant place.
@@ -222,6 +222,11 @@ public class PiazzaPanic extends ApplicationAdapter {
 			game = new MainGame(spriteBatch, hud_batch, camera, hud_cam, playerRenderer,
 					customerRenderer, bubbleRenderer, mapRenderer, inputProcessor, match);
 			game.create();
+			if(menu.isLoading){
+				pref = Gdx.app.getPreferences("Game_Data");
+				menu.setGameData(pref);
+				menu.isLoading = false;
+			}
 			menu.active = false;
 		}
 	}
