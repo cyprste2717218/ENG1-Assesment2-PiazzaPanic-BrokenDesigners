@@ -6,14 +6,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.github.brokendesigners.Constants;
 import com.github.brokendesigners.Match;
 import com.github.brokendesigners.bubble.SimpleItemBubble;
 import com.github.brokendesigners.enums.CustomerPhase;
 import com.github.brokendesigners.item.Item;
-import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.map.interactable.CustomerStation;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.renderer.CustomerRenderer;
@@ -29,7 +27,7 @@ public class Customer {
 	public ArrayList<Animation<TextureRegion>> animations;
 	// ^^ animation array - Customers dont interact though, so they only need 2 animations, Idle and move (in that order).
 	public Vector2 worldPosition; // position of customer
-	protected CustomerStation station; // station assigned to customer
+	private CustomerStation station; // station assigned to customer
 	protected Item desiredMeal; // desired meal for the customer
 	public final float WIDTH; // width (sprite)
 	public final float HEIGHT; // height (sprite)
@@ -50,7 +48,7 @@ public class Customer {
 	 */
 	public Customer(CustomerRenderer customerRenderer, BubbleRenderer bubbleRenderer, Texture texture, CustomerStation station, Item desiredMeal, Vector2 spawnPoint, Match match){
 		worldPosition = new Vector2(spawnPoint);
-		this.station = station;
+		this.setStation(station);
 		this.texture = texture;
 		this.desiredMeal = desiredMeal;
 
@@ -59,7 +57,7 @@ public class Customer {
 		this.phase = CustomerPhase.SPAWNING;
 		this.spawnPoint = spawnPoint;
 
-		bubble = new SimpleItemBubble(bubbleRenderer, this.desiredMeal, new Vector2(this.station.getCustomerPosition().x + 1f, this.station.getCustomerPosition().y + 2f));
+		bubble = new SimpleItemBubble(bubbleRenderer, this.desiredMeal, new Vector2(this.getStation().getCustomerPosition().x + 1f, this.getStation().getCustomerPosition().y + 2f));
 
 		customerRenderer.addCustomer(this);
 		this.stateTime = 0;
@@ -71,14 +69,14 @@ public class Customer {
 	 */
 	public Customer(CustomerRenderer customerRenderer, BubbleRenderer bubbleRenderer, ArrayList<Animation<TextureRegion>> animations, CustomerStation station, Item desiredMeal, Vector2 spawnPoint, Match match){
 		worldPosition = new Vector2(spawnPoint);
-		this.station = station;
+		this.setStation(station);
 		this.animations = animations;
 		this.desiredMeal = desiredMeal;
 
 		this.phase = CustomerPhase.SPAWNING;
 		this.spawnPoint = spawnPoint;
 
-		bubble = new SimpleItemBubble(bubbleRenderer, this.desiredMeal, new Vector2(this.station.getCustomerPosition().x + 1f, this.station.getCustomerPosition().y + 2f));
+		bubble = new SimpleItemBubble(bubbleRenderer, this.desiredMeal, new Vector2(this.getStation().getCustomerPosition().x + 1f, this.getStation().getCustomerPosition().y + 2f));
 
 		customerRenderer.addCustomer(this);
 
@@ -95,7 +93,7 @@ public class Customer {
 	//This is a headless implementation of the customer constructor
 	public Customer(CustomerStation station, Item desiredMeal, Vector2 spawnPoint, Match match){
 		worldPosition = new Vector2(spawnPoint);
-		this.station = station;
+		this.setStation(station);
 		this.animations = new ArrayList<>();
 		this.desiredMeal = desiredMeal;
 		this.phase = CustomerPhase.SPAWNING;
@@ -129,17 +127,17 @@ public class Customer {
 	public void update(){
 		switch (getPhase()) {
 			case MOVING_TO_STATION: // Phase 0 -- Customer is moving to Ordering Station
-				if (worldPosition.y != station.getCustomerPosition().y) {
+				if (worldPosition.y != getStation().getCustomerPosition().y) {
 					worldPosition.y += movement_speed;
-					if (Math.abs((worldPosition.y - station.getCustomerPosition().y)) <= movement_speed) {
-						worldPosition.y = station.getCustomerPosition().y;
+					if (Math.abs((worldPosition.y - getStation().getCustomerPosition().y)) <= movement_speed) {
+						worldPosition.y = getStation().getCustomerPosition().y;
 					}
-				} else if (worldPosition.x != station.getCustomerPosition().x) {
+				} else if (worldPosition.x != getStation().getCustomerPosition().x) {
 					worldPosition.x += movement_speed;
-					if (Math.abs((worldPosition.x - station.getCustomerPosition().x)) <= movement_speed){
-						worldPosition.x = station.getCustomerPosition().x;
+					if (Math.abs((worldPosition.x - getStation().getCustomerPosition().x)) <= movement_speed){
+						worldPosition.x = getStation().getCustomerPosition().x;
 					}
-				} else if (worldPosition.equals(station.getCustomerPosition())) {
+				} else if (worldPosition.equals(getStation().getCustomerPosition())) {
 					setPhase(CustomerPhase.WAITING);
 					if(bubble != null) bubble.setVisible(true);
 				}
@@ -153,20 +151,20 @@ public class Customer {
 					if(failure != null) failure.play();
 					setPhase(CustomerPhase.LEAVING);
 				}
-				if (!station.hasEmptyHand()) {
-					if (station.getItemInHand().equals(desiredMeal)) {
+				if (!getStation().hasEmptyHand()) {
+					if (getStation().getItemInHand().equals(desiredMeal)) {
 						beenServed = true;
 						match.incrementReputationPoints();
 						match.addMoney(desiredMeal.name.toString(), waitingStartTime, customerWaitTime/1000 );
 						success.play();
 						setPhase(CustomerPhase.LEAVING);
-						station.dumpHand();
+						getStation().dumpHand();
 						if(bubble != null)  bubble.setVisible(false);
 					}
 					else{
 						if(failure != null)	failure.play();
 
-						station.dumpHand();
+						getStation().dumpHand();
 						match.failedOrder();
 					}
 				}
@@ -226,4 +224,12 @@ public class Customer {
 	}
 
 	public Match getMatch(){ return match;}
+
+	public CustomerStation getStation() {
+		return station;
+	}
+
+	public void setStation(CustomerStation station) {
+		this.station = station;
+	}
 }

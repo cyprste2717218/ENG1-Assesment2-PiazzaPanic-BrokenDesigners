@@ -17,6 +17,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.github.brokendesigners.character.Customer;
 import com.github.brokendesigners.character.CustomerManager;
 import com.github.brokendesigners.enums.GameMode;
+import com.github.brokendesigners.item.Item;
 import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.map.Kitchen;
 import com.github.brokendesigners.map.KitchenCollisionObject;
@@ -28,6 +29,7 @@ import com.github.brokendesigners.renderer.PlayerRenderer;
 import com.github.brokendesigners.textures.Animations;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainGame {
 
@@ -104,7 +106,7 @@ public class MainGame {
 		// BUILD PLAYERS
 		initialisePlayers(); //initialisePlayers is at the end of this java class.
 
-		saveGame = new SaveGame(this.match,kitchen,playerList,customerManager);
+		saveGame = new SaveGame(this.match,kitchen,playerList,customerManager, this);
 
 		spriteBatch.enableBlending();
 		customerManager.begin();
@@ -219,7 +221,7 @@ public class MainGame {
 		float money = pref.getFloat("Money");
 		int cusServed = pref.getInteger("Customers served");
 		int cusSoFar = pref.getInteger("Customers so far");
-
+		//TODO: Difficulty Level
 		match = new Match(gameMode, points, money, cusServed, cusSoFar);
 		return true;
 	}
@@ -246,16 +248,12 @@ public class MainGame {
 		for(int i = 0; i < 3; i++){
 			x = pref.getFloat("Chef" + i + " position x-coordinate");
 			y = pref.getFloat("Chef" + i + " position y-coordinate");
-			Player player = new Player(playerRenderer, playerAnimations.get(i), new Vector2(x + (i * 32 * Constants.UNIT_SCALE), y), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE);
+			Player player = new Player(playerRenderer, playerAnimations.get(i), new Vector2(x + (i * 32 * Constants.UNIT_SCALE), y), 20f * Constants.UNIT_SCALE, 36f * Constants.UNIT_SCALE, this, kitchen, match);
 			player.setRenderOffsetX(-1 * Constants.UNIT_SCALE);
-			player.setSelected(pref.getBoolean("Chef" + i + " selected"));
-			if (player.isSelected()){
-				setSelectedPlayer(i);
-			}
-//			player.hand.heldItems.add();
+			player.hand.heldItems = stringToItemArray(pref.getString("Chef" + i + " item-stack"));
 			playerList.add(player);
 		}
-
+		setSelectedPlayer(pref.getInteger("chef selected"));
 		return true;
 	}
 
@@ -308,6 +306,21 @@ public class MainGame {
 		customerRenderer.end();
 	}
 
+	public ArrayList<String> stringToArray(String input){
+		input.replace("[", "");
+		input.replace("]", "");
+		return new ArrayList<String>(Arrays.asList(input.split(",")));
+	}
+
+	public ArrayList<Item> stringToItemArray(String input){
+		ArrayList<String> itemStrings = stringToArray(input);
+		ArrayList<Item> items = new ArrayList<>();
+		for(String item: itemStrings){
+			items.add(ItemRegister.itemRegister.get(item));
+		}
+		return items;
+	}
+
 	public Kitchen getKitchen(){
 		return kitchen;
 	}
@@ -330,6 +343,4 @@ public class MainGame {
 		}
 
 	}
-
-
 }

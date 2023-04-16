@@ -325,10 +325,7 @@ public class Player {
 		return true;
 	}
 	public boolean isLocked()	{
-		if (this.locked)	{
-			return true;
-		}
-		return false;
+		return locked;
 	}
 	public void lockPlayer()	{
 		this.locked = true;
