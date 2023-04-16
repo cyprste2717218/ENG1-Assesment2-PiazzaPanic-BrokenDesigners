@@ -346,8 +346,8 @@ public class MainGame {
 	}
 
 	public ArrayList<Item> stringToItemArray(String input){
+		if(input == "[]") return new ArrayList<Item>();
 		ArrayList<String> itemStrings = stringToArray(input);
-		if(input == "") return new ArrayList<Item>();
 		ArrayList<Item> items = new ArrayList<>();
 		for(String item: itemStrings){
 			items.add(ItemRegister.itemRegister.get(item));

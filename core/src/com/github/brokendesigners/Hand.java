@@ -66,7 +66,7 @@ public class Hand{
 	 *  Returns if hand is empty
 	 */
 	public boolean isEmpty(){
-		return this.heldItems.isEmpty();
+		return heldItems.isEmpty();
 	}
 	/*
 	 * Returns if hand is full

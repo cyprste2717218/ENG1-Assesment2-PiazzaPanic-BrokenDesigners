@@ -3,6 +3,7 @@ package com.github.brokendesigners.menu;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -30,6 +31,7 @@ public class MenuScreen {
 	public boolean playOptions;
 	public boolean cont;
 	public boolean gameSaved;
+	public boolean isLoading;
 	public boolean complete; // has game been completed?
 	public int selectedButton; // Which button has been selected?
 	BitmapFont font;
@@ -50,6 +52,7 @@ public class MenuScreen {
 		this.panic = panic;
 		active = true;
 		tryActivateGame = false;
+		isLoading = false;
 		complete = false;
 		font = new BitmapFont();
 		this.font.getData().setScale(10, 10);
@@ -156,6 +159,14 @@ public class MenuScreen {
 
 	public void setGameNull(){
 		panic.setGameNull();
+	}
+	public boolean setGameData(Preferences pref){
+		boolean loadMatch = panic.getGame().loadMatch(pref);
+//		boolean loadStations = panic.getGame().loadStations(pref);
+		boolean loadPlayers = panic.getGame().loadPlayers(pref);
+		boolean loadCustomers = panic.getGame().loadCustomers(pref);
+
+		return (loadMatch && loadPlayers && loadCustomers);
 	}
 	public void unpauseGame(){
 		panic.getGame().getCustomerManager().unpause();
