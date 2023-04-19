@@ -64,6 +64,8 @@ public class PiazzaPanic extends ApplicationAdapter {
 	MainGame game;
 	Match match;
 
+	LoadGame loader;
+
 
 	@Override
 	public void create () {
@@ -216,19 +218,26 @@ public class PiazzaPanic extends ApplicationAdapter {
 		// If a new game is selected, it resumes the game or instantiates a new one
 		if(!menu.tryActivateGame) return;
 		menu.tryActivateGame = false;
-		if(game == null){
-
-			match = new Match(menu.isEndless ? GameMode.ENDLESS : GameMode.SCENARIO);
-			game = new MainGame(spriteBatch, hud_batch, camera, hud_cam, playerRenderer,
-					customerRenderer, bubbleRenderer, mapRenderer, inputProcessor, match);
-			game.create();
-			if(menu.isLoading){
-				pref = Gdx.app.getPreferences("Game_Data");
-				menu.setGameData(pref);
-				menu.isLoading = false;
+		if(game != null) return;
+		if(menu.isLoading){
+			loader = new LoadGame(kitchen, menu);
+			if(loader.loadFailed){
+				spriteBatch.begin();
+				menu.cannotLoadFont.draw(spriteBatch, "Save File Not Found",590, 800);
+				spriteBatch.end();
 			}
-			menu.active = false;
+			else{
+				match = loader.getMatch();
+			}
 		}
+		else{
+			match = new Match(menu.isEndless ? GameMode.ENDLESS : GameMode.SCENARIO);
+		}
+		game = new MainGame(spriteBatch, hud_batch, camera, hud_cam, playerRenderer,
+				customerRenderer, bubbleRenderer, mapRenderer, inputProcessor, match);
+		game.create(menu.isLoading, loader);
+		menu.isLoading = false;
+		menu.active = false;
 	}
 
 	@Override

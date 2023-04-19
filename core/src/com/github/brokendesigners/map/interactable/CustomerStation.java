@@ -21,6 +21,7 @@ public class CustomerStation extends CounterStation{
 		System.out.println(customerPosition);
 		System.out.println(this.handPosition);
 		servingCustomer = false;
+		station_name = "Customer_Station";
 	}
 
 	public boolean isServingCustomer(){

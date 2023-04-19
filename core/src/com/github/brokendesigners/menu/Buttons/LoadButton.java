@@ -14,6 +14,7 @@ public class LoadButton extends Button{
 
     @Override
     public boolean performTask() {
+        menuScreen.panic.setGameNull();
         menuScreen.isLoading = true;
         menuScreen.tryActivateGame=true;
         return true;

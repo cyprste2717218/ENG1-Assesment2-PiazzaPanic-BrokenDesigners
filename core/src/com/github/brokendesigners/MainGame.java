@@ -14,6 +14,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.github.brokendesigners.character.Customer;
 import com.github.brokendesigners.character.CustomerManager;
 import com.github.brokendesigners.enums.CustomerPhase;
@@ -90,13 +91,13 @@ public class MainGame {
 	}
 
 
-	public void create(){
+	public void create(boolean isLoading, LoadGame loader){
 		// MAP & MAP OBJECT BUILDING
-		this.kitchen = new Kitchen(camera, spriteBatch, bubbleRenderer, match);
+		this.kitchen = new Kitchen(camera, spriteBatch, bubbleRenderer, match, isLoading, loader);
 
 		ArrayList<KitchenCollisionObject> kitchenCollisionObjects = kitchen.getKitchenObstacles();
 
-		customerManager = new CustomerManager( // Manages when customers should spawn in and holds the Timer
+		customerManager = new CustomerManager( // Manages when customers should spawn in and holds the Timerc
 			customerRenderer,
 			this.bubbleRenderer,
 			5,
@@ -104,8 +105,30 @@ public class MainGame {
 			kitchen.getCustomerStations(),
 				match);
 
+		if(isLoading){
+			customerManager.setElapsedTime(loader.getElapsedTime());
+			customerManager.spawningTime = TimeUtils.millis() - loader.getCustomerManagerTimeSinceSpawn();
+			ArrayList<Animation<TextureRegion>> animations = new ArrayList<>();
+			animations.add(Animations.bluggus_idleAnimation);
+			animations.add(Animations.bluggus_moveAnimation);
+			for(int i = 0; i < loader.getCustomerSize(); i++){
+				Customer customer = new Customer(customerRenderer, bubbleRenderer, animations, kitchen.getCustomerStations().get(loader.getCustomerStationIndex().get(i)),
+						loader.getCustomerOrders().get(i), kitchen.getCustomerSpawnPoint(), match);
+				customer.worldPosition.x = loader.getCustomerX().get(i);
+				customer.worldPosition.y = loader.getCustomerY().get(i);
+				customer.beenServed = loader.getCustomerIsServed().get(i);
+				customer.spawn();
+				customer.setPhase(loader.getCustomerPhases().get(i));
+				if(customer.getPhase() == CustomerPhase.WAITING){
+					customer.waitingStartTime = TimeUtils.millis() - loader.getCustomerTimeSpentWaiting().get(i);
+					if(customer.bubble != null && !customer.beenServed) customer.bubble.setVisible(true);
+				}
+				customerManager.getCustomers().add(customer);
+			}
+		}
+
 		// BUILD PLAYERS
-		initialisePlayers(); //initialisePlayers is at the end of this java class.
+		initialisePlayers(isLoading, loader); //initialisePlayers is at the end of this java class.
 
 		saveGame = new SaveGame(this.match,kitchen,playerList,customerManager, this);
 
@@ -194,7 +217,7 @@ public class MainGame {
 		//customerManager.handleHUD(spriteBatch);
 	}
 
-	public void initialisePlayers(){
+	public void initialisePlayers(boolean isLoading, LoadGame loader){
 
 		ArrayList<ArrayList<Animation<TextureRegion>>> playerAnimations = setPlayerAnimations();
 		playerRenderer = new PlayerRenderer(spriteBatch);
@@ -203,91 +226,31 @@ public class MainGame {
 		playerList = new ArrayList<>(); // List of Players - used to determine which is active
 		lockedPlayerList = new ArrayList<>(); // List of locked Players
 
-		for(int i  = 0; i < 3; i++){
-			Player player = new Player(playerRenderer, playerAnimations.get(i), new Vector2(kitchen.getPlayerSpawnPoints().get(i).x + (8 * Constants.UNIT_SCALE), kitchen.getPlayerSpawnPoints().get(i).y), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE, this, kitchen, match);
-			player.setRenderOffsetX(-1 * Constants.UNIT_SCALE);
-			if (i==1 || i==2)	{
-				player.lockPlayer();
-				lockedPlayerList.add(player);
+		if(isLoading){
+			for(int i = 0; i <3; i++){
+				Player player = new Player(playerRenderer, playerAnimations.get(i), new Vector2(loader.getChefX()[i], loader.getChefY()[i]), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE, this, kitchen, match);
+				player.hand.heldItems = loader.getChefItemStacks()[i];
+				player.setRenderOffsetX(-1 * Constants.UNIT_SCALE);
+				if (loader.getChefLocked()[i])	{
+					player.lockPlayer();
+					lockedPlayerList.add(player);
+				}
+				playerList.add(player);
 			}
-			playerList.add(player);
+			setSelectedPlayer(loader.getSelectedChef());
 		}
-		setSelectedPlayer(0);
-	}
-
-	public boolean loadMatch(Preferences pref){
-		String temp = pref.getString("Game_Mode");
-		GameMode gameMode = (temp=="SCENARIO")? GameMode.SCENARIO : GameMode.ENDLESS;
-		int points = pref.getInteger("Reputation Points");
-		float money = pref.getFloat("Money");
-		int cusServed = pref.getInteger("Customers served");
-		int cusSoFar = pref.getInteger("Customers so far");
-		//TODO: Difficulty Level
-		match = new Match(gameMode, points, money, cusServed, cusSoFar);
-		return true;
-	}
-
-	public boolean loadCustomers(Preferences pref){
-		customerRenderer = new CustomerRenderer(spriteBatch);
-		bubbleRenderer = new BubbleRenderer(spriteBatch);
-		ArrayList<Animation<TextureRegion>> animations = new ArrayList<>();
-		animations.add(Animations.bluggus_idleAnimation);
-		animations.add(Animations.bluggus_moveAnimation);
-		//TODO: Customer Manager Timers
-		int size = pref.getInteger("Customer size");
-		for(int i = 0; i < size; i++){
-			Item desiredMeal = ItemRegister.itemRegister.get(pref.getString("Customer" + i + " item-stack"));
-			CustomerStation customerStation = kitchen.getCustomerStations().get(pref.getInteger("Customer" + i + " CustomerStation"));
-			Customer customer = new Customer(customerRenderer, bubbleRenderer, animations, customerStation, desiredMeal, kitchen.getCustomerSpawnPoint(), match);
-			customer.setPhase(CustomerPhase.valueOf(pref.getString("Customer" + i + " phase")));
-			customer.worldPosition.x = pref.getFloat("Customer" + i + " position x-coordinate");
-			customer.worldPosition.y = pref.getFloat("Customer" + i + " position y-coordinate");
-			//TODO: Customer Timers
-			customerManager.getCustomers().add(customer);
-		}
-		return true;
-	}
-	public boolean loadPlayers(Preferences pref){
-		ArrayList<ArrayList<Animation<TextureRegion>>> playerAnimations = setPlayerAnimations();
-		playerRenderer = new PlayerRenderer(spriteBatch);
-		playerList = new ArrayList<>();
-
-		float x,y;
-
-		for(int i = 0; i < 3; i++){
-			x = pref.getFloat("Chef" + i + " position x-coordinate");
-			y = pref.getFloat("Chef" + i + " position y-coordinate");
-			Player player = new Player(playerRenderer, playerAnimations.get(i), new Vector2(x + (i * 32 * Constants.UNIT_SCALE), y), 20f * Constants.UNIT_SCALE, 36f * Constants.UNIT_SCALE, this, kitchen, match);
-			player.setRenderOffsetX(-1 * Constants.UNIT_SCALE);
-			player.hand.heldItems = stringToItemArray(pref.getString("Chef" + i + " item-stack"));
-			player.locked = pref.getBoolean("Chef" + i + " locked");
-			if(player.locked){
-				player.lockPlayer();
-				lockedPlayerList.add(player);
+		else{
+			for(int i = 0; i < 3; i++){
+				Player player = new Player(playerRenderer, playerAnimations.get(i), new Vector2(kitchen.getPlayerSpawnPoints().get(i).x + (8 * Constants.UNIT_SCALE), kitchen.getPlayerSpawnPoints().get(i).y), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE, this, kitchen, match);
+				player.setRenderOffsetX(-1 * Constants.UNIT_SCALE);
+				if (i==1 || i==2)	{
+					player.lockPlayer();
+					lockedPlayerList.add(player);
+				}
+				playerList.add(player);
 			}
-			playerList.add(player);
+			setSelectedPlayer(0);
 		}
-		setSelectedPlayer(pref.getInteger("chef selected"));
-		return true;
-	}
-
-	public boolean loadStations(Preferences pref){
-		ArrayList<? extends Station> stations = kitchen.getKitchenStations();
-		for(Station station : stations){
-
-		}
-		loadAssemblyStations();
-		//loadCuttingStations();
-		//loadCounterStations();
-		//loadCustomerStations();
-		//loadCookingStations();
-		//loadBakingStations();
-		return true;
-	}
-
-	private boolean loadAssemblyStations(){
-
-		return true;
 	}
 
 	public ArrayList<ArrayList<Animation<TextureRegion>>> setPlayerAnimations(){
@@ -339,21 +302,7 @@ public class MainGame {
 		customerRenderer.end();
 	}
 
-	public ArrayList<String> stringToArray(String input){
-		input = input.replace("[", "");
-		input = input.replace("]", "");
-		return new ArrayList<String>(Arrays.asList(input.split(", ")));
-	}
 
-	public ArrayList<Item> stringToItemArray(String input){
-		if(input == "[]") return new ArrayList<Item>();
-		ArrayList<String> itemStrings = stringToArray(input);
-		ArrayList<Item> items = new ArrayList<>();
-		for(String item: itemStrings){
-			items.add(ItemRegister.itemRegister.get(item));
-		}
-		return items;
-	}
 
 	public Kitchen getKitchen(){
 		return kitchen;

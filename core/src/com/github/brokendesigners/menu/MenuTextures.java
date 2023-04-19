@@ -35,6 +35,9 @@ public class MenuTextures {
 	public static Texture you_win = new Texture("menu_assets/finaltime.png");
 	public static Texture how_to_play = new Texture("menu_assets/how_to_play.png");
 
+	//TODO: Use actual texture
+	public static Texture noSaveFound = new Texture("menu_assets/finaltime.png");
+
 	public void dispose(){
 		playButtonSelected.dispose();
 		playButtonUnselected.dispose();

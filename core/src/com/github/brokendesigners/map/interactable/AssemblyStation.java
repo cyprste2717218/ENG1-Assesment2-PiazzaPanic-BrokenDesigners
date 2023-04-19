@@ -15,6 +15,8 @@ import com.github.brokendesigners.Hand;
 
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.textures.Animations;
+import com.sun.tools.javac.jvm.Items;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -56,8 +58,8 @@ public class AssemblyStation extends Station{
 
     //return Product or spare ingredients
 
-    public Item[] getItems(){
-        return items;
+    public void setItems(ArrayList<Item> items){
+        hand.heldItems = items;
     }
 
     @Override
@@ -225,5 +227,9 @@ public class AssemblyStation extends Station{
         }
         spriteBatch.end();
 
+    }
+
+    public Hand getHand(){
+        return hand;
     }
 }

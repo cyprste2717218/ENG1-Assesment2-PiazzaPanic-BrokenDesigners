@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.github.brokendesigners.Constants;
+import com.github.brokendesigners.LoadGame;
 import com.github.brokendesigners.Match;
 import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.map.interactable.*;
@@ -47,7 +48,7 @@ public class Kitchen {
 	/*
 	 * Instantiates Kitchen.
 	 */
-	public Kitchen(Camera camera, SpriteBatch spriteBatch, BubbleRenderer bubbleRenderer, Match match){
+	public Kitchen(Camera camera, SpriteBatch spriteBatch, BubbleRenderer bubbleRenderer, Match match, boolean isLoading, LoadGame loader){
 
 		Matrix4 inverseProjection = spriteBatch.getProjectionMatrix().cpy();
 		inverseProjection.inv();
@@ -261,7 +262,28 @@ public class Kitchen {
 		this.customerSpawnPoint = new Vector2(customerSpawn.getRectangle().x * Constants.UNIT_SCALE, customerSpawn.getRectangle().y * Constants.UNIT_SCALE);
 		this.playerSpawnPoints = playerSpawnPoints;
 		// kitchenObstacles.add(new KitchenCollisionObject(new Vector3(5,5,0),10,10,true));
+
+		if(isLoading) loadStations(loader);
 	}
+
+	private void loadStations(LoadGame loader){
+		int assemblerCount = 0;
+		int customerStationCount = 0;
+		for(int i = 0; i < kitchenStations.size(); i++){
+			Station station = kitchenStations.get(i);
+			station.locked = loader.getStationLocked().get(i);
+			station.hand = loader.getStationHand().get(i);
+			if(station instanceof AssemblyStation){
+				((AssemblyStation) station).setItems(loader.getAssemblerItems().get(assemblerCount));
+				assemblerCount++;
+			}
+			else if(station instanceof CustomerStation){
+				((CustomerStation) station).setServingCustomer(loader.getCustomerIsServed().get(customerStationCount));
+				customerStationCount++;
+			}
+		}
+	}
+
 
 	/*
 	 * returns kitchen collision objects

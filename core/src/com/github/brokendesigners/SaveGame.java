@@ -5,6 +5,7 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.github.brokendesigners.character.Customer;
 import com.github.brokendesigners.character.CustomerManager;
+import com.github.brokendesigners.item.Item;
 import com.github.brokendesigners.map.Kitchen;
 import com.github.brokendesigners.map.interactable.*;
 import com.github.brokendesigners.menu.MenuScreen;
@@ -34,6 +35,7 @@ public class SaveGame {
     }
 
     public boolean save(){
+        pref.clear();
         pref.putFloat("Money", (float)match.getMoneyDouble());
 
         pref.putString("Game_Mode", match.getGameMode().name());
@@ -46,30 +48,44 @@ public class SaveGame {
 
         if(saveChefs() && saveStations() && saveCustomers()){
             pref.flush();
+            debugSaving(pref);
             return true;
         }
         return false;
     }
 
+    private void debugSaving(Preferences pref){
+        System.out.println("SAVING");
+        System.out.println("Money: " + pref.getString("Money"));
+        System.out.println("Game_Mode: " + pref.getString("Game_Mode"));
+        System.out.println("Elapsed_Time: " + pref.getInteger("Elapsed_Time"));
+        System.out.println("Reputation Points: " + pref.getInteger("Reputation Points"));
+        System.out.println("Customers served: " + pref.getInteger("Customers served"));
+        System.out.println("Customers so far: " + pref.getInteger("Customers so far"));
+        System.out.println("SAVING COMPLETE");
+    }
+
     private boolean saveStations(){
 
-        String temp;
+        String temp = "";
         ArrayList<? extends Station> stations = kitchen.getKitchenStations();
+        pref.putInteger("stationCount", stations.size());
         for(Station station : stations){
+            String stationID = "Station " + stations.indexOf(station);
             if(station instanceof AssemblyStation){
                 AssemblyStation assemble = (AssemblyStation)station;
-                temp = (assemble.getItems()==null)? "" : assemble.getItems().toString();
-                pref.putString(assemble.getStation_name() + " " + kitchen.getAssembly().indexOf(assemble) + stack, temp);
-                pref.putBoolean(assemble.getStation_name() + " " + kitchen.getAssembly().indexOf(assemble) + "locked", assemble.locked);
+                temp = (assemble.getHand().heldItems ==null) ? "" : itemArrToString(assemble.getHand().heldItems);
+                System.out.println(temp);
             }
             else{
                 temp = (station.hand == null)? "" : station.hand.toString();
-                pref.putString(station.getStation_name() + " " + stations.indexOf(station) + stack, temp);
-                pref.putBoolean(station.getStation_name() + " " + stations.indexOf(station) + "locked", station.locked);
                 if(station instanceof CustomerStation){
-                    pref.putBoolean(station.getStation_name() + " " + stations.indexOf(station) + "serving customer", ((CustomerStation) station).isServingCustomer());
+                    pref.putBoolean(stationID + " serving customer", ((CustomerStation) station).isServingCustomer());
                 }
             }
+            pref.putString(stationID + stack, temp);
+            pref.putBoolean(stationID + " locked", station.locked);
+            pref.putString(stationID + " name", station.getStation_name());
         }
 /*
 
@@ -118,6 +134,15 @@ public class SaveGame {
         return true;
     }
 
+    private String itemArrToString(ArrayList<Item> arr){
+        String output = "[";
+        for(Item item: arr){
+            if(item != null) output += item.name + ", ";
+        }
+        output += "]";
+        return output;
+    }
+
     private boolean saveChefs(){
         String chefN;
         for(Player chef : chefs){
@@ -134,17 +159,17 @@ public class SaveGame {
     private boolean saveCustomers(){
         ArrayList<Customer> customers = customerManager.getCustomers();
         pref.putInteger("Customer size", customers.size());
-        pref.putLong("CustomerManager spawnStartTime", customerManager.spawningTime);
         pref.putLong("CustomerManager time spent waiting", TimeUtils.timeSinceMillis(customerManager.spawningTime));
         String customerN;
         for (Customer customer : customers){
             customerN = "Customer" + customers.indexOf(customer);
             pref.putFloat(customerN + " position x-coordinate", customer.worldPosition.x);
             pref.putFloat(customerN + " position y-coordinate", customer.worldPosition.y);
-            pref.putString(customerN + " phase", customer.getPhase().toString());
+            pref.putString(customerN + " phase", customer.getPhase().name());
+            pref.putBoolean(customerN + " beenServed", customer.beenServed);
+            System.out.println("Customer Phase Saving: " + customer.getPhase().name());
             pref.putString(customerN + stack, customer.getDesiredMeal().toString());
             pref.putInteger(customerN + " CustomerStation", customerManager.getCustomerStations().indexOf(customer.getStation()));
-            pref.putLong(customerN + " waitingStartTime", customer.waitingStartTime);
             pref.putLong(customerN + " time spent waiting", TimeUtils.timeSinceMillis(customer.waitingStartTime));
         }
         return true;
