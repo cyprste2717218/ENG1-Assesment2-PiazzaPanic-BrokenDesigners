@@ -29,6 +29,16 @@ public class MenuTextures {
 	public static Texture endlessButtonUnselected = new Texture("menu_assets/endless_unselected.png");
 	public static Texture endlessButtonSelected = new Texture("menu_assets/endless_selected.png");
 
+	public static Texture easyButtonUnselected = new Texture("menu_assets/EasyButton.png");
+	public static Texture easyButtonSelected = new Texture ("menu_assets/EasyButtonSelected.png");
+
+	public static Texture mediumButtonUnselected = new Texture("menu_assets/MediumButton.png");
+	public static Texture mediumButtonSelected = new Texture("menu_assets/MediumButtonSelected.png");
+
+	public static Texture hardButtonUnselected = new Texture("menu_assets/HardButton.png");
+	public static Texture hardButtonSelected = new Texture("menu_assets/HardButtonSelected.png");
+
+
 	public static Texture wsad = new Texture("menu_assets/wsad.png");
 	public static Texture updown = new Texture("menu_assets/updown.png");
 	public static Texture tabSpace = new Texture("menu_assets/tab space.png");
@@ -57,6 +67,15 @@ public class MenuTextures {
 		scenarioButtonUnselected.dispose();
 		endlessButtonSelected.dispose();
 		endlessButtonUnselected.dispose();
+
+		easyButtonUnselected.dispose();
+		easyButtonSelected.dispose();
+
+		mediumButtonUnselected.dispose();
+		mediumButtonSelected.dispose();
+
+		hardButtonUnselected.dispose();
+		hardButtonSelected.dispose();
 
 		wsad.dispose();
 		updown.dispose();

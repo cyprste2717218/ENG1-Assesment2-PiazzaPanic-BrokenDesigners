@@ -222,7 +222,7 @@ public class MainGame {
 		int cusServed = pref.getInteger("Customers served");
 		int cusSoFar = pref.getInteger("Customers so far");
 		//TODO: Difficulty Level
-		match = new Match(gameMode, points, money, cusServed, cusSoFar);
+		//match = new Match(gameMode, points, money, cusServed, cusSoFar);
 		return true;
 	}
 

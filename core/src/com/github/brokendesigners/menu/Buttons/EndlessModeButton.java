@@ -14,8 +14,7 @@ public class EndlessModeButton extends Button{
     public boolean performTask() {
         menuScreen.playOptions = false;
         menuScreen.isEndless = true;
-        menuScreen.active = false;
-        menuScreen.tryActivateGame = true;
+        menuScreen.isDifficultyScreen = true;
         return true;
     }
 }

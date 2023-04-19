@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.github.brokendesigners.Constants;
+import com.github.brokendesigners.Match;
 import com.github.brokendesigners.Player;
 import com.github.brokendesigners.bubble.ActionBubble;
 import com.github.brokendesigners.bubble.Bubble;
@@ -25,19 +26,20 @@ public class AssemblyStation extends Station{
     private Integer Counter;
     private Hand hand;
     private Bubble bubble;
-
+    private Match match;
     private ArrayList<Vector2> handPositions;
 
     /*
      * Instantiates AssemblyStation
      */
-    public AssemblyStation(Vector2 objectPosition, float width, float height, ArrayList<Vector2> handPositions, BubbleRenderer bubbleRenderer){
+    public AssemblyStation(Vector2 objectPosition, float width, float height, ArrayList<Vector2> handPositions, BubbleRenderer bubbleRenderer, Match match){
         super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Assembly_Station");
         this.bubble = new ActionBubble(bubbleRenderer, new Vector2(handPositions.get(2).x - 8 * Constants.UNIT_SCALE, handPositions.get(2).y), Animations.gearAnimation);
         this.handPositions = handPositions;
         this.hand = new Hand(); // For this station, hand is the same hand as the player uses as it also holds 4 things.
         hand.currentHandSize = hand.baseHandSize + 1;
         stationUseTime = 10f;
+        this.match = match;
     }
     {
         this.items = new Item[4];
@@ -169,7 +171,7 @@ public class AssemblyStation extends Station{
                     player.enableMovement();
                     inuse = false;
                 }
-            }, stationUseTime);
+            }, stationUseTime * match.getDifficultyLevel().getSpeedMultiplier());
             return true;
         }
         return false;

@@ -14,8 +14,7 @@ public class ScenarioModeButton extends Button{
     public boolean performTask() {
         menuScreen.playOptions = false;
         menuScreen.isEndless = false;
-        menuScreen.active = false;
-        menuScreen.tryActivateGame = true;
+        menuScreen.isDifficultyScreen = true;
         return true;
     }
 }
