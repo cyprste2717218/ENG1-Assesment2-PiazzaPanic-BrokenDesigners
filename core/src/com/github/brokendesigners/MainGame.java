@@ -181,21 +181,14 @@ public class MainGame {
 
 		customerRenderer.renderCustomers();
 
-		playerRenderer.renderPlayers();
-
 		camera.position.set(new Vector3(playerList.get(selectedPlayer).worldPosition, 1));
 		// ^^ camera follows selected player
 
 		spriteBatch.begin();
-		mapRenderer.renderTileLayer(
-			(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Front"));
-		// ^^ renders this layer after player which allows the player to go behind walls.
-
 		for(PowerUp powerUp: powerUpManager.getActivePowerUps()){
 			powerUp.getSprite().draw(spriteBatch);
 		}
 		spriteBatch.end();
-
 
 		for (Station station : kitchen.getKitchenStations()) {
 			station.setMatch(match);
@@ -205,12 +198,18 @@ public class MainGame {
 				((IFailable) station).handleStationInteraction();
 			}
 		}
+
+		playerRenderer.renderPlayers();
+		spriteBatch.begin();
+		mapRenderer.renderTileLayer(
+				(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Front"));
+		// ^^ renders this layer after player which allows the player to go behind walls.
+		spriteBatch.end();
 		for (Station station : kitchen.getLockedKitchenStations())	{
 			station.activateLock(spriteBatch);
 		}
 		for (Player player : playerList)	{
 			player.activateLockSprite(spriteBatch, playerList.indexOf(player));
-
 		}
 		bubbleRenderer.renderBubbles();
 		customerManager.update(spriteBatch, hud_batch);

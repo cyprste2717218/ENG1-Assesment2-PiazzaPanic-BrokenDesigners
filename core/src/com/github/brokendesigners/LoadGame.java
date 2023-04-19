@@ -16,7 +16,9 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class LoadGame {
+    FileHandle prefsFile = Gdx.files.internal(System.getProperty("user.home") + "/.prefs/Game_Data");
     Preferences pref = Gdx.app.getPreferences("Game_Data");
+
     private MenuScreen menuScreen;
     public boolean loadFailed;
 
@@ -57,11 +59,9 @@ public class LoadGame {
     }
 
     public void load(){
-        FileHandle file = Gdx.files.local(pref.toString());
-        if(file.exists()){
+        if(prefsFile.exists()){
             if(loadMatch() && loadChefs() && loadCustomers() && loadStations()){
                 debugLoading();
-                loadFailed = false;
             }
             loadFailed = false;
         }

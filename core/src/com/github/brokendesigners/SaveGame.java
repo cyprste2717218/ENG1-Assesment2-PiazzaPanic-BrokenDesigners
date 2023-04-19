@@ -2,6 +2,7 @@ package com.github.brokendesigners;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.github.brokendesigners.character.Customer;
 import com.github.brokendesigners.character.CustomerManager;
