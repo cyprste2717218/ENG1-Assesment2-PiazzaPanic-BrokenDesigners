@@ -222,9 +222,9 @@ public class PiazzaPanic extends ApplicationAdapter {
 		if(menu.isLoading){
 			loader = new LoadGame(kitchen, menu);
 			if(loader.loadFailed){
-				spriteBatch.begin();
-				menu.cannotLoadFont.draw(spriteBatch, "Save File Not Found",590, 800);
-				spriteBatch.end();
+				menu.loadingFailed = true;
+				menu.isLoading = false;
+				return;
 			}
 			else{
 				match = loader.getMatch();

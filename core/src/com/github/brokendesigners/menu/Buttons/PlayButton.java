@@ -12,6 +12,7 @@ public class PlayButton extends Button{
     @Override
     public boolean performTask() {
         menuScreen.playOptions = true;
+        menuScreen.loadingFailed = false;
         return true;
     }
 }

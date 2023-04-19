@@ -29,7 +29,7 @@ public class MenuScreen {
 	public boolean howToScreen; // is howToScreen being displayed?
 	public boolean playOptions;
 	public boolean cont;
-	public boolean gameSaved;
+	public boolean gameSaved, loadingFailed;
 	public boolean isLoading;
 	public boolean complete; // has game been completed?
 	public int selectedButton; // Which button has been selected?
@@ -53,6 +53,7 @@ public class MenuScreen {
 		tryActivateGame = false;
 		isLoading = false;
 		complete = false;
+		loadingFailed = false;
 		font = new BitmapFont();
 		this.font.getData().setScale(10, 10);
 		font.setColor(Color.RED);
@@ -140,6 +141,9 @@ public class MenuScreen {
 			else {
 				selectedButton = 0;
 				setDisplayedButtons(Arrays.asList(playButton, loadButton, showHowToPlayButton, exitGameButton));
+				if(loadingFailed){
+					cannotLoadFont.draw(batch, "No Save File Found", 500, 800);
+				}
 			}
 
 			batch.draw(MenuTextures.updown, 1000, 400, 400, 200);
