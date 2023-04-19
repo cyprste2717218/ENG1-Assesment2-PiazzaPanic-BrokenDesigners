@@ -76,22 +76,20 @@ public class MenuScreen {
 				MenuTextures.endlessButtonSelected, MenuTextures.endlessButtonUnselected, this);
 
 		exitDifficultyButton = new ExitDifficultyButton(new Rectangle(700, 170 , 200,100),
-				MenuTextures.endlessButtonSelected, MenuTextures.endlessButtonUnselected, this);
-
-		DifficultySettingsButton = new SettingsButton(new Rectangle(1000, 700, 200, 100),
 				MenuTextures.exitButtonSelected, MenuTextures.exitButtonUnselected, this);
 
-
+		DifficultySettingsButton = new SettingsButton(new Rectangle(1000, 700, 200, 100),
+				MenuTextures.difficultySettingButton, MenuTextures.difficultySettingButton, this);
 
 
 		difficultyModeButtonEasy = new DifficultyButton(new Rectangle(700, 515, 200, 100),
-				MenuTextures.endlessButtonSelected, MenuTextures.endlessButtonUnselected, this, difficultyLevel.EASY);
+				MenuTextures.easyButtonSelected, MenuTextures.easyButtonUnselected, this, difficultyLevel.EASY);
 
 		difficultyModeButtonMedium = new DifficultyButton(new Rectangle(700, 400, 200, 100),
-				MenuTextures.scenarioButtonSelected, MenuTextures.scenarioButtonUnselected, this, difficultyLevel.MEDIUM);
+				MenuTextures.mediumButtonSelected, MenuTextures.mediumButtonUnselected, this, difficultyLevel.MEDIUM);
 
 		difficultyModeButtonHard = new DifficultyButton(new Rectangle(700, 285, 200, 100),
-				MenuTextures.exitButtonSelected, MenuTextures.exitButtonUnselected, this, difficultyLevel.HARD);
+				MenuTextures.hardButtonSelected, MenuTextures.hardButtonUnselected, this, difficultyLevel.HARD);
 
 	}
 
