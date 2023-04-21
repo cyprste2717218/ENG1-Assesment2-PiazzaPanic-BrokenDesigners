@@ -6,6 +6,7 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -123,7 +124,9 @@ public class MenuScreen {
 			font.draw(batch, finalTime, 650, 560);
 		}
 		else if(howToScreen) {
+			Texture power = MenuTextures.powerupsTut;
 			batch.draw(MenuTextures.how_to_play, 0, Gdx.graphics.getHeight()/2 - 355, 700, 720);
+			batch.draw(power, Gdx.graphics.getWidth()-880, Gdx.graphics.getHeight()/2 - 180, power.getWidth()*2, power.getHeight()*2);
 			selectedButton = 5;
 			setDisplayedButtons(backButton);
 		}
