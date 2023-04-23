@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.github.brokendesigners.PiazzaPanic;
+import com.github.brokendesigners.enums.DifficultyLevel;
 import com.github.brokendesigners.menu.Buttons.*;
 
 import java.util.ArrayList;
@@ -38,10 +39,11 @@ public class MenuScreen {
 	public BitmapFont savedGameFont, cannotLoadFont;
 
 	public ArrayList<Button> menuButtons = new ArrayList<>(); //A list of all the buttons, which is automatically created in the constructor of Button
-	Button playButton, resumeButton, loadButton, saveButton, showHowToPlayButton, backButton, exitGameButton, quitButton, scenarioModeButton, endlessModeButton;
+	Button playButton, resumeButton, loadButton, saveButton, showHowToPlayButton, backButton, exitGameButton, quitButton, scenarioModeButton, endlessModeButton, difficultyModeButtonEasy, difficultyModeButtonMedium, difficultyModeButtonHard;
 	OrthographicCamera camera;
 	public boolean tryActivateGame, isEndless;
-
+	DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
+	public boolean isDifficultyScreen;
 
 	/*
 	 * Instantiates MenuScreen
@@ -98,6 +100,15 @@ public class MenuScreen {
 
 		endlessModeButton = new EndlessModeButton(new Rectangle(700, 400 , 200,100),
 				MenuTextures.endlessButtonSelected, MenuTextures.endlessButtonUnselected, this);
+
+		difficultyModeButtonEasy = new DifficultyButton(new Rectangle(700, 515, 200, 100),
+				MenuTextures.easyButtonSelected, MenuTextures.easyButtonUnselected, this, difficultyLevel.EASY);
+
+		difficultyModeButtonMedium = new DifficultyButton(new Rectangle(700, 400, 200, 100),
+				MenuTextures.mediumButtonSelected, MenuTextures.mediumButtonUnselected, this, difficultyLevel.MEDIUM);
+
+		difficultyModeButtonHard = new DifficultyButton(new Rectangle(700, 285, 200, 100),
+				MenuTextures.hardButtonSelected, MenuTextures.hardButtonUnselected, this, difficultyLevel.HARD);
 	}
 
 
@@ -132,6 +143,10 @@ public class MenuScreen {
 		}
 		else if(playOptions){
 			setDisplayedButtons(Arrays.asList(scenarioModeButton,endlessModeButton,backButton));
+		}
+		else if(isDifficultyScreen){
+			setButtons(Arrays.asList(difficultyModeButtonEasy, difficultyModeButtonMedium,
+					difficultyModeButtonHard, backButton));
 		}
 		else{
 			if (cont) {
@@ -204,6 +219,13 @@ public class MenuScreen {
 		for(int i = 0; i < menuButtons.size(); i++){
 			menuButtons.get(i).setSelected(selectedButton == i);
 		}
+	}
+
+	public DifficultyLevel getDifficulty(){
+		return difficultyLevel;
+	}
+	public void setDifficultyLevel(DifficultyLevel difficultyLevel){
+		this.difficultyLevel = difficultyLevel;
 	}
 
 	public void setFinalTime(String finalTime) {

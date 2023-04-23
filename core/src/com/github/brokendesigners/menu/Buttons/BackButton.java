@@ -18,6 +18,7 @@ public class BackButton extends Button{
         System.out.println("Returning to main menu");
         menuScreen.howToScreen = false;
         menuScreen.playOptions = false;
+        menuScreen.isDifficultyScreen = false;
         menuScreen.selectedButton = 0;
         return true;
     }

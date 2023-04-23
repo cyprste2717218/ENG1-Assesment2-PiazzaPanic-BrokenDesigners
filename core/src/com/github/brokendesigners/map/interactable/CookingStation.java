@@ -25,7 +25,7 @@ public class CookingStation extends Station implements IFailable {
     public boolean canBurn;
 
     public boolean needsInput;
-
+    private Match match;
     public Bubble cookingBubble, attentionBubble;
 
     public CookingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer, boolean locked, Match match){
@@ -39,6 +39,7 @@ public class CookingStation extends Station implements IFailable {
         stationUseTime = 4f;
         canBurn = false;
         needsInput = false;
+        this.match = match;
     }
 
     //A task which burns the food when run, and resets the features of the station to do with burning
@@ -92,7 +93,7 @@ public class CookingStation extends Station implements IFailable {
             cookingBubble.setVisible(true);
             //If the food item does not require flipping, the cooking process succeeds, otherwise the flipping is done inside the requiresFlipping() function
             if (!requiresFlipping(player)){
-                finishSuccessfulOperation(player, stationUseTime);
+                finishSuccessfulOperation(player, stationUseTime * match.getDifficultyLevel().getSpeedMultiplier());
             }
         } else {
             System.out.println("Incorrect Item");
@@ -114,13 +115,13 @@ public class CookingStation extends Station implements IFailable {
                 cookingBubble.setVisible(false);
                 attentionBubble.setVisible(true);
             }
-        }, stationUseTime/2f);
+        }, stationUseTime/2f * match.getDifficultyLevel().getSpeedMultiplier());
 
         //If the player provides an input of the space bar key within 3 seconds, the operation succeeds, otherwise it fails.
         timer.scheduleTask(new Task() {
             @Override
             public void run() {
-                boolean wasSuccessful = !needsInput ? finishSuccessfulOperation(player, stationUseTime/2f) : finishFailedOperation(player, stationUseTime/2f);
+                boolean wasSuccessful = !needsInput ? finishSuccessfulOperation(player, stationUseTime/2f * match.getDifficultyLevel().getSpeedMultiplier()) : finishFailedOperation(player, stationUseTime/2f);
             }
         }, 3f);
         return true;

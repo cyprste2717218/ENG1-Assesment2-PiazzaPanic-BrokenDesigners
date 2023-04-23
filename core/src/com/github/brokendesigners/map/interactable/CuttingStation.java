@@ -20,7 +20,7 @@ public class CuttingStation extends Station implements IFailable{
 
     static final String[] Cuttables = {"Tomato", "Lettuce", "Onion", "Potato"};
     Bubble cuttingBubble, countdownBubble;
-
+    Match match;
     public boolean needsInteraction, cutToEarly, isValidCuttingTime;
 
     public CuttingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer, boolean locked, Match match){
@@ -35,7 +35,7 @@ public class CuttingStation extends Station implements IFailable{
         cutToEarly = false;
         isValidCuttingTime = false;
         this.locked = locked;
-        stationUseTime = 4f;
+        this.match = match;
     }
     public CuttingStation() {}
 
@@ -82,7 +82,7 @@ public class CuttingStation extends Station implements IFailable{
                 }, 3f);
             }
         };
-        timer.scheduleTask(task, stationUseTime);
+        timer.scheduleTask(task, stationUseTime * match.getDifficultyLevel().getSpeedMultiplier());
     }
 
     //Cutting Operation
