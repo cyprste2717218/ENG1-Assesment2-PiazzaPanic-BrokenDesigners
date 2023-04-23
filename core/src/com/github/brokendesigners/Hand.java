@@ -3,6 +3,8 @@ package com.github.brokendesigners;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.github.brokendesigners.item.Item;
+import com.github.brokendesigners.item.ItemRegister;
+
 import java.util.ArrayList;
 /*
  * Hand stack of size 4.
@@ -86,5 +88,11 @@ public class Hand{
 	}
 	public void enable_hand_ability()	{
 		hand_ability = true;
+	}
+
+	public void setHeldItems(ArrayList<String> items){
+		for(String i : items){
+			heldItems.add(ItemRegister.itemRegister.get(i));
+		}
 	}
 }

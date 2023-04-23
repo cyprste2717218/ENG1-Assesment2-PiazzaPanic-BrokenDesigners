@@ -17,6 +17,7 @@ public class BakingStation extends Station implements IFailable {
     static final String[] Bakeables = {"Pizza","JacketPotato"};
     Bubble bakingBubble, attentionBubble;
     boolean canBurn;
+    Match match;
 
     public BakingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer, boolean locked, Match match){
         super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Baking_Station");
@@ -28,6 +29,7 @@ public class BakingStation extends Station implements IFailable {
         this.locked = locked;
         stationUseTime = 4f;
         canBurn = false;
+        this.match = match;
     }
 
     //Burns the food if required
@@ -54,7 +56,7 @@ public class BakingStation extends Station implements IFailable {
         if (Applicable(Bakeables, "Baking_Station", hand.getName())) {
             this.inuse = true;
             this.bakingBubble.setVisible(true);
-            finishSuccessfulOperation(player, 4f);
+            finishSuccessfulOperation(player, stationUseTime * match.getDifficultyLevel().getSpeedMultiplier());
             return true;
         } else {
             return finishFailedOperation(player, stationUseTime);

@@ -1,6 +1,7 @@
 package com.github.brokendesigners;
 
 import com.badlogic.gdx.utils.TimeUtils;
+import com.github.brokendesigners.enums.DifficultyLevel;
 import com.github.brokendesigners.enums.GameMode;
 import com.github.brokendesigners.character.Customer;
 
@@ -8,20 +9,22 @@ import java.util.Formatter;
 
 public class Match {
 
-    public Match(GameMode gameMode){
+    public Match(GameMode gameMode, DifficultyLevel difficultyLevel){
         this.gameMode = gameMode;
         money = 0.00;
         reputationPoints = 3;
         customersServed = 0;
         customersSoFar = 0;
+        this.difficultyLevel = difficultyLevel;
     }
 
-    public Match(GameMode gameMode, int reputationPoints, float money, int customersServed, int customersSoFar){
+    public Match(GameMode gameMode, int reputationPoints, float money, int customersServed, int customersSoFar, DifficultyLevel difficultyLevel){
         this.gameMode = gameMode;
         this.reputationPoints = reputationPoints;
         this.money = money;
         this.customersServed = customersServed;
         this.customersSoFar = customersSoFar;
+        this.difficultyLevel = difficultyLevel;
     }
     public boolean hasMoneyPower = false; // if money power is used, then effects how much is added in 'addMoney'.
     private GameMode gameMode;
@@ -31,6 +34,7 @@ public class Match {
     private int customersServed;
     private int customersSoFar;
     private double money;
+    private DifficultyLevel difficultyLevel;
 
     public GameMode getGameMode() {
         return gameMode;
@@ -52,6 +56,8 @@ public class Match {
         reputationPoints++;
     }
     public void decrementReputationPoints() {reputationPoints--;}
+    public DifficultyLevel getDifficultyLevel(){return difficultyLevel;}
+    public void setDifficultyLevel(DifficultyLevel difficultyLevel){this.difficultyLevel = difficultyLevel;}
 
     public void failedOrder() {money += 0;}
 

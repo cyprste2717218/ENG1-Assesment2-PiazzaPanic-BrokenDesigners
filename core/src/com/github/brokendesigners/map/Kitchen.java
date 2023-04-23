@@ -100,7 +100,7 @@ public class Kitchen {
 						rectangle.width * Constants.UNIT_SCALE,
 						rectangle.height * Constants.UNIT_SCALE,
 						handX,
-						handY, bubbleRenderer);
+						handY, bubbleRenderer, match);
 
 				kitchenStations.add(counterStation);
 				counters.add(counterStation);
@@ -116,7 +116,7 @@ public class Kitchen {
 					rectangle.height * Constants.UNIT_SCALE,
 					handX,
 					handY,
-					bubbleRenderer);
+					bubbleRenderer, match);
 
 				kitchenStations.add(station);
 				customerStations.add(station);
@@ -145,7 +145,7 @@ public class Kitchen {
 						rectangle.width * Constants.UNIT_SCALE,
 						rectangle.height * Constants.UNIT_SCALE,
 						handPositions,
-						bubbleRenderer);
+						bubbleRenderer, match);
 
 				kitchenStations.add(assemblyStation);
 				assembly.add(assemblyStation);

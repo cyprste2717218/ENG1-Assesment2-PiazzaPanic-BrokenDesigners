@@ -231,7 +231,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 			}
 		}
 		else{
-			match = new Match(menu.isEndless ? GameMode.ENDLESS : GameMode.SCENARIO);
+			match = new Match(menu.isEndless ? GameMode.ENDLESS : GameMode.SCENARIO, menu.getDifficulty());
 		}
 		game = new MainGame(spriteBatch, hud_batch, camera, hud_cam, playerRenderer,
 				customerRenderer, bubbleRenderer, mapRenderer, inputProcessor, match);
