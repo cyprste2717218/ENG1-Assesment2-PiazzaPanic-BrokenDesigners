@@ -5,6 +5,7 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.brokendesigners.enums.CustomerPhase;
+import com.github.brokendesigners.enums.DifficultyLevel;
 import com.github.brokendesigners.enums.GameMode;
 import com.github.brokendesigners.item.Item;
 import com.github.brokendesigners.item.ItemRegister;
@@ -110,8 +111,8 @@ public class LoadGame {
         float money = pref.getFloat("Money");
         int cusServed = pref.getInteger("Customers served");
         int cusSoFar = pref.getInteger("Customers so far");
-        //TODO:Difficulty Mode
-        match = new Match(gameMode, points, money, cusServed, cusSoFar);
+        DifficultyLevel difficultyLevel = DifficultyLevel.valueOf(pref.getString("Difficulty Level"));
+        match = new Match(gameMode, points, money, cusServed, cusSoFar, difficultyLevel);
         elapsedTime = pref.getInteger("Elapsed_Time");
         return true;
     }
