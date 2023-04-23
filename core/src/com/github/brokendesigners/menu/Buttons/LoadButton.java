@@ -1,5 +1,7 @@
 package com.github.brokendesigners.menu.Buttons;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.github.brokendesigners.menu.MenuScreen;
@@ -12,7 +14,9 @@ public class LoadButton extends Button{
 
     @Override
     public boolean performTask() {
-        //menuScreen.loadGameScreen = true;
+        menuScreen.panic.setGameNull();
+        menuScreen.isLoading = true;
+        menuScreen.tryActivateGame=true;
         return true;
     }
 }

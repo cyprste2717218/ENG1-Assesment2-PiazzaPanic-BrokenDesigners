@@ -80,7 +80,9 @@ public class PlayerRenderer {
 
 				if (!player.hand.isEmpty()) { // renders all items the player may have.
 					float stackOffset = 7 * Constants.UNIT_SCALE;
-					for (Item item : player.hand.getHeldItems()) {
+					//System.out.println(player.hand.heldItems.get(0).name);
+					for (Item item : player.hand.heldItems) {
+						//System.out.println("item name:"  + item.name);
 						this.batch.draw(
 							item.getTexture(),
 							player.getWorldPosition().x + 4 * Constants.UNIT_SCALE

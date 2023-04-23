@@ -40,7 +40,7 @@ public class Customer {
 	Match match;
 
 	public long waitingStartTime = -1L;
-	public long customerWaitTime = 150000L;
+	public long customerWaitTime = 15000L;
 
 	float movement_speed = 0; //Intentionally lowercase - NOT A CONSTANT - kind of a constant - you decide :)
 	/*
@@ -67,6 +67,7 @@ public class Customer {
 	/*
 	 * Instantiates Customer with animations
 	 */
+
 	public Customer(CustomerRenderer customerRenderer, BubbleRenderer bubbleRenderer, ArrayList<Animation<TextureRegion>> animations, CustomerStation station, Item desiredMeal, Vector2 spawnPoint, Match match){
 		worldPosition = new Vector2(spawnPoint);
 		this.setStation(station);
@@ -155,7 +156,7 @@ public class Customer {
 					if (getStation().getItemInHand().equals(desiredMeal)) {
 						beenServed = true;
 						match.incrementReputationPoints();
-						match.addMoney(desiredMeal.name.toString(), waitingStartTime, customerWaitTime/1000 );
+						match.addMoney(desiredMeal.name, waitingStartTime, customerWaitTime/1000 );
 						success.play();
 						setPhase(CustomerPhase.LEAVING);
 						getStation().dumpHand();
@@ -203,6 +204,9 @@ public class Customer {
 
 	public boolean isVisible(){
 		return visible;
+	}
+	public void setIsVisible(boolean visible){
+		this.visible = visible;
 	}
 
 	public void dispose(){

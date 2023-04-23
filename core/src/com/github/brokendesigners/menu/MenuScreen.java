@@ -1,11 +1,12 @@
 package com.github.brokendesigners.menu;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -23,18 +24,19 @@ import java.util.List;
  */
 public class MenuScreen {
 
-	PiazzaPanic panic;
+	public PiazzaPanic panic;
 	public boolean active; // Is the menu active? (Should it render)
 	public String finalTime; // Final time to be displayed at end of game.
 	public String totalMoney; // Total amount of money the player has
 	public boolean howToScreen; // is howToScreen being displayed?
 	public boolean playOptions;
 	public boolean cont;
-	public boolean gameSaved;
+	public boolean gameSaved, loadingFailed;
+	public boolean isLoading;
 	public boolean complete; // has game been completed?
 	public int selectedButton; // Which button has been selected?
 	BitmapFont font;
-	BitmapFont savedGameFont;
+	public BitmapFont savedGameFont, cannotLoadFont;
 
 	public ArrayList<Button> menuButtons = new ArrayList<>(); //A list of all the buttons, which is automatically created in the constructor of Button
 	Button playButton, resumeButton, loadButton, saveButton, showHowToPlayButton, backButton, exitGameButton, quitButton, scenarioModeButton, endlessModeButton, difficultyModeButtonEasy, difficultyModeButtonMedium, difficultyModeButtonHard;
@@ -52,13 +54,18 @@ public class MenuScreen {
 		this.panic = panic;
 		active = true;
 		tryActivateGame = false;
+		isLoading = false;
 		complete = false;
+		loadingFailed = false;
 		font = new BitmapFont();
 		this.font.getData().setScale(10, 10);
 		font.setColor(Color.RED);
 		savedGameFont = new BitmapFont();
 		savedGameFont.getData().setScale(5,5);
 		savedGameFont.setColor(Color.RED);
+		cannotLoadFont = new BitmapFont();
+		cannotLoadFont.getData().setScale(5,5);
+		cannotLoadFont.setColor(Color.RED);
 		this.camera = camera;
 		initialiseButtons();
 	}
@@ -123,17 +130,19 @@ public class MenuScreen {
 		}
 		if(complete){
 			selectedButton = 7;
-			setButtons(Arrays.asList(quitButton));
+			setDisplayedButtons(quitButton);
 			batch.draw(MenuTextures.you_win, 405, 400, 800, 400);
 			font.draw(batch, finalTime, 650, 560);
 		}
 		else if(howToScreen) {
+			Texture power = MenuTextures.powerupsTut;
 			batch.draw(MenuTextures.how_to_play, 0, Gdx.graphics.getHeight()/2 - 355, 700, 720);
+			batch.draw(power, Gdx.graphics.getWidth()-880, Gdx.graphics.getHeight()/2 - 180, power.getWidth()*2, power.getHeight()*2);
 			selectedButton = 5;
-			setButtons(Arrays.asList(backButton));
+			setDisplayedButtons(backButton);
 		}
 		else if(playOptions){
-			setButtons(Arrays.asList(scenarioModeButton,endlessModeButton,backButton));
+			setDisplayedButtons(Arrays.asList(scenarioModeButton,endlessModeButton,backButton));
 		}
 		else if(isDifficultyScreen){
 			setButtons(Arrays.asList(difficultyModeButtonEasy, difficultyModeButtonMedium,
@@ -142,14 +151,17 @@ public class MenuScreen {
 		else{
 			if (cont) {
 				selectedButton = 1;
-				setButtons(Arrays.asList(resumeButton,saveButton,showHowToPlayButton,quitButton));
+				setDisplayedButtons(Arrays.asList(resumeButton,saveButton,showHowToPlayButton,quitButton));
 				if(gameSaved){
 					savedGameFont.draw(batch, "Game saved", 590, 800);
 				}
 			}
 			else {
 				selectedButton = 0;
-				setButtons(Arrays.asList(playButton, loadButton, showHowToPlayButton, exitGameButton));
+				setDisplayedButtons(Arrays.asList(playButton, loadButton, showHowToPlayButton, exitGameButton));
+				if(loadingFailed){
+					cannotLoadFont.draw(batch, "No Save File Found", 500, 800);
+				}
 			}
 
 			batch.draw(MenuTextures.updown, 1000, 400, 400, 200);
@@ -160,7 +172,7 @@ public class MenuScreen {
 		batch.end();
 	}
 
-	private void setButtons(List<Button> setButtonsTrue){
+	private void setDisplayedButtons(List<Button> setButtonsTrue){
 		for (Button menuButton : menuButtons) {
 			menuButton.setRendered(false);
 		}
@@ -169,9 +181,14 @@ public class MenuScreen {
 		}
 	}
 
+	private void setDisplayedButtons(Button button){
+		setDisplayedButtons(Arrays.asList(button));
+	}
+
 	public void setGameNull(){
 		panic.setGameNull();
 	}
+
 	public void unpauseGame(){
 		panic.getGame().getCustomerManager().unpause();
 	}

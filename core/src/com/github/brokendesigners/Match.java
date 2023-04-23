@@ -107,29 +107,25 @@ public class Match {
 
         // determining amount of tip
 
-        if ((((TimeUtils.timeSinceMillis(customerWaitingStartTime))/1000) < (0.75*customerMaxWaitTime)) && (((TimeUtils.timeSinceMillis(customerWaitingStartTime))/1000) >= (0.5*customerMaxWaitTime))) {
+        float customerWaitTimeFraction = TimeUtils.timeSinceMillis(customerWaitingStartTime)/1000f;
 
-            orderTip = orderTotal*0.1;
-            System.out.println("Order time between 75% and 50%");
-        } else if ((((TimeUtils.timeSinceMillis(customerWaitingStartTime))/1000) < (0.5*customerMaxWaitTime)) && (((TimeUtils.timeSinceMillis(customerWaitingStartTime))/1000) >= (0.25*customerMaxWaitTime))) {
-
-            orderTip = orderTotal*0.2;
-            System.out.println("Order time between 50% and 25%");
-        } else if (((TimeUtils.timeSinceMillis(customerWaitingStartTime))/1000) < (0.25*customerMaxWaitTime)) {
-
-            orderTip = orderTotal*0.5;
-            System.out.println("Order time less than 25%");
-        } else {
+        if(customerWaitTimeFraction >= 0.75f * customerMaxWaitTime){
             money += 0;
             System.out.println("Too long wait time so no tip");
-
+        } else if (customerWaitTimeFraction >= 0.5f * customerMaxWaitTime) {
+            orderTip = orderTotal*0.1;
+            System.out.println("Order time between 75% and 50%");
         }
-
-
+        else if(customerWaitTimeFraction >= 0.25f * customerMaxWaitTime){
+            orderTip = orderTotal*0.2;
+            System.out.println("Order time between 50% and 25%");
+        }
+        else{
+            orderTip = orderTotal*0.5;
+            System.out.println("Order time less than 25%");
+        }
         money += orderTip;
         System.out.println("order tip amount: £" + orderTip);
-
-
     }
 
 
@@ -165,18 +161,6 @@ public class Match {
     public void incrementCustomersServed(){
         customersServed++;
     }
-
-
-    /*We need to keep track of the game mode
-    Money
-    Reputation points
-    Customers served
-
-    //TODO: Create these variables
-    Number of chefs unlocked
-    Which stations are unlocked
-    Difficulty level
-    */
 
 
 
