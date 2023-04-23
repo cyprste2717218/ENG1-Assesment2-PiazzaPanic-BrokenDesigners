@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.9" tiledversion="1.9.2" name="Tile Images" tilewidth="32" tileheight="32" tilecount="37" columns="0">
+<tileset version="1.10" tiledversion="1.10.1" name="Tile Images" tilewidth="36" tileheight="32" tilecount="41" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <transformations hflip="1" vflip="1" rotate="1" preferuntransformed="0"/>
  <tile id="139">
@@ -38,9 +38,6 @@
  <tile id="181">
   <image width="32" height="32" source="Stations/cooker_lower.png"/>
  </tile>
-<tile id="226">
- <image width="32" height="32" source="Stations/cooker_lower_locked.png"/>
-</tile>
  <tile id="187">
   <image width="32" height="32" source="Stations/baking_top.png"/>
  </tile>
@@ -78,13 +75,13 @@
   <image width="32" height="32" source="Stations/Dispensers/bun_dispenser.png"/>
  </tile>
  <tile id="223">
-  <image width="32" height="32" source="Stations/Dispensers/dough_dispenser.png"/>
+  <image width="36" height="32" source="Stations/Dispensers/dough_dispenser.png"/>
  </tile>
  <tile id="224">
-   <image width="32" height="32" source="Stations/Dispensers/cheese_dispenser.png"/>
+  <image width="36" height="32" source="Stations/Dispensers/cheese_dispenser.png"/>
  </tile>
  <tile id="225">
-   <image width="32" height="32" source="Stations/Dispensers/potato_dispenser.png"/>
+  <image width="36" height="32" source="Stations/Dispensers/potato_dispenser.png"/>
  </tile>
  <tile id="210">
   <image width="32" height="32" source="Counters/counter_BL_top.png"/>
@@ -124,5 +121,8 @@
  </tile>
  <tile id="222">
   <image width="32" height="32" source="Counters/serving_counter.png"/>
+ </tile>
+ <tile id="226">
+  <image width="32" height="32" source="Stations/cooker_lower_locked.png"/>
  </tile>
 </tileset>

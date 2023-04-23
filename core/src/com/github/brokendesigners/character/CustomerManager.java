@@ -139,7 +139,7 @@ public class CustomerManager {
 		CharSequence str = isComplete() ? timeToString(finalTime) : timeToString(elapsedTime);
 		font.draw(hud_batch, str, 100, 100);
 		font.draw(hud_batch, "Rep Points:" + match.getReputationPoints() , 100, 200);
-		font.draw(hud_batch, "Money: £" + match.getMoney(), 1000, 800);
+		font.draw(hud_batch, "Money: £" + match.getMoney(), 950, 800);
 		hud_batch.end();
 	}
 
