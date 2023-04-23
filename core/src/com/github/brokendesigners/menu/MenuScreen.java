@@ -145,7 +145,7 @@ public class MenuScreen {
 			setDisplayedButtons(Arrays.asList(scenarioModeButton,endlessModeButton,backButton));
 		}
 		else if(isDifficultyScreen){
-			setButtons(Arrays.asList(difficultyModeButtonEasy, difficultyModeButtonMedium,
+			setDisplayedButtons(Arrays.asList(difficultyModeButtonEasy, difficultyModeButtonMedium,
 					difficultyModeButtonHard, backButton));
 		}
 		else{

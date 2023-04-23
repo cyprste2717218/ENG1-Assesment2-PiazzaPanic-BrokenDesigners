@@ -45,7 +45,7 @@ public class SaveGame {
         pref.putInteger("Reputation Points", match.getReputationPoints());
         pref.putInteger("Customers served", match.getCustomersServed());
         pref.putInteger("Customers so far", match.getCustomersSoFar());
-        //pref.putInteger("Difficulty Level", match.getDifficultyLevel().toString());
+        pref.putString("Difficulty Level", match.getDifficultyLevel().toString());
 
         if(saveChefs() && saveStations() && saveCustomers()){
             pref.flush();
