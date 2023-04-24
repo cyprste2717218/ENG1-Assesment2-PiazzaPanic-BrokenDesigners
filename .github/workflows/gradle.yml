@@ -15,6 +15,8 @@ on:
 
 permissions:
   contents: read
+  checks: write
+  pull-requests: write
 
 jobs:
   build:
@@ -33,9 +35,8 @@ jobs:
       if: always()
       with:
         files: |
-          tests/test-results/**/*.xml
-          tests/test-results/**/*.trx
-          tests/test-results/**/*.json
+          tests/build/test-results/test/*.xml
+
     - name: Build with Gradle
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
