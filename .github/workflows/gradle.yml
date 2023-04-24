@@ -9,7 +9,7 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "eyeDaydream-patch-1" ]
   pull_request:
     branches: [ "main" ]
 
