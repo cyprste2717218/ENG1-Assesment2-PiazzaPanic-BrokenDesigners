@@ -26,6 +26,11 @@ public class MenuTextures {
 	public static Texture scenarioButtonUnselected = new Texture("menu_assets/scenario_unselected.png");
 	public static Texture scenarioButtonSelected = new Texture("menu_assets/scenario_selected.png");
 
+	public static Texture customerCountAddUnselected = new Texture("menu_assets/CustomerCountAddButtonUnselected.png");
+	public static Texture customerCountAddSelected = new Texture("menu_assets/CustomerCountAddButtonSelected.png");
+	public static Texture customerCountSubtractUnselected = new Texture("menu_assets/CustomerCountButtonSubtractUnselected.png");
+	public static Texture customerCountSubtractSelected = new Texture("menu_assets/CustomerCountSubtractButtonSelected.png");
+
 	public static Texture endlessButtonUnselected = new Texture("menu_assets/endless_unselected.png");
 	public static Texture endlessButtonSelected = new Texture("menu_assets/endless_selected.png");
 
@@ -46,8 +51,6 @@ public class MenuTextures {
 	public static Texture how_to_play = new Texture("menu_assets/how_to_play.png");
 	public static Texture powerupsTut = new Texture("menu_assets/powerups_tutorial.png");
 
-	//TODO: Use actual texture
-	public static Texture noSaveFound = new Texture("menu_assets/finaltime.png");
 
 	public void dispose(){
 		playButtonSelected.dispose();

@@ -83,21 +83,14 @@ public abstract class Station {
 		{
 			for(int i = 0;i<Conditions.length;i++)
 			{
-				if(Conditions[i] == itemName)
-				{
-					return true;
-				}
+				if(Conditions[i] == itemName) return true;
 			}
 		}
 		return false;
 	}
 
 	public boolean hasEmptyHand(){
-		if (this.hand == null){
-			return true;
-		} else {
-			return false;
-		}
+		return hand == null;
 	}
 
 	public void dumpHand(){

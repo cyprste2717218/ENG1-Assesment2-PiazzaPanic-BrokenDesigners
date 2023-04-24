@@ -111,8 +111,9 @@ public class LoadGame {
         float money = pref.getFloat("Money");
         int cusServed = pref.getInteger("Customers served");
         int cusSoFar = pref.getInteger("Customers so far");
+        int customerNumber = pref.getInteger("CustomerNumber");
         DifficultyLevel difficultyLevel = DifficultyLevel.valueOf(pref.getString("Difficulty Level"));
-        match = new Match(gameMode, points, money, cusServed, cusSoFar, difficultyLevel);
+        match = new Match(gameMode, points, money, cusServed, cusSoFar, difficultyLevel, customerNumber);
         elapsedTime = pref.getInteger("Elapsed_Time");
         return true;
     }

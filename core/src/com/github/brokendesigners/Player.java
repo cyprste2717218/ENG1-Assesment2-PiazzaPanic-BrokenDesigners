@@ -156,7 +156,7 @@ public class Player {
 	 */
 	public void processMovement(ArrayList<KitchenCollisionObject> objects){
 
-		if (this.selected == true && !this.moving_disabled) {
+		if (selected && !moving_disabled) {
 
 			if (Gdx.input.isKeyPressed(Keys.W)) {
 				this.moveUp(objects);

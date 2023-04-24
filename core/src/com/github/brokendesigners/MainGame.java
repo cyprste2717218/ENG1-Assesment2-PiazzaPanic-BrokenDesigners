@@ -100,7 +100,7 @@ public class MainGame {
 		customerManager = new CustomerManager( // Manages when customers should spawn in and holds the Timerc
 			customerRenderer,
 			this.bubbleRenderer,
-			5,
+			match.getCustomerNumber(),
 			kitchen.getCustomerSpawnPoint(),
 			kitchen.getCustomerStations(),
 				match);
@@ -154,7 +154,8 @@ public class MainGame {
 		if (Gdx.input.isKeyPressed(Keys.NUM_1)) {
 			if (!this.playerList.get(0).isLocked()){
 				setSelectedPlayer(0);
-			}    	}
+			}
+		}
 		else if (Gdx.input.isKeyPressed(Keys.NUM_2)) {
 			if (!this.playerList.get(1).isLocked()){
 				setSelectedPlayer(1);
@@ -189,7 +190,11 @@ public class MainGame {
 			powerUp.getSprite().draw(spriteBatch);
 		}
 		spriteBatch.end();
-
+		playerRenderer.renderPlayers();
+		mapRenderer.renderTileLayer(
+				(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("StationTops"));
+		// ^^ renders this layer after player which allows the player to go behind walls.
+		spriteBatch.end();
 		for (Station station : kitchen.getKitchenStations()) {
 			station.setMatch(match);
 			station.renderCounter(spriteBatch);
@@ -198,13 +203,12 @@ public class MainGame {
 				((IFailable) station).handleStationInteraction();
 			}
 		}
-
-		playerRenderer.renderPlayers();
 		spriteBatch.begin();
 		mapRenderer.renderTileLayer(
 				(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("Front"));
 		// ^^ renders this layer after player which allows the player to go behind walls.
 		spriteBatch.end();
+
 		for (Station station : kitchen.getLockedKitchenStations())	{
 			station.activateLock(spriteBatch);
 		}
@@ -278,7 +282,7 @@ public class MainGame {
 		return glibbert_animations;
 	}
 
-	private void setSelectedPlayer(int selected){
+	public void setSelectedPlayer(int selected){
 		selectedPlayer = selected;
 		for(int i = 0; i< playerList.size(); i++){
 			playerList.get(i).setSelected(selected == i);
@@ -314,15 +318,5 @@ public class MainGame {
 	}
 	public ArrayList<Player> getLockedPlayerList()	{
 		return lockedPlayerList;
-	}
-	public void addUnlockedPlayer(Player player)	{
-		if (player != null)	{
-			this.playerList.add(player);
-			this.lockedPlayerList.remove(player);
-			System.out.println("LISTS="+this.playerList);
-			System.out.println(this.lockedPlayerList);
-
-		}
-
 	}
 }
