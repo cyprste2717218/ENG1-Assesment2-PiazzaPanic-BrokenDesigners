@@ -7,12 +7,10 @@ import com.github.brokendesigners.menu.MenuScreen;
 
 public class DifficultyButton extends Button{
 
-    private DifficultyLevel currentDifficulty;
     private DifficultyLevel buttonDifficulty;
     public DifficultyButton(Rectangle rectangle, Texture selectedTexture, Texture unselectedTexture, MenuScreen menuScreen, DifficultyLevel difficultyLevel) {
         super(rectangle, selectedTexture, unselectedTexture, menuScreen);
         buttonDifficulty = difficultyLevel;
-        this.currentDifficulty = menuScreen.getDifficulty();
         setRendered(false);
     }
 

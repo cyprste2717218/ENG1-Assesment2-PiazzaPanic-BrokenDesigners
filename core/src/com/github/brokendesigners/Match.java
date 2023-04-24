@@ -9,27 +9,29 @@ import java.util.Formatter;
 
 public class Match {
 
-    public Match(GameMode gameMode, DifficultyLevel difficultyLevel){
+    public Match(GameMode gameMode, DifficultyLevel difficultyLevel, int customerNumber){
         this.gameMode = gameMode;
-        money = 0.00;
+        //TODO: Revert to 0
+        money = 20.00;
         reputationPoints = 3;
         customersServed = 0;
         customersSoFar = 0;
         this.difficultyLevel = difficultyLevel;
+        this.customerNumber = customerNumber;
     }
 
-    public Match(GameMode gameMode, int reputationPoints, float money, int customersServed, int customersSoFar, DifficultyLevel difficultyLevel){
+    public Match(GameMode gameMode, int reputationPoints, float money, int customersServed, int customersSoFar, DifficultyLevel difficultyLevel, int customerNumber){
         this.gameMode = gameMode;
         this.reputationPoints = reputationPoints;
         this.money = money;
         this.customersServed = customersServed;
         this.customersSoFar = customersSoFar;
         this.difficultyLevel = difficultyLevel;
+        this.customerNumber = customerNumber;
     }
     public boolean hasMoneyPower = false; // if money power is used, then effects how much is added in 'addMoney'.
     private GameMode gameMode;
-
-    private Customer customer;
+    private int customerNumber;
     private int reputationPoints;
     private int customersServed;
     private int customersSoFar;
@@ -163,6 +165,7 @@ public class Match {
     }
 
 
-
-
+    public int getCustomerNumber() {
+        return customerNumber;
+    }
 }

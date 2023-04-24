@@ -2,7 +2,6 @@ package com.github.brokendesigners.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -36,13 +35,15 @@ public class MenuScreen {
 	public boolean complete; // has game been completed?
 	public int selectedButton; // Which button has been selected?
 	BitmapFont font;
-	public BitmapFont savedGameFont, cannotLoadFont;
+	public BitmapFont savedGameFont, cannotLoadFont, customerCountFont;
 
 	public ArrayList<Button> menuButtons = new ArrayList<>(); //A list of all the buttons, which is automatically created in the constructor of Button
-	Button playButton, resumeButton, loadButton, saveButton, showHowToPlayButton, backButton, exitGameButton, quitButton, scenarioModeButton, endlessModeButton, difficultyModeButtonEasy, difficultyModeButtonMedium, difficultyModeButtonHard;
+	Button playButton, resumeButton, loadButton, saveButton, showHowToPlayButton, backButton, exitGameButton, quitButton, scenarioModeButton, endlessModeButton, difficultyModeButtonEasy, difficultyModeButtonMedium, difficultyModeButtonHard, customerCountAdderButton, customerCountSubtractorButton;
 	OrthographicCamera camera;
 	public boolean tryActivateGame, isEndless;
 	DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
+
+	public int customerCount = 5;
 	public boolean isDifficultyScreen;
 
 	/*
@@ -66,6 +67,9 @@ public class MenuScreen {
 		cannotLoadFont = new BitmapFont();
 		cannotLoadFont.getData().setScale(5,5);
 		cannotLoadFont.setColor(Color.RED);
+		customerCountFont = new BitmapFont();
+		customerCountFont.getData().setScale(2,2);
+		customerCountFont.setColor(Color.RED);
 		this.camera = camera;
 		initialiseButtons();
 	}
@@ -109,6 +113,12 @@ public class MenuScreen {
 
 		difficultyModeButtonHard = new DifficultyButton(new Rectangle(700, 285, 200, 100),
 				MenuTextures.hardButtonSelected, MenuTextures.hardButtonUnselected, this, difficultyLevel.HARD);
+
+		customerCountAdderButton = new ScenarioCustomerCountButton(new Rectangle(1300, 540 , 100,50),
+				MenuTextures.customerCountAddSelected, MenuTextures.customerCountAddUnselected, this, 1);
+
+		customerCountSubtractorButton = new ScenarioCustomerCountButton(new Rectangle(950, 540 , 100,50),
+				MenuTextures.customerCountSubtractSelected, MenuTextures.customerCountSubtractUnselected, this, -1);
 	}
 
 
@@ -142,7 +152,8 @@ public class MenuScreen {
 			setDisplayedButtons(backButton);
 		}
 		else if(playOptions){
-			setDisplayedButtons(Arrays.asList(scenarioModeButton,endlessModeButton,backButton));
+			setDisplayedButtons(Arrays.asList(scenarioModeButton,endlessModeButton,backButton, customerCountAdderButton, customerCountSubtractorButton));
+			customerCountFont.draw(batch, "No. Customers: " + customerCount,1052,575);
 		}
 		else if(isDifficultyScreen){
 			setDisplayedButtons(Arrays.asList(difficultyModeButtonEasy, difficultyModeButtonMedium,

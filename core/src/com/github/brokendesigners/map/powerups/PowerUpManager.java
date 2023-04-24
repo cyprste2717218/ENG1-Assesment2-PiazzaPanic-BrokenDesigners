@@ -29,7 +29,7 @@ public class PowerUpManager {
             public void run() {
                 activePowerUps.add(spawnRandomPowerUp());
             }
-        },0f,15f);
+        },0f,5f);
         timer.start();
     }
 
@@ -49,6 +49,9 @@ public class PowerUpManager {
         int powerUpOption = rnd.nextInt(5);
         Vector2 spawnPoint = getPowerUpSpawnPoint();
 
+        //return new SpeedPowerUp(spawnPoint, player, game, this);
+        return new SpeedPowerUp(spawnPoint, player, game, this);
+/*
         switch (powerUpOption){
             case 0:
                 return new CarryCapacityPowerUp(spawnPoint, player, game,this);
@@ -60,7 +63,7 @@ public class PowerUpManager {
                 return new PrepTimePowerUp(spawnPoint, player, game,this);
             default:
                 return new SpeedPowerUp(spawnPoint, player, game,this);
-        }
+        }*/
     }
 
     private Vector2 getPowerUpSpawnPoint(){
