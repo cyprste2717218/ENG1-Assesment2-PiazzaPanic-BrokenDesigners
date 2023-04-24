@@ -33,9 +33,9 @@ jobs:
       if: always()
       with:
         files: |
-          test-results/**/*.xml
-          test-results/**/*.trx
-          test-results/**/*.json
+          tests/test-results/**/*.xml
+          tests/test-results/**/*.trx
+          tests/test-results/**/*.json
     - name: Build with Gradle
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
