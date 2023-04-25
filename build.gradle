@@ -1,5 +1,7 @@
+
+
 buildscript {
-    
+
 
     repositories {
         mavenLocal()
@@ -91,4 +93,9 @@ project(":tests") {
         testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
         testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     }
+}
+apply plugin: 'jacoco'
+
+test {
+    useJUnitPlatform()
 }

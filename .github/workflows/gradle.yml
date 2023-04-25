@@ -20,8 +20,10 @@ permissions:
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ ubuntu-22.04, windows-2022, macos-12 ]
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v3
@@ -30,13 +32,14 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
+    - name: Run chmod to make gradlew executable
+      run: chmod +x ./gradlew
     - name: Publish Test Results
       uses: EnricoMi/publish-unit-test-result-action/composite@v2
       if: always()
       with:
         files: |
           tests/build/test-results/test/*.xml
-
     - name: Build with Gradle
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
