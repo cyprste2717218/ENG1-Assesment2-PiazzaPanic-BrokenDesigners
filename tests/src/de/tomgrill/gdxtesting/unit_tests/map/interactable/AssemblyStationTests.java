@@ -93,7 +93,7 @@ public class AssemblyStationTests {
         Item generatedItem = fakeAssembly.TestingForFood(actualSalad, wrongSaladTest,"Salad");
         assertEquals(generatedItem, null);
     }
-    /*
+
      */
     @Test
     public void numberOfItemsTooSmall()    {

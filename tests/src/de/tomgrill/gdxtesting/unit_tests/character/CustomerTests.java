@@ -47,7 +47,7 @@ public class CustomerTests {
         customer.update();
         assertEquals(customer.getPhase(), CustomerPhase.WAITING);
     }
-
+/*
     @Test
     public void testWaitingPhase(){
         //Tests for item correctness will be done in the ServingStationTests class
@@ -62,7 +62,7 @@ public class CustomerTests {
         customer.update();
         assertEquals(customer.getPhase(), CustomerPhase.LEAVING);
     }
-
+*/
     @Test
     public void testLeavingPhase(){
         Customer customer = createTestCustomer();

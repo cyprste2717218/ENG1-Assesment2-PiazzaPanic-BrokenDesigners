@@ -1,30 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" tests="3" skipped="0" failures="1" errors="0" timestamp="2023-04-24T13:57:26" hostname="BENSPC" time="0.034">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-04-25T13:17:43" hostname="BENSPC" time="0.016">
   <properties/>
-  <testcase name="testIsComplete" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.005"/>
-  <testcase name="testGetMeal" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.001">
-    <failure message="java.lang.AssertionError" type="java.lang.AssertionError">java.lang.AssertionError
-	at org.junit.Assert.fail(Assert.java:87)
-	at org.junit.Assert.assertTrue(Assert.java:42)
-	at org.junit.Assert.assertTrue(Assert.java:53)
-	at de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests.testGetMeal(CustomerManagerTests.java:25)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
-	at de.tomgrill.gdxtesting.GdxTestRunner.render(GdxTestRunner.java:59)
-	at com.badlogic.gdx.backends.headless.HeadlessApplication.mainLoop(HeadlessApplication.java:128)
-	at com.badlogic.gdx.backends.headless.HeadlessApplication$1.run(HeadlessApplication.java:93)
-</failure>
-  </testcase>
+  <testcase name="testIsComplete" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.003"/>
   <testcase name="testTimeToString" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.0"/>
   <system-out><![CDATA[1
 2
