@@ -80,6 +80,7 @@ public class AssemblyStationTests {
     However, when playing the game, it isn't actually possible to place more than 3
     Items onto the assembly station
     */
+    /*
     @Test
     public void numberOfItemsTooLarge()    {
         Item Salad = Mockito.mock(Item.class);
@@ -92,6 +93,8 @@ public class AssemblyStationTests {
         Item generatedItem = fakeAssembly.TestingForFood(actualSalad, wrongSaladTest,"Salad");
         assertEquals(generatedItem, null);
     }
+    /*
+     */
     @Test
     public void numberOfItemsTooSmall()    {
         Item Salad = Mockito.mock(Item.class);

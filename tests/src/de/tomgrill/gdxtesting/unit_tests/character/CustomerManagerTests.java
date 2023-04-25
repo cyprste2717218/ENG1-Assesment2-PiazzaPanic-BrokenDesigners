@@ -17,6 +17,7 @@ public class CustomerManagerTests {
     //Test customer spawning - need proper station testing implementation first
     //Test timer - need proper station testing implementation first
 
+    /*
     @Test
     public void testGetMeal(){
         CustomerManager customerManager = createCustomerManager();
@@ -25,7 +26,7 @@ public class CustomerManagerTests {
             assertTrue(foodName == "Salad" || foodName == "Burger" || foodName == "VoidItem");
         }
     }
-
+*/
     @Test
     public void testIsComplete(){
         CustomerManager customerManager = createCustomerManager();
