@@ -234,6 +234,12 @@ public class PiazzaPanic extends ApplicationAdapter {
 		menu.active = false;
 	}
 
+	public void setMenu(MenuScreen menuScreen){
+		this.menu = menuScreen;
+	}
+
+	public void setGame(MainGame game){this.game = game;}
+
 	@Override
 	public void dispose () {
 		spriteBatch.dispose();

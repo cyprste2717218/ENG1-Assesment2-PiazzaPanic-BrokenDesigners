@@ -76,6 +76,7 @@ public class CustomerManager {
 		this.match = match;
 		this.customerNumber = customerNumber;
 		this.spawnPoint = spawnPoint;
+		customers = new ArrayList<>();
 	}
 
 	public boolean begin(){

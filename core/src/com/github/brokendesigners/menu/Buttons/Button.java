@@ -74,4 +74,8 @@ public abstract class Button {
         Texture drawnTexture = isSelected() || isHovered(camera) ? selectedTexture : unselectedTexture;
         batch.draw(drawnTexture, rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
     }
+
+    public MenuScreen getMenuScreen(){
+        return menuScreen;
+    }
 }

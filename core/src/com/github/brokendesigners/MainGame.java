@@ -35,7 +35,7 @@ import java.util.Arrays;
 
 public class MainGame {
 
-	static public SaveGame saveGame;
+	public static SaveGame saveGame;
 	ItemInitialiser itemInitialiser;
 
 	PlayerRenderer playerRenderer;
@@ -80,7 +80,6 @@ public class MainGame {
 		this.playerRenderer = playerRenderer;
 		this.customerRenderer = customerRenderer;
 		this.bubbleRenderer = bubbleRenderer;
-		this.map = map;
 		this.mapRenderer = mapRenderer;
 		this.inputProcessor = inputProcessor;
 		this.spriteBatch = spriteBatch;
@@ -88,6 +87,16 @@ public class MainGame {
 		this.hud_cam = hudCamera;
 		this.hud_batch = hud_batch;
 		this.match = match;
+	}
+
+	//A constructor for testing
+	public MainGame(OrthographicCamera gameCamera, OrthographicCamera hudCamera, Match match){
+		this.camera = gameCamera;
+		this.hud_cam = hudCamera;
+		this.match = match;
+		playerList = new ArrayList<>();
+		customerManager = new CustomerManager(match.getCustomerNumber(), new Vector2(0,0), match);
+		saveGame = new SaveGame(match,kitchen,playerList,customerManager, this);
 	}
 
 
@@ -130,11 +139,11 @@ public class MainGame {
 		// BUILD PLAYERS
 		initialisePlayers(isLoading, loader); //initialisePlayers is at the end of this java class.
 
-		saveGame = new SaveGame(this.match,kitchen,playerList,customerManager, this);
+		saveGame = new SaveGame(match,kitchen,playerList,customerManager, this);
 
 		spriteBatch.enableBlending();
 		customerManager.begin();
-		powerUpManager = new PowerUpManager(playerList.get(selectedPlayer), this, customerManager);
+		powerUpManager = new PowerUpManager(playerList.get(selectedPlayer), match, customerManager);
 	}
 
 	public void renderGame(){

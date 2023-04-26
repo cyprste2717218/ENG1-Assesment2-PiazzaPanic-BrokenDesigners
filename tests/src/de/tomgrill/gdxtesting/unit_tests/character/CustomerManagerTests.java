@@ -67,7 +67,7 @@ public class CustomerManagerTests {
 
 
     private CustomerManager createCustomerManager(){
-        return new CustomerManager(5, new Vector2(0,0), new Match(GameMode.SCENARIO, DifficultyLevel.MEDIUM));
+        return new CustomerManager(5, new Vector2(0,0), new Match(GameMode.SCENARIO, DifficultyLevel.MEDIUM, 5));
     }
 
 

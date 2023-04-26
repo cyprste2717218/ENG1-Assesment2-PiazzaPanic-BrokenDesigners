@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.github.brokendesigners.Match;
 import com.github.brokendesigners.character.Customer;
 import com.github.brokendesigners.enums.CustomerPhase;
+import com.github.brokendesigners.enums.DifficultyLevel;
 import com.github.brokendesigners.enums.GameMode;
 import com.github.brokendesigners.item.Item;
 import com.github.brokendesigners.item.ItemRegister;
@@ -26,7 +27,7 @@ public class CustomerTests {
     //Check customer constructors work properly
     @Test
     public void testCustomerSpawn(){
-        Customer customer = createTestCustomer();
+        Customer customer = CustomerTestingUtils.createTestCustomer();
         assertTrue(customer.spawn());
         assertTrue(customer.isVisible());
         assertEquals(customer.getPhase(), CustomerPhase.MOVING_TO_STATION);
@@ -34,7 +35,7 @@ public class CustomerTests {
 
     @Test
     public void testMovingToStationPhase(){
-        Customer customer = createTestCustomer();
+        Customer customer = CustomerTestingUtils.createTestCustomer();
         customer.spawn();
         customer.setPhase(CustomerPhase.MOVING_TO_STATION);
         while(customer.getWorldPosition().x != 10 || customer.getWorldPosition().y != 5){
@@ -50,7 +51,7 @@ public class CustomerTests {
     @Test
     public void testWaitingPhase(){
         //Tests for item correctness will be done in the ServingStationTests class
-        Customer customer = createTestCustomer();
+        Customer customer = CustomerTestingUtils.createTestCustomer();
         customer.spawn();
         customer.setPhase(CustomerPhase.WAITING);
         assertEquals(customer.waitingStartTime, -1L);
@@ -64,7 +65,7 @@ public class CustomerTests {
 
     @Test
     public void testLeavingPhase(){
-        Customer customer = createTestCustomer();
+        Customer customer = CustomerTestingUtils.createTestCustomer();
         customer.spawn();
         customer.setPhase(CustomerPhase.LEAVING);
         customer.worldPosition = new Vector2(10,5);
@@ -81,24 +82,14 @@ public class CustomerTests {
 
     @Test
     public void testDespawnPhase(){
-        Customer customer = createTestCustomer();
+        Customer customer = CustomerTestingUtils.createTestCustomer();
         customer.spawn();
         customer.setPhase(CustomerPhase.DESPAWNING);
         customer.update();
         assertFalse(customer.isVisible());
     }
 
-    private Customer createTestCustomer(Item item){
-        CustomerStation customerStation = Mockito.mock(CustomerStation.class);
-        Mockito.when(customerStation.getCustomerPosition()).thenReturn(new Vector2(10,5));
-        Mockito.when(customerStation.getItemInHand()).thenReturn(item);
-        Mockito.when(customerStation.hasEmptyHand()).thenReturn(item == null);
-        return new Customer(customerStation, item, new Vector2(2,1), new Match(GameMode.SCENARIO));
-    }
 
-    private Customer createTestCustomer(){
-        return createTestCustomer(ItemRegister.itemRegister.get("Burger"));
-    }
 
 
     //Work on testing different customer phases

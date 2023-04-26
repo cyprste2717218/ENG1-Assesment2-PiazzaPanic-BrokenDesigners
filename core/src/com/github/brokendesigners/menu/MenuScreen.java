@@ -74,6 +74,28 @@ public class MenuScreen {
 		initialiseButtons();
 	}
 
+	public MenuScreen(OrthographicCamera camera, PiazzaPanic panic, boolean testing){
+		this.panic = panic;
+		active = true;
+		tryActivateGame = false;
+		isLoading = false;
+		complete = false;
+		loadingFailed = false;
+		font = new BitmapFont();
+		this.font.getData().setScale(10, 10);
+		font.setColor(Color.RED);
+		savedGameFont = new BitmapFont();
+		savedGameFont.getData().setScale(5,5);
+		savedGameFont.setColor(Color.RED);
+		cannotLoadFont = new BitmapFont();
+		cannotLoadFont.getData().setScale(5,5);
+		cannotLoadFont.setColor(Color.RED);
+		customerCountFont = new BitmapFont();
+		customerCountFont.getData().setScale(2,2);
+		customerCountFont.setColor(Color.RED);
+		this.camera = camera;
+	}
+
 	public void initialiseButtons(){
 		playButton = new PlayButton(new Rectangle(700, 515, 200, 100),
 				MenuTextures.playButtonSelected, MenuTextures.playButtonUnselected, this);
