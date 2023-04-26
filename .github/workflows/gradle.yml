@@ -1,39 +1,21 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
-
 name: Java CI with Gradle
 
 on:
   push:
     branches: [ "main", "eyeDaydream-patch-1" ]
+    tags: [ "v[0-9]+.[0-9]+.[0-9]+" ]
   pull_request:
     branches: [ "main" ]
 
-permissions:
-  contents: read
-  checks: write
-  pull-requests: write
-
 jobs:
-  checkstyle:
-    name: runner / checkstyle
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: dbelyaev/action-checkstyle@v0.7.4
-        with:
-          github_token: ${{ secrets.github_token }}
-          reporter: github-pr-review
-          level: warning
   build:
     strategy:
       matrix:
-        os: [ ubuntu-22.04, windows-2022, macos-12 ]
+        os: [ubuntu-22.04, windows-2022, macos-12]
     runs-on: ${{ matrix.os }}
+
+    permissions:
+      contents: read
 
     steps:
     - uses: actions/checkout@v3
@@ -42,20 +24,21 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-    - name: Run chmod to make gradlew executable
-      run: chmod +x ./gradlew
-    - name: Publish Test Results
-      uses: EnricoMi/publish-unit-test-result-action/composite@v2
-      if: always()
-      with:
-        files: |
-          tests/build/test-results/test/*.xml
     - name: Build with Gradle
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
         arguments: build
-
-
+    - name: Upload library JAR
+      uses: actions/upload-artifact@v3.1.1
+      with:
+        name: lib-${{ matrix.os }}.jar
+        path: build/libs/ENG1-Assesment2-PiazzaPanic-BrokenDesigners-1.0.jar
+    - name: Upload Checkstyle report
+      uses: actions/upload-artifact@v3.1.1
+      if: startsWith(matrix.os, 'ubuntu')
+      with:
+        name: checkstyle-report
+        path: tests/build/reports/checkstyle
 
   release:
     runs-on: ubuntu-22.04
@@ -66,25 +49,26 @@ jobs:
       contents: write
 
     steps:
-      - name: Download Ubuntu Build Artifact
-        uses: actions/download-artifact@v3.0.1
-        with:
-          name: lib-ubuntu-22.04.jar
-      - name: Rename Ubuntu Build Artifact
-        run: mv lib.jar lib-ubuntu.jar
-      - name: Download MacOS Build Artifact
-        uses: actions/download-artifact@v3.0.1
-        with:
-          name: lib-macos-12.jar
-      - name: Rename MacOS Build Artifact
-        run: mv lib.jar lib-macos.jar
-      - name: Download Windows Build Artifact
-        uses: actions/download-artifact@v3.0.1
-        with:
-          name: lib-windows-2022.jar
-      - name: Rename Windows Build Artifact
-        run: mv lib.jar lib-windows.jar
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: lib*.jar
+    - name: Download Ubuntu Build Artifact
+      uses: actions/download-artifact@v3.0.1
+      with:
+        name: lib-ubuntu-22.04.jar
+    - name: Rename Ubuntu Build Artifact
+      run: mv lib.jar lib-ubuntu.jar
+    - name: Download MacOS Build Artifact
+      uses: actions/download-artifact@v3.0.1
+      with:
+        name: lib-macos-12.jar
+    - name: Rename MacOS Build Artifact
+      run: mv lib.jar lib-macos.jar
+    - name: Download Windows Build Artifact
+      uses: actions/download-artifact@v3.0.1
+      with:
+        name: lib-windows-2022.jar
+    - name: Rename Windows Build Artifact
+      run: mv lib.jar lib-windows.jar
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: lib*.jar
+
