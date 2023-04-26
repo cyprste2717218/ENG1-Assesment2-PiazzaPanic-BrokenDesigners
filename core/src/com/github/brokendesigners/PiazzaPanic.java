@@ -139,27 +139,21 @@ public class PiazzaPanic extends ApplicationAdapter {
 					} else if (keycode == Keys.SPACE) { // handles player interact.
 						for(Player player : game.playerList){
 							player.interact(game.kitchen.getKitchenStations());
-						}
-						for(Player player : game.playerList)	{
-							//game.addUnlockedPlayer(player.playerInteract(game.getLockedPlayerList()));
 							player.playerInteract(game.getPlayerList());
 						}
 					} else if (keycode == Keys.TAB) { // handles player switching - *shouldn't* need to be updated
-						game.playerList.get(game.selectedPlayer).setSelected(false);
-						game.selectedPlayer += 1;
-						game.selectedPlayer = game.selectedPlayer % game.playerList.size();
-						while (game.playerList.get(game.selectedPlayer).isLocked()) {
-							game.selectedPlayer +=1;
-							game.selectedPlayer = game.selectedPlayer % game.playerList.size();
+						int selected = game.selectedPlayer + 1;
+						while (game.playerList.get(selected % game.playerList.size()).isLocked()){
+							selected++;
 						}
-						game.playerList.get(game.selectedPlayer).setSelected(true);
-
+						game.setSelectedPlayer((selected) % game.playerList.size());
 					} else if (keycode == Keys.ESCAPE) { // activates menu.
 						game.customerManager.pause();
 						menu.cont = true;
 						menu.active = true;
 						menu.playOptions = false;
 						menu.howToScreen = false;
+						menu.isDifficultyScreen = false;
 					}
 				} else { // if menu is active
 					if (keycode == Keys.ESCAPE && game != null) {
@@ -231,7 +225,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 			}
 		}
 		else{
-			match = new Match(menu.isEndless ? GameMode.ENDLESS : GameMode.SCENARIO, menu.getDifficulty());
+			match = new Match(menu.isEndless ? GameMode.ENDLESS : GameMode.SCENARIO, menu.getDifficulty(), menu.customerCount);
 		}
 		game = new MainGame(spriteBatch, hud_batch, camera, hud_cam, playerRenderer,
 				customerRenderer, bubbleRenderer, mapRenderer, inputProcessor, match);
