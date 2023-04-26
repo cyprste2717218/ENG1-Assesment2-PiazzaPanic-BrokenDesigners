@@ -36,7 +36,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: lib*.jar
-        path: ./ENG1-Assesment2-PiazzaPanic-BrokenDesigners/core/build/libs/*.jar
+        path: ./core/build/libs/*.jar
     - name: Upload Checkstyle report
       uses: actions/upload-artifact@v3.1.1
       if: startsWith(matrix.os, 'ubuntu')
