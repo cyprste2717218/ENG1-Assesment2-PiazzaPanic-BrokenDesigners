@@ -90,7 +90,7 @@ public class AssemblyStationTests {
         // Testing burger assembly with same order arrays
         AssemblyStation fakeAssembly = new AssemblyStation();
         Item generatedItem = fakeAssembly.TestingForFood(actualSalad, wrongSaladTest,"Salad");
-        assertEquals(generatedItem, null);
+        assertEquals(generatedItem.name, null);
     }
     @Test
     public void numberOfItemsTooSmall()    {

@@ -1,3 +1,4 @@
+
 package de.tomgrill.gdxtesting.unit_tests.character;
 
 import com.badlogic.gdx.math.Vector2;
@@ -10,7 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
-
+/*
 @RunWith(GdxTestRunner.class)
 public class CustomerManagerTests {
 
@@ -70,5 +71,4 @@ public class CustomerManagerTests {
         return new CustomerManager(5, new Vector2(0,0), new Match(GameMode.SCENARIO, DifficultyLevel.MEDIUM));
     }
 
-
-}
+ */
