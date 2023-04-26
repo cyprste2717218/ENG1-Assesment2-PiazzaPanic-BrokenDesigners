@@ -39,6 +39,12 @@ jobs:
       with:
         name: checkstyle-report
         path: tests/build/reports/checkstyle
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action/composite@v2
+      if: always()
+      with:
+        files: |
+          tests/build/test-results/test/*.xml
 
   release:
     runs-on: ubuntu-22.04
