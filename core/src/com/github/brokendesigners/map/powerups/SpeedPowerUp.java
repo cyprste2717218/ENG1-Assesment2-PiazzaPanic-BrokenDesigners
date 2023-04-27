@@ -12,16 +12,13 @@ import com.github.brokendesigners.Player;
 
 public class SpeedPowerUp extends PowerUp{
 
-    public SpeedPowerUp(Vector2 worldPosition, Player player, Match match, PowerUpManager powerUpManager) {
+    public SpeedPowerUp(Vector2 worldPosition, Player player, Match match, PowerUpManager powerUpManager, boolean testing) {
         super(worldPosition, player, match, 15f, powerUpManager);
+        if(testing) return;
         sprite = new Sprite(new Texture(Gdx.files.internal("items/Speed.png")));
         sprite.setPosition(worldPosition.x, worldPosition.y);
         sprite.setScale(0.125f);
         System.out.println("Spawned speed power up");
-    }
-
-    public SpeedPowerUp(Vector2 worldPosition, Player player, Match match, PowerUpManager powerUpManager, boolean testing) {
-        super(worldPosition, player, match, 15f, powerUpManager);
     }
 
     @Override

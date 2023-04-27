@@ -10,6 +10,7 @@ import com.github.brokendesigners.enums.GameMode;
 import com.github.brokendesigners.map.powerups.CarryCapacityPowerUp;
 import com.github.brokendesigners.map.powerups.PowerUpManager;
 import de.tomgrill.gdxtesting.GdxTestRunner;
+import de.tomgrill.gdxtesting.unit_tests.map.KitchenTestUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
@@ -31,7 +32,7 @@ public class CarryCapacityPowerUpTests {
         Match match = new Match(GameMode.ENDLESS, DifficultyLevel.MEDIUM, 5);
         Player player = new Player(new Vector2(0,0));
         CustomerManager customerManager = new CustomerManager(5, new Vector2(0,0), match);
-        PowerUpManager powerUpManager = new PowerUpManager(player, match, customerManager);
+        PowerUpManager powerUpManager = new PowerUpManager(player, match, customerManager, KitchenTestUtils.createMockedKitchen(match));
         return new CarryCapacityPowerUp(new Vector2(0,0), player, match, powerUpManager, true);
     }
 }

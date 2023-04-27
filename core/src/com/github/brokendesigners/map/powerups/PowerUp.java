@@ -14,6 +14,7 @@ public abstract class PowerUp {
     protected MainGame game;
     protected Match match;
     protected float time;
+    protected Vector2 worldPosition;
     protected Sprite sprite;
     private PowerUpManager powerUpManager;
     public PowerUp(Vector2 worldPosition, Player player, Match match, float time, final PowerUpManager powerUpManager) {
@@ -21,6 +22,7 @@ public abstract class PowerUp {
         this.player = player;
         this.match = match;
         this.time = time;
+        this.worldPosition = worldPosition;
         this.powerUpManager = powerUpManager;
         timer.scheduleTask(new Timer.Task() {
             @Override
@@ -49,10 +51,12 @@ public abstract class PowerUp {
     public Sprite getSprite(){
         return sprite;
     }
+    public void setSprite(Sprite s){sprite = s;}
     public Player getPlayer(){
         return player;
     }
     public Match getMatch() {
         return match;
     }
+    public Vector2 getSpawnPoint(){return worldPosition;}
 }

@@ -2,21 +2,12 @@ package de.tomgrill.gdxtesting.unit_tests.character;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.github.brokendesigners.Match;
 import com.github.brokendesigners.character.Customer;
 import com.github.brokendesigners.enums.CustomerPhase;
-import com.github.brokendesigners.enums.DifficultyLevel;
-import com.github.brokendesigners.enums.GameMode;
-import com.github.brokendesigners.item.Item;
-import com.github.brokendesigners.item.ItemRegister;
-import com.github.brokendesigners.map.interactable.CustomerStation;
 
 import de.tomgrill.gdxtesting.GdxTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-
-import java.util.Objects;
 
 import static org.junit.Assert.*;
 
@@ -26,11 +17,13 @@ public class CustomerTests {
 
     //Check customer constructors work properly
     @Test
-    public void testCustomerSpawn(){
+    public void testSpawn(){
         Customer customer = CustomerTestingUtils.createTestCustomer();
-        assertTrue(customer.spawn());
+        customer.setIsVisible(false);
+        customer.setPhase(CustomerPhase.SPAWNING);
+        customer.spawn();
         assertTrue(customer.isVisible());
-        assertEquals(customer.getPhase(), CustomerPhase.MOVING_TO_STATION);
+        assertSame(customer.getPhase(), CustomerPhase.MOVING_TO_STATION);
     }
 
     @Test
@@ -39,11 +32,11 @@ public class CustomerTests {
         customer.spawn();
         customer.setPhase(CustomerPhase.MOVING_TO_STATION);
         while(customer.getWorldPosition().x != 10 || customer.getWorldPosition().y != 5){
-            assertFalse(Objects.equals(customer.getWorldPosition(), new Vector2(10, 5)));
+            assertNotEquals(customer.getWorldPosition(), new Vector2(10, 5));
             customer.update();
         }
-        assertTrue(customer.getWorldPosition().x == 10);
-        assertTrue(customer.getWorldPosition().y == 5);
+        assertEquals(10, customer.getWorldPosition().x, 0.0);
+        assertEquals(5, customer.getWorldPosition().y, 0.0);
         customer.update();
         assertEquals(customer.getPhase(), CustomerPhase.WAITING);
     }
@@ -54,11 +47,11 @@ public class CustomerTests {
         Customer customer = CustomerTestingUtils.createTestCustomer();
         customer.spawn();
         customer.setPhase(CustomerPhase.WAITING);
-        assertEquals(customer.waitingStartTime, -1L);
+        assertEquals(customer.getWaitingStartTime(), -1L);
         customer.update();
-        assertEquals(customer.waitingStartTime, TimeUtils.millis(), 10L);
-        assertFalse(customer.getPhase() == CustomerPhase.LEAVING);
-        customer.waitingStartTime = customer.customerWaitTime;
+        assertEquals(customer.getWaitingStartTime(), TimeUtils.millis(), 10L);
+        assertNotSame(customer.getPhase(), CustomerPhase.LEAVING);
+        customer.setWaitingStartTime(customer.getCustomerWaitTime());
         customer.update();
         assertEquals(customer.getPhase(), CustomerPhase.LEAVING);
     }
@@ -68,15 +61,15 @@ public class CustomerTests {
         Customer customer = CustomerTestingUtils.createTestCustomer();
         customer.spawn();
         customer.setPhase(CustomerPhase.LEAVING);
-        customer.worldPosition = new Vector2(10,5);
+        customer.setWorldPosition(new Vector2(10,5));
         while(customer.getWorldPosition().x != 2 || customer.getWorldPosition().y != 0){
-            assertFalse(Objects.equals(customer.getWorldPosition(), new Vector2(2, 0)));
+            assertNotEquals(customer.getWorldPosition(), new Vector2(2, 0));
             customer.update();
         }
-        assertTrue(customer.getWorldPosition().x == 2);
-        assertTrue(customer.getWorldPosition().y == 0);
+        assertEquals(2, customer.getWorldPosition().x, 0.0);
+        assertEquals(0, customer.getWorldPosition().y, 0.0);
         customer.update();
-        assertTrue(customer.getMatch().getCustomersSoFar() == 1);
+        assertEquals(1, customer.getMatch().getCustomersSoFar());
         assertEquals(customer.getPhase(), CustomerPhase.DESPAWNING);
     }
 
@@ -88,12 +81,4 @@ public class CustomerTests {
         customer.update();
         assertFalse(customer.isVisible());
     }
-
-
-
-
-    //Work on testing different customer phases
-
-    //Can we test spawn function?
-
 }

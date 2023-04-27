@@ -10,6 +10,7 @@ import com.github.brokendesigners.enums.GameMode;
 import com.github.brokendesigners.menu.Buttons.SaveButton;
 import com.github.brokendesigners.menu.MenuScreen;
 import de.tomgrill.gdxtesting.GdxTestRunner;
+import de.tomgrill.gdxtesting.unit_tests.map.KitchenTestUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -29,16 +30,14 @@ public class SaveButtonTests {
     public void testPerformedTask(){
         OrthographicCamera cam = new OrthographicCamera();
         PiazzaPanic panic = new PiazzaPanic();
-       // MenuScreen menuScreen = Mockito.mock(MenuScreen.class, Mockito.withSettings().useConstructor(cam, panic, true));
         SaveButton saveButton = createSaveButton(ButtonTestUtils.createMenuScreen());
         MenuScreen menuScreen = saveButton.getMenuScreen();
-        menuScreen.panic.setGame(new MainGame(cam, cam, new Match(GameMode.ENDLESS, DifficultyLevel.MEDIUM, 1)));
+        Match match = new Match(GameMode.ENDLESS, DifficultyLevel.MEDIUM, 1);
+        menuScreen.panic.setGame(new MainGame(cam, cam, match, KitchenTestUtils.createMockedKitchen(match)));
         menuScreen.gameSaved = false;
         menuScreen.panic.setMenu(menuScreen);
         saveButton.performTask();
         assertTrue(menuScreen.gameSaved);
-
-        //Mockito.verify(MainGame.saveGame).save();
     }
 
     private SaveButton createSaveButton(MenuScreen menuScreen){

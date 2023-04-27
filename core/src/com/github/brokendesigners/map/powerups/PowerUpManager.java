@@ -10,33 +10,40 @@ import com.github.brokendesigners.character.CustomerManager;
 import java.util.ArrayList;
 import java.util.Random;
 import com.badlogic.gdx.utils.Timer;
+import com.github.brokendesigners.map.Kitchen;
 
 public class PowerUpManager {
 
     Player player;
     Match match;
     CustomerManager customerManager;
-    ArrayList<PowerUp> activePowerUps;
+    ArrayList<PowerUp> activePowerUps; //A list of powerups that can currently be activated
     Timer timer;
-    boolean taskWasActivated;
+    boolean testing;
+    Kitchen kitchen;
 
 
-    public PowerUpManager(Player player, Match match, CustomerManager customerManager){
+    public PowerUpManager(Player player, Match match, CustomerManager customerManager, Kitchen kitchen){
         this.player = player;
         this.match = match;
         this.customerManager = customerManager;
+        this.kitchen = kitchen;
         activePowerUps = new ArrayList<>();
         timer = new Timer();
-        taskWasActivated = false;
         //Repeatedly spawns a new power up every 15 seconds
         timer.scheduleTask(spawnPowerUp,0f,15f);
         timer.start();
+        testing = false;
+    }
+
+    public PowerUpManager(Player player, Match match, CustomerManager customerManager, boolean testing, Kitchen kitchen){
+        this(player, match, customerManager, kitchen);
+        this.testing = testing;
     }
 
     public Timer.Task spawnPowerUp = new Timer.Task() {
         @Override
         public void run() {
-            taskWasActivated = true;
             activePowerUps.add(spawnRandomPowerUp());
         }
     };
@@ -58,16 +65,17 @@ public class PowerUpManager {
         Vector2 spawnPoint = getPowerUpSpawnPoint();
         switch (powerUpOption){
             case 0:
-                return new CarryCapacityPowerUp(spawnPoint, player, match,this);
+                return new CarryCapacityPowerUp(spawnPoint, player, match,this, testing);
             case 1:
-                return new CustomerWaitTimePowerUp(spawnPoint, player, match, customerManager,this);
+                return new CustomerWaitTimePowerUp(spawnPoint, player, match, customerManager,this, testing);
             case 2:
-                return new DoubleMoneyPowerUp(spawnPoint, player, match,this);
+                return new DoubleMoneyPowerUp(spawnPoint, player, match,this, testing);
             case 3:
-                return new PrepTimePowerUp(spawnPoint, player, match,this);
+                return new PrepTimePowerUp(spawnPoint, player, match,this, testing, kitchen);
             default:
-                return new SpeedPowerUp(spawnPoint, player, match,this);
+                return new SpeedPowerUp(spawnPoint, player, match,this, testing);
         }
+
     }
 
     //Gets a random spawn point for the power up to be placed
@@ -93,13 +101,5 @@ public class PowerUpManager {
 
     public void setPlayer(Player p){
         player = p;
-    }
-
-    public boolean getTaskWasActivated(){
-        return taskWasActivated;
-    }
-
-    public void setTaskWasActivated(boolean wasActivated){
-        taskWasActivated = wasActivated;
     }
 }

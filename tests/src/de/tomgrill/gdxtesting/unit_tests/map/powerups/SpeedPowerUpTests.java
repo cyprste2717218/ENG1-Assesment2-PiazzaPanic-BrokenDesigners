@@ -11,6 +11,7 @@ import com.github.brokendesigners.map.powerups.CarryCapacityPowerUp;
 import com.github.brokendesigners.map.powerups.PowerUpManager;
 import com.github.brokendesigners.map.powerups.SpeedPowerUp;
 import de.tomgrill.gdxtesting.GdxTestRunner;
+import de.tomgrill.gdxtesting.unit_tests.map.KitchenTestUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -34,7 +35,7 @@ public class SpeedPowerUpTests {
         Match match = new Match(GameMode.ENDLESS, DifficultyLevel.MEDIUM, 5);
         Player player = new Player(new Vector2(0,0));
         CustomerManager customerManager = new CustomerManager(5, new Vector2(0,0), match);
-        PowerUpManager powerUpManager = new PowerUpManager(player, match, customerManager);
+        PowerUpManager powerUpManager = new PowerUpManager(player, match, customerManager, KitchenTestUtils.createMockedKitchen(match));
         return new SpeedPowerUp(new Vector2(0,0), player, match, powerUpManager, true);
     }
 }

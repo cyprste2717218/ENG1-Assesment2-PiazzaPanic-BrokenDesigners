@@ -9,9 +9,9 @@ import com.github.brokendesigners.enums.DifficultyLevel;
 import com.github.brokendesigners.enums.GameMode;
 import com.github.brokendesigners.map.powerups.CustomerWaitTimePowerUp;
 import com.github.brokendesigners.map.powerups.PowerUpManager;
-import com.github.brokendesigners.map.powerups.SpeedPowerUp;
 import de.tomgrill.gdxtesting.GdxTestRunner;
 import de.tomgrill.gdxtesting.unit_tests.character.CustomerTestingUtils;
+import de.tomgrill.gdxtesting.unit_tests.map.KitchenTestUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
@@ -25,18 +25,18 @@ public class CustomerWaitTimePowerUpTests {
         CustomerManager customerManager = customerWaitTimePowerUp.getCustomerManager();
         Customer customer = CustomerTestingUtils.createTestCustomer();
         customerManager.getCustomers().add(customer);
-        assertTrue(customer.customerWaitTime == 60000L);
+        assertTrue(customer.getCustomerWaitTime() == 60000L);
         customerWaitTimePowerUp.activate();
-        assertTrue(customer.customerWaitTime == 70000L);
+        assertTrue(customer.getCustomerWaitTime() == 70000L);
         customerWaitTimePowerUp.activate();
-        assertTrue(customer.customerWaitTime == 80000L);
+        assertTrue(customer.getCustomerWaitTime() == 80000L);
     }
 
     private CustomerWaitTimePowerUp createCustomerWaitTimePowerup(){
         Match match = new Match(GameMode.ENDLESS, DifficultyLevel.MEDIUM, 5);
         Player player = new Player(new Vector2(0,0));
         CustomerManager customerManager = new CustomerManager(5, new Vector2(0,0), match);
-        PowerUpManager powerUpManager = new PowerUpManager(player, match, customerManager);
+        PowerUpManager powerUpManager = new PowerUpManager(player, match, customerManager, KitchenTestUtils.createMockedKitchen(match));
         return new CustomerWaitTimePowerUp(new Vector2(0,0), player, match, customerManager, powerUpManager, true);
     }
 }
