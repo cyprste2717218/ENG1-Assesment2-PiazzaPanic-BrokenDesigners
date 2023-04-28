@@ -54,7 +54,7 @@ jobs:
       if: startsWith(matrix.os, 'ubuntu')
       with:
         name: jacoco-report
-        path: desktop/build/reports/jacoco/test/html
+        path: tests/build/reports/jacoco/test/html
     - name: Publish Test Results
       uses: EnricoMi/publish-unit-test-result-action/composite@v2
       if: always()
