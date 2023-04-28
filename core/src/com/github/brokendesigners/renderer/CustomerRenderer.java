@@ -2,7 +2,6 @@ package com.github.brokendesigners.renderer;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.github.brokendesigners.Constants;
@@ -42,28 +41,28 @@ public class CustomerRenderer {
 
 
 			if (customer.isVisible()) {
-				if (customer.texture == null) {
-					customer.stateTime += Gdx.graphics.getDeltaTime();
+				if (customer.getTexture() == null) {
+					customer.setStateTime(customer.getStateTime() + Gdx.graphics.getDeltaTime());
 
 					TextureRegion frame;
 					if (customer.getPhase() == CustomerPhase.WAITING) {
 
-						frame = customer.animations.get(0).getKeyFrame(customer.stateTime);
+						frame = customer.getAnimations().get(0).getKeyFrame(customer.getStateTime());
 						// ^^ renders idle animation if customer is at station
 					} else {
 
-						frame = customer.animations.get(1).getKeyFrame(customer.stateTime);
+						frame = customer.getAnimations().get(1).getKeyFrame(customer.getStateTime());
 						// ^^ renders move animation if customer is moving.
 					}
 					this.batch.draw(frame, customer.getWorldPosition().x,
-							customer.getWorldPosition().y, customer.WIDTH, customer.HEIGHT);
+							customer.getWorldPosition().y, customer.getWIDTH(), customer.getHEIGHT());
 
 				} else {
 					this.batch.draw(customer.getTexture(), customer.getWorldPosition().x,
-							customer.getWorldPosition().y, customer.WIDTH, customer.HEIGHT);
+							customer.getWorldPosition().y, customer.getWIDTH(), customer.getHEIGHT());
 					// ^^ renders customer without animation if they only have a texture.
 				}
-				if (customer.getPhase() == CustomerPhase.LEAVING && customer.beenServed) { // renders the customer with their item if they are leaving the restaurant.
+				if (customer.getPhase() == CustomerPhase.LEAVING && customer.hasBeenServed()) { // renders the customer with their item if they are leaving the restaurant.
 					this.batch.draw(customer.getDesiredMeal().getTexture(),
 							customer.getWorldPosition().x + 19 * Constants.UNIT_SCALE,
 							customer.getWorldPosition().y + 5 * Constants.UNIT_SCALE,

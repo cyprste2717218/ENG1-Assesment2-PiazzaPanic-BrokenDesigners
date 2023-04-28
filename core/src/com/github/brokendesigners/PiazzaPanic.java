@@ -214,7 +214,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 		menu.tryActivateGame = false;
 		if(game != null) return;
 		if(menu.isLoading){
-			loader = new LoadGame(kitchen, menu);
+			loader = new LoadGame(menu);
 			if(loader.loadFailed){
 				menu.loadingFailed = true;
 				menu.isLoading = false;
@@ -233,6 +233,12 @@ public class PiazzaPanic extends ApplicationAdapter {
 		menu.isLoading = false;
 		menu.active = false;
 	}
+
+	public void setMenu(MenuScreen menuScreen){
+		this.menu = menuScreen;
+	}
+
+	public void setGame(MainGame game){this.game = game;}
 
 	@Override
 	public void dispose () {

@@ -2,12 +2,10 @@ package com.github.brokendesigners.map.powerups;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Timer;
 import com.github.brokendesigners.MainGame;
 import com.github.brokendesigners.Match;
 import com.github.brokendesigners.Player;
-import com.github.brokendesigners.map.KitchenCollisionObject;
 
 public abstract class PowerUp {
 
@@ -16,14 +14,15 @@ public abstract class PowerUp {
     protected MainGame game;
     protected Match match;
     protected float time;
+    protected Vector2 worldPosition;
     protected Sprite sprite;
     private PowerUpManager powerUpManager;
-    public PowerUp(Vector2 worldPosition, Player player, MainGame game, float time, final PowerUpManager powerUpManager) {
+    public PowerUp(Vector2 worldPosition, Player player, Match match, float time, final PowerUpManager powerUpManager) {
         timer = new Timer();
         this.player = player;
-        this.game = game;
-        match = game.match;
+        this.match = match;
         this.time = time;
+        this.worldPosition = worldPosition;
         this.powerUpManager = powerUpManager;
         timer.scheduleTask(new Timer.Task() {
             @Override
@@ -52,5 +51,13 @@ public abstract class PowerUp {
     public Sprite getSprite(){
         return sprite;
     }
-
+    public void setSprite(Sprite s){sprite = s;}
+    public Player getPlayer(){
+        return player;
+    }
+    public Match getMatch() {
+        return match;
+    }
+    public Vector2 getSpawnPoint(){return worldPosition;}
+    public Timer getTimer(){return timer;}
 }

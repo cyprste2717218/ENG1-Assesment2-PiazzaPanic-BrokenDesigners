@@ -26,7 +26,7 @@ public abstract class Station {
 	public Vector2 handPosition = new Vector2(0,0);
 	// where should the item be rendered - In the TiledMap, the co-ords for HandX and HandY are relative to the bottom left of the interact area.
 	public boolean inuse;
-	public boolean locked;
+	protected boolean locked;
 	public static Sprite lockSprite;
 	public Match match;
 	public Sound pick_up;
@@ -167,6 +167,12 @@ public abstract class Station {
 	public void setMatch(Match match)	{
 		this.match = match;
 	}
+	public boolean isLocked(){return locked;}
+	public void setIsLocked(boolean isLocked){locked = isLocked;}
+	public float getStationUseTime(){return stationUseTime;}
+	public Item getItem(){return hand;}
+
+	public float getAdjustedStationUseTime(){return stationUseTime * match.getDifficultyLevel().getSpeedMultiplier();}
 
 	public void dispose(){
 		put_down.dispose();

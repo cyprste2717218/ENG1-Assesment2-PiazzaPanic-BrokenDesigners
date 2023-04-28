@@ -37,7 +37,7 @@ public class MenuScreen {
 	BitmapFont font;
 	public BitmapFont savedGameFont, cannotLoadFont, customerCountFont;
 
-	public ArrayList<Button> menuButtons = new ArrayList<>(); //A list of all the buttons, which is automatically created in the constructor of Button
+	private ArrayList<Button> menuButtons = new ArrayList<>(); //A list of all the buttons, which is automatically created in the constructor of Button
 	Button playButton, resumeButton, loadButton, saveButton, showHowToPlayButton, backButton, exitGameButton, quitButton, scenarioModeButton, endlessModeButton, difficultyModeButtonEasy, difficultyModeButtonMedium, difficultyModeButtonHard, customerCountAdderButton, customerCountSubtractorButton;
 	OrthographicCamera camera;
 	public boolean tryActivateGame, isEndless;
@@ -74,7 +74,29 @@ public class MenuScreen {
 		initialiseButtons();
 	}
 
-	public void initialiseButtons(){
+	public MenuScreen(OrthographicCamera camera, PiazzaPanic panic, boolean testing){
+		this.panic = panic;
+		active = true;
+		tryActivateGame = false;
+		isLoading = false;
+		complete = false;
+		loadingFailed = false;
+		font = new BitmapFont();
+		this.font.getData().setScale(10, 10);
+		font.setColor(Color.RED);
+		savedGameFont = new BitmapFont();
+		savedGameFont.getData().setScale(5,5);
+		savedGameFont.setColor(Color.RED);
+		cannotLoadFont = new BitmapFont();
+		cannotLoadFont.getData().setScale(5,5);
+		cannotLoadFont.setColor(Color.RED);
+		customerCountFont = new BitmapFont();
+		customerCountFont.getData().setScale(2,2);
+		customerCountFont.setColor(Color.RED);
+		this.camera = camera;
+	}
+
+	private void initialiseButtons(){
 		playButton = new PlayButton(new Rectangle(700, 515, 200, 100),
 				MenuTextures.playButtonSelected, MenuTextures.playButtonUnselected, this);
 
@@ -174,7 +196,6 @@ public class MenuScreen {
 					cannotLoadFont.draw(batch, "No Save File Found", 500, 800);
 				}
 			}
-
 			batch.draw(MenuTextures.updown, 1000, 400, 400, 200);
 			batch.draw(MenuTextures.wsad, 100, 500, 400, 200);
 			batch.draw(MenuTextures.tabSpace, 100, 160, 400, 200);
@@ -207,7 +228,7 @@ public class MenuScreen {
 	/***
 	 * A function that allows scrolling through the different available buttons using up/w and down/s
 	 */
-	void setSelectedButton(){
+	private void setSelectedButton(){
 		if(Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.UP)){
 			for(int i = 0; i < menuButtons.size(); i++){
 				int selection = selectedButton - (i+1) >= 0 ? (selectedButton - (i + 1)) : menuButtons.size() - ((i + 1) - selectedButton);
@@ -238,10 +259,13 @@ public class MenuScreen {
 	public void setDifficultyLevel(DifficultyLevel difficultyLevel){
 		this.difficultyLevel = difficultyLevel;
 	}
-
 	public void setFinalTime(String finalTime) {
 		this.finalTime = finalTime;
 	}
-
 	public void setMoney(String totalMoney) { this.totalMoney = totalMoney; }
+	public ArrayList<Button> getMenuButtons(){return menuButtons;}
+
+	public void setMenuButtons(ArrayList<Button> menuButtons) {
+		this.menuButtons = menuButtons;
+	}
 }

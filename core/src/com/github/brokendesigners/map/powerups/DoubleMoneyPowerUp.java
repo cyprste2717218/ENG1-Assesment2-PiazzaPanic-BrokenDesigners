@@ -6,11 +6,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.github.brokendesigners.MainGame;
+import com.github.brokendesigners.Match;
 import com.github.brokendesigners.Player;
 
 public class DoubleMoneyPowerUp extends PowerUp{
-    public DoubleMoneyPowerUp(Vector2 worldPosition, Player player, MainGame game, PowerUpManager powerUpManager) {
-        super(worldPosition, player, game, 30, powerUpManager);
+    public DoubleMoneyPowerUp(Vector2 worldPosition, Player player, Match match, PowerUpManager powerUpManager, boolean testing) {
+        super(worldPosition, player, match, 30, powerUpManager);
+        if(testing) return;
         sprite = new Sprite(new Texture(Gdx.files.internal("items/Money.png")));
         sprite.setScale(0.125f);
         sprite.setPosition(worldPosition.x, worldPosition.y);

@@ -45,7 +45,5 @@ public class ItemInitialiser {
         ItemRegister.addItem("Baked_JacketPotato", new Baked_JacketPotato());
 
         ItemRegister.addItem("Waste", new Waste());
-
-
     }
 }

@@ -54,6 +54,10 @@ public class BakingStation extends Station implements IFailable {
         }
     };
 
+    public BakingStation() {
+        stationUseTime = 4f;
+    }
+
     @Override
     public boolean action(final Player player) {
         // to unlock the station
@@ -68,7 +72,7 @@ public class BakingStation extends Station implements IFailable {
             System.out.println("gotHERE");
             this.inuse = true;
             this.bakingBubble.setVisible(true);
-            finishSuccessfulOperation(player, stationUseTime * match.getDifficultyLevel().getSpeedMultiplier());
+            finishSuccessfulOperation(player, getAdjustedStationUseTime());
             return true;
         } else {
             return finishFailedOperation(player, stationUseTime);
