@@ -31,7 +31,11 @@ jobs:
     - name: Build with Gradle
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
-        arguments: build
+        arguments: |
+          build
+          jacocoTestReport
+          checkstyleMain
+          checkstyleTest
     - name: Check for JAR file
       run: ls -R ./desktop/build/libs/
     - name: Upload library JAR
@@ -45,19 +49,19 @@ jobs:
       with:
         name: checkstyle-report
         path: tests/build/reports/checkstyle
+    - name: Upload Jacoco report
+      uses: actions/upload-artifact@v3.1.1
+      if: startsWith(matrix.os, 'ubuntu')
+      with:
+        name: jacoco-report
+        path: desktop/build/reports/jacoco/test/html
     - name: Publish Test Results
       uses: EnricoMi/publish-unit-test-result-action/composite@v2
       if: always()
       with:
         files: |
           tests/build/test-results/test/*.xml
-          
-    # Add Jacoco and Checkstyle tasks to Gradle build script
-    - name: Run Jacoco and Checkstyle
-      run: |
-        chmod +x gradlew
-        ./gradlew jacocoTestReport checkstyleMain
-      working-directory: ./desktop
+
 
   release:
     runs-on: ubuntu-22.04
@@ -90,4 +94,3 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: lib*.jar
-
