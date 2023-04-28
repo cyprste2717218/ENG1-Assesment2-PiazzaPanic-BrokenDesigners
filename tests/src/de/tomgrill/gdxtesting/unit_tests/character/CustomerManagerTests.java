@@ -1,3 +1,4 @@
+
 package de.tomgrill.gdxtesting.unit_tests.character;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

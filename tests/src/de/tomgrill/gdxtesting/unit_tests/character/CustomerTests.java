@@ -5,12 +5,17 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.github.brokendesigners.character.Customer;
 import com.github.brokendesigners.enums.CustomerPhase;
 
+import com.github.brokendesigners.enums.DifficultyLevel;
+import com.github.brokendesigners.enums.GameMode;
+import com.github.brokendesigners.item.Item;
+import com.github.brokendesigners.item.ItemRegister;
+import com.github.brokendesigners.map.interactable.CustomerStation;
+
 import de.tomgrill.gdxtesting.GdxTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
-
 @RunWith(GdxTestRunner.class)
 public class CustomerTests {
 
@@ -82,3 +87,4 @@ public class CustomerTests {
         assertFalse(customer.isVisible());
     }
 }
+

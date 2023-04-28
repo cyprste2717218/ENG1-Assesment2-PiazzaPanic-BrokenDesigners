@@ -139,8 +139,6 @@ public class AssemblyStation extends Station{
             for(int j = 0; j<copiedData.length;j++)
             {
                 int adder = Compare(Test[i], copiedData[j]);
-                System.out.println(Compare(Test[i], copiedData[j]));
-
                 Total = Total + adder;
                 if(adder==1)
                 {
