@@ -47,8 +47,12 @@ public class CounterStation extends Station {
 		this.match = match;
 	}
 
+    public CounterStation() {
+        stationUseTime = 5f;
+    }
 
-	public void renderCounter(SpriteBatch spriteBatch) {
+
+    public void renderCounter(SpriteBatch spriteBatch) {
 		spriteBatch.begin();
 		if (!this.hasEmptyHand()) {
 			spriteBatch.draw(this.hand.getTexture(), this.handPosition.x, this.handPosition.y, 16 * Constants.UNIT_SCALE, 16 * Constants.UNIT_SCALE);
@@ -89,7 +93,7 @@ public class CounterStation extends Station {
 						interacting = false;
 						inuse = false;
 					}
-				}, stationUseTime * match.getDifficultyLevel().getSpeedMultiplier());
+				}, getAdjustedStationUseTime());
 				return true;
 			}
 			timer.scheduleTask(new Task() {
@@ -102,7 +106,7 @@ public class CounterStation extends Station {
 					interacting = false;
 					inuse = false;
 				}
-			}, stationUseTime * match.getDifficultyLevel().getSpeedMultiplier());
+			}, getAdjustedStationUseTime());
 			return true;
 
 		}

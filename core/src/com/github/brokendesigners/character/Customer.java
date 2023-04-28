@@ -21,28 +21,26 @@ import java.util.ArrayList;
  */
 public class Customer {
 
-	boolean visible = false; // is visible?
-	public boolean beenServed;
-	public Texture texture; // texture
-	public ArrayList<Animation<TextureRegion>> animations;
+	private boolean visible = false; // is visible?
+	private boolean beenServed;
+	private Texture texture; // texture
+	private ArrayList<Animation<TextureRegion>> animations;
 	// ^^ animation array - Customers dont interact though, so they only need 2 animations, Idle and move (in that order).
-	public Vector2 worldPosition; // position of customer
+	private Vector2 worldPosition; // position of customer
 	private CustomerStation station; // station assigned to customer
 	protected Item desiredMeal; // desired meal for the customer
-	public final float WIDTH; // width (sprite)
-	public final float HEIGHT; // height (sprite)
-	public SimpleItemBubble bubble; // the bubble associated with the customer.
+	private final float WIDTH; // width (sprite)
+	private final float HEIGHT; // height (sprite)
+	private SimpleItemBubble bubble; // the bubble associated with the customer.
 	private CustomerPhase phase; // Phase of the customer - determines what they are doing (walking to station/spawn or being served)
 	Sound success = Gdx.audio.newSound(Gdx.files.internal("audio/success.wav"));
 	Sound failure = Gdx.audio.newSound(Gdx.files.internal("audio/failure.wav"));
 	private Vector2 spawnPoint;
-	public float stateTime; // used for the renderer to grab frame.
-	Match match;
-
-	public long waitingStartTime = -1L;
-	public long customerWaitTime = 60000L;
-
-	float movement_speed = 0; //Intentionally lowercase - NOT A CONSTANT - kind of a constant - you decide :)
+	private float stateTime; // used for the renderer to grab frame.
+	private Match match;
+	private long waitingStartTime = -1L;
+	private long customerWaitTime = 60000L; //How long the customer waits to be served before leaving
+	private float movement_speed = 0; //The speed that the customer moves to and from their station at
 	/*
 	 * Instantiates customer without animations.
 	 */
@@ -120,7 +118,6 @@ public class Customer {
 		phase = CustomerPhase.MOVING_TO_STATION;
 		// PLAY SOUND - DOOR OPENING / BELL RING / ETC
 		return true;
-
 	}
 	/*
 	 * Updates the customer every frame similar to how the player is updated.
@@ -128,69 +125,78 @@ public class Customer {
 	public void update(){
 		switch (getPhase()) {
 			case MOVING_TO_STATION: // Phase 0 -- Customer is moving to Ordering Station
-				if (worldPosition.y != getStation().getCustomerPosition().y) {
-					worldPosition.y += movement_speed;
-					if (Math.abs((worldPosition.y - getStation().getCustomerPosition().y)) <= movement_speed) {
-						worldPosition.y = getStation().getCustomerPosition().y;
-					}
-				} else if (worldPosition.x != getStation().getCustomerPosition().x) {
-					worldPosition.x += movement_speed;
-					if (Math.abs((worldPosition.x - getStation().getCustomerPosition().x)) <= movement_speed){
-						worldPosition.x = getStation().getCustomerPosition().x;
-					}
-				} else if (worldPosition.equals(getStation().getCustomerPosition())) {
-					setPhase(CustomerPhase.WAITING);
-					if(bubble != null) bubble.setVisible(true);
-				}
+				movingToStationPhase();
 				break;
 			case WAITING: // Phase 1 -- Customer is waiting for meal
-				if(waitingStartTime == -1L) waitingStartTime = TimeUtils.millis();
-				//System.out.println(TimeUtils.timeSinceMillis(waitingStartTime));
-				//TODO: Improve timer to be pausable, have a visual and work with difficulty modes
-				if(TimeUtils.timeSinceMillis(waitingStartTime) > customerWaitTime){
-					if(bubble != null)	bubble.setVisible(false);
-					if(failure != null) failure.play();
-					setPhase(CustomerPhase.LEAVING);
-				}
-				if (!getStation().hasEmptyHand()) {
-					if (getStation().getItemInHand().equals(desiredMeal)) {
-						beenServed = true;
-						match.incrementReputationPoints();
-						match.addMoney(desiredMeal.name, waitingStartTime, customerWaitTime/1000 );
-						success.play();
-						setPhase(CustomerPhase.LEAVING);
-						getStation().dumpHand();
-						if(bubble != null)  bubble.setVisible(false);
-					}
-					else{
-						if(failure != null)	failure.play();
-
-						getStation().dumpHand();
-						match.failedOrder();
-					}
-				}
+				waitingPhase();
 				break;
 			case LEAVING: // Phase 2 -- Customer is walking to the exit
-				if (worldPosition.x != spawnPoint.x) {
-					worldPosition.x -= movement_speed;
-					if (Math.abs(worldPosition.x - spawnPoint.x) <= movement_speed){
-						worldPosition.x = spawnPoint.x;
-					}
-				} else if (worldPosition.y != 0) {
-					worldPosition.y -= movement_speed;
-					if (Math.abs(worldPosition.y - spawnPoint.y) <= movement_speed) {
-						worldPosition.y = 0;
-					}
-				} else {
-					match.incrementCustomersSoFar();
-					setPhase(CustomerPhase.DESPAWNING);
-				}
+				leavingPhase();
 				break;
 			case DESPAWNING: // Phase 3 -- Customer has completed its tasks, despawns.
 				visible = false;
 				break;
 			default:
 				break;
+		}
+	}
+
+	private void movingToStationPhase(){
+		if (worldPosition.y != getStation().getCustomerPosition().y) {
+			worldPosition.y += movement_speed;
+			if (Math.abs((worldPosition.y - getStation().getCustomerPosition().y)) <= movement_speed) {
+				worldPosition.y = getStation().getCustomerPosition().y;
+			}
+		} else if (worldPosition.x != getStation().getCustomerPosition().x) {
+			worldPosition.x += movement_speed;
+			if (Math.abs((worldPosition.x - getStation().getCustomerPosition().x)) <= movement_speed){
+				worldPosition.x = getStation().getCustomerPosition().x;
+			}
+		} else if (worldPosition.equals(getStation().getCustomerPosition())) {
+			setPhase(CustomerPhase.WAITING);
+			if(bubble != null) bubble.setVisible(true);
+		}
+	}
+
+	private void waitingPhase(){
+		if(waitingStartTime == -1L) waitingStartTime = TimeUtils.millis();
+		if(TimeUtils.timeSinceMillis(waitingStartTime) > customerWaitTime){
+			if(bubble != null)	bubble.setVisible(false);
+			if(failure != null) failure.play();
+			setPhase(CustomerPhase.LEAVING);
+		}
+		if (!getStation().hasEmptyHand()) {
+			if (getStation().getItemInHand().equals(desiredMeal)) {
+				beenServed = true;
+				match.incrementReputationPoints();
+				match.addMoney(desiredMeal.name, waitingStartTime, customerWaitTime/1000);
+				success.play();
+				setPhase(CustomerPhase.LEAVING);
+				getStation().dumpHand();
+				if(bubble != null)  bubble.setVisible(false);
+			}
+			else{
+				if(failure != null)	failure.play();
+				getStation().dumpHand();
+				match.failedOrder();
+			}
+		}
+	}
+
+	private void leavingPhase(){
+		if (worldPosition.x != spawnPoint.x) {
+			worldPosition.x -= movement_speed;
+			if (Math.abs(worldPosition.x - spawnPoint.x) <= movement_speed){
+				worldPosition.x = spawnPoint.x;
+			}
+		} else if (worldPosition.y != 0) {
+			worldPosition.y -= movement_speed;
+			if (Math.abs(worldPosition.y - spawnPoint.y) <= movement_speed) {
+				worldPosition.y = 0;
+			}
+		} else {
+			match.incrementCustomersSoFar();
+			setPhase(CustomerPhase.DESPAWNING);
 		}
 	}
 
@@ -235,5 +241,57 @@ public class Customer {
 
 	public void setStation(CustomerStation station) {
 		this.station = station;
+	}
+
+	public boolean hasBeenServed() {
+		return beenServed;
+	}
+
+	public void setBeenServed(boolean beenServed) {
+		this.beenServed = beenServed;
+	}
+
+	public void setWorldPosition(Vector2 worldPosition) {
+		this.worldPosition = worldPosition;
+	}
+
+	public float getWIDTH() {
+		return WIDTH;
+	}
+
+	public float getHEIGHT() {
+		return HEIGHT;
+	}
+
+	public float getStateTime() {
+		return stateTime;
+	}
+
+	public void setStateTime(float stateTime) {
+		this.stateTime = stateTime;
+	}
+
+	public long getWaitingStartTime() {
+		return waitingStartTime;
+	}
+
+	public void setWaitingStartTime(long waitingStartTime) {
+		this.waitingStartTime = waitingStartTime;
+	}
+
+	public long getCustomerWaitTime() {
+		return customerWaitTime;
+	}
+
+	public void setCustomerWaitTime(long customerWaitTime) {
+		this.customerWaitTime = customerWaitTime;
+	}
+
+	public ArrayList<Animation<TextureRegion>> getAnimations() {
+		return animations;
+	}
+
+	public SimpleItemBubble getBubble() {
+		return bubble;
 	}
 }

@@ -24,7 +24,7 @@ public abstract class Button {
         this.unselectedTexture = unselectedTexture;
         this.menuScreen = menuScreen;
         rendered = true;
-        menuScreen.menuButtons.add(this);
+        menuScreen.getMenuButtons().add(this);
     }
 
     public boolean isRendered() {
@@ -73,5 +73,9 @@ public abstract class Button {
         if(!isRendered()) return;
         Texture drawnTexture = isSelected() || isHovered(camera) ? selectedTexture : unselectedTexture;
         batch.draw(drawnTexture, rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
+    }
+
+    public MenuScreen getMenuScreen(){
+        return menuScreen;
     }
 }

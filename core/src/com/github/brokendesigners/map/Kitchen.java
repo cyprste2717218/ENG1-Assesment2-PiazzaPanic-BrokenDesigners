@@ -30,7 +30,7 @@ import java.util.ArrayList;
  * It also grabs the spawn point for customers and for players.
  */
 public class Kitchen {
-	public static TiledMap tileMap = Constants.TILE_MAP;
+	public static TiledMap tileMap;
 	private ArrayList<KitchenCollisionObject> kitchenObstacles;
 	private ArrayList<Station> kitchenStations;
 	private ArrayList<Station> lockedKitchenStations;
@@ -40,34 +40,73 @@ public class Kitchen {
 	private ArrayList<CuttingStation> cuttings;
 	private ArrayList<CounterStation> counters;
  	private ArrayList<CustomerStation> customerStations;
-
+	private BubbleRenderer bubbleRenderer;
 	private ArrayList<Vector2> playerSpawnPoints;
 	private Vector2 customerSpawnPoint;
+	private Match match;
 
 
 	/*
 	 * Instantiates Kitchen.
 	 */
 	public Kitchen(Camera camera, SpriteBatch spriteBatch, BubbleRenderer bubbleRenderer, Match match, boolean isLoading, LoadGame loader){
-
+		this.bubbleRenderer = bubbleRenderer;
+		this.match = match;
 		Matrix4 inverseProjection = spriteBatch.getProjectionMatrix().cpy();
 		inverseProjection.inv();
-
-		MapObjects mapObjects = tileMap.getLayers().get("Collision Layer").getObjects();
+		tileMap = Constants.TILE_MAP;
 		kitchenObstacles = new ArrayList<>();
 		customerStations = new ArrayList<>();
+
+		setUpCollisionLayer();
+		setUpInteractLayer();
+		setUpSpawnPoints();
+
+		if(isLoading) loadStations(loader);
+	}
+
+	public Kitchen(Match match, boolean isLoading, LoadGame loader, boolean testing){
+		this.match = match;
+		setUpCollisionLayer();
+		setUpInteractLayer();
+		setUpSpawnPoints();
+		if(isLoading) loadStations(loader);
+	}
+
+	private void loadStations(LoadGame loader){
+		int assemblerCount = 0;
+		int customerStationCount = 0;
+		for(int i = 0; i < kitchenStations.size(); i++){
+			Station station = kitchenStations.get(i);
+			station.setIsLocked(loader.getStationLocked().get(i));
+			station.hand = loader.getStationHand().get(i);
+			if(station instanceof AssemblyStation){
+				((AssemblyStation) station).setItems(loader.getAssemblerItems().get(assemblerCount));
+				assemblerCount++;
+			}
+			else if(station instanceof CustomerStation){
+				((CustomerStation) station).setServingCustomer(loader.getCustomerIsServed().get(customerStationCount));
+				customerStationCount++;
+			}
+		}
+	}
+
+	private void setUpCollisionLayer(){
+		MapObjects mapObjects = tileMap.getLayers().get("Collision Layer").getObjects();
 		for (RectangleMapObject rectangleMapObject : mapObjects.getByType(RectangleMapObject.class)){
 			Rectangle rectangle = rectangleMapObject.getRectangle();
 			Vector3 objectPosition = new Vector3(rectangle.x * Constants.UNIT_SCALE, rectangle.y * Constants.UNIT_SCALE, 0);
 
 			kitchenObstacles.add(
-				new KitchenCollisionObject(
-					objectPosition,
-					rectangle.width * Constants.UNIT_SCALE,
-					rectangle.height * Constants.UNIT_SCALE
-						));
-
+					new KitchenCollisionObject(
+							objectPosition,
+							rectangle.width * Constants.UNIT_SCALE,
+							rectangle.height * Constants.UNIT_SCALE
+					));
 		}
+	}
+
+	private void setUpInteractLayer(){
 		MapObjects mapStations = tileMap.getLayers().get("Interact").getObjects();
 
 		kitchenStations = new ArrayList<>();
@@ -81,174 +120,211 @@ public class Kitchen {
 			Rectangle rectangle = rectangleMapObject.getRectangle();
 			Vector2 objectPosition = new Vector2(rectangle.x * Constants.UNIT_SCALE, rectangle.y * Constants.UNIT_SCALE);
 
-			if (rectangleMapObject.getProperties().get("objectType").equals("Dispenser")){
-
-				kitchenStations.add(
-					new DispenserStation(
-						objectPosition,
-						rectangle.width * Constants.UNIT_SCALE,
-						rectangle.height * Constants.UNIT_SCALE,
-							ItemRegister.itemRegister.get(rectangleMapObject.getProperties().get("itemType"))));
-
-			} else if (rectangleMapObject.getProperties().get("objectType").equals("Counter")){
-
-				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
-				float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
-
-				CounterStation counterStation = new CounterStation(
-						objectPosition,
-						rectangle.width * Constants.UNIT_SCALE,
-						rectangle.height * Constants.UNIT_SCALE,
-						handX,
-						handY, bubbleRenderer, match);
-
-				kitchenStations.add(counterStation);
-				counters.add(counterStation);
-
-			} else if (rectangleMapObject.getProperties().get("objectType").equals("CustomerCounter")){
-
-				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
-				float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
-
-				CustomerStation station = new CustomerStation(
-					objectPosition,
-					rectangle.width * Constants.UNIT_SCALE,
-					rectangle.height * Constants.UNIT_SCALE,
-					handX,
-					handY,
-					bubbleRenderer, match);
-
-				kitchenStations.add(station);
-				customerStations.add(station);
-			} else if (rectangleMapObject.getProperties().get("objectType").equals("Bin")){
-
-				kitchenStations.add(
-					new BinStation(
-						new Rectangle(
-							objectPosition.x,
-							objectPosition.y,
-							rectangle.width * Constants.UNIT_SCALE,
-							rectangle.height * Constants.UNIT_SCALE)));
-			} else if (rectangleMapObject.getProperties().get("objectType").equals("Assembly")){
-
-				MapProperties assemblerProperties = rectangleMapObject.getProperties();
-
-
-				ArrayList<Vector2> handPositions = new ArrayList<>(4);
-				handPositions.add(new Vector2((float)assemblerProperties.get("hand1X") * Constants.UNIT_SCALE + objectPosition.x, (float)assemblerProperties.get("hand1Y") * Constants.UNIT_SCALE + objectPosition.y));
-				handPositions.add(new Vector2((float)assemblerProperties.get("hand2X") * Constants.UNIT_SCALE + objectPosition.x, (float)assemblerProperties.get("hand2Y") * Constants.UNIT_SCALE + objectPosition.y));
-				handPositions.add(new Vector2((float)assemblerProperties.get("hand3X") * Constants.UNIT_SCALE + objectPosition.x, (float)assemblerProperties.get("hand3Y") * Constants.UNIT_SCALE + objectPosition.y));
-				handPositions.add(new Vector2((float)assemblerProperties.get("hand4X") * Constants.UNIT_SCALE + objectPosition.x, (float)assemblerProperties.get("hand4Y") * Constants.UNIT_SCALE + objectPosition.y));
-
-				AssemblyStation assemblyStation = new AssemblyStation(
-						objectPosition,
-						rectangle.width * Constants.UNIT_SCALE,
-						rectangle.height * Constants.UNIT_SCALE,
-						handPositions,
-						bubbleRenderer, match);
-
-				kitchenStations.add(assemblyStation);
-				assembly.add(assemblyStation);
-
-			} else if (rectangleMapObject.getProperties().get("objectType").equals("Baking")){
-
-				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
-				float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
-
-				BakingStation bakingStation = new BakingStation(
-						objectPosition,
-						rectangle.width * Constants.UNIT_SCALE,
-						rectangle.height * Constants.UNIT_SCALE,
-						handX,
-            handY, bubbleRenderer, false, match);
-						
-				kitchenStations.add(bakingStation);
-				bakings.add(bakingStation);
-
-			} else if (rectangleMapObject.getProperties().get("objectType").equals("Baking_Locked")){
-
-				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
-				float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
-
-				BakingStation LockedBakingStation = new BakingStation(
-						objectPosition,
-						rectangle.width * Constants.UNIT_SCALE,
-						rectangle.height * Constants.UNIT_SCALE,
-						handX,
-						handY, bubbleRenderer, true, match);
-				kitchenStations.add(LockedBakingStation);
-				lockedKitchenStations.add(LockedBakingStation);
-				bakings.add(LockedBakingStation);
-
-			} else if (rectangleMapObject.getProperties().get("objectType").equals("Cooking")){
-
-				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
-				float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
-
-				CookingStation cookingStation = new CookingStation(
-						objectPosition,
-						rectangle.width * Constants.UNIT_SCALE,
-						rectangle.height * Constants.UNIT_SCALE,
-						handX,
-						handY, bubbleRenderer, false, match);
-
-				kitchenStations.add(cookingStation);
-				cookings.add(cookingStation);
-						
-			} else if (rectangleMapObject.getProperties().get("objectType").equals("Cooking_Locked")){
-
-				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
-				float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
-
-				CookingStation LockedCuttingStation = new CookingStation(
-						objectPosition,
-						rectangle.width * Constants.UNIT_SCALE,
-						rectangle.height * Constants.UNIT_SCALE,
-						handX,
-						handY, bubbleRenderer, true, match);
-				kitchenStations.add(LockedCuttingStation);
-				lockedKitchenStations.add(LockedCuttingStation);
-				cookings.add(LockedCuttingStation);
-
-			} else if (rectangleMapObject.getProperties().get("objectType").equals("Cutting")){
-
-				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
-				float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
-
-				CuttingStation cuttingStation = new CuttingStation(
-						objectPosition,
-						rectangle.width * Constants.UNIT_SCALE,
-						rectangle.height * Constants.UNIT_SCALE,
-						handX,
-						handY, bubbleRenderer, false, match);
-
-				kitchenStations.add(cuttingStation);
-				cuttings.add(cuttingStation);
-
-			} else if (rectangleMapObject.getProperties().get("objectType").equals("Cutting_Locked")){
-
-				float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
-				float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
-
-				CuttingStation LockedCuttingStation = new CuttingStation(
-						objectPosition,
-						rectangle.width * Constants.UNIT_SCALE,
-						rectangle.height * Constants.UNIT_SCALE,
-						handX,
-						handY, bubbleRenderer, true, match);
-				kitchenStations.add(LockedCuttingStation);
-				lockedKitchenStations.add(LockedCuttingStation);
-				cuttings.add(LockedCuttingStation);
+			switch (rectangleMapObject.getProperties().get("objectType").toString()){
+				case "Dispenser":
+					setUpDispenserStation(rectangleMapObject, rectangle, objectPosition);
+					break;
+				case "Counter":
+					setUpCounterStation(rectangleMapObject, rectangle, objectPosition);
+					break;
+				case "CustomerCounter":
+					setUpCustomerCounter(rectangleMapObject, rectangle, objectPosition);
+					break;
+				case "Bin":
+					setUpBinStation(rectangleMapObject, rectangle, objectPosition);
+					break;
+				case "Assembly":
+					setUpAssemblyStation(rectangleMapObject, rectangle, objectPosition);
+					break;
+				case "Baking":
+					setUpBakingStation(rectangleMapObject, rectangle, objectPosition);
+					break;
+				case "Baking_Locked":
+					setUpLockedBakingStation(rectangleMapObject, rectangle, objectPosition);
+					break;
+				case "Cooking":
+					setUpCookingStation(rectangleMapObject, rectangle, objectPosition);
+					break;
+				case "Cooking_Locked":
+					setUpLockedCookingStation(rectangleMapObject, rectangle, objectPosition);
+					break;
+				case "Cutting":
+					setUpCuttingStation(rectangleMapObject, rectangle, objectPosition);
+					break;
+				case "Cutting_Locked":
+					setUpLockedCuttingStation(rectangleMapObject, rectangle, objectPosition);
+					break;
 			}
-
 		}
+	}
+
+	private void setUpDispenserStation(RectangleMapObject rectangleMapObject, Rectangle rectangle, Vector2 objectPosition){
+		kitchenStations.add(
+				new DispenserStation(
+						objectPosition,
+						rectangle.width * Constants.UNIT_SCALE,
+						rectangle.height * Constants.UNIT_SCALE,
+						ItemRegister.itemRegister.get(rectangleMapObject.getProperties().get("itemType"))));
+	}
+
+	private void setUpCounterStation(RectangleMapObject rectangleMapObject, Rectangle rectangle, Vector2 objectPosition){
+		float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
+		float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
+
+		CounterStation counterStation = new CounterStation(
+				objectPosition,
+				rectangle.width * Constants.UNIT_SCALE,
+				rectangle.height * Constants.UNIT_SCALE,
+				handX,
+				handY, bubbleRenderer, match);
+
+		kitchenStations.add(counterStation);
+		counters.add(counterStation);
+	}
+
+	private void setUpCustomerCounter(RectangleMapObject rectangleMapObject, Rectangle rectangle, Vector2 objectPosition){
+		float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
+		float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
+
+		CustomerStation station = new CustomerStation(
+				objectPosition,
+				rectangle.width * Constants.UNIT_SCALE,
+				rectangle.height * Constants.UNIT_SCALE,
+				handX,
+				handY,
+				bubbleRenderer, match);
+
+		kitchenStations.add(station);
+		customerStations.add(station);
+	}
+
+	private void setUpBinStation(RectangleMapObject rectangleMapObject, Rectangle rectangle, Vector2 objectPosition){
+		kitchenStations.add(
+				new BinStation(
+						new Rectangle(
+								objectPosition.x,
+								objectPosition.y,
+								rectangle.width * Constants.UNIT_SCALE,
+								rectangle.height * Constants.UNIT_SCALE)));
+	}
+
+	private void setUpAssemblyStation(RectangleMapObject rectangleMapObject, Rectangle rectangle, Vector2 objectPosition){
+		MapProperties assemblerProperties = rectangleMapObject.getProperties();
+		ArrayList<Vector2> handPositions = new ArrayList<>(4);
+		handPositions.add(new Vector2((float)assemblerProperties.get("hand1X") * Constants.UNIT_SCALE + objectPosition.x, (float)assemblerProperties.get("hand1Y") * Constants.UNIT_SCALE + objectPosition.y));
+		handPositions.add(new Vector2((float)assemblerProperties.get("hand2X") * Constants.UNIT_SCALE + objectPosition.x, (float)assemblerProperties.get("hand2Y") * Constants.UNIT_SCALE + objectPosition.y));
+		handPositions.add(new Vector2((float)assemblerProperties.get("hand3X") * Constants.UNIT_SCALE + objectPosition.x, (float)assemblerProperties.get("hand3Y") * Constants.UNIT_SCALE + objectPosition.y));
+		handPositions.add(new Vector2((float)assemblerProperties.get("hand4X") * Constants.UNIT_SCALE + objectPosition.x, (float)assemblerProperties.get("hand4Y") * Constants.UNIT_SCALE + objectPosition.y));
+
+		AssemblyStation assemblyStation = new AssemblyStation(
+				objectPosition,
+				rectangle.width * Constants.UNIT_SCALE,
+				rectangle.height * Constants.UNIT_SCALE,
+				handPositions,
+				bubbleRenderer, match);
+
+		kitchenStations.add(assemblyStation);
+		assembly.add(assemblyStation);
+	}
+
+	private void setUpCookingStation(RectangleMapObject rectangleMapObject, Rectangle rectangle, Vector2 objectPosition){
+		float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
+		float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
+
+		CookingStation cookingStation = new CookingStation(
+				objectPosition,
+				rectangle.width * Constants.UNIT_SCALE,
+				rectangle.height * Constants.UNIT_SCALE,
+				handX,
+				handY, bubbleRenderer, false, match);
+
+		kitchenStations.add(cookingStation);
+		cookings.add(cookingStation);
+	}
+
+	private void setUpLockedCookingStation(RectangleMapObject rectangleMapObject, Rectangle rectangle, Vector2 objectPosition){
+		float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
+		float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
+
+		CookingStation LockedCookingStation = new CookingStation(
+				objectPosition,
+				rectangle.width * Constants.UNIT_SCALE,
+				rectangle.height * Constants.UNIT_SCALE,
+				handX,
+				handY, bubbleRenderer, true, match);
+		kitchenStations.add(LockedCookingStation);
+		lockedKitchenStations.add(LockedCookingStation);
+		cookings.add(LockedCookingStation);
+	}
+
+	private void setUpBakingStation(RectangleMapObject rectangleMapObject, Rectangle rectangle, Vector2 objectPosition){
+		float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
+		float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
+
+		BakingStation bakingStation = new BakingStation(
+				objectPosition,
+				rectangle.width * Constants.UNIT_SCALE,
+				rectangle.height * Constants.UNIT_SCALE,
+				handX,
+				handY, bubbleRenderer, false, match);
+
+		kitchenStations.add(bakingStation);
+		bakings.add(bakingStation);
+	}
+
+	private void setUpLockedBakingStation(RectangleMapObject rectangleMapObject, Rectangle rectangle, Vector2 objectPosition){
+		float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
+		float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
+
+		BakingStation LockedBakingStation = new BakingStation(
+				objectPosition,
+				rectangle.width * Constants.UNIT_SCALE,
+				rectangle.height * Constants.UNIT_SCALE,
+				handX,
+				handY, bubbleRenderer, true, match);
+		kitchenStations.add(LockedBakingStation);
+		lockedKitchenStations.add(LockedBakingStation);
+		bakings.add(LockedBakingStation);
+
+	}
+
+	private void setUpCuttingStation(RectangleMapObject rectangleMapObject, Rectangle rectangle, Vector2 objectPosition){
+		float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
+		float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
+
+		CuttingStation cuttingStation = new CuttingStation(
+				objectPosition,
+				rectangle.width * Constants.UNIT_SCALE,
+				rectangle.height * Constants.UNIT_SCALE,
+				handX,
+				handY, bubbleRenderer, false, match);
+
+		kitchenStations.add(cuttingStation);
+		cuttings.add(cuttingStation);
+	}
+
+	private void setUpLockedCuttingStation(RectangleMapObject rectangleMapObject, Rectangle rectangle, Vector2 objectPosition){
+		float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
+		float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
+
+		CuttingStation LockedCuttingStation = new CuttingStation(
+				objectPosition,
+				rectangle.width * Constants.UNIT_SCALE,
+				rectangle.height * Constants.UNIT_SCALE,
+				handX,
+				handY, bubbleRenderer, true, match);
+		kitchenStations.add(LockedCuttingStation);
+		lockedKitchenStations.add(LockedCuttingStation);
+		cuttings.add(LockedCuttingStation);
+	}
+
+	private void setUpSpawnPoints(){
 		MapObjects mapPoints = tileMap.getLayers().get("Map").getObjects();
 
 		ArrayList<Vector2> playerSpawnPoints = new ArrayList<>();
 		RectangleMapObject playerSpawn = (RectangleMapObject)mapPoints.get("PlayerSpawn");
 		RectangleMapObject playerSpawn2 = (RectangleMapObject)mapPoints.get("PlayerSpawn2");
 		RectangleMapObject playerSpawn3 = (RectangleMapObject)mapPoints.get("PlayerSpawn3");
-
 
 		RectangleMapObject customerSpawn = (RectangleMapObject)mapPoints.get("CustomerSpawn");
 
@@ -261,29 +337,7 @@ public class Kitchen {
 
 		this.customerSpawnPoint = new Vector2(customerSpawn.getRectangle().x * Constants.UNIT_SCALE, customerSpawn.getRectangle().y * Constants.UNIT_SCALE);
 		this.playerSpawnPoints = playerSpawnPoints;
-		// kitchenObstacles.add(new KitchenCollisionObject(new Vector3(5,5,0),10,10,true));
-
-		if(isLoading) loadStations(loader);
 	}
-
-	private void loadStations(LoadGame loader){
-		int assemblerCount = 0;
-		int customerStationCount = 0;
-		for(int i = 0; i < kitchenStations.size(); i++){
-			Station station = kitchenStations.get(i);
-			station.locked = loader.getStationLocked().get(i);
-			station.hand = loader.getStationHand().get(i);
-			if(station instanceof AssemblyStation){
-				((AssemblyStation) station).setItems(loader.getAssemblerItems().get(assemblerCount));
-				assemblerCount++;
-			}
-			else if(station instanceof CustomerStation){
-				((CustomerStation) station).setServingCustomer(loader.getCustomerIsServed().get(customerStationCount));
-				customerStationCount++;
-			}
-		}
-	}
-
 
 	/*
 	 * returns kitchen collision objects
@@ -295,7 +349,7 @@ public class Kitchen {
 	/*
 	 * Returns array of stations
 	 */
-	public ArrayList<? extends Station> getKitchenStations(){
+	public ArrayList<Station> getKitchenStations(){
 		return kitchenStations;
 	}
 	public ArrayList<? extends Station> getLockedKitchenStations(){
