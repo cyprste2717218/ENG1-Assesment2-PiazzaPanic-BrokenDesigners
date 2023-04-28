@@ -37,7 +37,13 @@ public class CuttingStation extends Station implements IFailable{
         this.locked = locked;
         this.match = match;
     }
-    public CuttingStation() {stationUseTime = 2f;}
+
+    public CuttingStation() {
+        this.station_name = "Cutting_Station";
+        this.hand = null;
+        stationUseTime = 2f;
+    }
+
 
     //Readies the station for use when the player first interacts with it
     private void setUpCutting(Player player){
