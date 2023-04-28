@@ -99,7 +99,7 @@ public class KitchenTestUtils {
 
     //We save & load data about the inventory and locked status of assembly, cutting, cooking, counter, customer and baking
     public static AssemblyStation createMockedAssemblyStation(ArrayList<Item> items, boolean locked){
-        AssemblyStation assemblyStation = Mockito.mock(AssemblyStation.class);
+        AssemblyStation assemblyStation = Mockito.mock(AssemblyStation.class, Mockito.withSettings().useConstructor());
         Mockito.when(assemblyStation.isLocked()).thenReturn(locked);
         Mockito.when(assemblyStation.getStation_name()).thenReturn("Assembly_Station");
 

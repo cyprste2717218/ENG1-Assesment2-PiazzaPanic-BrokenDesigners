@@ -214,7 +214,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 		menu.tryActivateGame = false;
 		if(game != null) return;
 		if(menu.isLoading){
-			loader = new LoadGame(kitchen, menu);
+			loader = new LoadGame(menu);
 			if(loader.loadFailed){
 				menu.loadingFailed = true;
 				menu.isLoading = false;

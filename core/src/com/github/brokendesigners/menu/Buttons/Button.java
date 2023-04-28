@@ -24,7 +24,7 @@ public abstract class Button {
         this.unselectedTexture = unselectedTexture;
         this.menuScreen = menuScreen;
         rendered = true;
-        menuScreen.menuButtons.add(this);
+        menuScreen.getMenuButtons().add(this);
     }
 
     public boolean isRendered() {

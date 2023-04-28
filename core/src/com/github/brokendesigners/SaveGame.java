@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class SaveGame {
 
-    Preferences pref = Gdx.app.getPreferences("Game_Data");
+    Preferences pref;
     Match match;
     ArrayList<Player> chefs;
     Kitchen kitchen;
@@ -27,6 +27,7 @@ public class SaveGame {
         this.kitchen = kitchen;
         this.customerManager = customers;
         this.game = game;
+        pref = Gdx.app.getPreferences("Game_Data");
     }
 
     public boolean save(){
@@ -69,11 +70,11 @@ public class SaveGame {
             String stationID = "Station " + stations.indexOf(station);
             if(station instanceof AssemblyStation){
                 AssemblyStation assemble = (AssemblyStation)station;
-                temp = (assemble.getHand().heldItems ==null) ? "" : itemArrToString(assemble.getHand().heldItems);
+                temp = (assemble.getHand().getHeldItems() == null) ? "" : itemArrToString(assemble.getHand().getHeldItems());
                 System.out.println(temp);
             }
             else{
-                temp = (station.hand == null)? "" : station.hand.toString();
+                temp = (station.getItem() == null)? "" : station.getItem().toString();
                 if(station instanceof CustomerStation){
                     pref.putBoolean(stationID + " serving customer", ((CustomerStation) station).isServingCustomer());
                 }
@@ -87,8 +88,10 @@ public class SaveGame {
 
     private String itemArrToString(ArrayList<Item> arr){
         String output = "[";
-        for(Item item: arr){
-            if(item != null) output += item.name + ", ";
+        for(int i = 0; i < arr.size(); i++){
+            if(arr.get(i) != null){
+                output += arr.get(i).name + (i == arr.size() - 1 ? "" : ", ");
+            }
         }
         output += "]";
         return output;
@@ -118,7 +121,6 @@ public class SaveGame {
             pref.putFloat(customerN + " position y-coordinate", customer.getWorldPosition().y);
             pref.putString(customerN + " phase", customer.getPhase().name());
             pref.putBoolean(customerN + " beenServed", customer.hasBeenServed());
-            System.out.println("Customer Phase Saving: " + customer.getPhase().name());
             pref.putString(customerN + stack, customer.getDesiredMeal().toString());
             pref.putInteger(customerN + " CustomerStation", customerManager.getCustomerStations().indexOf(customer.getStation()));
             pref.putLong(customerN + " time spent waiting", TimeUtils.timeSinceMillis(customer.getWaitingStartTime()));

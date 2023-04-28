@@ -172,6 +172,8 @@ public abstract class Station {
 	public float getStationUseTime(){return stationUseTime;}
 	public Item getItem(){return hand;}
 
+	public float getAdjustedStationUseTime(){return stationUseTime * match.getDifficultyLevel().getSpeedMultiplier();}
+
 	public void dispose(){
 		put_down.dispose();
 		pick_up.dispose();

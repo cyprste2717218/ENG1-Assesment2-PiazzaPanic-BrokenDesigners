@@ -59,4 +59,5 @@ public abstract class PowerUp {
         return match;
     }
     public Vector2 getSpawnPoint(){return worldPosition;}
+    public Timer getTimer(){return timer;}
 }

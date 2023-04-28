@@ -46,15 +46,13 @@ public class LoadGame {
     private long customerManagerTimeSinceSpawn;
 
     //Station Data
-    private Kitchen kitchen;
     private int stationCount;
     private ArrayList<Boolean> stationLocked = new ArrayList<>();
     private ArrayList<ArrayList<Item>> assemblerItems = new ArrayList<>();
     private ArrayList<Item> stationHand = new ArrayList<>();
     private ArrayList<Boolean> servingCustomer = new ArrayList<>();
 
-    public LoadGame(Kitchen kitchen, MenuScreen menuScreen){
-        this.kitchen = kitchen;
+    public LoadGame(MenuScreen menuScreen){
         this.menuScreen = menuScreen;
         load();
     }
@@ -124,7 +122,7 @@ public class LoadGame {
             getChefX()[i] = pref.getFloat(chef + "position x-coordinate");
             getChefY()[i] = pref.getFloat(chef + "position y-coordinate");
             getChefLocked()[i] = pref.getBoolean(chef + "locked");
-            getChefItemStacks()[i] =  stringToItemArray(pref.getString(chef + "item-stack"));
+            getChefItemStacks()[i] = stringToItemArray(pref.getString(chef + "item-stack"));
         }
         selectedChef = pref.getInteger("chef selected");
         return true;

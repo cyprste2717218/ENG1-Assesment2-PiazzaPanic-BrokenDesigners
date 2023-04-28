@@ -54,6 +54,7 @@ public class AssemblyStation extends Station{
     // empty constructor used for tests
     public AssemblyStation()    {
         this.hand = null;
+        stationUseTime = 10f;
     }
 
     //Override storing products
@@ -173,7 +174,7 @@ public class AssemblyStation extends Station{
                     player.enableMovement();
                     inuse = false;
                 }
-            }, stationUseTime * match.getDifficultyLevel().getSpeedMultiplier());
+            }, getAdjustedStationUseTime());
             return true;
         }
         return false;

@@ -37,7 +37,7 @@ public class MenuScreen {
 	BitmapFont font;
 	public BitmapFont savedGameFont, cannotLoadFont, customerCountFont;
 
-	public ArrayList<Button> menuButtons = new ArrayList<>(); //A list of all the buttons, which is automatically created in the constructor of Button
+	private ArrayList<Button> menuButtons = new ArrayList<>(); //A list of all the buttons, which is automatically created in the constructor of Button
 	Button playButton, resumeButton, loadButton, saveButton, showHowToPlayButton, backButton, exitGameButton, quitButton, scenarioModeButton, endlessModeButton, difficultyModeButtonEasy, difficultyModeButtonMedium, difficultyModeButtonHard, customerCountAdderButton, customerCountSubtractorButton;
 	OrthographicCamera camera;
 	public boolean tryActivateGame, isEndless;
@@ -263,4 +263,9 @@ public class MenuScreen {
 		this.finalTime = finalTime;
 	}
 	public void setMoney(String totalMoney) { this.totalMoney = totalMoney; }
+	public ArrayList<Button> getMenuButtons(){return menuButtons;}
+
+	public void setMenuButtons(ArrayList<Button> menuButtons) {
+		this.menuButtons = menuButtons;
+	}
 }
