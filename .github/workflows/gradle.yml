@@ -31,11 +31,9 @@ jobs:
     - name: Build with Gradle
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
-        arguments: jacocoTestReport
-    - name: Upload JaCoCo coverage report as a workflow artifact
-      with:
-        name: jacoco-report-${{ matrix.os }}
-        path: ./desktop/build/libs//reports/jacoco/test/html/
+        arguments: build
+    - name: Check for JAR file
+      run: ls -R ./desktop/build/libs/
     - name: Upload library JAR
       uses: actions/upload-artifact@v3
       with:
@@ -53,6 +51,13 @@ jobs:
       with:
         files: |
           tests/build/test-results/test/*.xml
+          
+    # Add Jacoco and Checkstyle tasks to Gradle build script
+    - name: Run Jacoco and Checkstyle
+      run: |
+        chmod +x gradlew
+        ./gradlew jacocoTestReport checkstyleMain
+      working-directory: ./desktop
 
   release:
     runs-on: ubuntu-22.04
