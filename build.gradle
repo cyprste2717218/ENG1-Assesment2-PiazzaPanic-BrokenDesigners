@@ -1,19 +1,24 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+    id 'checkstyle'
+}
 
+repositories {
+    mavenLocal()
+    mavenCentral()
+    gradlePluginPortal()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    google()
+}
 
-buildscript {
+jacoco {
+    toolVersion = "0.8.7"
+}
 
-
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        gradlePluginPortal()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-        google()
-    }
-    dependencies {
-        
-
-    }
+checkstyle {
+    toolVersion = '8.42'
+    configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
 }
 
 allprojects {
@@ -49,7 +54,7 @@ project(":desktop") {
         implementation project(":core")
         api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-        
+
     }
 }
 
@@ -59,7 +64,7 @@ project(":core") {
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
-        
+
     }
 }
 
