@@ -35,7 +35,6 @@ public class Hand{
 			this.heldItems.add(item);
 
 			System.out.println("held: " + this.heldItems);
-			System.out.println("hand ability:"+ hand_ability);
 		}
 	}
 	/*

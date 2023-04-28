@@ -191,6 +191,7 @@ public class MainGame {
 		}
 		spriteBatch.end();
 		playerRenderer.renderPlayers();
+		spriteBatch.begin();
 		mapRenderer.renderTileLayer(
 				(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("StationTops"));
 		// ^^ renders this layer after player which allows the player to go behind walls.

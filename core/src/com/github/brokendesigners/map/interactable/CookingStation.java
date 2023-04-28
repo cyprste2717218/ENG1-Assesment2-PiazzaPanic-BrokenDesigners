@@ -41,9 +41,15 @@ public class CookingStation extends Station implements IFailable {
         needsInput = false;
         this.match = match;
     }
+    public CookingStation(Bubble fakeBubble){
+        this.station_name = "Cooking_Station";
+        this.hand = null;
+        canBurn = true;
+        this.attentionBubble = fakeBubble;
+    }
 
     //A task which burns the food when run, and resets the features of the station to do with burning
-    Task burnFood = new Task() {
+    public Task burnFood = new Task() {
         @Override
         public void run() {
             if(canBurn){
@@ -182,5 +188,8 @@ public class CookingStation extends Station implements IFailable {
         inuse = false;
         needsInput = false;
         attentionBubble.setVisible(false);
+    }
+    public String[] getCookables() {
+        return Cookables;
     }
 }
