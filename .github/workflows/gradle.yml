@@ -28,7 +28,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Build with Gradle
-      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+      run: ./gradlew dist
       with:
         arguments: |
           build
@@ -49,7 +49,7 @@ jobs:
       uses: actions/upload-artifact@v3.1.1
       with:
         name: lib-${{ matrix.os }}.jar
-        path: core/build/libs/core-1.0.jar
+        path: desktop/build/libs/desktop-1.0.jar
 
 
 
