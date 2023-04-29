@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" tests="7" skipped="0" failures="0" errors="0" timestamp="2023-04-29T15:05:23" hostname="DESKTOP-I4ITFE8" time="0.341">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" tests="7" skipped="0" failures="0" errors="0" timestamp="2023-04-29T15:47:31" hostname="DESKTOP-I4ITFE8" time="0.366">
   <properties/>
-  <testcase name="testEnd" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.004"/>
+  <testcase name="testEnd" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.007"/>
   <testcase name="testEndlessComplete" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.001"/>
-  <testcase name="testGetMeal" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.001"/>
-  <testcase name="testTimeToString" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.001"/>
-  <testcase name="testScenarioComplete" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.001"/>
-  <testcase name="testHandleCustomerPhases" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.236"/>
-  <testcase name="testSpawnCustomers" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.007"/>
+  <testcase name="testGetMeal" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.002"/>
+  <testcase name="testTimeToString" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.002"/>
+  <testcase name="testScenarioComplete" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.002"/>
+  <testcase name="testHandleCustomerPhases" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.271"/>
+  <testcase name="testSpawnCustomers" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.01"/>
   <system-out><![CDATA[1
 2
 3

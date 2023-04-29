@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.BackButtonTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-04-29T15:05:24" hostname="DESKTOP-I4ITFE8" time="0.106">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.BackButtonTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-04-29T15:47:32" hostname="DESKTOP-I4ITFE8" time="0.126">
   <properties/>
-  <testcase name="testPerformedTask" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.BackButtonTests" time="0.064"/>
-  <testcase name="testRenderedAtStart" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.BackButtonTests" time="0.024"/>
+  <testcase name="testPerformedTask" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.BackButtonTests" time="0.086"/>
+  <testcase name="testRenderedAtStart" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.BackButtonTests" time="0.022"/>
   <system-out><![CDATA[Returning to main menu
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>

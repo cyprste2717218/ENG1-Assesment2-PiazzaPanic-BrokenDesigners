@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.GdxTestRunner" tests="1" skipped="0" failures="1" errors="0" timestamp="2023-04-29T15:05:20" hostname="DESKTOP-I4ITFE8" time="0.012">
+<testsuite name="de.tomgrill.gdxtesting.GdxTestRunner" tests="1" skipped="0" failures="1" errors="0" timestamp="2023-04-29T15:47:27" hostname="DESKTOP-I4ITFE8" time="0.01">
   <properties/>
-  <testcase name="initializationError" classname="de.tomgrill.gdxtesting.GdxTestRunner" time="0.012">
+  <testcase name="initializationError" classname="de.tomgrill.gdxtesting.GdxTestRunner" time="0.01">
     <failure message="org.junit.runners.model.InvalidTestClassError: Invalid test class 'de.tomgrill.gdxtesting.GdxTestRunner':&#10;  1. Test class should have exactly one public zero-argument constructor&#10;  2. No runnable methods" type="org.junit.runners.model.InvalidTestClassError">org.junit.runners.model.InvalidTestClassError: Invalid test class 'de.tomgrill.gdxtesting.GdxTestRunner':
   1. Test class should have exactly one public zero-argument constructor
   2. No runnable methods
