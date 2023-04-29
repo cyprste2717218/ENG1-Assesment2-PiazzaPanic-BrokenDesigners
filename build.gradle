@@ -19,7 +19,14 @@ jar {
                 'Main-Class': 'com.github.brokendesigners.DesktopLauncher'
         )
     }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    archiveFileName = 'PiazzaPanic.jar'
+    destinationDirectory = file('build/libs')
 }
+
+
 
 jacoco {
     toolVersion = "0.8.7"
