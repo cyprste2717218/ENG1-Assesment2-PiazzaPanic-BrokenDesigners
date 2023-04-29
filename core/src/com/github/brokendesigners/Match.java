@@ -12,7 +12,7 @@ public class Match {
     public Match(GameMode gameMode, DifficultyLevel difficultyLevel, int customerNumber){
         this.gameMode = gameMode;
         //TODO: Revert to 0
-        money = 20.00;
+        money = 0.00;
         reputationPoints = 3;
         customersServed = 0;
         customersSoFar = 0;
@@ -85,6 +85,7 @@ public class Match {
 
         //note: infrastruture mostly set up to account for meal difficulty in profit yield for customer order
         // just needs mealBeenServed argument to be placed into method below as needed
+
 
         double orderTotal = 0;
         double orderTip = 0;

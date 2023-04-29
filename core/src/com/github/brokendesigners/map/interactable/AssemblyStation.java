@@ -54,6 +54,7 @@ public class AssemblyStation extends Station{
     // empty constructor used for tests
     public AssemblyStation()    {
         this.hand = null;
+        stationUseTime = 10f;
     }
 
     //Override storing products
@@ -138,8 +139,6 @@ public class AssemblyStation extends Station{
             for(int j = 0; j<copiedData.length;j++)
             {
                 int adder = Compare(Test[i], copiedData[j]);
-                System.out.println(Compare(Test[i], copiedData[j]));
-
                 Total = Total + adder;
                 if(adder==1)
                 {
@@ -173,7 +172,7 @@ public class AssemblyStation extends Station{
                     player.enableMovement();
                     inuse = false;
                 }
-            }, stationUseTime * match.getDifficultyLevel().getSpeedMultiplier());
+            }, getAdjustedStationUseTime());
             return true;
         }
         return false;

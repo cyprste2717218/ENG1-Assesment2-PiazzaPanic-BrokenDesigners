@@ -35,13 +35,14 @@ public class CustomerManager {
 	private BitmapFont font;
 	private int savedTime;
 
-	public long spawningTime;
+	private long spawningTime;
 	Match match;
 
 	CustomerRenderer customerRenderer;
 	BubbleRenderer bubbleRenderer;
 	Vector2 spawnPoint;
 	ArrayList<Animation<TextureRegion>> animations;
+	boolean testing = false;
 
 
 	/*
@@ -76,10 +77,13 @@ public class CustomerManager {
 		this.match = match;
 		this.customerNumber = customerNumber;
 		this.spawnPoint = spawnPoint;
+		customers = new ArrayList<>();
+		customerStations = new ArrayList<>();
+		testing = true;
 	}
 
 	public boolean begin(){
-		this.running = true;
+		running = true;
 		timer.scheduleTask(new Task() {
 			@Override
 			public void run() {
@@ -106,18 +110,11 @@ public class CustomerManager {
 		}
 	}
 
-	//Checks for endless or scenario mode
-	//In scenario mode, we take a number, in endless we keep going
-	//We periodically spawn a customer
-
-
-
-	void handleCustomerPhases(){
+	private void handleCustomerPhases(){
 		for (Customer customer : customers){
 			customer.update();
 			if (customer.getPhase() == CustomerPhase.DESPAWNING){
-
-				if(customer.beenServed)	{
+				if(customer.hasBeenServed())	{
 					match.incrementCustomersServed();
 				} else {
 					match.decrementReputationPoints();
@@ -125,11 +122,16 @@ public class CustomerManager {
 
 				customer.getStation().setServingCustomer(false);
 				customer.setPhase(CustomerPhase.UNLOADING);
-				customer.visible = false;
+				customer.setIsVisible(false);
 
-			} else if ((!customer.isVisible()) && !customer.getStation().isServingCustomer() && customer.getPhase() == CustomerPhase.SPAWNING) {
-				customer.getStation().setServingCustomer(true);
-				customer.spawn();
+			} else if (!customer.isVisible() && customer.getPhase() == CustomerPhase.SPAWNING) {
+				if(testing){
+					customer.spawn();
+				}
+				else if(!customer.getStation().isServingCustomer()){
+					customer.getStation().setServingCustomer(true);
+					customer.spawn();
+				}
 			}
 		}
 	}
@@ -143,20 +145,27 @@ public class CustomerManager {
 		hud_batch.end();
 	}
 
-	void spawnCustomer(){
+	//Rework to be based off of time
+	private void spawnCustomer(){
 		if(TimeUtils.timeSinceMillis(spawningTime) > 10000L){
 			spawningTime = TimeUtils.millis();
 			Random random = new Random();
-			for(int i = 0; i < random.nextInt(4); i++){
-				if(getCustomerStations() == null || getCustomerStations().isEmpty()) continue;
-				CustomerStation station = getCustomerStations().get(random.nextInt(getCustomerStations().size()-1));
-				customers.add(new Customer(customerRenderer, bubbleRenderer, animations,
-						station, ItemRegister.itemRegister.get(getMeal()), spawnPoint, match));
+			for(int i = 0; i < random.nextInt(1,4); i++){
+				if(getCustomerStations() == null || getCustomerStations().isEmpty() || i >= customerStations.size()) continue;
+				CustomerStation station = getCustomerStations().get(random.nextInt(getCustomerStations().size()));
+				if(testing){
+					customers.add(new Customer(station, ItemRegister.itemRegister.get(getMeal()), spawnPoint, match));
+				}
+				else{
+					customers.add(new Customer(customerRenderer, bubbleRenderer, animations,
+							station, ItemRegister.itemRegister.get(getMeal()), spawnPoint, match));
+				}
+
 			}
 		}
 	}
 
-	public void update(SpriteBatch batch, SpriteBatch hud_batch){ // Runs through the array of customers and updates them.
+	public void update(SpriteBatch hud_batch){ // Runs through the array of customers and updates them.
 		if (!isComplete()){
 			spawnCustomer();
 			handleCustomerPhases();
@@ -164,10 +173,9 @@ public class CustomerManager {
 			if(isComplete()){
 				finalTime = elapsedTime;
 				font.setColor(Color.RED);
-
 			}
 		}
-		handleHUD(hud_batch);
+		if(!testing) handleHUD(hud_batch);
 	}
 	public String timeToString(int time){ // converts integer time to string MM:SS
 		if(time < 0) return "";
@@ -198,32 +206,31 @@ public class CustomerManager {
 	public int getFinalTime() {
 		return finalTime;
 	}
-
 	public void end(){
 		customers.clear();
 	}
-
 	public int getCustomerNumber() {
 		return customerNumber;
 	}
-
 	public int getElapsedTime() {
 		return elapsedTime;
 	}
-
 	public void setElapsedTime(int elapsedTime){
 		this.elapsedTime = elapsedTime;
 	}
-
 	public Match getMatch() {
 		return match;
 	}
-
 	public ArrayList<Customer> getCustomers(){
 		return customers;
 	}
-
 	public ArrayList<CustomerStation> getCustomerStations() {
 		return customerStations;
+	}
+	public long getSpawningTime() {
+		return spawningTime;
+	}
+	public void setSpawningTime(long spawningTime) {
+		this.spawningTime = spawningTime;
 	}
 }

@@ -9,6 +9,9 @@ public class BinStation extends Station{
 	public BinStation(Rectangle interactionArea) {
 		super(interactionArea,"bin_station");
 	}
+	public BinStation()	{
+
+	}
 	@Override
 	public boolean dropOff(Player player){
 		if (player.hand.isEmpty()){

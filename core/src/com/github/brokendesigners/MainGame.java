@@ -3,7 +3,6 @@ package com.github.brokendesigners;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -18,8 +17,6 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.github.brokendesigners.character.Customer;
 import com.github.brokendesigners.character.CustomerManager;
 import com.github.brokendesigners.enums.CustomerPhase;
-import com.github.brokendesigners.enums.GameMode;
-import com.github.brokendesigners.item.Item;
 import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.map.Kitchen;
 import com.github.brokendesigners.map.KitchenCollisionObject;
@@ -31,11 +28,10 @@ import com.github.brokendesigners.renderer.PlayerRenderer;
 import com.github.brokendesigners.textures.Animations;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MainGame {
 
-	static public SaveGame saveGame;
+	public static SaveGame saveGame;
 	ItemInitialiser itemInitialiser;
 
 	PlayerRenderer playerRenderer;
@@ -64,6 +60,7 @@ public class MainGame {
 	OrthographicCamera camera;
 	OrthographicCamera hud_cam;
 	PowerUpManager powerUpManager;
+	boolean testing;
 
 	public MainGame(
 		SpriteBatch spriteBatch,
@@ -80,7 +77,6 @@ public class MainGame {
 		this.playerRenderer = playerRenderer;
 		this.customerRenderer = customerRenderer;
 		this.bubbleRenderer = bubbleRenderer;
-		this.map = map;
 		this.mapRenderer = mapRenderer;
 		this.inputProcessor = inputProcessor;
 		this.spriteBatch = spriteBatch;
@@ -88,12 +84,25 @@ public class MainGame {
 		this.hud_cam = hudCamera;
 		this.hud_batch = hud_batch;
 		this.match = match;
+		testing = false;
+	}
+
+	//A constructor for testing
+	public MainGame(OrthographicCamera gameCamera, OrthographicCamera hudCamera, Match match, Kitchen kitchen){
+		this.camera = gameCamera;
+		this.hud_cam = hudCamera;
+		this.match = match;
+		this.kitchen = kitchen;
+		playerList = new ArrayList<>();
+		customerManager = new CustomerManager(match.getCustomerNumber(), new Vector2(0,0), match);
+		saveGame = new SaveGame(match,kitchen,playerList,customerManager, this);
+		testing = true;
 	}
 
 
 	public void create(boolean isLoading, LoadGame loader){
 		// MAP & MAP OBJECT BUILDING
-		this.kitchen = new Kitchen(camera, spriteBatch, bubbleRenderer, match, isLoading, loader);
+		if(!testing) kitchen = new Kitchen(camera, spriteBatch, bubbleRenderer, match, isLoading, loader);
 
 		ArrayList<KitchenCollisionObject> kitchenCollisionObjects = kitchen.getKitchenObstacles();
 
@@ -107,34 +116,33 @@ public class MainGame {
 
 		if(isLoading){
 			customerManager.setElapsedTime(loader.getElapsedTime());
-			customerManager.spawningTime = TimeUtils.millis() - loader.getCustomerManagerTimeSinceSpawn();
+			customerManager.setSpawningTime(TimeUtils.millis() - loader.getCustomerManagerTimeSinceSpawn());
 			ArrayList<Animation<TextureRegion>> animations = new ArrayList<>();
 			animations.add(Animations.bluggus_idleAnimation);
 			animations.add(Animations.bluggus_moveAnimation);
 			for(int i = 0; i < loader.getCustomerSize(); i++){
 				Customer customer = new Customer(customerRenderer, bubbleRenderer, animations, kitchen.getCustomerStations().get(loader.getCustomerStationIndex().get(i)),
 						loader.getCustomerOrders().get(i), kitchen.getCustomerSpawnPoint(), match);
-				customer.worldPosition.x = loader.getCustomerX().get(i);
-				customer.worldPosition.y = loader.getCustomerY().get(i);
-				customer.beenServed = loader.getCustomerIsServed().get(i);
+				customer.getWorldPosition().x = loader.getCustomerX().get(i);
+				customer.getWorldPosition().y = loader.getCustomerY().get(i);
+				customer.setBeenServed(loader.getCustomerIsServed().get(i));
 				customer.spawn();
 				customer.setPhase(loader.getCustomerPhases().get(i));
 				if(customer.getPhase() == CustomerPhase.WAITING){
-					customer.waitingStartTime = TimeUtils.millis() - loader.getCustomerTimeSpentWaiting().get(i);
-					if(customer.bubble != null && !customer.beenServed) customer.bubble.setVisible(true);
+					customer.setWaitingStartTime(TimeUtils.millis() - loader.getCustomerTimeSpentWaiting().get(i));
+					if(customer.getBubble() != null && !customer.hasBeenServed()) customer.getBubble().setVisible(true);
 				}
 				customerManager.getCustomers().add(customer);
 			}
 		}
 
 		// BUILD PLAYERS
-		initialisePlayers(isLoading, loader); //initialisePlayers is at the end of this java class.
+		initialisePlayers(isLoading, loader, testing); //initialisePlayers is at the end of this java class.
 
-		saveGame = new SaveGame(this.match,kitchen,playerList,customerManager, this);
-
-		spriteBatch.enableBlending();
+		saveGame = new SaveGame(match,kitchen,playerList,customerManager, this);
+		if(!testing) spriteBatch.enableBlending();
 		customerManager.begin();
-		powerUpManager = new PowerUpManager(playerList.get(selectedPlayer), this, customerManager);
+		powerUpManager = new PowerUpManager(playerList.get(selectedPlayer), match, customerManager, kitchen);
 	}
 
 	public void renderGame(){
@@ -191,10 +199,11 @@ public class MainGame {
 		}
 		spriteBatch.end();
 		playerRenderer.renderPlayers();
+		spriteBatch.begin();
 		mapRenderer.renderTileLayer(
 				(TiledMapTileLayer) mapRenderer.getMap().getLayers().get("StationTops"));
-		// ^^ renders this layer after player which allows the player to go behind walls.
 		spriteBatch.end();
+		// ^^ renders this layer after player which allows the player to go behind walls.
 		for (Station station : kitchen.getKitchenStations()) {
 			station.setMatch(match);
 			station.renderCounter(spriteBatch);
@@ -216,14 +225,16 @@ public class MainGame {
 			player.activateLockSprite(spriteBatch, playerList.indexOf(player));
 		}
 		bubbleRenderer.renderBubbles();
-		customerManager.update(spriteBatch, hud_batch);
-		//customerManager.handleHUD(spriteBatch);
+		customerManager.update(hud_batch);
 	}
 
-	public void initialisePlayers(boolean isLoading, LoadGame loader){
+	public void initialisePlayers(boolean isLoading, LoadGame loader, boolean testing){
 
-		ArrayList<ArrayList<Animation<TextureRegion>>> playerAnimations = setPlayerAnimations();
-		playerRenderer = new PlayerRenderer(spriteBatch);
+		ArrayList<ArrayList<Animation<TextureRegion>>> playerAnimations = new ArrayList<>();
+		if(!testing){
+			playerAnimations = setPlayerAnimations();
+			playerRenderer = new PlayerRenderer(spriteBatch);
+		}
 
 		//BUILDING PLAYERS
 		playerList = new ArrayList<>(); // List of Players - used to determine which is active
@@ -231,7 +242,8 @@ public class MainGame {
 
 		if(isLoading){
 			for(int i = 0; i <3; i++){
-				Player player = new Player(playerRenderer, playerAnimations.get(i), new Vector2(loader.getChefX()[i], loader.getChefY()[i]), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE, this, kitchen, match);
+				Player player = testing ? new Player(kitchen.getPlayerSpawnPoints().get(i)) :
+						new Player(playerRenderer, playerAnimations.get(i), new Vector2(loader.getChefX()[i], loader.getChefY()[i]), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE, this, kitchen, match);
 				player.hand.heldItems = loader.getChefItemStacks()[i];
 				player.setRenderOffsetX(-1 * Constants.UNIT_SCALE);
 				if (loader.getChefLocked()[i])	{
@@ -244,7 +256,8 @@ public class MainGame {
 		}
 		else{
 			for(int i = 0; i < 3; i++){
-				Player player = new Player(playerRenderer, playerAnimations.get(i), new Vector2(kitchen.getPlayerSpawnPoints().get(i).x + (8 * Constants.UNIT_SCALE), kitchen.getPlayerSpawnPoints().get(i).y), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE, this, kitchen, match);
+				Player player = testing ? new Player(kitchen.getPlayerSpawnPoints().get(i)):
+				new Player(playerRenderer, playerAnimations.get(i), new Vector2(kitchen.getPlayerSpawnPoints().get(i).x + (8 * Constants.UNIT_SCALE), kitchen.getPlayerSpawnPoints().get(i).y), 20 * Constants.UNIT_SCALE, 36 * Constants.UNIT_SCALE, this, kitchen, match);
 				player.setRenderOffsetX(-1 * Constants.UNIT_SCALE);
 				if (i==1 || i==2)	{
 					player.lockPlayer();
@@ -256,7 +269,7 @@ public class MainGame {
 		}
 	}
 
-	public ArrayList<ArrayList<Animation<TextureRegion>>> setPlayerAnimations(){
+	private ArrayList<ArrayList<Animation<TextureRegion>>> setPlayerAnimations(){
 		//A list that holds all the animations for the players
 		ArrayList<ArrayList<Animation<TextureRegion>>> playerAnimations = new ArrayList<>();
 
@@ -289,6 +302,10 @@ public class MainGame {
 			if(powerUpManager != null)
 				powerUpManager.setPlayer(playerList.get(selectedPlayer));
 		}
+	}
+
+	public int getSelectedPlayerIndex(){
+		return selectedPlayer;
 	}
 
 	public CustomerManager getCustomerManager(){

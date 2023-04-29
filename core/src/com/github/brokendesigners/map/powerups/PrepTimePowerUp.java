@@ -6,14 +6,19 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.github.brokendesigners.MainGame;
+import com.github.brokendesigners.Match;
 import com.github.brokendesigners.Player;
+import com.github.brokendesigners.map.Kitchen;
 import com.github.brokendesigners.map.interactable.Station;
 
 import java.util.ArrayList;
 
 public class PrepTimePowerUp extends PowerUp{
-    public PrepTimePowerUp(Vector2 worldPosition, Player player, MainGame game, PowerUpManager powerUpManager) {
-        super(worldPosition, player, game, 15f, powerUpManager);
+    private Kitchen kitchen;
+    public PrepTimePowerUp(Vector2 worldPosition, Player player, Match match, PowerUpManager powerUpManager, boolean testing, Kitchen kitchen) {
+        super(worldPosition, player, match, 15f, powerUpManager);
+        this.kitchen = kitchen;
+        if(testing) return;
         sprite = new Sprite(new Texture(Gdx.files.internal("items/Cooking.png")));
         sprite.setPosition(worldPosition.x, worldPosition.y);
         sprite.setScale(0.125f);
@@ -22,7 +27,7 @@ public class PrepTimePowerUp extends PowerUp{
 
     @Override
     public void activate() {
-        ArrayList<? extends Station> stations = game.getKitchen().getKitchenStations();
+        ArrayList<Station> stations = kitchen.getKitchenStations();
         for(Station station: stations){
             station.stationUseTime /= 2;
         }
@@ -30,7 +35,7 @@ public class PrepTimePowerUp extends PowerUp{
 
     @Override
     public void deactivate() {
-        ArrayList<? extends Station> stations = game.getKitchen().getKitchenStations();
+        ArrayList<Station> stations = kitchen.getKitchenStations();
         for(Station station: stations){
             station.stationUseTime *= 2;
         }

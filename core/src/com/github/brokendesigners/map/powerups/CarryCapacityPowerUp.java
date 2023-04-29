@@ -6,14 +6,16 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.github.brokendesigners.Hand;
 import com.github.brokendesigners.MainGame;
+import com.github.brokendesigners.Match;
 import com.github.brokendesigners.Player;
 
 public class CarryCapacityPowerUp extends PowerUp{
 
     Hand hand;
-    public CarryCapacityPowerUp(Vector2 worldPosition, Player player, MainGame game, PowerUpManager powerUpManager) {
-        super(worldPosition, player, game, 30f, powerUpManager);
+    public CarryCapacityPowerUp(Vector2 worldPosition, Player player, Match match, PowerUpManager powerUpManager, boolean testing) {
+        super(worldPosition, player, match, 30f, powerUpManager);
         hand = player.hand;
+        if(testing) return;
         sprite = new Sprite(new Texture(Gdx.files.internal("items/Items.png")));
         sprite.setPosition(worldPosition.x, worldPosition.y);
         sprite.setScale(0.125f);

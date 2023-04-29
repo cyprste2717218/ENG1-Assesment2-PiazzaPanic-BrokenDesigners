@@ -62,6 +62,22 @@ public class Player {
 	// ^^ Offset where the sprite will render relative to the invisible rectangle
 	// which represents the players position/collision boundaries
 
+	//A constructor made just for testing
+	public Player(Vector2 worldPosition){
+		this.worldPosition = worldPosition;
+
+		SPRITE_HEIGHT = 5; // Sets height of player to height of player's texture
+		SPRITE_WIDTH = 5; // Sets width of player to width of player's texture
+		hand = new Hand(); // Instantiates Hand so the player can pick items up
+		boolean flipped = false;
+		this.width = 18 * Constants.UNIT_SCALE; // default values for the dimensions of the Player Rectangle
+		this.height = 4 * Constants.UNIT_SCALE; //
+		this.renderOffsetX = -1; // Default renderOffsetX
+		playerRectangle = new Rectangle(worldPosition.x, worldPosition.y, this.width, this.height);
+	}
+
+
+
 	/*
 	* Instantiates player with a texture - for if you dont want to make animations for them.
  	*/
@@ -124,6 +140,17 @@ public class Player {
 		this.kitchen = kitchen;
 		this.match = match;
 	}
+	public Player(Vector2 worldPosition)	{
+		SPRITE_HEIGHT = 5; // Sets height of player to height of player's texture
+		SPRITE_WIDTH = 5;
+		hand = new Hand();
+		boolean flipped = false;
+		this.width = 18 * Constants.UNIT_SCALE;
+		this.height = 4 * Constants.UNIT_SCALE;
+		this.renderOffsetX = -1;
+		playerRectangle = new Rectangle(worldPosition.x, worldPosition.y, this.width, this.height);
+	}
+
 	/*
 	* Gets player rectangle, used for calculating collisions and interactions.
 	 */
@@ -159,26 +186,26 @@ public class Player {
 		if (selected && !moving_disabled) {
 
 			if (Gdx.input.isKeyPressed(Keys.W)) {
-				this.moveUp(objects);
+				moveUp(objects);
 			} else if (Gdx.input.isKeyPressed(Keys.S)) {
-				this.moveDown(objects);
+				moveDown(objects);
 			}
-			this.updateRectangle();
+			updateRectangle();
 			if (Gdx.input.isKeyPressed(Keys.A)) {
-				this.moveLeft(objects);
-				if (!this.flipped){
-					this.flipAnimations();
-					this.flipped = true;
+				moveLeft(objects);
+				if (!flipped){
+					flipAnimations();
+					flipped = true;
 				}
 			} else if (Gdx.input.isKeyPressed(Keys.D)) {
-				this.moveRight(objects);
-				if (this.flipped){
-					this.flipAnimations();
-					this.flipped = false;
+				moveRight(objects);
+				if (flipped){
+					flipAnimations();
+					flipped = false;
 				}
 
 			}
-			this.updateRectangle();
+			updateRectangle();
 		}
 	}
 	/*

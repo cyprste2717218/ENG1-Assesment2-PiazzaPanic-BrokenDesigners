@@ -31,9 +31,19 @@ public class BakingStation extends Station implements IFailable {
         canBurn = false;
         this.match = match;
     }
+    public BakingStation(Bubble fakeBubble)    {
+        this.station_name = "Baking_Station";
+        this.hand = null;
+        canBurn = true;
+        this.attentionBubble = fakeBubble;
+
+
+    }
+
 
     //Burns the food if required
-    Timer.Task burnFood = new Timer.Task() {
+    public Timer.Task burnFood = new Timer.Task() {
+
         @Override
         public void run() {
             if(canBurn){
@@ -44,19 +54,25 @@ public class BakingStation extends Station implements IFailable {
         }
     };
 
+    public BakingStation() {
+        stationUseTime = 4f;
+    }
+
     @Override
     public boolean action(final Player player) {
         // to unlock the station
         unlockStation();
+
         // if player is holding something, station is not already in use and item
         // in hand has not already been cooked
         if(inuse || hand == null || hand.Baking) return false;
-
+        System.out.println(hand.getName());
         //If an item is bakeable, successfully bake the item, otherwise prevent the player from using the station
-        if (Applicable(Bakeables, "Baking_Station", hand.getName())) {
+        if (Applicable(Bakeables, "Baking_Station", hand.name)) {
+            System.out.println("gotHERE");
             this.inuse = true;
             this.bakingBubble.setVisible(true);
-            finishSuccessfulOperation(player, stationUseTime * match.getDifficultyLevel().getSpeedMultiplier());
+            finishSuccessfulOperation(player, getAdjustedStationUseTime());
             return true;
         } else {
             return finishFailedOperation(player, stationUseTime);
@@ -113,6 +129,9 @@ public class BakingStation extends Station implements IFailable {
     @Override
     public void generalFinish(Player player) {
         //Left empty for this class
+    }
+    public String[] getBakeables()  {
+        return Bakeables;
     }
 }
 
