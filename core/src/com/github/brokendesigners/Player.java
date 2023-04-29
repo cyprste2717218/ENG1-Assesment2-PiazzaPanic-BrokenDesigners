@@ -140,16 +140,7 @@ public class Player {
 		this.kitchen = kitchen;
 		this.match = match;
 	}
-	public Player(Vector2 worldPosition)	{
-		SPRITE_HEIGHT = 5; // Sets height of player to height of player's texture
-		SPRITE_WIDTH = 5;
-		hand = new Hand();
-		boolean flipped = false;
-		this.width = 18 * Constants.UNIT_SCALE;
-		this.height = 4 * Constants.UNIT_SCALE;
-		this.renderOffsetX = -1;
-		playerRectangle = new Rectangle(worldPosition.x, worldPosition.y, this.width, this.height);
-	}
+
 
 	/*
 	* Gets player rectangle, used for calculating collisions and interactions.
