@@ -1,68 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-04-25T13:17:43" hostname="BENSPC" time="0.018">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-04-29T15:05:23" hostname="DESKTOP-I4ITFE8" time="0.054">
   <properties/>
-  <testcase name="diffOrderCorrectBurgerAssemblyTest" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.013"/>
-  <testcase name="correctSaladAssemblyTest" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.0"/>
-  <testcase name="numberOfItemsTooSmall" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.001"/>
+  <testcase name="diffOrderCorrectBurgerAssemblyTest" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.04"/>
+  <testcase name="correctSaladAssemblyTest" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.002"/>
+  <testcase name="numberOfItemsTooSmall" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.002"/>
   <testcase name="diffOrderCorrectSaladAssemblyTest" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.002"/>
-  <testcase name="correctBurgerAssemblyTest" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.001"/>
-  <testcase name="incorrectBurgerAssembly" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.001"/>
-  <system-out><![CDATA[1
-0
-0
-0
-0
-1
-0
-1
-0
+  <testcase name="correctBurgerAssemblyTest" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.004"/>
+  <testcase name="incorrectBurgerAssembly" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.003"/>
+  <system-out><![CDATA[3
 3
-1
-0
-0
-0
-1
-0
-0
-0
-1
-3
-1
-0
-0
-1
-0
-0
 2
-0
-0
-1
-1
-0
-0
-0
-1
-0
 3
-1
-0
-0
-0
-1
-0
-0
-0
-1
 3
-1
-0
-0
-0
-0
-0
-0
-1
-0
 2
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>

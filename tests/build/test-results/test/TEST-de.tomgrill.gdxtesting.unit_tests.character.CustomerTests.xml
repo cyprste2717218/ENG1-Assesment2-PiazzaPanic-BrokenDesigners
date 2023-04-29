@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.character.CustomerTests" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-04-25T13:17:43" hostname="BENSPC" time="0.167">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.character.CustomerTests" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-04-29T15:05:23" hostname="DESKTOP-I4ITFE8" time="0.099">
   <properties/>
-  <testcase name="testMovingToStationPhase" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerTests" time="0.116"/>
-  <testcase name="testCustomerSpawn" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerTests" time="0.0"/>
-  <testcase name="testLeavingPhase" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerTests" time="0.0"/>
-  <testcase name="testDespawnPhase" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerTests" time="0.001"/>
+  <testcase name="testWaitingPhase" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerTests" time="0.004"/>
+  <testcase name="testSpawn" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerTests" time="0.002"/>
+  <testcase name="testMovingToStationPhase" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerTests" time="0.028"/>
+  <testcase name="testLeavingPhase" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerTests" time="0.005"/>
+  <testcase name="testDespawnPhase" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerTests" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.interactable.BinStationTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-04-29T15:05:23" hostname="DESKTOP-I4ITFE8" time="0.008">
+  <properties/>
+  <testcase name="testEmptyHandInteraction" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.BinStationTests" time="0.004"/>
+  <testcase name="testItemRemoval" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.BinStationTests" time="0.004"/>
+  <system-out><![CDATA[held: [Mock for Item, hashCode: 1800932232]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

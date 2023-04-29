@@ -20,13 +20,13 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">18</div>
+<div class="counter">96</div>
 <p>tests</p>
 </div>
 </td>
 <td>
 <div class="infoBox" id="failures">
-<div class="counter">0</div>
+<div class="counter">4</div>
 <p>failures</p>
 </div>
 </td>
@@ -38,7 +38,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.238s</div>
+<div class="counter">2.690s</div>
 <p>duration</p>
 </div>
 </td>
@@ -47,8 +47,8 @@
 </div>
 </td>
 <td>
-<div class="infoBox success" id="successRate">
-<div class="percent">100%</div>
+<div class="infoBox failures" id="successRate">
+<div class="percent">95%</div>
 <p>successful</p>
 </div>
 </td>
@@ -58,13 +58,37 @@
 <div id="tabs">
 <ul class="tabLinks">
 <li>
-<a href="#tab0">Packages</a>
+<a href="#tab0">Failed tests</a>
 </li>
 <li>
-<a href="#tab1">Classes</a>
+<a href="#tab1">Packages</a>
+</li>
+<li>
+<a href="#tab2">Classes</a>
 </li>
 </ul>
 <div id="tab0" class="tab">
+<h2>Failed tests</h2>
+<ul class="linkList">
+<li>
+<a href="classes/de.tomgrill.gdxtesting.GdxTestRunner.html">GdxTestRunner</a>.
+<a href="classes/de.tomgrill.gdxtesting.GdxTestRunner.html#initializationError">initializationError</a>
+</li>
+<li>
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.character.CustomerTestingUtils.html">CustomerTestingUtils</a>.
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.character.CustomerTestingUtils.html#initializationError">initializationError</a>
+</li>
+<li>
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.map.KitchenTestUtils.html">KitchenTestUtils</a>.
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.map.KitchenTestUtils.html#initializationError">initializationError</a>
+</li>
+<li>
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ButtonTestUtils.html">ButtonTestUtils</a>.
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ButtonTestUtils.html#initializationError">initializationError</a>
+</li>
+</ul>
+</div>
+<div id="tab1" class="tab">
 <h2>Packages</h2>
 <table>
 <thead>
@@ -79,39 +103,89 @@
 </thead>
 <tbody>
 <tr>
-<td class="success">
-<a href="packages/de.tomgrill.gdxtesting.unit_tests.html">de.tomgrill.gdxtesting.unit_tests</a>
+<td class="failures">
+<a href="packages/de.tomgrill.gdxtesting.html">de.tomgrill.gdxtesting</a>
 </td>
 <td>1</td>
+<td>1</td>
 <td>0</td>
-<td>0</td>
-<td>0s</td>
-<td class="success">100%</td>
+<td>0.012s</td>
+<td class="failures">0%</td>
 </tr>
 <tr>
 <td class="success">
+<a href="packages/de.tomgrill.gdxtesting.unit_tests.html">de.tomgrill.gdxtesting.unit_tests</a>
+</td>
+<td>9</td>
+<td>0</td>
+<td>0</td>
+<td>0.963s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="failures">
 <a href="packages/de.tomgrill.gdxtesting.unit_tests.character.html">de.tomgrill.gdxtesting.unit_tests.character</a>
 </td>
-<td>6</td>
+<td>13</td>
+<td>1</td>
 <td>0</td>
+<td>0.293s</td>
+<td class="failures">92%</td>
+</tr>
+<tr>
+<td class="failures">
+<a href="packages/de.tomgrill.gdxtesting.unit_tests.map.html">de.tomgrill.gdxtesting.unit_tests.map</a>
+</td>
+<td>1</td>
+<td>1</td>
 <td>0</td>
-<td>0.120s</td>
-<td class="success">100%</td>
+<td>0.001s</td>
+<td class="failures">0%</td>
 </tr>
 <tr>
 <td class="success">
 <a href="packages/de.tomgrill.gdxtesting.unit_tests.map.interactable.html">de.tomgrill.gdxtesting.unit_tests.map.interactable</a>
 </td>
-<td>11</td>
+<td>28</td>
 <td>0</td>
 <td>0</td>
-<td>0.118s</td>
+<td>0.355s</td>
 <td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="packages/de.tomgrill.gdxtesting.unit_tests.map.powerups.html">de.tomgrill.gdxtesting.unit_tests.map.powerups</a>
+</td>
+<td>7</td>
+<td>0</td>
+<td>0</td>
+<td>0.311s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="packages/de.tomgrill.gdxtesting.unit_tests.match.html">de.tomgrill.gdxtesting.unit_tests.match</a>
+</td>
+<td>8</td>
+<td>0</td>
+<td>0</td>
+<td>0.020s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="failures">
+<a href="packages/de.tomgrill.gdxtesting.unit_tests.menu.Buttons.html">de.tomgrill.gdxtesting.unit_tests.menu.Buttons</a>
+</td>
+<td>29</td>
+<td>1</td>
+<td>0</td>
+<td>0.735s</td>
+<td class="failures">96%</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div id="tab1" class="tab">
+<div id="tab2" class="tab">
 <h2>Classes</h2>
 <table>
 <thead>
@@ -126,34 +200,84 @@
 </thead>
 <tbody>
 <tr>
-<td class="success">
-<a href="classes/de.tomgrill.gdxtesting.unit_tests.ExampleTest.html">de.tomgrill.gdxtesting.unit_tests.ExampleTest</a>
+<td class="failures">
+<a href="classes/de.tomgrill.gdxtesting.GdxTestRunner.html">de.tomgrill.gdxtesting.GdxTestRunner</a>
 </td>
 <td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0.012s</td>
+<td class="failures">0%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.DifficultyTests.html">de.tomgrill.gdxtesting.unit_tests.DifficultyTests</a>
+</td>
+<td>3</td>
 <td>0</td>
 <td>0</td>
-<td>0s</td>
+<td>0.790s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.MainGameTests.html">de.tomgrill.gdxtesting.unit_tests.MainGameTests</a>
+</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0.044s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.SaveTests.html">de.tomgrill.gdxtesting.unit_tests.SaveTests</a>
+</td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>0.129s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
 <td class="success">
 <a href="classes/de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests.html">de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests</a>
 </td>
-<td>2</td>
+<td>7</td>
 <td>0</td>
 <td>0</td>
-<td>0.003s</td>
+<td>0.251s</td>
 <td class="success">100%</td>
+</tr>
+<tr>
+<td class="failures">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.character.CustomerTestingUtils.html">de.tomgrill.gdxtesting.unit_tests.character.CustomerTestingUtils</a>
+</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0s</td>
+<td class="failures">0%</td>
 </tr>
 <tr>
 <td class="success">
 <a href="classes/de.tomgrill.gdxtesting.unit_tests.character.CustomerTests.html">de.tomgrill.gdxtesting.unit_tests.character.CustomerTests</a>
 </td>
-<td>4</td>
+<td>5</td>
 <td>0</td>
 <td>0</td>
-<td>0.117s</td>
+<td>0.042s</td>
 <td class="success">100%</td>
+</tr>
+<tr>
+<td class="failures">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.map.KitchenTestUtils.html">de.tomgrill.gdxtesting.unit_tests.map.KitchenTestUtils</a>
+</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0.001s</td>
+<td class="failures">0%</td>
 </tr>
 <tr>
 <td class="success">
@@ -162,7 +286,47 @@
 <td>6</td>
 <td>0</td>
 <td>0</td>
-<td>0.018s</td>
+<td>0.053s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.map.interactable.BakingStationTests.html">de.tomgrill.gdxtesting.unit_tests.map.interactable.BakingStationTests</a>
+</td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>0.080s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.map.interactable.BinStationTests.html">de.tomgrill.gdxtesting.unit_tests.map.interactable.BinStationTests</a>
+</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0.008s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.map.interactable.CookingStationTests.html">de.tomgrill.gdxtesting.unit_tests.map.interactable.CookingStationTests</a>
+</td>
+<td>5</td>
+<td>0</td>
+<td>0</td>
+<td>0.011s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.map.interactable.CuttingStationTests.html">de.tomgrill.gdxtesting.unit_tests.map.interactable.CuttingStationTests</a>
+</td>
+<td>6</td>
+<td>0</td>
+<td>0</td>
+<td>0.013s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
@@ -172,7 +336,217 @@
 <td>5</td>
 <td>0</td>
 <td>0</td>
-<td>0.100s</td>
+<td>0.190s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.map.powerups.CarryCapacityPowerUpTests.html">de.tomgrill.gdxtesting.unit_tests.map.powerups.CarryCapacityPowerUpTests</a>
+</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0.020s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.map.powerups.CustomerWaitTimePowerUpTests.html">de.tomgrill.gdxtesting.unit_tests.map.powerups.CustomerWaitTimePowerUpTests</a>
+</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0.010s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.map.powerups.DoubleMoneyPowerUpTests.html">de.tomgrill.gdxtesting.unit_tests.map.powerups.DoubleMoneyPowerUpTests</a>
+</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0.011s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.map.powerups.PowerUpManagerTests.html">de.tomgrill.gdxtesting.unit_tests.map.powerups.PowerUpManagerTests</a>
+</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0.243s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.map.powerups.PrepTimePowerUpTests.html">de.tomgrill.gdxtesting.unit_tests.map.powerups.PrepTimePowerUpTests</a>
+</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0.013s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.map.powerups.SpeedPowerUpTests.html">de.tomgrill.gdxtesting.unit_tests.map.powerups.SpeedPowerUpTests</a>
+</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0.014s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.match.moneyTests.html">de.tomgrill.gdxtesting.unit_tests.match.moneyTests</a>
+</td>
+<td>8</td>
+<td>0</td>
+<td>0</td>
+<td>0.020s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.menu.Buttons.BackButtonTests.html">de.tomgrill.gdxtesting.unit_tests.menu.Buttons.BackButtonTests</a>
+</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0.088s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ButtonTest.html">de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ButtonTest</a>
+</td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>0.104s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="failures">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ButtonTestUtils.html">de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ButtonTestUtils</a>
+</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0s</td>
+<td class="failures">0%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.menu.Buttons.DifficultyButtonTests.html">de.tomgrill.gdxtesting.unit_tests.menu.Buttons.DifficultyButtonTests</a>
+</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0.084s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.menu.Buttons.EndlessModeButtonTests.html">de.tomgrill.gdxtesting.unit_tests.menu.Buttons.EndlessModeButtonTests</a>
+</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0.051s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ExitGameButtonTests.html">de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ExitGameButtonTests</a>
+</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0.044s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.menu.Buttons.HowToPlayButtonTests.html">de.tomgrill.gdxtesting.unit_tests.menu.Buttons.HowToPlayButtonTests</a>
+</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0.038s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.menu.Buttons.LoadButtonTests.html">de.tomgrill.gdxtesting.unit_tests.menu.Buttons.LoadButtonTests</a>
+</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0.036s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.menu.Buttons.PlayButtonTests.html">de.tomgrill.gdxtesting.unit_tests.menu.Buttons.PlayButtonTests</a>
+</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0.032s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.menu.Buttons.QuitButtonTests.html">de.tomgrill.gdxtesting.unit_tests.menu.Buttons.QuitButtonTests</a>
+</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0.029s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ResumeButtonTests.html">de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ResumeButtonTests</a>
+</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0.050s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.menu.Buttons.SaveButtonTests.html">de.tomgrill.gdxtesting.unit_tests.menu.Buttons.SaveButtonTests</a>
+</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0.064s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ScenarioCustomerCountButtonTests.html">de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ScenarioCustomerCountButtonTests</a>
+</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0.085s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success">
+<a href="classes/de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ScenarioModeButtonTests.html">de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ScenarioModeButtonTests</a>
+</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0.030s</td>
 <td class="success">100%</td>
 </tr>
 </tbody>
@@ -186,7 +560,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.5.1</a> at 25 Apr 2023, 14:17:43</p>
+<a href="http://www.gradle.org">Gradle 7.5.1</a> at 29 Apr 2023, 16:05:26</p>
 </div>
 </div>
 </body>
