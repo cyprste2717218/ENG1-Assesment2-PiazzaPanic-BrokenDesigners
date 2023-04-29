@@ -23,6 +23,7 @@ checkstyle {
 }
 
 
+
 allprojects {
     apply plugin: "eclipse"
 

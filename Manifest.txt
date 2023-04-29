@@ -1,1 +1,1 @@
-Main-Class: com.github.brokendesigners.MainGame
+Main-Class: com.github.brokendesigners.MainGame.class
