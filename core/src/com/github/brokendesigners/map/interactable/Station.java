@@ -26,7 +26,7 @@ public abstract class Station {
 	public Vector2 handPosition = new Vector2(0,0);
 	// where should the item be rendered - In the TiledMap, the co-ords for HandX and HandY are relative to the bottom left of the interact area.
 	public boolean inuse;
-	protected boolean locked;
+	public boolean locked;
 	public static Sprite lockSprite;
 	public Match match;
 	public Sound pick_up;
