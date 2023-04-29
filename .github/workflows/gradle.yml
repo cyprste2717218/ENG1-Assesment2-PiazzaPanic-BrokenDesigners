@@ -2,7 +2,7 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ "main", "eyeDaydream-patch-1" ]
+    branches: [ "main", "finishingCI" ]
     tags: [ "v[0-9]+.[0-9]+.[0-9]+" ]
   pull_request:
     branches: [ "main" ]
@@ -43,6 +43,11 @@ jobs:
       with:
         name: lib.jar
         path: ./desktop/build/libs/*.jar
+    - name: Upload JaCoCo coverage report as a workflow artifact
+      uses: actions/upload-artifact@v3.1.1
+      with:
+        name: jacoco-report
+        path: ./desktop/build/jacoco/test/html/
     - name: Upload Checkstyle report
       uses: actions/upload-artifact@v3.1.1
       if: startsWith(matrix.os, 'ubuntu')
