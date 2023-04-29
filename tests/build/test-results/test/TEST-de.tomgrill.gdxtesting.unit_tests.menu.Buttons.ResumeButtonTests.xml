@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ResumeButtonTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-04-29T15:47:33" hostname="DESKTOP-I4ITFE8" time="0.059">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ResumeButtonTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-04-29T16:45:34" hostname="DESKTOP-I4ITFE8" time="0.08">
   <properties/>
-  <testcase name="testPerformedTask" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ResumeButtonTests" time="0.04"/>
+  <testcase name="testPerformedTask" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ResumeButtonTests" time="0.043"/>
   <testcase name="testRenderedAtStart" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ResumeButtonTests" time="0.018"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

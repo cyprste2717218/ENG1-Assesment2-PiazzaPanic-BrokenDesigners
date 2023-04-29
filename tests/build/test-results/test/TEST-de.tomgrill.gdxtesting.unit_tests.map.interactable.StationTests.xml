@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.interactable.StationTests" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-04-29T15:47:32" hostname="DESKTOP-I4ITFE8" time="0.183">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.interactable.StationTests" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-04-29T16:45:33" hostname="DESKTOP-I4ITFE8" time="0.182">
   <properties/>
-  <testcase name="testApplicableItem" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.StationTests" time="0.082"/>
+  <testcase name="testApplicableItem" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.StationTests" time="0.083"/>
   <testcase name="correctChoppedItemRegisterSwap" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.StationTests" time="0.001"/>
-  <testcase name="testNonApplicableItem" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.StationTests" time="0.002"/>
-  <testcase name="correctFormedItemRegisterSwap" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.StationTests" time="0.097"/>
+  <testcase name="testNonApplicableItem" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.StationTests" time="0.001"/>
+  <testcase name="correctFormedItemRegisterSwap" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.StationTests" time="0.095"/>
   <testcase name="correctCookedItemRegisterSwap" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.StationTests" time="0.001"/>
   <system-out><![CDATA[held: [Meat]
 Hand: Meat

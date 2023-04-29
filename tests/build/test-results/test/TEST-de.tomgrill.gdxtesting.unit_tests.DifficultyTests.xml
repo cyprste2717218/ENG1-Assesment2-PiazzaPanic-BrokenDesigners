@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.DifficultyTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-04-29T15:47:30" hostname="DESKTOP-I4ITFE8" time="0.919">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.DifficultyTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-04-29T16:45:31" hostname="DESKTOP-I4ITFE8" time="0.895">
   <properties/>
-  <testcase name="checkEasyAdjustedTimes" classname="de.tomgrill.gdxtesting.unit_tests.DifficultyTests" time="0.835"/>
-  <testcase name="checkHardAdjustedTimes" classname="de.tomgrill.gdxtesting.unit_tests.DifficultyTests" time="0.024"/>
-  <testcase name="checkMediumAdjustedTimes" classname="de.tomgrill.gdxtesting.unit_tests.DifficultyTests" time="0.026"/>
+  <testcase name="checkEasyAdjustedTimes" classname="de.tomgrill.gdxtesting.unit_tests.DifficultyTests" time="0.807"/>
+  <testcase name="checkHardAdjustedTimes" classname="de.tomgrill.gdxtesting.unit_tests.DifficultyTests" time="0.025"/>
+  <testcase name="checkMediumAdjustedTimes" classname="de.tomgrill.gdxtesting.unit_tests.DifficultyTests" time="0.027"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

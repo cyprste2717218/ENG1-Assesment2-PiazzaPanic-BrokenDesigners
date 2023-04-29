@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.SaveTests" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-04-29T15:47:31" hostname="DESKTOP-I4ITFE8" time="0.198">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.SaveTests" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-04-29T16:45:32" hostname="DESKTOP-I4ITFE8" time="0.202">
   <properties/>
-  <testcase name="testSavedStations" classname="de.tomgrill.gdxtesting.unit_tests.SaveTests" time="0.06"/>
-  <testcase name="testSavedCustomers" classname="de.tomgrill.gdxtesting.unit_tests.SaveTests" time="0.026"/>
-  <testcase name="testSavedChefs" classname="de.tomgrill.gdxtesting.unit_tests.SaveTests" time="0.028"/>
-  <testcase name="testSavedMatch" classname="de.tomgrill.gdxtesting.unit_tests.SaveTests" time="0.029"/>
+  <testcase name="testSavedStations" classname="de.tomgrill.gdxtesting.unit_tests.SaveTests" time="0.065"/>
+  <testcase name="testSavedCustomers" classname="de.tomgrill.gdxtesting.unit_tests.SaveTests" time="0.028"/>
+  <testcase name="testSavedChefs" classname="de.tomgrill.gdxtesting.unit_tests.SaveTests" time="0.036"/>
+  <testcase name="testSavedMatch" classname="de.tomgrill.gdxtesting.unit_tests.SaveTests" time="0.018"/>
   <system-out><![CDATA[[Onion, Potato]
 [Onion, Potato]
 [Onion, Potato]

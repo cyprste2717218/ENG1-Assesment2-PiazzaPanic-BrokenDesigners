@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" tests="8" skipped="0" failures="0" errors="0" timestamp="2023-04-29T15:47:32" hostname="DESKTOP-I4ITFE8" time="0.044">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" tests="8" skipped="0" failures="0" errors="0" timestamp="2023-04-29T16:45:33" hostname="DESKTOP-I4ITFE8" time="0.052">
   <properties/>
-  <testcase name="testBaked_JacketPotatoNoTip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.019"/>
-  <testcase name="test10Tip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.002"/>
-  <testcase name="test20Tip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.002"/>
-  <testcase name="test50Tip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.007"/>
-  <testcase name="testPizzaNoTip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.002"/>
+  <testcase name="testBaked_JacketPotatoNoTip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.029"/>
+  <testcase name="test10Tip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.003"/>
+  <testcase name="test20Tip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.001"/>
+  <testcase name="test50Tip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.005"/>
+  <testcase name="testPizzaNoTip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.006"/>
   <testcase name="testBurgerNoTip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.002"/>
-  <testcase name="testInvalidItemNoTip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.005"/>
-  <testcase name="testSaladNoTip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.003"/>
+  <testcase name="testInvalidItemNoTip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.001"/>
+  <testcase name="testSaladNoTip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.002"/>
   <system-out><![CDATA[Not a valid meal name
 Too long wait time so no tip
 order tip amount: £0.0
@@ -28,19 +28,19 @@ order tip amount: £0.0
 Too long wait time so no tip
 order tip amount: £0.0
 ]]></system-out>
-  <system-err><![CDATA[Exception in thread "HeadlessApplication" com.badlogic.gdx.utils.GdxRuntimeException: Couldn't load file: items/Speed.png
+  <system-err><![CDATA[Exception in thread "HeadlessApplication" com.badlogic.gdx.utils.GdxRuntimeException: Couldn't load file: items/Customer.png
 	at com.badlogic.gdx.graphics.Pixmap.<init>(Pixmap.java:190)
 	at com.badlogic.gdx.graphics.TextureData$Factory.loadFromFile(TextureData.java:101)
 	at com.badlogic.gdx.graphics.Texture.<init>(Texture.java:122)
 	at com.badlogic.gdx.graphics.Texture.<init>(Texture.java:114)
-	at com.github.brokendesigners.map.powerups.SpeedPowerUp.<init>(SpeedPowerUp.java:18)
-	at com.github.brokendesigners.map.powerups.PowerUpManager.spawnRandomPowerUp(PowerUpManager.java:76)
+	at com.github.brokendesigners.map.powerups.CustomerWaitTimePowerUp.<init>(CustomerWaitTimePowerUp.java:22)
+	at com.github.brokendesigners.map.powerups.PowerUpManager.spawnRandomPowerUp(PowerUpManager.java:70)
 	at com.github.brokendesigners.map.powerups.PowerUpManager.access$000(PowerUpManager.java:15)
 	at com.github.brokendesigners.map.powerups.PowerUpManager$1.run(PowerUpManager.java:47)
 	at com.badlogic.gdx.backends.headless.HeadlessApplication.executeRunnables(HeadlessApplication.java:154)
 	at com.badlogic.gdx.backends.headless.HeadlessApplication.mainLoop(HeadlessApplication.java:126)
 	at com.badlogic.gdx.backends.headless.HeadlessApplication$1.run(HeadlessApplication.java:93)
-Caused by: com.badlogic.gdx.utils.GdxRuntimeException: File not found: items\Speed.png (Internal)
+Caused by: com.badlogic.gdx.utils.GdxRuntimeException: File not found: items\Customer.png (Internal)
 	at com.badlogic.gdx.files.FileHandle.read(FileHandle.java:142)
 	at com.badlogic.gdx.files.FileHandle.readBytes(FileHandle.java:228)
 	at com.badlogic.gdx.graphics.Pixmap.<init>(Pixmap.java:187)
