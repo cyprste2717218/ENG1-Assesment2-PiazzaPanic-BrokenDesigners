@@ -50,7 +50,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: lib-${{ matrix.os }}.jar
-        path: .
+        path: ./build/libs
 
 
 

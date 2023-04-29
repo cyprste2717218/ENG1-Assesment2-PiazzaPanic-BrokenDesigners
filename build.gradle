@@ -22,12 +22,6 @@ checkstyle {
     configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
 }
 
-jar {
-    manifest {
-        attributes 'Main-Class': 'com.github.brokendesigners.MainGame'
-        from file('Manifest.txt')
-    }
-}
 
 allprojects {
     apply plugin: "eclipse"
