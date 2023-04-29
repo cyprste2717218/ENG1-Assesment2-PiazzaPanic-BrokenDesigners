@@ -38,23 +38,31 @@ jobs:
           checkstyleTest
     - name: Check for JAR file
       run: ls -R ./desktop/build/libs/
+
+
+    - name: Upload Jacoco report
+      uses: actions/upload-artifact@v3.1.1
+      with:
+        name: jacoco-report-${{ matrix.os }}
+        path: ./tests/build/reports/tests/test/
+
     - name: Upload library JAR
       uses: actions/upload-artifact@v3
       with:
-        name: lib.jar
-        path: ./desktop/build/libs/*.jar
+        name: lib-${{ matrix.os }}.jar
+        path: ./desktop/build/libs/lib.jar
+
+
+
+
+
     - name: Upload Checkstyle report
       uses: actions/upload-artifact@v3.1.1
       if: startsWith(matrix.os, 'ubuntu')
       with:
         name: checkstyle-report
         path: tests/build/reports/checkstyle
-    - name: Upload Jacoco report
-      uses: actions/upload-artifact@v3.1.1
-      if: startsWith(matrix.os, 'ubuntu')
-      with:
-        name: jacoco-report
-        path: ./tests/build/reports/tests/test/
+
     - name: Publish Test Results
       uses: EnricoMi/publish-unit-test-result-action/composite@v2
       if: always()
@@ -72,25 +80,25 @@ jobs:
       contents: write
 
     steps:
-    - name: Download Ubuntu Build Artifact
-      uses: actions/download-artifact@v3.0.1
-      with:
-        name: lib-ubuntu-22.04.jar
-    - name: Rename Ubuntu Build Artifact
-      run: mv lib.jar lib-ubuntu.jar
-    - name: Download MacOS Build Artifact
-      uses: actions/download-artifact@v3.0.1
-      with:
-        name: lib-macos-12.jar
-    - name: Rename MacOS Build Artifact
-      run: mv lib.jar lib-macos.jar
-    - name: Download Windows Build Artifact
-      uses: actions/download-artifact@v3.0.1
-      with:
-        name: lib-windows-2022.jar
-    - name: Rename Windows Build Artifact
-      run: mv lib.jar lib-windows.jar
-    - name: Release
-      uses: softprops/action-gh-release@v1
-      with:
-        files: lib*.jar
+      - name: Download Ubuntu Build Artifact
+        uses: actions/download-artifact@v3.0.1
+        with:
+          name: lib-ubuntu-22.04.jar
+      - name: Rename Ubuntu Build Artifact
+        run: mv lib.jar lib-ubuntu.jar
+      - name: Download MacOS Build Artifact
+        uses: actions/download-artifact@v3.0.1
+        with:
+          name: lib-macos-12.jar
+      - name: Rename MacOS Build Artifact
+        run: mv lib.jar lib-macos.jar
+      - name: Download Windows Build Artifact
+        uses: actions/download-artifact@v3.0.1
+        with:
+          name: lib-windows-2022.jar
+      - name: Rename Windows Build Artifact
+        run: mv lib.jar lib-windows.jar
+      - name: Release
+        uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844
+        with:
+          files: lib*.jar
