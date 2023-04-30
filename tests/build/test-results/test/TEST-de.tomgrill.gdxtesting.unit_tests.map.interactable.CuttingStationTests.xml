@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.interactable.CuttingStationTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-04-29T17:23:37" hostname="DESKTOP-I4ITFE8" time="0.008">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.interactable.CuttingStationTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-04-30T00:12:03" hostname="LAPTOP-USS9CV47" time="0.002">
   <properties/>
-  <testcase name="testCorrectItem_Onion" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.CuttingStationTests" time="0.002"/>
+  <testcase name="testCorrectItem_Onion" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.CuttingStationTests" time="0.0"/>
   <testcase name="testCorrectItem_Lettuce" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.CuttingStationTests" time="0.001"/>
-  <testcase name="testIncorrectItem" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.CuttingStationTests" time="0.001"/>
-  <testcase name="testCorrectItem_Potato" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.CuttingStationTests" time="0.001"/>
-  <testcase name="testCorrectItem_Tomato" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.CuttingStationTests" time="0.001"/>
-  <testcase name="testFailedOperation" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.CuttingStationTests" time="0.002"/>
+  <testcase name="testIncorrectItem" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.CuttingStationTests" time="0.0"/>
+  <testcase name="testCorrectItem_Potato" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.CuttingStationTests" time="0.0"/>
+  <testcase name="testCorrectItem_Tomato" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.CuttingStationTests" time="0.0"/>
+  <testcase name="testFailedOperation" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.CuttingStationTests" time="0.001"/>
   <system-out><![CDATA[Insufficient Funds
 Incorrect Item
 Cut to Early: false

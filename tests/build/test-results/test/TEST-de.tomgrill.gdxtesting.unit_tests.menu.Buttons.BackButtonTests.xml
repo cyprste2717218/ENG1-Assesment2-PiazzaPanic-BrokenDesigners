@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.BackButtonTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-04-29T17:23:38" hostname="DESKTOP-I4ITFE8" time="2.136">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.BackButtonTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-04-30T00:12:03" hostname="LAPTOP-USS9CV47" time="0.044">
   <properties/>
-  <testcase name="testPerformedTask" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.BackButtonTests" time="2.093"/>
-  <testcase name="testRenderedAtStart" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.BackButtonTests" time="0.024"/>
+  <testcase name="testPerformedTask" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.BackButtonTests" time="0.019"/>
+  <testcase name="testRenderedAtStart" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.BackButtonTests" time="0.006"/>
   <system-out><![CDATA[Returning to main menu
 ]]></system-out>
-  <system-err><![CDATA[]]></system-err>
+  <system-err><![CDATA[Exception in thread "HeadlessApplication" com.badlogic.gdx.utils.GdxRuntimeException: Couldn't load file: items/Items.png
+	at com.badlogic.gdx.graphics.Pixmap.<init>(Pixmap.java:190)
+	at com.badlogic.gdx.graphics.TextureData$Factory.loadFromFile(TextureData.java:101)
+	at com.badlogic.gdx.graphics.Texture.<init>(Texture.java:122)
+	at com.badlogic.gdx.graphics.Texture.<init>(Texture.java:114)
+	at com.github.brokendesigners.map.powerups.CarryCapacityPowerUp.<init>(CarryCapacityPowerUp.java:19)
+	at com.github.brokendesigners.map.powerups.PowerUpManager.spawnRandomPowerUp(PowerUpManager.java:68)
+	at com.github.brokendesigners.map.powerups.PowerUpManager.access$000(PowerUpManager.java:15)
+	at com.github.brokendesigners.map.powerups.PowerUpManager$1.run(PowerUpManager.java:47)
+	at com.badlogic.gdx.backends.headless.HeadlessApplication.executeRunnables(HeadlessApplication.java:154)
+	at com.badlogic.gdx.backends.headless.HeadlessApplication.mainLoop(HeadlessApplication.java:126)
+	at com.badlogic.gdx.backends.headless.HeadlessApplication$1.run(HeadlessApplication.java:93)
+Caused by: com.badlogic.gdx.utils.GdxRuntimeException: File not found: items\Items.png (Internal)
+	at com.badlogic.gdx.files.FileHandle.read(FileHandle.java:142)
+	at com.badlogic.gdx.files.FileHandle.readBytes(FileHandle.java:228)
+	at com.badlogic.gdx.graphics.Pixmap.<init>(Pixmap.java:187)
+	... 10 more
+]]></system-err>
 </testsuite>

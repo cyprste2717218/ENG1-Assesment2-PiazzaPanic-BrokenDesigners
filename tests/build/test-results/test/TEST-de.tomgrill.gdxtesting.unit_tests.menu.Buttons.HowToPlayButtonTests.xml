@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.HowToPlayButtonTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-04-29T17:23:41" hostname="DESKTOP-I4ITFE8" time="0.049">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.HowToPlayButtonTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-04-30T00:12:04" hostname="LAPTOP-USS9CV47" time="0.023">
   <properties/>
-  <testcase name="testPerformedTask" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.HowToPlayButtonTests" time="0.017"/>
-  <testcase name="testRenderedAtStart" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.HowToPlayButtonTests" time="0.013"/>
+  <testcase name="testPerformedTask" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.HowToPlayButtonTests" time="0.006"/>
+  <testcase name="testRenderedAtStart" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.HowToPlayButtonTests" time="0.006"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

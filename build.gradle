@@ -12,13 +12,40 @@ repositories {
     google()
 }
 
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'com.github.brokendesigners.DesktopLauncher'
+        )
+    }
+}
+
+
+
+
 jacoco {
     toolVersion = "0.8.7"
 }
 
+def checkstyleVersion = '10.4'
+
+configurations {
+    checkstyleRules
+}
+dependencies {
+    checkstyleRules(
+            "com.puppycrawl.tools:checkstyle:${checkstyleVersion}") {
+        transitive = false
+    }
+}
+
 checkstyle {
-    toolVersion = '8.42'
-    configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
+    toolVersion = "${checkstyleVersion}"
+    configFile = file("tests/builds/reports/checkstyle/checkstyle.xml")
+    // same toolVersion
+    config = resources.text.fromArchiveEntry(
+            configurations.checkstyleRules, 'google_checks.xml')
 }
 
 allprojects {
