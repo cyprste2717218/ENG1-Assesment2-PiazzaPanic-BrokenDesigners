@@ -35,6 +35,7 @@ jobs:
           jacocoTestReport
           checkstyleMain
           checkstyleTest
+          dist
     - name: Check for JAR file
       run: ls -R ./desktop/build/libs/
 
