@@ -141,7 +141,6 @@ public class Player {
 		this.match = match;
 	}
 
-
 	/*
 	* Gets player rectangle, used for calculating collisions and interactions.
 	 */
