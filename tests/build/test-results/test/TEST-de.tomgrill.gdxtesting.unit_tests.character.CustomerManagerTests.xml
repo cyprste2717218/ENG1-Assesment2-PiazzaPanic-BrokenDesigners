@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" tests="7" skipped="0" failures="0" errors="0" timestamp="2023-04-30T12:14:35" hostname="DESKTOP-I4ITFE8" time="0.366">
+  <properties/>
+  <testcase name="testEnd" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.004"/>
+  <testcase name="testEndlessComplete" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.0"/>
+  <testcase name="testGetMeal" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.001"/>
+  <testcase name="testTimeToString" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.0"/>
+  <testcase name="testScenarioComplete" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.001"/>
+  <testcase name="testHandleCustomerPhases" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.262"/>
+  <testcase name="testSpawnCustomers" classname="de.tomgrill.gdxtesting.unit_tests.character.CustomerManagerTests" time="0.004"/>
+  <system-out><![CDATA[1
+2
+3
+4
+5
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

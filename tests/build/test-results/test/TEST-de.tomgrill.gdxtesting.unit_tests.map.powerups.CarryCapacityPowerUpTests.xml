@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.powerups.CarryCapacityPowerUpTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-04-30T12:14:36" hostname="DESKTOP-I4ITFE8" time="0.021">
+  <properties/>
+  <testcase name="testActivateAndDeactivate" classname="de.tomgrill.gdxtesting.unit_tests.map.powerups.CarryCapacityPowerUpTests" time="0.021"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

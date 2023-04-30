@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.SaveTests" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-04-30T12:14:35" hostname="DESKTOP-I4ITFE8" time="0.139">
+  <properties/>
+  <testcase name="testSavedStations" classname="de.tomgrill.gdxtesting.unit_tests.SaveTests" time="0.049"/>
+  <testcase name="testSavedCustomers" classname="de.tomgrill.gdxtesting.unit_tests.SaveTests" time="0.018"/>
+  <testcase name="testSavedChefs" classname="de.tomgrill.gdxtesting.unit_tests.SaveTests" time="0.015"/>
+  <testcase name="testSavedMatch" classname="de.tomgrill.gdxtesting.unit_tests.SaveTests" time="0.02"/>
+  <system-out><![CDATA[[Onion, Potato]
+[Onion, Potato]
+[Onion, Potato]
+[Onion, Potato]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

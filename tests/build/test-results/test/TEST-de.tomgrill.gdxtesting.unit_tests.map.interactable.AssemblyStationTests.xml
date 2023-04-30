@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-04-30T12:14:36" hostname="DESKTOP-I4ITFE8" time="0.027">
+  <properties/>
+  <testcase name="diffOrderCorrectBurgerAssemblyTest" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.019"/>
+  <testcase name="correctSaladAssemblyTest" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.001"/>
+  <testcase name="numberOfItemsTooSmall" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.001"/>
+  <testcase name="diffOrderCorrectSaladAssemblyTest" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.0"/>
+  <testcase name="correctBurgerAssemblyTest" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.001"/>
+  <testcase name="incorrectBurgerAssembly" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.001"/>
+  <system-out><![CDATA[3
+3
+2
+3
+3
+2
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

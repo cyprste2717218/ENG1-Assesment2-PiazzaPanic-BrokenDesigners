@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.interactable.BakingStationTests" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-04-30T12:14:36" hostname="DESKTOP-I4ITFE8" time="0.095">
+  <properties/>
+  <testcase name="testCorrectItem_Pizza" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.BakingStationTests" time="0.061"/>
+  <testcase name="testBurntItem" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.BakingStationTests" time="0.027"/>
+  <testcase name="testIncorrectItem" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.BakingStationTests" time="0.006"/>
+  <testcase name="testCorrectItem_JacketPotato" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.BakingStationTests" time="0.001"/>
+  <system-out><![CDATA[Insufficient Funds
+null
+Incorrect Item
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

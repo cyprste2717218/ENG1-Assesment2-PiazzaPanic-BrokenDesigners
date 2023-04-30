@@ -38,6 +38,11 @@ public class Match {
     private double money;
     private DifficultyLevel difficultyLevel;
 
+    public Match(GameMode scenario) {
+
+    }
+
+
     public GameMode getGameMode() {
         return gameMode;
     }

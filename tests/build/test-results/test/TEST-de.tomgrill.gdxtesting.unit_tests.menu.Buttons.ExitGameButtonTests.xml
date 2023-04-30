@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ExitGameButtonTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-04-30T12:14:37" hostname="DESKTOP-I4ITFE8" time="0.089">
+  <properties/>
+  <testcase name="testPerformedTask" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ExitGameButtonTests" time="0.047"/>
+  <testcase name="testRenderedAtStart" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ExitGameButtonTests" time="0.023"/>
+  <system-out><![CDATA[Exiting Game
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
