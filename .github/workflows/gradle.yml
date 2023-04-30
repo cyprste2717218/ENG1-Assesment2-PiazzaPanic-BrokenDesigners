@@ -33,6 +33,8 @@ jobs:
         arguments: |
           build
           jacocoTestReport
+          checkstyleMain
+          checkstyleTest
           dist
 
 
