@@ -119,3 +119,6 @@ project(":tests") {
         testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     }
 }
+
+
+buildDir = 'output'
