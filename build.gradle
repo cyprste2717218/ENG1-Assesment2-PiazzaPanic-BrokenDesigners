@@ -3,6 +3,7 @@ plugins {
     id 'java-library'
     id 'jacoco'
     id 'checkstyle'
+    id 'application'
 }
 
 repositories {
@@ -11,6 +12,11 @@ repositories {
     gradlePluginPortal()
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     google()
+}
+
+application {
+    mainClassName = 'com.yourcompany.yourgame.desktop.DesktopLauncher'
+    applicationDefaultJvmArgs = ["-Xmx1G"]
 }
 
 jar {
