@@ -3,7 +3,6 @@ plugins {
     id 'java-library'
     id 'jacoco'
     id 'checkstyle'
-    id 'application'
 }
 
 repositories {
@@ -14,10 +13,6 @@ repositories {
     google()
 }
 
-application {
-    mainClassName = 'com.yourcompany.yourgame.desktop.DesktopLauncher'
-    applicationDefaultJvmArgs = ["-Xmx1G"]
-}
 
 jar {
     manifest {
@@ -25,12 +20,8 @@ jar {
                 'Main-Class': 'com.github.brokendesigners.DesktopLauncher'
         )
     }
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-    archiveFileName = 'PiazzaPanic.jar'
-    destinationDirectory = file('build/libs')
 }
+
 
 
 
