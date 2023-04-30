@@ -33,8 +33,6 @@ jobs:
         arguments: |
           build
           jacocoTestReport
-          checkstyleMain
-          checkstyleTest
           dist
 
 
@@ -60,7 +58,7 @@ jobs:
       if: startsWith(matrix.os, 'ubuntu')
       with:
         name: checkstyle-report
-        path: tests/build/reports/checkstyle
+        path: ./build/reports/checkstyle
 
 
 

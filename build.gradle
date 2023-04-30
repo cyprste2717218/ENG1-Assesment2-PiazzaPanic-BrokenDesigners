@@ -43,7 +43,6 @@ dependencies {
 
 checkstyle {
     toolVersion = "${checkstyleVersion}"
-    configFile = file("tests/builds/reports/checkstyle/checkstyle.xml")
     // same toolVersion
     config = resources.text.fromArchiveEntry(
             configurations.checkstyleRules, 'google_checks.xml')
