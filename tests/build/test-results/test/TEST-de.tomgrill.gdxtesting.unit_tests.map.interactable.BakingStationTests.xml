@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.interactable.BakingStationTests" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-04-29T16:45:32" hostname="DESKTOP-I4ITFE8" time="0.092">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.interactable.BakingStationTests" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-04-29T17:23:37" hostname="DESKTOP-I4ITFE8" time="0.072">
   <properties/>
-  <testcase name="testCorrectItem_Pizza" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.BakingStationTests" time="0.06"/>
-  <testcase name="testBurntItem" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.BakingStationTests" time="0.027"/>
-  <testcase name="testIncorrectItem" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.BakingStationTests" time="0.004"/>
-  <testcase name="testCorrectItem_JacketPotato" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.BakingStationTests" time="0.001"/>
+  <testcase name="testCorrectItem_Pizza" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.BakingStationTests" time="0.045"/>
+  <testcase name="testBurntItem" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.BakingStationTests" time="0.022"/>
+  <testcase name="testIncorrectItem" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.BakingStationTests" time="0.003"/>
+  <testcase name="testCorrectItem_JacketPotato" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.BakingStationTests" time="0.002"/>
   <system-out><![CDATA[Insufficient Funds
 null
 Incorrect Item

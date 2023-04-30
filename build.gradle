@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id 'java-library'
     id 'jacoco'
     id 'checkstyle'
 }
@@ -21,8 +20,6 @@ checkstyle {
     toolVersion = '8.42'
     configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
 }
-
-
 
 allprojects {
     apply plugin: "eclipse"

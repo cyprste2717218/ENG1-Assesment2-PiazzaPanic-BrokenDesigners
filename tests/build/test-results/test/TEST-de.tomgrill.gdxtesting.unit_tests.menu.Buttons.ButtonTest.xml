@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ButtonTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-04-29T16:45:33" hostname="DESKTOP-I4ITFE8" time="0.143">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ButtonTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-04-29T17:23:40" hostname="DESKTOP-I4ITFE8" time="0.146">
   <properties/>
-  <testcase name="testIsRendered" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ButtonTest" time="0.09"/>
-  <testcase name="testIsSelected" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ButtonTest" time="0.001"/>
-  <testcase name="testIsHovered" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ButtonTest" time="0.004"/>
-  <testcase name="testRender" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ButtonTest" time="0.002"/>
+  <testcase name="testIsRendered" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ButtonTest" time="0.094"/>
+  <testcase name="testIsSelected" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ButtonTest" time="0.002"/>
+  <testcase name="testIsHovered" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ButtonTest" time="0.003"/>
+  <testcase name="testRender" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.ButtonTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

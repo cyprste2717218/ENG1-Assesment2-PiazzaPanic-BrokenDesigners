@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.KitchenTestUtils" tests="1" skipped="0" failures="1" errors="0" timestamp="2023-04-29T16:45:29" hostname="DESKTOP-I4ITFE8" time="0.001">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.KitchenTestUtils" tests="1" skipped="0" failures="1" errors="0" timestamp="2023-04-29T17:23:33" hostname="DESKTOP-I4ITFE8" time="0.0">
   <properties/>
-  <testcase name="initializationError" classname="de.tomgrill.gdxtesting.unit_tests.map.KitchenTestUtils" time="0.001">
+  <testcase name="initializationError" classname="de.tomgrill.gdxtesting.unit_tests.map.KitchenTestUtils" time="0.0">
     <failure message="org.junit.runners.model.InvalidTestClassError: Invalid test class 'de.tomgrill.gdxtesting.unit_tests.map.KitchenTestUtils':&#10;  1. No runnable methods" type="org.junit.runners.model.InvalidTestClassError">org.junit.runners.model.InvalidTestClassError: Invalid test class 'de.tomgrill.gdxtesting.unit_tests.map.KitchenTestUtils':
   1. No runnable methods
 	at org.junit.runners.ParentRunner.validate(ParentRunner.java:525)

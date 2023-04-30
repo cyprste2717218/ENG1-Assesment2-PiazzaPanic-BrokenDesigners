@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" tests="8" skipped="0" failures="0" errors="0" timestamp="2023-04-29T16:45:33" hostname="DESKTOP-I4ITFE8" time="0.052">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" tests="8" skipped="0" failures="0" errors="0" timestamp="2023-04-29T17:23:38" hostname="DESKTOP-I4ITFE8" time="0.099">
   <properties/>
-  <testcase name="testBaked_JacketPotatoNoTip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.029"/>
+  <testcase name="testBaked_JacketPotatoNoTip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.078"/>
   <testcase name="test10Tip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.003"/>
-  <testcase name="test20Tip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.001"/>
-  <testcase name="test50Tip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.005"/>
-  <testcase name="testPizzaNoTip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.006"/>
-  <testcase name="testBurgerNoTip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.002"/>
+  <testcase name="test20Tip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.002"/>
+  <testcase name="test50Tip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.002"/>
+  <testcase name="testPizzaNoTip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.001"/>
+  <testcase name="testBurgerNoTip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.001"/>
   <testcase name="testInvalidItemNoTip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.001"/>
   <testcase name="testSaladNoTip" classname="de.tomgrill.gdxtesting.unit_tests.match.moneyTests" time="0.002"/>
   <system-out><![CDATA[Not a valid meal name

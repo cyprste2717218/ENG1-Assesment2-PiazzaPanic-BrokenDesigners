@@ -150,7 +150,7 @@ public class CustomerManager {
 		if(TimeUtils.timeSinceMillis(spawningTime) > 10000L){
 			spawningTime = TimeUtils.millis();
 			Random random = new Random();
-			for(int i = 0; i < random.nextInt(1,4); i++){
+			for(int i = 0; i < random.nextInt(3) + 1; i++){
 				if(getCustomerStations() == null || getCustomerStations().isEmpty() || i >= customerStations.size()) continue;
 				CustomerStation station = getCustomerStations().get(random.nextInt(getCustomerStations().size()));
 				if(testing){
