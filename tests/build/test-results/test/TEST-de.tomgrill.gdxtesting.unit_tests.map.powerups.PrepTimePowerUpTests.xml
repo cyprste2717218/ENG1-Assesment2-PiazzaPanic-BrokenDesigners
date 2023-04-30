@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.powerups.PrepTimePowerUpTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-04-29T16:45:33" hostname="DESKTOP-I4ITFE8" time="0.011">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.powerups.PrepTimePowerUpTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-04-30T00:12:03" hostname="LAPTOP-USS9CV47" time="0.003">
   <properties/>
-  <testcase name="testActivateAndDeactivate" classname="de.tomgrill.gdxtesting.unit_tests.map.powerups.PrepTimePowerUpTests" time="0.011"/>
+  <testcase name="testActivateAndDeactivate" classname="de.tomgrill.gdxtesting.unit_tests.map.powerups.PrepTimePowerUpTests" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

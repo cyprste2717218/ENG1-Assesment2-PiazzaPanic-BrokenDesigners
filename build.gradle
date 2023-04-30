@@ -29,9 +29,24 @@ jacoco {
     toolVersion = "0.8.7"
 }
 
+def checkstyleVersion = '10.4'
+
+configurations {
+    checkstyleRules
+}
+dependencies {
+    checkstyleRules(
+            "com.puppycrawl.tools:checkstyle:${checkstyleVersion}") {
+        transitive = false
+    }
+}
+
 checkstyle {
-    toolVersion = '8.42'
+    toolVersion = "${checkstyleVersion}"
     configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
+    // same toolVersion
+    config = resources.text.fromArchiveEntry(
+            configurations.checkstyleRules, 'google_checks.xml')
 }
 
 
