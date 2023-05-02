@@ -2,6 +2,7 @@ package com.github.brokendesigners.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -36,6 +37,7 @@ public class MenuScreen {
 	public int selectedButton; // Which button has been selected?
 	BitmapFont font;
 	public BitmapFont savedGameFont, cannotLoadFont, customerCountFont;
+	Music music;
 
 	private ArrayList<Button> menuButtons = new ArrayList<>(); //A list of all the buttons, which is automatically created in the constructor of Button
 	Button playButton, resumeButton, loadButton, saveButton, showHowToPlayButton, backButton, exitGameButton, quitButton, scenarioModeButton, endlessModeButton, difficultyModeButtonEasy, difficultyModeButtonMedium, difficultyModeButtonHard, customerCountAdderButton, customerCountSubtractorButton;
@@ -72,6 +74,9 @@ public class MenuScreen {
 		customerCountFont.setColor(Color.RED);
 		this.camera = camera;
 		initialiseButtons();
+		music = Gdx.audio.newMusic(Gdx.files.internal("audio/Cooking-Long-Version.mp3"));
+		music.setLooping(true);
+		music.play();
 	}
 
 	public MenuScreen(OrthographicCamera camera, PiazzaPanic panic, boolean testing){

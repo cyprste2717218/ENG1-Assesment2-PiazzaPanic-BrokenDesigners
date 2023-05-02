@@ -158,7 +158,6 @@ public class Player {
 		playerRectangle.y = worldPosition.y;
 		interactingPlayerRectangle.x = worldPosition.x;
 		interactingPlayerRectangle.y = worldPosition.y;
-
 	}
 	/*
 	* returns worldPosition
@@ -375,7 +374,6 @@ public class Player {
 						return player;
 					}
 				}
-
 			}
 		}
 		return null;
