@@ -26,7 +26,7 @@ public class CookingStation extends Station implements IFailable {
 
     public boolean needsInput;
     private Match match;
-    public Bubble cookingBubble, attentionBubble;
+    public Bubble cookingBubble, attentionBubble, flippingBubble;
 
     public CookingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer, boolean locked, Match match){
         super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Cooking_Station");
@@ -35,17 +35,21 @@ public class CookingStation extends Station implements IFailable {
                 Animations.gearAnimation);
         this.attentionBubble = new ActionBubble(bubbleRenderer, new Vector2(handPosition.x - 8f * Constants.UNIT_SCALE, handPosition.y),
                 Animations.attentionAnimation);
+        this.flippingBubble = new ActionBubble(bubbleRenderer, new Vector2(handPosition.x - 8f * Constants.UNIT_SCALE, handPosition.y),
+                Animations.flippingAnimation);
         this.locked = locked;
         stationUseTime = 4f;
         canBurn = false;
         needsInput = false;
         this.match = match;
+        flippingBubble.setVisible(false);
     }
     public CookingStation(Bubble fakeBubble){
         this.station_name = "Cooking_Station";
         this.hand = null;
         canBurn = true;
         this.attentionBubble = fakeBubble;
+        this.flippingBubble = fakeBubble;
     }
 
     //A task which burns the food when run, and resets the features of the station to do with burning
@@ -70,6 +74,7 @@ public class CookingStation extends Station implements IFailable {
         if(hand == null){
             canBurn = false;
             attentionBubble.setVisible(false);
+            flippingBubble.setVisible(false);
             burnFood.cancel();
         }
         if(!canBurn) return;
@@ -123,7 +128,8 @@ public class CookingStation extends Station implements IFailable {
             public void run() {
                 needsInput = true;
                 cookingBubble.setVisible(false);
-                attentionBubble.setVisible(true);
+                attentionBubble.setVisible(false);
+                flippingBubble.setVisible(true);
             }
         }, getAdjustedStationUseTime()/2f);
 
@@ -144,7 +150,7 @@ public class CookingStation extends Station implements IFailable {
         //If the station requires input, this checks to see if that requirement is met
         if(needsInput && Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
             needsInput = false;
-            attentionBubble.setVisible(false);
+            flippingBubble.setVisible(false);
             cookingBubble.setVisible(true);
         }
     }
@@ -192,6 +198,7 @@ public class CookingStation extends Station implements IFailable {
         inuse = false;
         needsInput = false;
         attentionBubble.setVisible(false);
+        flippingBubble.setVisible(false);
     }
     public String[] getCookables() {
         return Cookables;

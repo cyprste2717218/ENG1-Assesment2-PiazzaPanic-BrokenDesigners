@@ -1,5 +1,6 @@
 package com.github.brokendesigners.textures;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Disposable;
 /*
@@ -12,6 +13,9 @@ import com.badlogic.gdx.utils.Disposable;
 public class Atlases {
 	public static TextureAtlas gearImages = new TextureAtlas("indicators/gear/gear.atlas");
 	// Frames for gear animation
+
+	public static TextureAtlas flippingImages = new TextureAtlas("indicators/flipping/flipping.atlas");
+	//Frames for flipping animation
 
 	public static TextureAtlas countdownImages = new TextureAtlas("indicators/countdown/countdown.atlas");
 	// Frames for countdown animation
@@ -34,6 +38,9 @@ public class Atlases {
 
 	public static void dispose(){
 		gearImages.dispose();
+		flippingImages.dispose();
+		countdownImages.dispose();
+		attentionImages.dispose();
 		bluggusTextures.dispose();
 		glibbertTextures.dispose();
 		glibbertTextures2.dispose();
