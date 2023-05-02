@@ -57,7 +57,7 @@ jobs:
       if: startsWith(matrix.os, 'ubuntu')
       with:
         name: checkstyle-report
-        path: ./build/reports/checkstyle
+        path: desktop/build/reports/checkstyle
 
 
 
