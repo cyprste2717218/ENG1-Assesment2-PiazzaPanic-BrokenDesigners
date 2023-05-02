@@ -7,7 +7,7 @@ public class Baked_Pizza extends Item{
     public Texture texture = new Texture("items/pizza_baked.png");
 
     public Baked_Pizza() {
-        super("Baked_Pizza",30);
+        super("Baked_Pizza");
     }
 
     @Override

@@ -109,6 +109,7 @@ public class AssemblyStation extends Station{
         this.hand.drop();
 
     }
+
     /**
      * Method to store an item in the Assembly Station.
      * @param x The item to be stored.
@@ -230,11 +231,14 @@ public class AssemblyStation extends Station{
         return null;
     }
 
+
     /**
      * Method to construct an item from the list of items held in the hand.
      * @param product The item to be constructed.
      */
-    public void Construct(Item product)
+
+    //Construct Product
+    private void Construct(Item product)
     {
         if(product != null) //Delete ingredients and leave Product only waiting to go to stack.
         {

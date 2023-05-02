@@ -72,7 +72,7 @@ public class moneyTests {
         long newStartTime = TimeUtils.millis()-45000L;
         Match match = new Match(GameMode.SCENARIO,3, 0, 0, 0, DifficultyLevel.EASY,1);
         match.hasMoneyPower = false;
-        match.addMoney("Pizza", newStartTime, 60L);
+        match.addMoney("Baked_Pizza", newStartTime, 60L);
         assertEquals("15.00", match.getMoney());
     }
     @Test

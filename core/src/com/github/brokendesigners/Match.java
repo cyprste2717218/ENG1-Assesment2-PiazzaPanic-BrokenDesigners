@@ -11,7 +11,6 @@ public class Match {
 
     public Match(GameMode gameMode, DifficultyLevel difficultyLevel, int customerNumber){
         this.gameMode = gameMode;
-        //TODO: Revert to 0
         money = 0.00;
         reputationPoints = 3;
         customersServed = 0;
@@ -37,11 +36,6 @@ public class Match {
     private int customersSoFar;
     private double money;
     private DifficultyLevel difficultyLevel;
-
-    public Match(GameMode scenario) {
-
-    }
-
 
     public GameMode getGameMode() {
         return gameMode;
@@ -106,7 +100,7 @@ public class Match {
             case "Burger":
                 orderTotal = 12;
                 break;
-            case "Pizza":
+            case "Baked_Pizza":
                 orderTotal = 15;
                 break;
             case "Baked_JacketPotato":

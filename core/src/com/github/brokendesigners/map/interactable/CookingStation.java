@@ -66,6 +66,13 @@ public class CookingStation extends Station implements IFailable {
         }
     };
 
+    public Task showBurning = new Task() {
+        @Override
+        public void run() {
+            attentionBubble.setVisible(true);
+        }
+    };
+
     public CookingStation() {
         stationUseTime = 4f;
     }
@@ -81,17 +88,13 @@ public class CookingStation extends Station implements IFailable {
             attentionBubble.setVisible(false);
             flippingBubble.setVisible(false);
             burnFood.cancel();
+            showBurning.cancel();
         }
         if(!canBurn) return;
         final Timer timer = new Timer();
         if(!burnFood.isScheduled()){
             //Make the attention bubble visible 2 after 2 seconds of the food being left on the station
-            timer.scheduleTask(new Task() {
-                @Override
-                public void run() {
-                    attentionBubble.setVisible(true);
-                }
-            }, 2f);
+            timer.scheduleTask(showBurning, 2f);
             //5 seconds after the attention bubble is shown, the food is scheduled to burn
             timer.scheduleTask(burnFood, 7f);
         }
@@ -119,6 +122,7 @@ public class CookingStation extends Station implements IFailable {
             player.disableMovement();
             player.hand.disable_hand_ability();
             cookingBubble.setVisible(true);
+            attentionBubble.setVisible(false);
             //If the food item does not require flipping, the cooking process succeeds, otherwise the flipping is done inside the requiresFlipping() function
             if (!requiresFlipping(player)){
                 finishSuccessfulOperation(player, getAdjustedStationUseTime());

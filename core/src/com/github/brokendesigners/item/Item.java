@@ -15,7 +15,7 @@ public abstract class Item implements Disposable {
 	public String name;
 	public Boolean Cooking;
 	public Boolean Baking;
-	private int reward;
+  
 	/**
 	 * Constructs an item with the specified name and default cooking and baking statuses.
 	 * @param n The name of the item.
@@ -24,19 +24,6 @@ public abstract class Item implements Disposable {
 		this.name = n;
 		this.Cooking = false;
 		this.Baking = false;
-
-		reward = 0;
-	}
-	/**
-	 * Constructs an item with the specified name and reward, and default cooking status.
-	 * @param n The name of the item.
-	 * @param reward The reward of the item.
-	 */
-	public Item(String n, int reward){
-		this.name = n;
-		this.Cooking = false;
-		this.reward = reward;
-
 	}
 	/**
 	 * Returns the texture of the item.

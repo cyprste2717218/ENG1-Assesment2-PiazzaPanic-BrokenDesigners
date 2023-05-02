@@ -25,11 +25,11 @@ public class CustomerWaitTimePowerUpTests {
         CustomerManager customerManager = customerWaitTimePowerUp.getCustomerManager();
         Customer customer = CustomerTestingUtils.createTestCustomer();
         customerManager.getCustomers().add(customer);
-        assertTrue(customer.getCustomerWaitTime() == 60000L);
+        assertTrue(customer.getCustomerWaitTime() == 90000L);
         customerWaitTimePowerUp.activate();
-        assertTrue(customer.getCustomerWaitTime() == 70000L);
+        assertTrue(customer.getCustomerWaitTime() == 100000L);
         customerWaitTimePowerUp.activate();
-        assertTrue(customer.getCustomerWaitTime() == 80000L);
+        assertTrue(customer.getCustomerWaitTime() == 110000);
     }
 
     private CustomerWaitTimePowerUp createCustomerWaitTimePowerup(){
