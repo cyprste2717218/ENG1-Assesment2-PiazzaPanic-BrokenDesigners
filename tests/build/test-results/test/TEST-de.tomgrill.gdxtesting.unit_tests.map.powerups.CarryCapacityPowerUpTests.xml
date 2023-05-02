@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.powerups.CarryCapacityPowerUpTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-05-02T13:29:29" hostname="BENS-LAPTOP" time="0.014">
-  <properties/>
-  <testcase name="testActivateAndDeactivate" classname="de.tomgrill.gdxtesting.unit_tests.map.powerups.CarryCapacityPowerUpTests" time="0.014"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

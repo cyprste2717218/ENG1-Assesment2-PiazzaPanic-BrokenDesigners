@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.MainGameTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-05-02T13:29:28" hostname="BENS-LAPTOP" time="0.089">
-  <properties/>
-  <testcase name="testSetSelectedPlayer" classname="de.tomgrill.gdxtesting.unit_tests.MainGameTests" time="0.055"/>
-  <testcase name="testInitialisePlayers" classname="de.tomgrill.gdxtesting.unit_tests.MainGameTests" time="0.015"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
