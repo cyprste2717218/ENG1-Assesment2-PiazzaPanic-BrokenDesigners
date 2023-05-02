@@ -13,14 +13,12 @@ public class DispenserStation extends Station {
 
 	protected final Item dispenserItem;
 
-
-	public DispenserStation(Rectangle interactionArea, Item dispenserItem) {
-		super(interactionArea,"dispenser_station");
-		this.dispenserItem = dispenserItem;
-	}
-
 	public DispenserStation(Vector2 worldPosition, float width, float height, Item dispenserItem){
 		super(new Rectangle(worldPosition.x, worldPosition.y, width, height),"dispenser_station");
+		this.dispenserItem = dispenserItem;
+	}
+	public DispenserStation(Item dispenserItem)	{
+		this.station_name = "dispenser_station";
 		this.dispenserItem = dispenserItem;
 	}
 
@@ -32,6 +30,8 @@ public class DispenserStation extends Station {
 			return false;
 		}
 		player.hand.give(dispenserItem);
+		System.out.println("HAND==="+player.hand.getHeldItems());
+
 		pick_up.play();
 
 		return true;
