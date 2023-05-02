@@ -10,6 +10,9 @@ public class Animations {
 	public static Animation<TextureRegion> cuttingAnimation =
 		new Animation<TextureRegion>(0.15f, Atlases.cuttingTextures.findRegions("knife"), PlayMode.LOOP);
 
+	public static Animation<TextureRegion> flippingAnimation =
+			new Animation<TextureRegion>(0.15f, Atlases.flippingImages.findRegions("pan"), PlayMode.LOOP);
+
 	public static Animation<TextureRegion> pattyFormingAnimation =
 		new Animation<TextureRegion>(0.15f, Atlases.pattyTextures.findRegions("meat"), PlayMode.LOOP);
 
