@@ -57,7 +57,7 @@ jobs:
       if: startsWith(matrix.os, 'ubuntu')
       with:
         name: main-checkstyle-report
-        path: desktop/build/reports/checkstyle
+        path: core/build/reports/checkstyle
 
     - name: Upload test Checkstyle report
       uses: actions/upload-artifact@v3.1.1
