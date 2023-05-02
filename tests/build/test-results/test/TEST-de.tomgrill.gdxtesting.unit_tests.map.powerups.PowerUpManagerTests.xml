@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.powerups.PowerUpManagerTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-05-02T12:14:24" hostname="BENSPC" time="0.061">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.powerups.PowerUpManagerTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-05-02T13:29:29" hostname="BENS-LAPTOP" time="0.145">
   <properties/>
-  <testcase name="testHandlePowerUps" classname="de.tomgrill.gdxtesting.unit_tests.map.powerups.PowerUpManagerTests" time="0.04"/>
-  <testcase name="testSpawnPowerUp" classname="de.tomgrill.gdxtesting.unit_tests.map.powerups.PowerUpManagerTests" time="0.003"/>
+  <testcase name="testHandlePowerUps" classname="de.tomgrill.gdxtesting.unit_tests.map.powerups.PowerUpManagerTests" time="0.122"/>
+  <testcase name="testSpawnPowerUp" classname="de.tomgrill.gdxtesting.unit_tests.map.powerups.PowerUpManagerTests" time="0.004"/>
   <system-out><![CDATA[PowerUp used
 ]]></system-out>
   <system-err><![CDATA[Exception in thread "HeadlessApplication" com.badlogic.gdx.utils.GdxRuntimeException: Couldn't load file: items/Money.png

@@ -1,26 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.BackButtonTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-05-02T12:14:25" hostname="BENSPC" time="0.043">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.BackButtonTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-05-02T13:29:29" hostname="BENS-LAPTOP" time="0.075">
   <properties/>
-  <testcase name="testPerformedTask" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.BackButtonTests" time="0.019"/>
-  <testcase name="testRenderedAtStart" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.BackButtonTests" time="0.007"/>
+  <testcase name="testPerformedTask" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.BackButtonTests" time="0.043"/>
+  <testcase name="testRenderedAtStart" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.BackButtonTests" time="0.014"/>
   <system-out><![CDATA[Returning to main menu
 ]]></system-out>
-  <system-err><![CDATA[Exception in thread "HeadlessApplication" com.badlogic.gdx.utils.GdxRuntimeException: Couldn't load file: items/Money.png
-	at com.badlogic.gdx.graphics.Pixmap.<init>(Pixmap.java:190)
-	at com.badlogic.gdx.graphics.TextureData$Factory.loadFromFile(TextureData.java:101)
-	at com.badlogic.gdx.graphics.Texture.<init>(Texture.java:122)
-	at com.badlogic.gdx.graphics.Texture.<init>(Texture.java:114)
-	at com.github.brokendesigners.map.powerups.DoubleMoneyPowerUp.<init>(DoubleMoneyPowerUp.java:16)
-	at com.github.brokendesigners.map.powerups.PowerUpManager.spawnRandomPowerUp(PowerUpManager.java:72)
-	at com.github.brokendesigners.map.powerups.PowerUpManager.access$000(PowerUpManager.java:15)
-	at com.github.brokendesigners.map.powerups.PowerUpManager$1.run(PowerUpManager.java:47)
-	at com.badlogic.gdx.backends.headless.HeadlessApplication.executeRunnables(HeadlessApplication.java:154)
-	at com.badlogic.gdx.backends.headless.HeadlessApplication.mainLoop(HeadlessApplication.java:126)
-	at com.badlogic.gdx.backends.headless.HeadlessApplication$1.run(HeadlessApplication.java:93)
-Caused by: com.badlogic.gdx.utils.GdxRuntimeException: File not found: items\Money.png (Internal)
-	at com.badlogic.gdx.files.FileHandle.read(FileHandle.java:142)
-	at com.badlogic.gdx.files.FileHandle.readBytes(FileHandle.java:228)
-	at com.badlogic.gdx.graphics.Pixmap.<init>(Pixmap.java:187)
-	... 10 more
-]]></system-err>
+  <system-err><![CDATA[]]></system-err>
 </testsuite>
