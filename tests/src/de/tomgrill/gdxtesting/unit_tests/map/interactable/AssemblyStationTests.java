@@ -75,12 +75,7 @@ public class AssemblyStationTests {
         Item generatedItem = fakeAssembly.TestingForFood(actualBurger, wrongBurgerTest,"Burger");
         assertEquals(generatedItem, null);
     }
-    /*
-    Test doesn't pass as TestingForFood function doesn't handle arrays larger than 3.
-    However, when playing the game, it isn't actually possible to place more than 3
-    Items onto the assembly station
-    */
-    /*
+
     @Test
     public void numberOfItemsTooLarge()    {
         Item Salad = Mockito.mock(Item.class);
@@ -94,7 +89,7 @@ public class AssemblyStationTests {
         assertEquals(generatedItem.name, null);
     }
 
-     */
+
     @Test
     public void numberOfItemsTooSmall()    {
         Item Salad = Mockito.mock(Item.class);

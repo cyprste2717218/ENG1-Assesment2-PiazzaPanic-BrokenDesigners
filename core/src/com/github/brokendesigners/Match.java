@@ -11,7 +11,6 @@ public class Match {
 
     public Match(GameMode gameMode, DifficultyLevel difficultyLevel, int customerNumber){
         this.gameMode = gameMode;
-        //TODO: Revert to 0
         money = 0.00;
         reputationPoints = 3;
         customersServed = 0;

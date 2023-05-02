@@ -93,31 +93,7 @@ public class AssemblyStation extends Station{
         this.hand.drop();
 
     }
-/*
-    @Override
-    public boolean pickUp(Player player){
-        if (this.hasEmptyHand() || player.hand.isFull()){
-            return false;
-        } else {
-            player.hand.give(pickup()); //Special form of pickup
-            this.dumpHand();
-            return true;
-        }
-    } */
 
-    //set item position
-    public void StoreItem(Item x)
-    {
-        this.items[this.Counter] = x;
-        if(this.Counter == 2) //To get correct spare position
-        {
-            this.Counter = 0;
-        }
-        else
-        {
-            this.Counter = this.Counter + 1;
-        }
-    }
     private int Compare(String A, String B)
     {
         if(A.compareTo(B)==0)
@@ -205,7 +181,7 @@ public class AssemblyStation extends Station{
     }
 
     //Construct Product
-    public void Construct(Item product)
+    private void Construct(Item product)
     {
         if(product != null) //Delete ingredients and leave Product only waiting to go to stack.
         {
