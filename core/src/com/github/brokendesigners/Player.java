@@ -215,7 +215,7 @@ public class Player {
 	* ^^ If a players position + their movement speed is inside an object, their position still needs to change,
 	* so we set the players position to where they are making contact with the object they're colliding with.
 	 */
-	public boolean moveUp(ArrayList<KitchenCollisionObject> objects){
+	private boolean moveUp(ArrayList<KitchenCollisionObject> objects){
 		this.playerRectangle.y += (getMovementSpeed());
 		for (KitchenCollisionObject object : objects){
 			if(Intersector.overlaps(object.getRectangle(), this.getPlayerRectangle())){
@@ -231,7 +231,7 @@ public class Player {
 		return true;
 
 	}
-	public boolean moveDown(ArrayList<KitchenCollisionObject> objects){
+	private boolean moveDown(ArrayList<KitchenCollisionObject> objects){
 		this.playerRectangle.y -= (getMovementSpeed());
 		for (KitchenCollisionObject object : objects){
 			if(Intersector.overlaps(object.getRectangle(), this.getPlayerRectangle())){
@@ -244,7 +244,7 @@ public class Player {
 		return true;
 
 	}
-	public boolean moveRight(ArrayList<KitchenCollisionObject> objects){
+	private boolean moveRight(ArrayList<KitchenCollisionObject> objects){
 		this.playerRectangle.x += (getMovementSpeed());
 		for (KitchenCollisionObject object : objects){
 			if(Intersector.overlaps(object.getRectangle(), this.getPlayerRectangle())){
@@ -258,7 +258,7 @@ public class Player {
 		return true;
 
 	}
-	public boolean moveLeft(ArrayList<KitchenCollisionObject> objects){
+	private boolean moveLeft(ArrayList<KitchenCollisionObject> objects){
 		this.playerRectangle.x -= (getMovementSpeed());
 		for (KitchenCollisionObject object : objects){
 			if(Intersector.overlaps(object.getRectangle(), this.getPlayerRectangle())){
@@ -340,9 +340,6 @@ public class Player {
 		interactingStation.action(this);
 		return true;
 	}
-	public boolean isLocked()	{
-		return locked;
-	}
 	public void lockPlayer()	{
 		this.locked = true;
 		this.disableMovement();
@@ -364,7 +361,7 @@ public class Player {
 		spriteBatch.end();
 	}
 	// A function to find the player that is being interacted with
-	public Player getInteractingPlayer(ArrayList<Player> lockedPlayerList)	{
+	private Player getInteractingPlayer(ArrayList<Player> lockedPlayerList)	{
 		if (this.isSelected())	{
 			for (Player player : lockedPlayerList)	{
 				if (this != player)	{
@@ -384,7 +381,6 @@ public class Player {
 		if (interactingPlayer.locked && this.match.getIntMoney() >= 10)	{
 				interactingPlayer.unlockPlayer();
 		}
-
 		return interactingPlayer;
 	}
 
@@ -448,5 +444,9 @@ public class Player {
 	}
 	public Item getTopOfHand()	{
 		return hand.heldItems.get(0);
+	}
+
+	public boolean isLocked()	{
+		return locked;
 	}
 }
