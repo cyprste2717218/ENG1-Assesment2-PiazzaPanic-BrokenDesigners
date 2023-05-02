@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-05-01T12:02:31" hostname="BENSPC" time="0.007">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-05-02T12:14:24" hostname="BENSPC" time="0.006">
   <properties/>
-  <testcase name="diffOrderCorrectBurgerAssemblyTest" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.006"/>
+  <testcase name="diffOrderCorrectBurgerAssemblyTest" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.005"/>
   <testcase name="correctSaladAssemblyTest" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.0"/>
-  <testcase name="numberOfItemsTooSmall" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.0"/>
+  <testcase name="numberOfItemsTooSmall" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.001"/>
   <testcase name="diffOrderCorrectSaladAssemblyTest" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.0"/>
-  <testcase name="correctBurgerAssemblyTest" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.001"/>
+  <testcase name="correctBurgerAssemblyTest" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.0"/>
   <testcase name="incorrectBurgerAssembly" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.AssemblyStationTests" time="0.0"/>
   <system-out><![CDATA[3
 3

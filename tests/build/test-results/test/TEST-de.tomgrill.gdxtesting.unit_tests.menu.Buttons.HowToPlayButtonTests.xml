@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.HowToPlayButtonTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-05-01T12:02:32" hostname="BENSPC" time="0.023">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.HowToPlayButtonTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-05-02T12:14:25" hostname="BENSPC" time="0.073">
   <properties/>
-  <testcase name="testPerformedTask" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.HowToPlayButtonTests" time="0.007"/>
-  <testcase name="testRenderedAtStart" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.HowToPlayButtonTests" time="0.006"/>
+  <testcase name="testPerformedTask" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.HowToPlayButtonTests" time="0.043"/>
+  <testcase name="testRenderedAtStart" classname="de.tomgrill.gdxtesting.unit_tests.menu.Buttons.HowToPlayButtonTests" time="0.012"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

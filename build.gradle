@@ -110,20 +110,18 @@ project(":tests") {
     }
 }
 
-def checkstyleVersion = '8.16'
+def checkstyleVersion = '10.10.0'
 
 configurations {
     checkstyleRules
 }
+
 dependencies {
-    checkstyleRules(
-            "com.puppycrawl.tools:checkstyle:${checkstyleVersion}") {
-        transitive = false
-    }
+    checkstyleRules "com.puppycrawl.tools:checkstyle:${checkstyleVersion}"
 }
 
 checkstyle {
-    toolVersion = "${checkstyleVersion}"
+    toolVersion = checkstyleVersion
     configFile file("$rootProject.projectDir/config/checkstyle/checkstyle.xml")
-    reportsDir = file("build/reports/checkstyle")
+
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.interactable.CookingStationTests" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-05-01T12:02:31" hostname="BENSPC" time="0.002">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.interactable.CookingStationTests" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-05-02T12:14:24" hostname="BENSPC" time="0.003">
   <properties/>
-  <testcase name="testCorrectItem_Patty" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.CookingStationTests" time="0.0"/>
-  <testcase name="testBurntItem" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.CookingStationTests" time="0.001"/>
+  <testcase name="testCorrectItem_Patty" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.CookingStationTests" time="0.001"/>
+  <testcase name="testBurntItem" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.CookingStationTests" time="0.0"/>
   <testcase name="testIncorrectItem" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.CookingStationTests" time="0.0"/>
-  <testcase name="testCorrectItem_Bun" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.CookingStationTests" time="0.0"/>
-  <testcase name="testCorrectItem_Tomato" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.CookingStationTests" time="0.001"/>
+  <testcase name="testCorrectItem_Bun" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.CookingStationTests" time="0.001"/>
+  <testcase name="testCorrectItem_Tomato" classname="de.tomgrill.gdxtesting.unit_tests.map.interactable.CookingStationTests" time="0.0"/>
   <system-out><![CDATA[Insufficient Funds
 Incorrect Item
 ]]></system-out>

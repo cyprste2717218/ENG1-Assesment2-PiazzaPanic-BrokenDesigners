@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.powerups.PrepTimePowerUpTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-05-01T12:02:32" hostname="BENSPC" time="0.004">
+<testsuite name="de.tomgrill.gdxtesting.unit_tests.map.powerups.PrepTimePowerUpTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-05-02T12:14:25" hostname="BENSPC" time="0.004">
   <properties/>
   <testcase name="testActivateAndDeactivate" classname="de.tomgrill.gdxtesting.unit_tests.map.powerups.PrepTimePowerUpTests" time="0.004"/>
   <system-out><![CDATA[]]></system-out>

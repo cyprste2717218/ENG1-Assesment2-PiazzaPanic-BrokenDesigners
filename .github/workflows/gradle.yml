@@ -52,9 +52,6 @@ jobs:
         path: desktop/build/libs/desktop-1.0.jar
 
 
-
-
-
     - name: Upload Checkstyle report
       uses: actions/upload-artifact@v3.1.1
       if: startsWith(matrix.os, 'ubuntu')
