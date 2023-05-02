@@ -449,4 +449,10 @@ public class Player {
 	public boolean isLocked()	{
 		return locked;
 	}
+	public void setPlayerRectangle(Rectangle rectangle)	{
+		playerRectangle = rectangle;
+	}
+	public void setMatch(Match match)	{
+		this.match = match;
+	}
 }

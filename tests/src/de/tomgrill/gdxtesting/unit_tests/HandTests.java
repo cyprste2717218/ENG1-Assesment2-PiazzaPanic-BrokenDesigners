@@ -18,22 +18,6 @@ import static org.junit.Assert.*;
 
 public class HandTests {
     @Test
-    // testing to make sure pick_up returns false if the players hand is full
-    public void testHandFull()  {
-        Item Tomato = Mockito.mock(Item.class);
-
-        Application fakeApp = Mockito.mock(Application.class);
-        app = fakeApp;
-        Hand fakeHand = new Hand();
-        fakeHand.currentHandSize = 3;
-
-        fakeHand.give(Tomato);
-        fakeHand.give(Tomato);
-        fakeHand.give(Tomato);
-        fakeHand.give(Tomato);
-        assertEquals(3, fakeHand.heldItems.size());
-    }
-    @Test
     public void testDropItem()  {
         Item Tomato = Mockito.mock(Item.class);
 

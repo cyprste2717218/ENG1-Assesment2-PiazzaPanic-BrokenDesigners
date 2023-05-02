@@ -180,6 +180,8 @@ public abstract class Station {
 		failure.dispose();
 		unlockFX.dispose();
 	}
-
+	public void setInteractionArea(Rectangle rectangle)	{
+		interactionArea = rectangle;
+	}
 
 }
