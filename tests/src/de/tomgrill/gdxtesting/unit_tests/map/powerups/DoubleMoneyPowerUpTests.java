@@ -26,12 +26,12 @@ public class DoubleMoneyPowerUpTests {
         assertFalse(match.hasMoneyPower);
         doubleMoneyPowerUp.activate();
         assertTrue(match.hasMoneyPower);
-        match.addMoney("Pizza", 0,0);
+        match.addMoney("Baked_Pizza", 0,0);
         assertTrue(match.getMoneyDouble() == 30);
         match.subtractMoney(30);
         doubleMoneyPowerUp.deactivate();
         assertFalse(match.hasMoneyPower);
-        match.addMoney("Pizza", 0,0);
+        match.addMoney("Baked_Pizza", 0,0);
         assertTrue(match.getMoneyDouble() == 15);
     }
 

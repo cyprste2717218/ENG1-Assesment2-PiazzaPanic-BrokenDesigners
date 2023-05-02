@@ -37,11 +37,6 @@ public class Match {
     private double money;
     private DifficultyLevel difficultyLevel;
 
-    public Match(GameMode scenario) {
-
-    }
-
-
     public GameMode getGameMode() {
         return gameMode;
     }
@@ -96,7 +91,7 @@ public class Match {
             case "Burger":
                 orderTotal = 12;
                 break;
-            case "Pizza":
+            case "Baked_Pizza":
                 orderTotal = 15;
                 break;
             case "Baked_JacketPotato":
