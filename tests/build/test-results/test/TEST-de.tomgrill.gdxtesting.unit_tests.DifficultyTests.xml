@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.unit_tests.DifficultyTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-04-30T12:14:34" hostname="DESKTOP-I4ITFE8" time="0.871">
-  <properties/>
-  <testcase name="checkEasyAdjustedTimes" classname="de.tomgrill.gdxtesting.unit_tests.DifficultyTests" time="0.806"/>
-  <testcase name="checkHardAdjustedTimes" classname="de.tomgrill.gdxtesting.unit_tests.DifficultyTests" time="0.02"/>
-  <testcase name="checkMediumAdjustedTimes" classname="de.tomgrill.gdxtesting.unit_tests.DifficultyTests" time="0.025"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

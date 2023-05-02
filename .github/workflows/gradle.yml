@@ -2,7 +2,7 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "checkstyleFixing" ]
     tags: [ "v[0-9]+.[0-9]+.[0-9]+" ]
   pull_request:
     branches: [ "main" ]
@@ -52,16 +52,19 @@ jobs:
         path: desktop/build/libs/desktop-1.0.jar
 
 
-
-
-
-    - name: Upload Checkstyle report
+    - name: Upload Main Checkstyle report
       uses: actions/upload-artifact@v3.1.1
       if: startsWith(matrix.os, 'ubuntu')
       with:
-        name: checkstyle-report
-        path: ./build/reports/checkstyle
+        name: main-checkstyle-report
+        path: core/build/reports/checkstyle
 
+    - name: Upload test Checkstyle report
+      uses: actions/upload-artifact@v3.1.1
+      if: startsWith(matrix.os, 'ubuntu')
+      with:
+        name: test-checkstyle-report
+        path: tests/build/reports/checkstyle
 
 
 

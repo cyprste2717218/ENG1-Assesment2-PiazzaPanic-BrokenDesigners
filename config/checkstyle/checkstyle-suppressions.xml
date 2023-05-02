@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!--
+    This does nothing but acts as an empty file to satisfy
+    a call to this name in checkstyle.xml
+-->
+<suppressions>
+    <suppress files="/generated/" checks="\w+"/>
+    <suppress files="/test/" checks="\w+"/>
+</suppressions>

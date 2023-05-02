@@ -3,6 +3,18 @@ plugins {
     id 'jacoco'
     id 'checkstyle'
 }
+sourceSets {
+    main {
+        java {
+            srcDirs = ['core/src/main/java']
+        }
+    }
+    test {
+        java {
+            srcDirs = ['src/test/java']
+        }
+    }
+}
 
 repositories {
     mavenLocal()
@@ -29,26 +41,11 @@ jacoco {
     toolVersion = "0.8.7"
 }
 
-def checkstyleVersion = '10.4'
 
-configurations {
-    checkstyleRules
-}
-dependencies {
-    checkstyleRules(
-            "com.puppycrawl.tools:checkstyle:${checkstyleVersion}") {
-        transitive = false
-    }
-}
-
-checkstyle {
-    toolVersion = "${checkstyleVersion}"
-    config = resources.text.fromArchiveEntry(
-            configurations.checkstyleRules, 'google_checks.xml')
-}
 
 allprojects {
     apply plugin: "eclipse"
+    apply plugin: 'checkstyle'
 
     version = '1.0'
     ext {
@@ -121,4 +118,20 @@ project(":tests") {
         testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
         testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     }
+}
+
+def checkstyleVersion = '10.10.0'
+
+configurations {
+    checkstyleRules
+}
+
+dependencies {
+    checkstyleRules "com.puppycrawl.tools:checkstyle:${checkstyleVersion}"
+}
+
+checkstyle {
+    toolVersion = checkstyleVersion
+    configFile file("$rootProject.projectDir/config/checkstyle/checkstyle.xml")
+
 }
