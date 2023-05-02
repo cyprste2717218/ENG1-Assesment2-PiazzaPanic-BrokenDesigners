@@ -173,8 +173,8 @@ public class MenuScreen {
 		}
 		else if(howToScreen) {
 			Texture power = MenuTextures.powerupsTut;
-			batch.draw(MenuTextures.how_to_play, 0, Gdx.graphics.getHeight()/2 - 355, 700, 720);
-			batch.draw(power, Gdx.graphics.getWidth()-570, Gdx.graphics.getHeight()/2 - 275, power.getWidth()*2, power.getHeight()*2);
+			batch.draw(MenuTextures.how_to_play, 0, 195, 700, 720);
+			batch.draw(power, 1030, 275, power.getWidth()*2, power.getHeight()*2);
 			selectedButton = 5;
 			setDisplayedButtons(backButton);
 		}
