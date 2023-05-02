@@ -18,7 +18,18 @@ public class BakingStation extends Station implements IFailable {
     Bubble bakingBubble, attentionBubble;
     boolean canBurn;
     Match match;
-
+    /**
+     * Constructor for BakingStation class
+     *
+     * @param objectPosition The position of the baking station
+     * @param width The width of the baking station
+     * @param height The height of the baking station
+     * @param handX The x-position of the hand
+     * @param handY The y-position of the hand
+     * @param bubbleRenderer The bubble renderer to use
+     * @param locked Whether the station is locked or not
+     * @param match The current match
+     */
     public BakingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer, boolean locked, Match match){
         super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Baking_Station");
         this.handPosition = new Vector2(handX, handY);
@@ -31,6 +42,11 @@ public class BakingStation extends Station implements IFailable {
         canBurn = false;
         this.match = match;
     }
+    /**
+     * Constructor for BakingStation class that takes a fake bubble
+     *
+     * @param fakeBubble The fake bubble to use
+     */
     public BakingStation(Bubble fakeBubble)    {
         this.station_name = "Baking_Station";
         this.hand = null;
@@ -39,9 +55,9 @@ public class BakingStation extends Station implements IFailable {
 
 
     }
-
-
-    //Burns the food if required
+    /**
+     * Burns the food if required
+     */
     public Timer.Task burnFood = new Timer.Task() {
 
         @Override
@@ -57,7 +73,12 @@ public class BakingStation extends Station implements IFailable {
     public BakingStation() {
         stationUseTime = 4f;
     }
-
+    /**
+     * Performs the action of using the baking station
+     *
+     * @param player The player performing the action
+     * @return true if the action was successful, false otherwise
+     */
     @Override
     public boolean action(final Player player) {
         // to unlock the station

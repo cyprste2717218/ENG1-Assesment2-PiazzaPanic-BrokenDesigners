@@ -46,8 +46,23 @@ public class Kitchen {
 	private Match match;
 
 
-	/*
-	 * Instantiates Kitchen.
+	/**
+
+	 Kitchen class represents the game kitchen where players can cook and serve food.
+
+	 This class contains methods to set up the kitchen and load stations when loading a saved game.
+
+	 @param camera the camera used in the game
+
+	 @param spriteBatch the sprite batch used to draw the game
+
+	 @param bubbleRenderer the bubble renderer used to draw speech bubbles
+
+	 @param match the game match object
+
+	 @param isLoading flag indicating if a saved game is being loaded
+
+	 @param loader the load game object
 	 */
 	public Kitchen(Camera camera, SpriteBatch spriteBatch, BubbleRenderer bubbleRenderer, Match match, boolean isLoading, LoadGame loader){
 		this.bubbleRenderer = bubbleRenderer;
@@ -64,7 +79,15 @@ public class Kitchen {
 
 		if(isLoading) loadStations(loader);
 	}
+	/**
 
+	 Kitchen class represents the game kitchen where players can cook and serve food.
+	 This constructor is used for testing purposes.
+	 @param match the game match object
+	 @param isLoading flag indicating if a saved game is being loaded
+	 @param loader the load game object
+	 @param testing flag indicating if the kitchen is being used for testing
+	 */
 	public Kitchen(Match match, boolean isLoading, LoadGame loader, boolean testing){
 		this.match = match;
 		setUpCollisionLayer();
@@ -72,7 +95,11 @@ public class Kitchen {
 		setUpSpawnPoints();
 		if(isLoading) loadStations(loader);
 	}
+	/**
 
+	 Loads stations when a saved game is being loaded.
+	 @param loader the load game object
+	 */
 	private void loadStations(LoadGame loader){
 		int assemblerCount = 0;
 		int customerStationCount = 0;
@@ -91,6 +118,10 @@ public class Kitchen {
 		}
 	}
 
+	/**
+
+	 Sets up the collision layer by getting the collision objects from the tilemap and adding them to the list of kitchen obstacles.
+	 */
 	private void setUpCollisionLayer(){
 		MapObjects mapObjects = tileMap.getLayers().get("Collision Layer").getObjects();
 		for (RectangleMapObject rectangleMapObject : mapObjects.getByType(RectangleMapObject.class)){
@@ -105,7 +136,10 @@ public class Kitchen {
 					));
 		}
 	}
+	/**
 
+	 Sets up the interact layer by getting the interactive objects from the tilemap and adding them to their respective lists based on their object type.
+	 */
 	private void setUpInteractLayer(){
 		MapObjects mapStations = tileMap.getLayers().get("Interact").getObjects();
 
@@ -157,7 +191,12 @@ public class Kitchen {
 			}
 		}
 	}
+	/**
 
+	 This class sets up different kitchen stations like the Dispenser Station, Counter Station, Customer Counter, Bin Station,
+
+	 Assembly Station, Cooking Station, Locked Cooking Station, and Baking Station. It is used to add stations to the game.
+	 */
 	private void setUpDispenserStation(RectangleMapObject rectangleMapObject, Rectangle rectangle, Vector2 objectPosition){
 		kitchenStations.add(
 				new DispenserStation(
@@ -166,7 +205,16 @@ public class Kitchen {
 						rectangle.height * Constants.UNIT_SCALE,
 						ItemRegister.itemRegister.get(rectangleMapObject.getProperties().get("itemType"))));
 	}
+	/**
 
+	 This method sets up the counter station in the game
+
+	 @param rectangleMapObject The map object for the counter station
+
+	 @param rectangle The rectangle for the counter station
+
+	 @param objectPosition The position of the counter station
+	 */
 	private void setUpCounterStation(RectangleMapObject rectangleMapObject, Rectangle rectangle, Vector2 objectPosition){
 		float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
 		float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
@@ -181,7 +229,16 @@ public class Kitchen {
 		kitchenStations.add(counterStation);
 		counters.add(counterStation);
 	}
+	/**
 
+	 This method sets up the customer counter station in the game
+
+	 @param rectangleMapObject The map object for the customer counter station
+
+	 @param rectangle The rectangle for the customer counter station
+
+	 @param objectPosition The position of the customer counter station
+	 */
 	private void setUpCustomerCounter(RectangleMapObject rectangleMapObject, Rectangle rectangle, Vector2 objectPosition){
 		float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
 		float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
@@ -197,7 +254,13 @@ public class Kitchen {
 		kitchenStations.add(station);
 		customerStations.add(station);
 	}
+	/**
 
+	 This method sets up the bin station in the game
+	 @param rectangleMapObject The map object for the bin station
+	 @param rectangle The rectangle for the bin station
+	 @param objectPosition The position of the bin station
+	 */
 	private void setUpBinStation(RectangleMapObject rectangleMapObject, Rectangle rectangle, Vector2 objectPosition){
 		kitchenStations.add(
 				new BinStation(
@@ -207,7 +270,13 @@ public class Kitchen {
 								rectangle.width * Constants.UNIT_SCALE,
 								rectangle.height * Constants.UNIT_SCALE)));
 	}
+	/**
 
+	 Sets up an assembly station object using properties from a rectangle map object.
+	 @param rectangleMapObject the rectangle map object containing the properties
+	 @param rectangle the rectangle defining the size of the assembly station
+	 @param objectPosition the position of the assembly station in the game world
+	 */
 	private void setUpAssemblyStation(RectangleMapObject rectangleMapObject, Rectangle rectangle, Vector2 objectPosition){
 		MapProperties assemblerProperties = rectangleMapObject.getProperties();
 		ArrayList<Vector2> handPositions = new ArrayList<>(4);
@@ -226,7 +295,16 @@ public class Kitchen {
 		kitchenStations.add(assemblyStation);
 		assembly.add(assemblyStation);
 	}
+	/**
 
+	 Sets up a cooking station object using properties from a rectangle map object.
+
+	 @param rectangleMapObject the rectangle map object containing the properties
+
+	 @param rectangle the rectangle defining the size of the cooking station
+
+	 @param objectPosition the position of the cooking station in the game world
+	 */
 	private void setUpCookingStation(RectangleMapObject rectangleMapObject, Rectangle rectangle, Vector2 objectPosition){
 		float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
 		float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
@@ -241,7 +319,16 @@ public class Kitchen {
 		kitchenStations.add(cookingStation);
 		cookings.add(cookingStation);
 	}
+	/**
 
+	 Sets up a locked cooking station object using properties from a rectangle map object.
+
+	 @param rectangleMapObject the rectangle map object containing the properties
+
+	 @param rectangle the rectangle defining the size of the locked cooking station
+
+	 @param objectPosition the position of the locked cooking station in the game world
+	 */
 	private void setUpLockedCookingStation(RectangleMapObject rectangleMapObject, Rectangle rectangle, Vector2 objectPosition){
 		float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
 		float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
@@ -256,7 +343,16 @@ public class Kitchen {
 		lockedKitchenStations.add(LockedCookingStation);
 		cookings.add(LockedCookingStation);
 	}
+	/**
 
+	 Sets up a baking station at a specified location on the game map.
+
+	 @param rectangleMapObject the map object containing information about the baking station's location
+
+	 @param rectangle the rectangle representing the baking station's dimensions
+
+	 @param objectPosition the position of the baking station in the game world
+	 */
 	private void setUpBakingStation(RectangleMapObject rectangleMapObject, Rectangle rectangle, Vector2 objectPosition){
 		float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
 		float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
@@ -271,7 +367,16 @@ public class Kitchen {
 		kitchenStations.add(bakingStation);
 		bakings.add(bakingStation);
 	}
+	/**
 
+	 Sets up a locked baking station at a specified location on the game map.
+
+	 @param rectangleMapObject the map object containing information about the baking station's location
+
+	 @param rectangle the rectangle representing the baking station's dimensions
+
+	 @param objectPosition the position of the baking station in the game world
+	 */
 	private void setUpLockedBakingStation(RectangleMapObject rectangleMapObject, Rectangle rectangle, Vector2 objectPosition){
 		float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
 		float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
@@ -287,7 +392,16 @@ public class Kitchen {
 		bakings.add(LockedBakingStation);
 
 	}
+	/**
 
+	 Sets up a cutting station at a specified location on the game map.
+
+	 @param rectangleMapObject the map object containing information about the cutting station's location
+
+	 @param rectangle the rectangle representing the cutting station's dimensions
+
+	 @param objectPosition the position of the cutting station in the game world
+	 */
 	private void setUpCuttingStation(RectangleMapObject rectangleMapObject, Rectangle rectangle, Vector2 objectPosition){
 		float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
 		float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
@@ -302,7 +416,13 @@ public class Kitchen {
 		kitchenStations.add(cuttingStation);
 		cuttings.add(cuttingStation);
 	}
+	/**
 
+	 Sets up a locked cutting station at a specified location on the game map.
+	 @param rectangleMapObject the map object containing information about the cutting station's location
+	 @param rectangle the rectangle representing the cutting station's dimensions
+	 @param objectPosition the position of the cutting station in the game world
+	 */
 	private void setUpLockedCuttingStation(RectangleMapObject rectangleMapObject, Rectangle rectangle, Vector2 objectPosition){
 		float handX = (float)rectangleMapObject.getProperties().get("handX") * Constants.UNIT_SCALE + objectPosition.x;
 		float handY = (float)rectangleMapObject.getProperties().get("handY") * Constants.UNIT_SCALE + objectPosition.y;
@@ -317,7 +437,10 @@ public class Kitchen {
 		lockedKitchenStations.add(LockedCuttingStation);
 		cuttings.add(LockedCuttingStation);
 	}
+	/**
 
+	 Sets up the spawn points for players and customers based on map objects in the tile map.
+	 */
 	private void setUpSpawnPoints(){
 		MapObjects mapPoints = tileMap.getLayers().get("Map").getObjects();
 

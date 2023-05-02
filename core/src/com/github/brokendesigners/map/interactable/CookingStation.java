@@ -14,9 +14,9 @@ import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.textures.Animations;
 import com.badlogic.gdx.utils.Timer.Task;
-
-
-
+/**
+ * A cooking station that can burn food and requires user input for flipping certain items.
+ */
 public class CookingStation extends Station implements IFailable {
 
     static final String[] Cookables = {"Patty","Bun", "Tomato"};
@@ -52,7 +52,9 @@ public class CookingStation extends Station implements IFailable {
         this.flippingBubble = fakeBubble;
     }
 
-    //A task which burns the food when run, and resets the features of the station to do with burning
+    /**
+     * A task which burns the food when run, and resets the features of the station to do with burning.
+     */
     public Task burnFood = new Task() {
         @Override
         public void run() {
@@ -68,7 +70,10 @@ public class CookingStation extends Station implements IFailable {
         stationUseTime = 4f;
     }
 
-    //A timer for the food to burn after being left on the station too long
+    /**
+     * Starts the timer for the food to burn after being left on the station too long.
+     * If the station is empty, the burning should be cancelled.
+     */
     public void startFoodBurning(){
         //If the station is empty, the burning should be cancelled
         if(hand == null){
@@ -92,7 +97,15 @@ public class CookingStation extends Station implements IFailable {
         }
     }
 
-    //Cooking Operation
+    /**
+     * Handles the cooking operation.
+     * If the player is holding something, the station is not already in use and the item in hand
+     * has not already been cooked, and the food placed on the station is cookable,
+     * the cooking process succeeds. Otherwise, it fails.
+     *
+     * @param player The player performing the cooking operation.
+     * @return true if the cooking operation is successful, false otherwise.
+     */
     @Override
     public boolean action(final Player player) {
         // to unlock the station
@@ -116,8 +129,15 @@ public class CookingStation extends Station implements IFailable {
         }
         return false;
     }
-
-    //A function that handles all food at the CookingStation that needs to be flipped - e.g. patties
+    /**
+     * A function that handles all food at the CookingStation that needs to be flipped, e.g. patties.
+     * If the food is not flippable, it returns false.
+     * Otherwise, it waits half of stationUseTime and then has the player flip the food.
+     * If the player provides an input of the space bar key within 3 seconds, the operation succeeds, otherwise it fails.
+     *
+     * @param player The player flipping the food.
+     * @return true if the flipping operation is successful, false otherwise.
+     */
     private boolean requiresFlipping(final Player player){
         //If the food is not flippable, return false
         if(!Applicable(Flippables, "Cooking_Station", hand.getName())) return false;
@@ -142,7 +162,10 @@ public class CookingStation extends Station implements IFailable {
         }, 3f);
         return true;
     }
-
+    /**
+     * Starts the timer for the food to burn if needed. If the station requires input,
+     * this checks to see if that requirement is met.
+     */
     @Override
     public void handleStationInteraction() {
         //Starts the timer for the food to burn if needed
@@ -155,7 +178,13 @@ public class CookingStation extends Station implements IFailable {
         }
     }
 
-    //Cancels any burning and puts the cooked version of the item in the stations inventory
+    /**
+     * Cancels any burning and puts the cooked version of the item in the station's inventory.
+     *
+     * @param player The player performing the operation.
+     * @param endingCookTime The time it takes to finish cooking the item.
+     * @return true, always.
+     */
     @Override
     public boolean finishSuccessfulOperation(final Player player, float endingCookTime) {
         burnFood.cancel();
@@ -171,8 +200,13 @@ public class CookingStation extends Station implements IFailable {
         timer.scheduleTask(finishCooking, endingCookTime);
         return true;
     }
-
-    //Puts the burned item in the station's inventory
+    /**
+     * Puts the burned item in the station's inventory.
+     *
+     * @param player The player performing the operation.
+     * @param endingCookTime The time it takes to finish cooking the item.
+     * @return false, always.
+     */
     @Override
     public boolean finishFailedOperation(final Player player, float endingCookTime) {
         Timer timer = new Timer();
@@ -187,7 +221,13 @@ public class CookingStation extends Station implements IFailable {
         timer.scheduleTask(finishCooking, endingCookTime);
         return false;
     }
-
+    /**
+     * Cleans up after cooking an item. Sets the cooking flag on the item to true, hides
+     * the cooking bubble, enables player movement and hand ability, and resets various
+     * flags and state variables.
+     *
+     * @param player The player performing the operation.
+     */
     @Override
     public void generalFinish(Player player) {
         hand.Cooking = true;

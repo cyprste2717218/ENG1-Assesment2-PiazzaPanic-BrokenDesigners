@@ -9,27 +9,35 @@ import com.github.brokendesigners.Player;
 import com.github.brokendesigners.item.Item;
 import java.util.ArrayList;
 import java.util.Comparator;
+/**
 
+ The PlayerRenderer class is responsible for rendering players in a given SpriteBatch.
+ It sorts players by their y-axis position to ensure proper layering.
+ */
 public class PlayerRenderer {
 
 	ArrayList<Player> players;
 	SpriteBatch batch;
 
-	/*
-	 * Instantiates PlayerRenderer
+	/**
+	 * Instantiates a new PlayerRenderer.
+	 *
+	 * @param batch the SpriteBatch used for rendering
 	 */
 	public PlayerRenderer(SpriteBatch batch){
 		this.batch = batch;
 		players = new ArrayList<>();
 	}
-	/*
-	 * Adds player to render queue
+	/**
+	 * Adds a player to the render queue.
+	 *
+	 * @param player the player to be added
 	 */
 	public void addPlayer(Player player){
 		this.players.add(player);
 	}
 
-	/*
+	/**
 	 * Renders all players in the queue
 	 */
 	public void renderPlayers(){

@@ -13,8 +13,21 @@ import com.github.brokendesigners.map.interactable.Station;
 
 import java.util.ArrayList;
 
+/**
+
+ The PrepTimePowerUp class represents a power up that decreases the preparation time required at all stations in the kitchen for a limited duration.
+ */
 public class PrepTimePowerUp extends PowerUp{
     private Kitchen kitchen;
+    /**
+     * Constructor for the PrepTimePowerUp class.
+     * @param worldPosition The position of the power up in the game world.
+     * @param player The player who collected the power up.
+     * @param match The current match.
+     * @param powerUpManager The power up manager.
+     * @param testing A boolean indicating whether the game is in testing mode.
+     * @param kitchen The kitchen in which the power up was spawned.
+     */
     public PrepTimePowerUp(Vector2 worldPosition, Player player, Match match, PowerUpManager powerUpManager, boolean testing, Kitchen kitchen) {
         super(worldPosition, player, match, 15f, powerUpManager);
         this.kitchen = kitchen;
@@ -24,7 +37,9 @@ public class PrepTimePowerUp extends PowerUp{
         sprite.setScale(0.125f);
         System.out.println("Spawned prep time power up");
     }
-
+    /**
+     * Activates the power up, reducing the preparation time required at all stations in the kitchen.
+     */
     @Override
     public void activate() {
         ArrayList<Station> stations = kitchen.getKitchenStations();
@@ -32,7 +47,9 @@ public class PrepTimePowerUp extends PowerUp{
             station.stationUseTime /= 2;
         }
     }
-
+    /**
+     * Deactivates the power up, increasing the preparation time required at all stations in the kitchen back to their original values.
+     */
     @Override
     public void deactivate() {
         ArrayList<Station> stations = kitchen.getKitchenStations();

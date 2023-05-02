@@ -62,6 +62,33 @@ public class MainGame {
 	PowerUpManager powerUpManager;
 	boolean testing;
 
+	/**
+
+	 The MainGame class is responsible for managing the game loop, rendering, and updating game state.
+
+	 It initializes and manages the game's components such as the kitchen, customers, players, and power-ups.
+
+	 @param spriteBatch the SpriteBatch used to render the game graphics
+
+	 @param hud_batch the SpriteBatch used to render the HUD
+
+	 @param gameCamera the OrthographicCamera used for the game world
+
+	 @param hudCamera the OrthographicCamera used for the HUD
+
+	 @param playerRenderer the PlayerRenderer used to render players
+
+	 @param customerRenderer the CustomerRenderer used to render customers
+
+	 @param bubbleRenderer the BubbleRenderer used to render speech bubbles
+
+	 @param mapRenderer the OrthogonalTiledMapRenderer used to render the game map
+
+	 @param inputProcessor the InputProcessor used to handle user input
+
+	 @param match the Match object that holds game settings and state
+	 */
+
 	public MainGame(
 		SpriteBatch spriteBatch,
 		SpriteBatch hud_batch,
@@ -87,7 +114,18 @@ public class MainGame {
 		testing = false;
 	}
 
-	//A constructor for testing
+	/**
+
+	 A constructor for creating a MainGame object for testing.
+
+	 @param gameCamera the OrthographicCamera used for the game world
+
+	 @param hudCamera the OrthographicCamera used for the HUD
+
+	 @param match the Match object that holds game settings and state
+
+	 @param kitchen the Kitchen object used to manage game kitchen state
+	 */
 	public MainGame(OrthographicCamera gameCamera, OrthographicCamera hudCamera, Match match, Kitchen kitchen){
 		this.camera = gameCamera;
 		this.hud_cam = hudCamera;
@@ -99,7 +137,14 @@ public class MainGame {
 		testing = true;
 	}
 
+	/**
 
+	 This method initializes and creates the game world, including the kitchen, customers, players, and power-ups.
+
+	 @param isLoading true if the game is loading from a saved state, false otherwise
+
+	 @param loader the LoadGame object used to load saved game state
+	 */
 	public void create(boolean isLoading, LoadGame loader){
 		// MAP & MAP OBJECT BUILDING
 		if(!testing) kitchen = new Kitchen(camera, spriteBatch, bubbleRenderer, match, isLoading, loader);
@@ -144,7 +189,18 @@ public class MainGame {
 		customerManager.begin();
 		powerUpManager = new PowerUpManager(playerList.get(selectedPlayer), match, customerManager, kitchen);
 	}
+	/**
 
+	 This method is responsible for rendering the game. It clears the screen and sets the background color.
+
+	 It updates the camera, sets the projection matrix, and sets the view for the map renderer.
+
+	 It also processes the movement of all players and handles power-ups.
+
+	 It renders the map layers in a specific order, then the customers, players, stations, and bubbles.
+
+	 It updates the customer manager and HUD batch.
+	 */
 	public void renderGame(){
 
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -227,7 +283,13 @@ public class MainGame {
 		bubbleRenderer.renderBubbles();
 		customerManager.update(hud_batch);
 	}
+	/**
 
+	 Initializes the players in the game.
+	 @param isLoading A boolean that indicates whether the game is loading or not.
+	 @param loader An instance of LoadGame class used to load a saved game.
+	 @param testing A boolean that indicates whether the game is in testing mode or not.
+	 */
 	public void initialisePlayers(boolean isLoading, LoadGame loader, boolean testing){
 
 		ArrayList<ArrayList<Animation<TextureRegion>>> playerAnimations = new ArrayList<>();
@@ -294,7 +356,11 @@ public class MainGame {
 		glibbert_animations.add(action);
 		return glibbert_animations;
 	}
+	/**
 
+	 Sets the currently selected player based on the provided index.
+	 @param selected the index of the player to be selected
+	 */
 	public void setSelectedPlayer(int selected){
 		selectedPlayer = selected;
 		for(int i = 0; i< playerList.size(); i++){

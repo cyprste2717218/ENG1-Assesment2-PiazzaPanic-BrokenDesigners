@@ -21,8 +21,13 @@ import com.github.brokendesigners.textures.Animations;
 import java.util.ArrayList;
 import java.util.Random;
 
-/*
- * Manages the spawning and timing of the customers.
+
+/**
+
+ The CustomerManager class is responsible for managing the spawning and timing of the customers.
+ It creates an ArrayList of customers and an ArrayList of customer stations,
+ and assigns the customers to random stations. The class handles the CustomerPhases,
+ spawning the customers, and displaying the HUD.
  */
 public class CustomerManager {
 	private ArrayList<Customer> customers; // array of customers
@@ -44,12 +49,18 @@ public class CustomerManager {
 	ArrayList<Animation<TextureRegion>> animations;
 	boolean testing = false;
 
-
-	/*
-	 * Instantiates CustomerManager
+	/**
+	 * Instantiates a CustomerManager object.
 	 * Makes customers equal to customerNumber
 	 * then assigns them to random CustomerStations.
+	 * @param customerRenderer A CustomerRenderer object.
+	 * @param bubbleRenderer A BubbleRenderer object.
+	 * @param customerNumber An int that represents the number of customers.
+	 * @param spawnPoint A Vector2 object that represents the spawn point.
+	 * @param stations An ArrayList of CustomerStation objects.
+	 * @param match A Match object.
 	 */
+
 	public CustomerManager(CustomerRenderer customerRenderer, BubbleRenderer bubbleRenderer, int customerNumber,
 			Vector2 spawnPoint, ArrayList<CustomerStation> stations, Match match){
 
@@ -81,7 +92,11 @@ public class CustomerManager {
 		customerStations = new ArrayList<>();
 		testing = true;
 	}
+	/**
 
+	 Starts the match and begins the timer.
+	 @return true if the match has successfully begun.
+	 */
 	public boolean begin(){
 		running = true;
 		timer.scheduleTask(new Task() {
@@ -92,7 +107,11 @@ public class CustomerManager {
 		}, 0, 1);
 		return true;
 	}
+	/**
 
+	 Returns a random meal from a list of available meals.
+	 @return A String representing the name of the meal.
+	 */
 	public String getMeal(){
 		Random rnd = new Random();
 		int mealInt = rnd.nextInt(4);
@@ -109,7 +128,10 @@ public class CustomerManager {
 				return "VoidItem";
 		}
 	}
+	/**
 
+	 Handles the phases of each customer in the match.
+	 */
 	private void handleCustomerPhases(){
 		for (Customer customer : customers){
 			customer.update();
@@ -135,7 +157,11 @@ public class CustomerManager {
 			}
 		}
 	}
+	/**
 
+	 Handles the Heads-Up Display (HUD) for the match.
+	 @param hud_batch The SpriteBatch used to render the HUD.
+	 */
 	public void handleHUD(SpriteBatch hud_batch){
 		hud_batch.begin();
 		CharSequence str = isComplete() ? timeToString(finalTime) : timeToString(elapsedTime);
@@ -145,7 +171,10 @@ public class CustomerManager {
 		hud_batch.end();
 	}
 
-	//Rework to be based off of time
+	/**
+
+	 Spawns customers based on the elapsed time since the last spawn.
+	 */
 	private void spawnCustomer(){
 		if(TimeUtils.timeSinceMillis(spawningTime) > 10000L){
 			spawningTime = TimeUtils.millis();
@@ -164,7 +193,12 @@ public class CustomerManager {
 			}
 		}
 	}
+	/**
 
+	 Updates the match by spawning customers, handling their phases, and updating the HUD.
+
+	 @param hud_batch The SpriteBatch used to render the HUD.
+	 */
 	public void update(SpriteBatch hud_batch){ // Runs through the array of customers and updates them.
 		if (!isComplete()){
 			spawnCustomer();
@@ -177,6 +211,14 @@ public class CustomerManager {
 		}
 		if(!testing) handleHUD(hud_batch);
 	}
+	/**
+
+	 Converts an integer time value in seconds to a string format MM:SS.
+
+	 @param time the time value in seconds
+
+	 @return the formatted string in MM:SS format
+	 */
 	public String timeToString(int time){ // converts integer time to string MM:SS
 		if(time < 0) return "";
 		String currentTime = "";

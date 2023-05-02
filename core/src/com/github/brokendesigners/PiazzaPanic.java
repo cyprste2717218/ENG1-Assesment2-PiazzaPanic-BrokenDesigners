@@ -67,7 +67,12 @@ public class PiazzaPanic extends ApplicationAdapter {
 
 	LoadGame loader;
 
+	/**
 
+	 This method is called when the game is started.
+
+	 It is responsible for building the game world.
+	 */
 	@Override
 	public void create () {
 		// CAMERA & VIEWPORT BUILDING
@@ -170,7 +175,14 @@ public class PiazzaPanic extends ApplicationAdapter {
 		//endregion
 	}
 
+	/**
 
+	 This method resizes the game screen to the given width and height, and updates the camera
+	 and hud_cam accordingly.
+	 @param width the new width of the game screen
+
+	 @param height the new height of the game screen
+	 */
 	@Override
 	public void resize(int width, int height){
 		camera.update();
@@ -181,6 +193,12 @@ public class PiazzaPanic extends ApplicationAdapter {
 		spriteBatch.setProjectionMatrix(camera.combined);
 		hud_batch.setProjectionMatrix(hud_cam.combined);
 	}
+	/**
+
+	 This method renders the game screen, and handles the game loop by calling the appropriate
+	 methods depending on whether the game is in menu or game mode. If the game is complete, the
+	 method ends the game and sets menu to active.
+	 */
 
 	@Override
 	public void render () {
@@ -199,16 +217,30 @@ public class PiazzaPanic extends ApplicationAdapter {
 			}
 		}
 	}
+	/**
 
+	 This method returns the current game object.
+	 @return the current game object
+	 */
 	public MainGame getGame(){
 		return game;
 	}
+	/**
+
+	 This method sets the current game object to null and initializes the customerRenderer, bubbleRenderer
+	 and game objects.
+	 */
 	public void setGameNull(){
 		customerRenderer = new CustomerRenderer(spriteBatch);
 		bubbleRenderer = new BubbleRenderer(spriteBatch);
 		game = null;
 	}
+	/**
 
+	 This method starts the game by initializing the game objects, such as the match and the game
+	 itself, based on the selected game options and menu selections. If a new game is selected,
+	 the method resumes the game or instantiates a new one.
+	 */
 	public void startGame(){
 		// If a new game is selected, it resumes the game or instantiates a new one
 		if(!menu.tryActivateGame) return;
