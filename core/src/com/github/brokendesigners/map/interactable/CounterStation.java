@@ -37,6 +37,16 @@ public class CounterStation extends Station {
 
 		this.match = match;
 	}
+	/**
+	 * Constructor that takes in the object position, width, height, hand position, bubble renderer, and match.
+	 * @param objectPosition The position of the object.
+	 * @param width The width of the object.
+	 * @param height The height of the object.
+	 * @param handX The x position of the hand.
+	 * @param handY The y position of the hand.
+	 * @param bubbleRenderer The bubble renderer object.
+	 * @param match The match object.
+	 */
 	public CounterStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer, Match match){
 		super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Counter_Station");
 		handPosition = new Vector2(handX, handY);
@@ -51,7 +61,10 @@ public class CounterStation extends Station {
         stationUseTime = 5f;
     }
 
-
+	/**
+	 * Renders the CounterStation object.
+	 * @param spriteBatch The sprite batch object.
+	 */
     public void renderCounter(SpriteBatch spriteBatch) {
 		spriteBatch.begin();
 		if (!this.hasEmptyHand()) {
@@ -71,7 +84,12 @@ public class CounterStation extends Station {
 		return hand;
 
 	}
-
+	/**
+	 * Performs the action of using the counter station
+	 *
+	 * @param player The player performing the action
+	 * @return true if the action was successful, false otherwise
+	 */
 	@Override
 	public boolean action(final Player player){
 		if(this.inuse) return false;

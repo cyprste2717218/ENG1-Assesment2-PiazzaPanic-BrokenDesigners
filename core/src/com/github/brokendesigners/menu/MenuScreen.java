@@ -17,10 +17,14 @@ import com.github.brokendesigners.menu.Buttons.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+/**
 
-/*
- * Handles rendering and controls for menu.
- * I did not have as much time for this one :3
+ Handles rendering and controls for menu.
+ This class is responsible for handling the rendering and user input of the menu screen. It
+ contains a list of all the buttons in the menu screen, the font used for rendering text, and
+ the music played in the background. It also keeps track of whether the menu is currently active,
+ whether the game is complete, whether the game is being loaded, and various other game state
+ variables.
  */
 public class MenuScreen {
 
@@ -48,10 +52,12 @@ public class MenuScreen {
 	public int customerCount = 5;
 	public boolean isDifficultyScreen;
 
-	/*
-	 * Instantiates MenuScreen
-	 */
+	/**
 
+	 Constructor for the main menu screen of the game.
+	 @param camera The OrthographicCamera for the game.
+	 @param panic The PiazzaPanic instance of the game.
+	 */
 	//TODO: Add button to create mode choice for endless or scenario
 	public MenuScreen(OrthographicCamera camera, PiazzaPanic panic){
 		this.panic = panic;
@@ -78,7 +84,13 @@ public class MenuScreen {
 		music.setLooping(true);
 		music.play();
 	}
+	/**
 
+	 Constructor for the main menu screen of the game.
+	 @param camera The OrthographicCamera for the game.
+	 @param panic The PiazzaPanic instance of the game.
+	 @param testing A boolean indicating whether the game is being tested.
+	 */
 	public MenuScreen(OrthographicCamera camera, PiazzaPanic panic, boolean testing){
 		this.panic = panic;
 		active = true;
@@ -100,7 +112,10 @@ public class MenuScreen {
 		customerCountFont.setColor(Color.RED);
 		this.camera = camera;
 	}
+	/**
 
+	 Initializes all the buttons on the menu screen.
+	 */
 	private void initialiseButtons(){
 		playButton = new PlayButton(new Rectangle(700, 515, 200, 100),
 				MenuTextures.playButtonSelected, MenuTextures.playButtonUnselected, this);
@@ -149,11 +164,9 @@ public class MenuScreen {
 	}
 
 
-	/*
+	/**
 	 * Renders menu screen.
-	 *
 	 * Also decides which menu "frame" to render.
-	 *
 	 */
 	public void render(SpriteBatch batch){
 		if(!active) return;

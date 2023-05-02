@@ -54,17 +54,19 @@ public abstract class Station {
 	public Station()	{
 		this.hand = null;
 	}
-
-
-//	public boolean pickUp(Player player)
-//		throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-//		return false;
-//	}
-
+	/**
+	 * Returns the Rectangle representing the interaction area of the station.
+	 *
+	 * @return the interaction area Rectangle
+	 */
 	public Rectangle getInteractionArea() {
 		return interactionArea;
 	}
-
+	/**
+	 * Returns the name of the station.
+	 *
+	 * @return the name of the station
+	 */
 	public String getStation_name(){
 		return station_name;
 	}
@@ -75,8 +77,14 @@ public abstract class Station {
 
 	public boolean action(Player player){return false;}
 
-
-	//Check if operation can be completed
+	/**
+	 * Determines if the specified item can be used with this station.
+	 *
+	 * @param conditions an array of Strings representing the conditions that must be met for the operation to be applicable
+	 * @param state a String representing the station state that must be met for the operation to be applicable
+	 * @param itemName the name of the item to check for applicability
+	 * @return true if the item can be used with this station, false otherwise
+	 */
 	public Boolean Applicable(String[] Conditions,String state, String itemName)
 	{
 		if(this.station_name == state) //Checks if its in the correct station before preforming
@@ -88,19 +96,26 @@ public abstract class Station {
 		}
 		return false;
 	}
-
+	/**
+	 * Determines if the station's hand is empty.
+	 *
+	 * @return true if the station's hand is empty, false otherwise
+	 */
 	public boolean hasEmptyHand(){
 		return hand == null;
 	}
-
+	/**
+	 * Sets the station's hand to null, effectively dumping any item that was being held.
+	 */
 	public void dumpHand(){
 		this.hand = null;
 	}
-
-	/*
-	 * Handles PickUp from player.
+	/**
+	 * Allows a player to pick up an item from the station if it is not currently being interacted with, and the player's hand is not full.
+	 *
+	 * @param player the player object that is picking up the item
+	 * @return true if the item was successfully picked up, false otherwise
 	 */
-
 	public boolean pickUp(Player player){
 		if (this.hasEmptyHand() || this.interacting || this.inuse){
 			return false;
@@ -114,8 +129,11 @@ public abstract class Station {
 			return true;
 		}
 	}
-	/*
-	 * Handles dropOff from player
+	/**
+	 * Allows a player to drop off an item to the station if it is not currently locked, and the station's hand is empty.
+	 *
+	 * @param player the player object that is dropping off the item
+	 * @return true if the item was successfully dropped off, false otherwise
 	 */
 	public boolean dropOff(Player player){
 		if (this.locked)	{
@@ -132,8 +150,10 @@ public abstract class Station {
 		}
 		return false;
 	}
-	/*
-	 * Renders the items on the counter - not the counter itself, that is done by the TiledMapRenderer in MainGame.java
+	/**
+	 * Renders the items on the station's counter, if any.
+	 *
+	 * @param spriteBatch the SpriteBatch to use for rendering
 	 */
 	public void renderCounter(SpriteBatch spriteBatch) {
 		spriteBatch.begin();
@@ -143,6 +163,11 @@ public abstract class Station {
 		spriteBatch.end();
 
 	}
+	/**
+	 * Activates the station's lock sprite, if it is currently locked.
+	 *
+	 * @param spriteBatch the SpriteBatch to use for rendering
+	 */
 	public void activateLock(SpriteBatch spriteBatch)  {
 		lockSprite = new Sprite(new Texture(Gdx.files.internal("items/lock.png")));
 		spriteBatch.begin();
@@ -151,7 +176,9 @@ public abstract class Station {
 		}
 		spriteBatch.end();
 	}
-	// to unlock the station
+	/**
+	 * Unlocks the station if it is currently locked and the match has enough money to pay the unlocking fee.
+	 */
 	public void unlockStation()	{
 		if (this.locked && this.match.getIntMoney() >= 10) {
 			this.locked = false;
@@ -163,11 +190,25 @@ public abstract class Station {
 			failure.play();
 		}
 	}
-
+	/**
+	 * Sets the match that this station belongs to.
+	 *
+	 * @param match the Match object to set as the station's match
+	 */
 	public void setMatch(Match match)	{
 		this.match = match;
 	}
+	/**
+	 * Returns whether or not the station is currently locked.
+	 *
+	 * @return true if the station is locked, false otherwise
+	 */
 	public boolean isLocked(){return locked;}
+	/**
+	 * Sets whether or not the station is currently locked.
+	 *
+	 * @param isLocked true to lock the station, false to unlock it
+	 */
 	public void setIsLocked(boolean isLocked){locked = isLocked;}
 	public float getStationUseTime(){return stationUseTime;}
 	public Item getItem(){return hand;}

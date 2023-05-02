@@ -22,7 +22,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
+/**
+ * This class represents an Assembly Station where the player can use their hand to create an item.
+ * It extends the Station class and implements the Interactable interface.
+ */
 public class AssemblyStation extends Station{
     private Item[] items;
     private Integer Counter;
@@ -30,9 +33,14 @@ public class AssemblyStation extends Station{
     private Bubble bubble;
     private Match match;
     private ArrayList<Vector2> handPositions;
-
-    /*
-     * Instantiates AssemblyStation
+    /**
+     * Constructor for an AssemblyStation.
+     * @param objectPosition The position of the object in the game world.
+     * @param width The width of the object.
+     * @param height The height of the object.
+     * @param handPositions The positions where the hand can be when interacting with the object.
+     * @param bubbleRenderer The renderer used to display the bubble.
+     * @param match The current game match.
      */
     public AssemblyStation(Vector2 objectPosition, float width, float height, ArrayList<Vector2> handPositions, BubbleRenderer bubbleRenderer, Match match){
         super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Assembly_Station");
@@ -56,15 +64,18 @@ public class AssemblyStation extends Station{
         this.hand = null;
         stationUseTime = 10f;
     }
-
-    //Override storing products
-
-    //return Product or spare ingredients
-
+    /**
+     * Setter method for the list of items held in the hand.
+     * @param items The list of items to be set.
+     */
     public void setItems(ArrayList<Item> items){
         hand.heldItems = items;
     }
-
+    /**
+     * Method to pick up an item from the Assembly Station.
+     * @param player The player who is trying to pick up the item.
+     * @return True if the item was picked up, false otherwise.
+     */
     @Override
     public boolean pickUp(Player player) {
         if (hand.isEmpty() || player.hand.isFull()|| inuse){
@@ -75,6 +86,11 @@ public class AssemblyStation extends Station{
             return true;
         }
     }
+    /**
+     * Method to drop off an item at the Assembly Station.
+     * @param player The player who is trying to drop off the item.
+     * @return True if the item was dropped off, false otherwise.
+     */
     @Override
     public boolean dropOff(Player player){
         if (hand.isFull() || player.hand.isEmpty() || inuse){
@@ -94,6 +110,28 @@ public class AssemblyStation extends Station{
 
     }
 
+    /**
+     * Method to store an item in the Assembly Station.
+     * @param x The item to be stored.
+     */
+    public void StoreItem(Item x)
+    {
+        this.items[this.Counter] = x;
+        if(this.Counter == 2) //To get correct spare position
+        {
+            this.Counter = 0;
+        }
+        else
+        {
+            this.Counter = this.Counter + 1;
+        }
+    }
+    /**
+     * Method to compare two strings.
+     * @param A The first string to be compared.
+     * @param B The second string to be compared.
+     * @return 1 if the strings are equal and not "found", 0 otherwise.
+     */
     private int Compare(String A, String B)
     {
         if(A.compareTo(B)==0)
@@ -105,7 +143,13 @@ public class AssemblyStation extends Station{
         }
         return 0;
     }
-
+    /**
+     * Method to test if a list of strings contains certain elements.
+     * @param Test The list of strings to be tested.
+     * @param data The list of strings to be searched.
+     * @param n The name of the item to be returned if the test is successful.
+     * @return The item with the given name if the test is successful, null otherwise.
+     */
     public Item TestingForFood(String[] Test, String[] data, String n)
     {
         String[] copiedData = Arrays.copyOf(data, data.length);
@@ -128,7 +172,11 @@ public class AssemblyStation extends Station{
         System.out.println(Total);
         return Total == Test.length ? ItemRegister.itemRegister.get(n) : null;
     }
-
+    /**
+     * Method to perform an action at the Assembly Station.
+     * @param player The player who is trying to perform the action.
+     * @return True if the action was performed, false otherwise.
+     */
     @Override
     public boolean action(final Player player){
         if(inuse) return false;
@@ -155,7 +203,10 @@ public class AssemblyStation extends Station{
 
     }
 
-    //Gets the product created by the given list of items
+    /**
+     * Method to get the product created by the list of items held in the hand.
+     * @return The product created by the list of items, or null if no product can be created.
+     */
     private Item getProduct(){
         List<String> ItemStackTemp = new ArrayList<>();
         Item product = null;
@@ -179,6 +230,12 @@ public class AssemblyStation extends Station{
         }
         return null;
     }
+
+
+    /**
+     * Method to construct an item from the list of items held in the hand.
+     * @param product The item to be constructed.
+     */
 
     //Construct Product
     private void Construct(Item product)

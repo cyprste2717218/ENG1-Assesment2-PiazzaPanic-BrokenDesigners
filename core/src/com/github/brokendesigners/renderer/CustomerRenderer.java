@@ -9,31 +9,40 @@ import com.github.brokendesigners.character.Customer;
 import com.github.brokendesigners.enums.CustomerPhase;
 
 import java.util.ArrayList;
+/**
 
+ Renders customers and their animations, if any.
+ */
 public class CustomerRenderer {
 
 	public ArrayList<Customer> customers;
 	public SpriteBatch batch;
-
+	/**
+	 * Instantiates a new CustomerRenderer object.
+	 * @param batch the SpriteBatch to be used for rendering.
+	 */
 	public CustomerRenderer(SpriteBatch batch){
 		this.batch = batch;
 		this.customers = new ArrayList<>();
 
 	}
- 	/*
- 	 * adds customer to the render queue
- 	 */
+	/**
+	 * Adds a customer to the list to be rendered.
+	 * @param customer the customer to be added.
+	 */
 	public void addCustomer(Customer customer){
 		customers.add(customer);
 	}
-	/*
-	 removes customer from the render queue.
+	/**
+	 * Removes a customer from the list to be rendered.
+	 * @param customer the customer to be removed.
 	 */
 	public void removeCustomer(Customer customer){
 		customers.remove(customer);
 	}
-	/*
-	 * renders all customers.
+	/**
+	 * Renders all the customers in the list.
+	 * Animates the customers if applicable.
 	 */
 	public void renderCustomers() {
 		this.batch.begin();

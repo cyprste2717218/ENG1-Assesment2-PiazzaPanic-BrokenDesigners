@@ -16,8 +16,10 @@ import com.github.brokendesigners.map.interactable.CustomerStation;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.renderer.CustomerRenderer;
 import java.util.ArrayList;
-/*
- * Customer
+
+/**
+ * A class representing a customer in the game. Each customer has a station assigned to them where they can
+ * place an order and be served. Customers also have a desired meal, and will leave if they wait too long to be served.
  */
 public class Customer {
 
@@ -41,8 +43,17 @@ public class Customer {
 	private long waitingStartTime = -1L;
 	private long customerWaitTime = 90000L; //How long the customer waits to be served before leaving
 	private float movement_speed = 0; //The speed that the customer moves to and from their station at
-	/*
-	 * Instantiates customer without animations.
+
+	/**
+	 * Instantiates a new customer without animations.
+	 *
+	 * @param customerRenderer the customer renderer
+	 * @param bubbleRenderer   the bubble renderer
+	 * @param texture          the texture
+	 * @param station          the customer station assigned to this customer
+	 * @param desiredMeal      the desired meal for the customer
+	 * @param spawnPoint       the spawn point of the customer
+	 * @param match            the match this customer belongs to
 	 */
 	public Customer(CustomerRenderer customerRenderer, BubbleRenderer bubbleRenderer, Texture texture, CustomerStation station, Item desiredMeal, Vector2 spawnPoint, Match match){
 		worldPosition = new Vector2(spawnPoint);
@@ -107,10 +118,10 @@ public class Customer {
 		this.match = match;
 		beenServed = false;
 	}
+	/**
 
-
-	/*
-	 * Spawns customer, makes them visible etc.
+	 This method spawns the customer and makes them visible.
+	 @return true if the customer is spawned successfully, false otherwise
 	 */
 	public boolean spawn(){
 		visible = true;
@@ -119,8 +130,9 @@ public class Customer {
 		// PLAY SOUND - DOOR OPENING / BELL RING / ETC
 		return true;
 	}
-	/*
-	 * Updates the customer every frame similar to how the player is updated.
+	/**
+
+	 This method updates the customer every frame similar to how the player is updated.
 	 */
 	public void update(){
 		switch (getPhase()) {
@@ -140,7 +152,10 @@ public class Customer {
 				break;
 		}
 	}
+	/**
 
+	 This method handles the customer's behavior during the moving to station phase.
+	 */
 	private void movingToStationPhase(){
 		if (worldPosition.y != getStation().getCustomerPosition().y) {
 			worldPosition.y += movement_speed;
@@ -157,7 +172,10 @@ public class Customer {
 			if(bubble != null) bubble.setVisible(true);
 		}
 	}
+	/**
 
+	 This method handles the customer's behavior during the waiting phase.
+	 */
 	private void waitingPhase(){
 		if(waitingStartTime == -1L) waitingStartTime = TimeUtils.millis();
 		if(TimeUtils.timeSinceMillis(waitingStartTime) > customerWaitTime){
@@ -182,7 +200,11 @@ public class Customer {
 			}
 		}
 	}
+	/**
 
+	 Updates the customer's position during the leaving phase. If the customer's world position is not at its spawn point,
+	 the customer moves towards the spawn point on the x-axis.
+	 */
 	private void leavingPhase(){
 		if (worldPosition.x != spawnPoint.x) {
 			worldPosition.x -= movement_speed;

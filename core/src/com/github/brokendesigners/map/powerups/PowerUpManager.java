@@ -12,6 +12,12 @@ import java.util.Random;
 import com.badlogic.gdx.utils.Timer;
 import com.github.brokendesigners.map.Kitchen;
 
+/**
+
+ The PowerUpManager class is responsible for spawning power-ups into the game world,
+ tracking active power-ups, checking for collisions with the player, and activating/deactivating
+ power-ups as needed.
+ */
 public class PowerUpManager {
 
     Player player;
@@ -22,7 +28,15 @@ public class PowerUpManager {
     boolean testing;
     Kitchen kitchen;
 
-
+    /**
+     * Constructor for the PowerUpManager class that takes in the player, match, customer manager,
+     * and kitchen objects as parameters.
+     *
+     * @param player the player object
+     * @param match the match object
+     * @param customerManager the customer manager object
+     * @param kitchen the kitchen object
+     */
     public PowerUpManager(Player player, Match match, CustomerManager customerManager, Kitchen kitchen){
         this.player = player;
         this.match = match;
@@ -35,19 +49,32 @@ public class PowerUpManager {
         timer.start();
         testing = false;
     }
-
+    /**
+     * Constructor for the PowerUpManager class that takes in the player, match, customer manager,
+     * testing, and kitchen objects as parameters.
+     *
+     * @param player the player object
+     * @param match the match object
+     * @param customerManager the customer manager object
+     * @param testing a boolean value indicating whether the game is being tested
+     * @param kitchen the kitchen object
+     */
     public PowerUpManager(Player player, Match match, CustomerManager customerManager, boolean testing, Kitchen kitchen){
         this(player, match, customerManager, kitchen);
         this.testing = testing;
     }
-
+    /**
+     * A timer task that spawns a new power-up into the game world.
+     */
     public Timer.Task spawnPowerUp = new Timer.Task() {
         @Override
         public void run() {
             activePowerUps.add(spawnRandomPowerUp());
         }
     };
-
+    /**
+     * Checks for collisions with power-ups and activates/deactivates them as needed.
+     */
     public void handlePowerUps(){
         //Check for collisions with powerups and then activate them
         for(PowerUp powerUp: new ArrayList<>(activePowerUps)){
@@ -57,7 +84,11 @@ public class PowerUpManager {
             }
         }
     }
-
+    /**
+     * Spawns a random power-up into the game world.
+     *
+     * @return the spawned power-up
+     */
     //Spawns a random powerup into the map
     private PowerUp spawnRandomPowerUp(){
         Random rnd = new Random();
@@ -77,8 +108,13 @@ public class PowerUpManager {
         }
 
     }
+    /**
 
-    //Gets a random spawn point for the power up to be placed
+     Gets a random spawn point for the power up to be placed on the map
+
+     @return A Vector2 representing the position where the power up will be spawned
+     */
+
     private Vector2 getPowerUpSpawnPoint(){
         Random rnd = new Random();
         int spawnPointOption = rnd.nextInt(4);
@@ -94,7 +130,11 @@ public class PowerUpManager {
                 return new Vector2(38,46);
         }
     }
+    /**
 
+     Returns the list of active power ups in the game
+     @return An ArrayList of PowerUp objects representing the active power ups in the game
+     */
     public ArrayList<PowerUp> getActivePowerUps(){
         return activePowerUps;
     }

@@ -75,6 +75,15 @@ public class Match {
      *
      *
      *  */
+
+    /**
+     * Adds money to the player's account based on the meal type served and the customer's wait time.
+     *
+     * @param mealBeenServed The type of meal that was served to the customer.
+     * @param customerWaitingStartTime The time at which the customer started waiting for their order.
+     * @param customerMaxWaitTime The maximum amount of time the customer is willing to wait for their order.
+     */
+
     public void addMoney(String mealBeenServed, long customerWaitingStartTime, long customerMaxWaitTime) {
 
         //note: infrastruture mostly set up to account for meal difficulty in profit yield for customer order
@@ -130,11 +139,20 @@ public class Match {
         System.out.println("order tip amount: £" + orderTip);
     }
 
-
+    /**
+     * Subtracts the specified amount of money from the player's account.
+     *
+     * @param value The amount of money to subtract from the player's account.
+     */
 
     public void subtractMoney(double value) {
         money -= value;
     }
+    /**
+
+     Returns a formatted string representation of the current money amount with two decimal places.
+     @return the formatted money amount as a string
+     */
 
     public String getMoney() {
 

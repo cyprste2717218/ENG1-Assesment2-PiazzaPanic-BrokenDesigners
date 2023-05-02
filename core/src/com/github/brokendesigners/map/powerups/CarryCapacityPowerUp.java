@@ -12,6 +12,18 @@ import com.github.brokendesigners.Player;
 public class CarryCapacityPowerUp extends PowerUp{
 
     Hand hand;
+    /**
+     * A power-up that doubles the player's hand capacity for a limited time.
+     *
+     * This power-up extends the abstract class PowerUp and overrides its activate() and deactivate() methods to adjust the
+     * player's hand size accordingly. It also initializes a reference to the player's hand for easy access to its properties.
+     *
+     * @param worldPosition The position of the power-up in the game world.
+     * @param player The player who will pick up the power-up.
+     * @param match The current match being played.
+     * @param powerUpManager The PowerUpManager instance that spawned this power-up.
+     * @param testing Whether the game is being run in a testing environment.
+     */
     public CarryCapacityPowerUp(Vector2 worldPosition, Player player, Match match, PowerUpManager powerUpManager, boolean testing) {
         super(worldPosition, player, match, 30f, powerUpManager);
         hand = player.hand;

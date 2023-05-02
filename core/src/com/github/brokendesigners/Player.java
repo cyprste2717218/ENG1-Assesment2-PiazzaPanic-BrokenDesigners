@@ -63,6 +63,14 @@ public class Player {
 	// which represents the players position/collision boundaries
 
 	//A constructor made just for testing
+	/**
+
+	 Creates a Player instance with a given world position. The player's hand is instantiated for picking up items.
+
+	 The player's sprite height and width are set to 5 units. The player's Rectangle is initialized with the default dimensions.
+
+	 @param worldPosition the world position of the player
+	 */
 	public Player(Vector2 worldPosition){
 		this.worldPosition = worldPosition;
 
@@ -78,9 +86,17 @@ public class Player {
 
 
 
-	/*
-	* Instantiates player with a texture - for if you dont want to make animations for them.
- 	*/
+
+	/**
+
+	 Creates a Player instance with a texture, and adds it to the given PlayerRenderer's list of players.
+
+	 @param renderer the renderer for the player
+
+	 @param texture the texture of the player
+
+	 @param worldPosition the world position of the player
+	 */
 	public Player(PlayerRenderer renderer, Texture texture, Vector2 worldPosition){
 
 		this.worldPosition = worldPosition;
@@ -107,12 +123,29 @@ public class Player {
 
 
 	}
-	/*
-	* Instantiates player with array of animations.
-	* Array has 3 animations :
-	* 		Index 0 : Idle animation
-	* 		Index 1 : Move animation
-	* 		Index 2 : Interaction Animation
+	/**
+
+	 Instantiates player with array of animations.
+	 * Array has 3 animations :
+	 * 		Index 0 : Idle animation
+	 * 		Index 1 : Move animation
+	 * 		Index 2 : Interaction Animation
+	 *
+	 @param renderer the renderer for the player
+
+	 @param animations the array of animations for the player
+
+	 @param worldPosition the world position of the player
+
+	 @param sprite_width the width of the player's sprite
+
+	 @param sprite_height the height of the player's sprite
+
+	 @param game the main game object
+
+	 @param kitchen the kitchen object
+
+	 @param match the match object
 	 */
 	public Player(PlayerRenderer renderer, ArrayList<Animation<TextureRegion>> animations, Vector2 worldPosition, float sprite_width, float sprite_height, MainGame game, Kitchen kitchen, Match match){
 
@@ -141,7 +174,7 @@ public class Player {
 		this.match = match;
 	}
 
-	/*
+	/**
 	* Gets player rectangle, used for calculating collisions and interactions.
 	 */
 	public Rectangle getPlayerRectangle() {
@@ -150,7 +183,7 @@ public class Player {
 	public Rectangle getInteractingPlayerRectangle()	{
 		return interactingPlayerRectangle;
 	}
-	/*
+	/**
 	* updates position of rectangle - ideally size of rectangle should stay constant.
 	 */
 	private void updateRectangle(){
@@ -159,14 +192,14 @@ public class Player {
 		interactingPlayerRectangle.x = worldPosition.x;
 		interactingPlayerRectangle.y = worldPosition.y;
 	}
-	/*
+	/**
 	* returns worldPosition
 	* Used by PlayerRenderer to render players in correct location.
 	 */
 	public Vector2 getWorldPosition(){
 		return worldPosition;
 	}
-	/*
+	/**
 	* Processes movement inputs.
 	* each axis has its own if statement to allow diagonal movement and sliding across collision objects without sticking.
 	 */
@@ -197,7 +230,7 @@ public class Player {
 			updateRectangle();
 		}
 	}
-	/*
+	/**
 	* Flips animation set for the player.
 	* Allows the player to look in both directions. be careful if reusing animations, the .flip() function is one way - if you flip it,
 	* you have to call .flip(true, false) again to flip it back.
@@ -209,7 +242,7 @@ public class Player {
 			}
 		}
 	}
-	/*
+	/**
 	* Handles moving and collision detection for when you move up.
 	* The move methods are separate because of special cases in the collision detection.
 	* ^^ If a players position + their movement speed is inside an object, their position still needs to change,
@@ -231,6 +264,14 @@ public class Player {
 		return true;
 
 	}
+	/**
+
+	 Moves the player down by the movement speed and checks for collision with kitchen objects.
+	 If collision occurs, sets the player's world position to the top of the collided object and returns false.
+	 Otherwise, updates the player's world position and returns true.
+	 @param objects an ArrayList of KitchenCollisionObject instances to check for collision with
+	 @return true if the player moves down without collision, false if collision occurs
+	 */
 	private boolean moveDown(ArrayList<KitchenCollisionObject> objects){
 		this.playerRectangle.y -= (getMovementSpeed());
 		for (KitchenCollisionObject object : objects){
@@ -244,6 +285,14 @@ public class Player {
 		return true;
 
 	}
+	/**
+
+	 Moves the player right by the movement speed and checks for collision with kitchen objects.
+	 If collision occurs, sets the player's world position to the left of the collided object and returns false.
+	 Otherwise, updates the player's world position and returns true.
+	 @param objects an ArrayList of KitchenCollisionObject instances to check for collision with
+	 @return true if the player moves right without collision, false if collision occurs
+	 */
 	private boolean moveRight(ArrayList<KitchenCollisionObject> objects){
 		this.playerRectangle.x += (getMovementSpeed());
 		for (KitchenCollisionObject object : objects){
@@ -258,6 +307,15 @@ public class Player {
 		return true;
 
 	}
+	/**
+
+	 Moves the player left by the movement speed and checks for collision with kitchen objects.
+	 If collision occurs, sets the player's world position to the right of the collided object and returns false.
+	 Otherwise, updates the player's world position and returns true.
+	 @param objects an ArrayList of KitchenCollisionObject instances to check for collision with
+	 @return true if the player moves left without collision, false if collision occurs
+	 */
+
 	private boolean moveLeft(ArrayList<KitchenCollisionObject> objects){
 		this.playerRectangle.x -= (getMovementSpeed());
 		for (KitchenCollisionObject object : objects){
@@ -271,10 +329,16 @@ public class Player {
 		return true;
 
 	}
-	/*
-	 * Handles picking up of items.
-	 * Scans through an array of kitchen objects, finds if they are intersecting with any, and if it does, it initiates
-	 * a station.pickUp(Player player) method.
+	/**
+
+	 Picks up an item if the player is selected and intersects with a Station's interaction area.
+	 If a Station is found, initiates the station's pickUp(Player player) method and returns true.
+	 @param stations an ArrayList of Station instances to check for intersection with the player
+	 @return true if the player picks up an item, false otherwise
+	 @throws InvocationTargetException
+	 @throws NoSuchMethodException
+	 @throws InstantiationException
+	 @throws IllegalAccessException
 	 */
 	public boolean pickUp(ArrayList<? extends Station> stations)
 		throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
@@ -288,10 +352,13 @@ public class Player {
 		}
 		return false;
 	}
-	/*
-	 * Handles dropping off of items.
-	 * Scans through an array of kitchen objects, finds if they are intersecting with any, and if it does, it initiates
-	 * a station.dropOff(Player player) method.
+	/**
+
+	 Handles dropping off of items.
+	 Scans through an ArrayList of kitchen stations, finds if they are intersecting with the player's rectangle, and if so,
+	 initiates a station.dropOff(Player player) method.
+	 @param stations The ArrayList of kitchen stations to scan through.
+	 @return true if a station was found and a dropOff method was initiated, false otherwise.
 	 */
 	public boolean dropOff(ArrayList<? extends Station> stations){
 		if (this.isSelected()) {
@@ -304,21 +371,21 @@ public class Player {
 		}
 		return false;
 	}
-	/*
+	/**
 	 * Sets whether or not player is selected. Used by the PlayerRenderer to help decide which frame to render at any
 	 * given time.
 	 */
 	public void setSelected(boolean isSelected){
 		this.selected = isSelected;
 	}
-	/*
+	/**
 	 * Returns if player is selected or not.
 	 */
 	public boolean isSelected() {
 		return selected;
 	}
 
-	/*
+	/**
 	 * Handles Interacting with items.
 	 * Scans through an array of kitchen objects, finds if they are intersecting with any, and if it does, it initiates
 	 * a station.action(Player player) method.
@@ -393,27 +460,27 @@ public class Player {
 		}
 	}
 
-	/*
+	/**
 	 * Disables movement of player - called when player starts interacting with stations - also helps PlayerRenderer
 	 * decide which frame to render.
 	 */
 	public void disableMovement(){
 		this.moving_disabled = true;
 	}
-	/*
+	/**
 	 * Enables movement
 	 */
 	public void enableMovement(){
 		this.moving_disabled = false;
 	}
-	/*
+	/**
 	 * Sets width of player's rectangle.
 	 */
 	public void setWidth(float width) {
 		this.width = width;
 		playerRectangle.width = this.width;
 	}
-	/*
+	/**
 	 * Sets height of player's rectangle.
 	 */
 	public void setHeight(float height) {
@@ -421,13 +488,13 @@ public class Player {
 		playerRectangle.height = this.height;
 	}
 
-	/*
+	/**
 	 * Sets renderOffsetX
 	 */
 	public void setRenderOffsetX(float renderOffsetX) {
 		this.renderOffsetX = renderOffsetX;
 	}
-	/*
+	/**
 	 * Returns renderOffsetX - Used by PlayerRenderer to render player in the right place
 	 * relative to the player's hitbox
 	 */

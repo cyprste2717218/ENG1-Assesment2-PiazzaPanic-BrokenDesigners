@@ -51,12 +51,21 @@ public class LoadGame {
     private ArrayList<ArrayList<Item>> assemblerItems = new ArrayList<>();
     private ArrayList<Item> stationHand = new ArrayList<>();
     private ArrayList<Boolean> servingCustomer = new ArrayList<>();
+    /**
 
+     This class is responsible for loading saved game data from a file.
+     The data includes information about the match, chefs, customers, and stations.
+     @param menuScreen The MenuScreen object to update during loading
+     */
     public LoadGame(MenuScreen menuScreen){
         this.menuScreen = menuScreen;
         load();
     }
+    /**
 
+     Loads the saved game data from a file and updates the game objects accordingly.
+     If the file does not exist, sets isLoading to false in the MenuScreen object and sets loadFailed to true.
+     */
     public void load(){
         if(prefsFile.exists()){
             if(loadMatch() && loadChefs() && loadCustomers() && loadStations()){
@@ -69,6 +78,10 @@ public class LoadGame {
             loadFailed = true;
         }
     }
+    /**
+
+     Prints debug information to the console about the loaded data.
+     */
 
     public void debugLoading(){
         System.out.println("LOADING");
@@ -102,7 +115,11 @@ public class LoadGame {
 
         System.out.println("LOADING COMPLETE");
     }
+    /**
 
+     Loads the match data from the file and creates a new Match object.
+     @return true if the data was loaded successfully, false otherwise
+     */
     public boolean loadMatch(){
         GameMode gameMode = Objects.equals(pref.getString("Game_Mode"), GameMode.SCENARIO.name()) ? GameMode.SCENARIO : GameMode.ENDLESS;
         int points = pref.getInteger("Reputation Points");
@@ -115,7 +132,11 @@ public class LoadGame {
         elapsedTime = pref.getInteger("Elapsed_Time");
         return true;
     }
+    /**
 
+     Loads the chef data from the file and updates the chef objects.
+     @return true if the data was loaded successfully, false otherwise
+     */
     public boolean loadChefs(){
         for(int i = 0; i < 3; i++){
             String chef = "Chef" + i + " ";
@@ -127,7 +148,11 @@ public class LoadGame {
         selectedChef = pref.getInteger("chef selected");
         return true;
     }
+    /**
 
+     Loads the customer data from the preferences file and initializes the necessary variables
+     @return true if the customers were successfully loaded, false otherwise
+     */
     public boolean loadCustomers(){
         customerManagerTimeSinceSpawn = pref.getLong("CustomerManager time spent waiting");
         customerSize = pref.getInteger("Customer size");
@@ -143,6 +168,13 @@ public class LoadGame {
         }
         return true;
     }
+
+    /**
+
+     Loads the station data from the preferences file and initializes the necessary variables
+
+     @return true if the stations were successfully loaded, false otherwise
+     */
 
     public boolean loadStations(){
         stationCount = pref.getInteger("stationCount");
@@ -164,13 +196,23 @@ public class LoadGame {
         }
         return true;
     }
+    /**
 
+     Converts a string to an ArrayList of strings
+     @param input the string to be converted
+     @return an ArrayList of strings
+     */
     private ArrayList<String> stringToArray(String input){
         input = input.replace("[", "");
         input = input.replace("]", "");
         return new ArrayList<String>(Arrays.asList(input.split(", ")));
     }
+    /**
 
+     Converts a string representation of an ArrayList of items to an actual ArrayList of items
+     @param input the string representation of the ArrayList of items
+     @return the ArrayList of items
+     */
     private ArrayList<Item> stringToItemArray(String input){
         ArrayList<String> itemStrings = stringToArray(input);
         ArrayList<Item> items = new ArrayList<>();

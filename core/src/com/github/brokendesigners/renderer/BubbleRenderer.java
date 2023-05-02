@@ -6,23 +6,30 @@ import com.github.brokendesigners.Constants;
 import com.github.brokendesigners.Player;
 import com.github.brokendesigners.bubble.Bubble;
 import java.util.ArrayList;
-/*
- * Handles rendering for the bubbles.
+/**
+
+ The BubbleRenderer class is responsible for rendering the bubbles.
+ It uses a SpriteBatch to draw the bubbles onto the screen.
+ This class contains an ArrayList of bubbles to be rendered and
+ provides methods to add bubbles to the queue and clear the queue.
  */
 public class BubbleRenderer {
 	public ArrayList<Bubble> bubbles;
 	public SpriteBatch batch;
 
-	/*
-	 * Instantiates bubble renderer
+	/**
+	 * Instantiates a BubbleRenderer object with the specified SpriteBatch.
+	 *
+	 * @param batch the SpriteBatch used to draw the bubbles
 	 */
 	public BubbleRenderer(SpriteBatch batch){
 		this.batch = batch;
 		this.bubbles = new ArrayList<>();
 	}
 
-	/*
-	 * renders bubbles
+	/**
+	 * Renders the bubbles onto the screen.
+	 * Only visible bubbles are drawn.
 	 */
 
 	public void renderBubbles(){
@@ -37,13 +44,17 @@ public class BubbleRenderer {
 		this.batch.end();
 	}
 
-	/*
-	 * adds bubble to render queue.
+	/**
+	 * Adds a bubble to the render queue.
+	 *
+	 * @param bubble the bubble to be added to the queue
 	 */
 	public void addBubble(Bubble bubble){
 		bubbles.add(bubble);
 	}
-
+	/**
+	 * Disposes of all bubbles in the render queue.
+	 */
 	public void dispose(){
 		for (Bubble bubble : bubbles){
 			bubble.dispose();

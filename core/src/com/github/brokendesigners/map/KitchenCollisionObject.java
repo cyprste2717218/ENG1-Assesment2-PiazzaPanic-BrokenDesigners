@@ -2,10 +2,9 @@ package com.github.brokendesigners.map;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+/**
 
-/*
- * Defines the Kitchen collision boundaries.
- * Looking back on it, this could have been done with a simple rectangle ¯\_(ツ)_/¯
+ Defines the collision boundaries of a kitchen object.
  */
 public class KitchenCollisionObject {
 
@@ -16,7 +15,13 @@ public class KitchenCollisionObject {
 
 	private final Rectangle rectangle;
 
-
+	/**
+	 * Constructs a KitchenCollisionObject with a specified world position and dimensions.
+	 *
+	 * @param worldPosition the position of the kitchen object in the game world.
+	 * @param width the width of the kitchen object.
+	 * @param height the height of the kitchen object.
+	 */
 	public KitchenCollisionObject(Vector3 worldPosition, float width, float height){
 
 		this.worldPosition = worldPosition;

@@ -9,7 +9,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.github.brokendesigners.Constants;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.textures.Textures;
+/**
 
+ ActionBubble class - A type of bubble that displays an animation and serves as an indicator for interactive objects.
+ */
 public class ActionBubble extends Bubble{
 	public Texture texture = Textures.simple_bubble;
 	public static Vector2 relativeItemCoords = new Vector2(8 * Constants.UNIT_SCALE, 24 * Constants.UNIT_SCALE);
@@ -18,6 +21,13 @@ public class ActionBubble extends Bubble{
 	Animation<TextureRegion> animation;
 
 	float stateTime;
+
+	/**
+	 * Constructor for the ActionBubble class
+	 * @param renderer the renderer of the bubble
+	 * @param worldPosition the position of the bubble in the game world
+	 * @param animation the animation of the bubble
+	 */
 	public ActionBubble(BubbleRenderer renderer, Vector2 worldPosition, Animation<TextureRegion> animation) {
 		super(renderer, worldPosition);
 
@@ -27,12 +37,16 @@ public class ActionBubble extends Bubble{
 		stateTime = 0;
 
 	}
-
+	/**
+	 * Resets the state time of the action bubble's animation.
+	 */
 	public void resetStateTime(){
 		stateTime = 0;
 	}
-
-	@Override
+	/**
+	 * Renders the action bubble on the screen.
+	 * @param batch the sprite batch used for rendering the bubble
+	 */
 	public void render(SpriteBatch batch) {
 		stateTime += Gdx.graphics.getDeltaTime();
 		batch.draw(

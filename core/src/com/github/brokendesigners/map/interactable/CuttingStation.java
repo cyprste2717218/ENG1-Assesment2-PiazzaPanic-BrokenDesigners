@@ -15,6 +15,10 @@ import com.github.brokendesigners.item.ItemRegister;
 
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.textures.Animations;
+/**
+ * CuttingStation is a class that represents a cutting station in a game.
+ * It extends Station and implements IFailable.
+ */
 
 public class CuttingStation extends Station implements IFailable{
 
@@ -22,7 +26,18 @@ public class CuttingStation extends Station implements IFailable{
     Bubble cuttingBubble, countdownBubble;
     Match match;
     public boolean needsInteraction, cutToEarly, isValidCuttingTime;
-
+    /**
+     * Constructs a CuttingStation object with the specified parameters
+     *
+     * @param objectPosition - the position of the object
+     * @param width - the width of the object
+     * @param height - the height of the object
+     * @param handX - the x position of the hand
+     * @param handY - the y position of the hand
+     * @param bubbleRenderer - the bubble renderer
+     * @param locked - whether the station is locked
+     * @param match - a Match object that tracks the state of the game
+     */
     public CuttingStation(Vector2 objectPosition, float width, float height, float handX, float handY, BubbleRenderer bubbleRenderer, boolean locked, Match match){
         super(new Rectangle(objectPosition.x, objectPosition.y, width, height),"Cutting_Station");
         this.handPosition = new Vector2(handX, handY);
@@ -43,9 +58,11 @@ public class CuttingStation extends Station implements IFailable{
         this.hand = null;
         stationUseTime = 2f;
     }
-
-
-    //Readies the station for use when the player first interacts with it
+    /**
+     * Readies the station for use when the player first interacts with it.
+     *
+     * @param player - the player who interacts with the station
+     */
     private void setUpCutting(Player player){
         //Resets the countdown animation
         countdownBubble.resetStateTime();
@@ -56,9 +73,12 @@ public class CuttingStation extends Station implements IFailable{
         player.hand.disable_hand_ability();
         cuttingBubble.setVisible(true);
     }
-
-
-    //If the player interacted with the station at the right moment, the cutting succeeds, otherwise it fails.
+    /**
+     * If the player interacted with the station at the right moment, the cutting succeeds, otherwise it fails.
+     *
+     * @param timer - the Timer object that tracks time
+     * @param player - the player who interacts with the station
+     */
     private void handleCuttingInteraction(final Timer timer, final Player player){
         needsInteraction = true;
         timer.scheduleTask(new Task() {
@@ -69,9 +89,11 @@ public class CuttingStation extends Station implements IFailable{
             }
         }, 1f);
     }
-
-
-    //After some cutting, the station begins its 3 second countdown, using isValidCuttingTime to flag that the player can cut at any point during the countdown
+    /**
+     * Handles the cutting countdown by displaying a cutting bubble and a countdown timer.
+     * @param timer The Timer object used to handle the countdown.
+     * @param player The Player object interacting with the Cutting Station.
+     */
     private void handleCutttingCountdown(final Timer timer, final Player player){
         Task task = new Task() {
             @Override
@@ -90,8 +112,11 @@ public class CuttingStation extends Station implements IFailable{
         };
         timer.scheduleTask(task, getAdjustedStationUseTime());
     }
-
-    //Cutting Operation
+    /**
+     * Performs the cutting operation by setting up the cutting interaction and starting the cutting countdown.
+     * @param player The Player object interacting with the Cutting Station.
+     * @return Returns true if the cutting operation is successful, false otherwise.
+     */
     @Override
     public boolean action(final Player player) {
         // to unlock the station
@@ -108,14 +133,19 @@ public class CuttingStation extends Station implements IFailable{
         }
         return false;
     }
-    // Both functions used for testing
+    /**
+     * Gets the array of cuttable items.
+     * @return Returns the array of cuttable items.
+     */
     public String[] getCuttables()  {
         return Cuttables;
     }
     public void setName(String name)   {
         this.station_name = name;
     }
-
+    /**
+     * Handles the interaction with the Cutting Station by checking if the player presses space during the countdown and flagging if the cutting was successful or not.
+     */
     @Override
     public void handleStationInteraction() {
         //If the player presses space during the countdown
@@ -147,7 +177,11 @@ public class CuttingStation extends Station implements IFailable{
         generalFinish(player);
         return false;
     }
-
+    /**
+     This method is called when the cutting operation is completed, regardless of whether it was successful or not.
+     It restores the player's ability to move and use their hand, and resets all cutting-related variables.
+     @param player the player object
+     */
     @Override
     public void generalFinish(Player player) {
         player.enableMovement();
