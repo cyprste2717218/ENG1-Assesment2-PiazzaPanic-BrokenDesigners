@@ -39,7 +39,7 @@ public class Customer {
 	private float stateTime; // used for the renderer to grab frame.
 	private Match match;
 	private long waitingStartTime = -1L;
-	private long customerWaitTime = 60000L; //How long the customer waits to be served before leaving
+	private long customerWaitTime = 90000L; //How long the customer waits to be served before leaving
 	private float movement_speed = 0; //The speed that the customer moves to and from their station at
 	/*
 	 * Instantiates customer without animations.
