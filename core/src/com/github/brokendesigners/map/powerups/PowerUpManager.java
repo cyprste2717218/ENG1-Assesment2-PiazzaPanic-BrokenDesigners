@@ -13,6 +13,8 @@ import com.badlogic.gdx.utils.Timer;
 import com.github.brokendesigners.map.Kitchen;
 
 /**
+ *
+ * Created Class
 
  The PowerUpManager class is responsible for spawning power-ups into the game world,
  tracking active power-ups, checking for collisions with the player, and activating/deactivating

@@ -10,6 +10,7 @@ import com.github.brokendesigners.Match;
 import com.github.brokendesigners.Player;
 
 /**
+Created Class
 
  Represents a power up that doubles the amount of money earned from completed orders.
  Inherits from PowerUp class.

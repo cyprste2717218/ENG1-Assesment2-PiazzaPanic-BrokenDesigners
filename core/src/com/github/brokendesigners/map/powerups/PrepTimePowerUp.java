@@ -14,6 +14,7 @@ import com.github.brokendesigners.map.interactable.Station;
 import java.util.ArrayList;
 
 /**
+ * Created Class
 
  The PrepTimePowerUp class represents a power up that decreases the preparation time required at all stations in the kitchen for a limited duration.
  */

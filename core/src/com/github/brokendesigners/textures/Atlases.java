@@ -3,7 +3,9 @@ package com.github.brokendesigners.textures;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Disposable;
-/*
+/**
+ * Extended class
+ *
  * Contains atlases for textures for lots of things.
  *
  * Atlases are used to address regions of a png containing multiple assets.

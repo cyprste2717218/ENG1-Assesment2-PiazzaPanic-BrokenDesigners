@@ -1,5 +1,8 @@
 package com.github.brokendesigners.enums;
 
+/***
+ * Created Enum
+ */
 public enum DifficultyLevel {
     EASY(0.5f),
     MEDIUM(1f),

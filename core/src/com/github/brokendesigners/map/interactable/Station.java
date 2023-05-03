@@ -12,7 +12,9 @@ import com.github.brokendesigners.Match;
 import com.github.brokendesigners.Player;
 import com.github.brokendesigners.item.Item;
 
-/*
+/**
+Extended Class
+
  * Abstract class station. All stations inherit from this.
  * should only really be handled by Kitchen class
  */
@@ -50,7 +52,12 @@ public abstract class Station {
 		this.handPosition.y = this.interactionArea.y;
 		this.inuse = false;
 	}
-	// empty constructor used for tests
+
+	/**
+	 * Created Constructor
+	 *
+	 * empty constructor used for tests
+	 */
 	public Station()	{
 		this.hand = null;
 	}
@@ -70,10 +77,6 @@ public abstract class Station {
 	public String getStation_name(){
 		return station_name;
 	}
-
-//	public boolean dropOff(Player player){
-//		return false;
-//	}
 
 	public boolean action(Player player){return false;}
 
@@ -164,6 +167,8 @@ public abstract class Station {
 
 	}
 	/**
+	 * Created Method
+	 *
 	 * Activates the station's lock sprite, if it is currently locked.
 	 *
 	 * @param spriteBatch the SpriteBatch to use for rendering
@@ -176,7 +181,10 @@ public abstract class Station {
 		}
 		spriteBatch.end();
 	}
+
 	/**
+	 *
+	 * Created Method
 	 * Unlocks the station if it is currently locked and the match has enough money to pay the unlocking fee.
 	 */
 	public void unlockStation()	{
@@ -191,6 +199,8 @@ public abstract class Station {
 		}
 	}
 	/**
+	 *
+	 * Created Method
 	 * Sets the match that this station belongs to.
 	 *
 	 * @param match the Match object to set as the station's match
@@ -198,7 +208,9 @@ public abstract class Station {
 	public void setMatch(Match match)	{
 		this.match = match;
 	}
+
 	/**
+	 * Created Method
 	 * Returns whether or not the station is currently locked.
 	 *
 	 * @return true if the station is locked, false otherwise

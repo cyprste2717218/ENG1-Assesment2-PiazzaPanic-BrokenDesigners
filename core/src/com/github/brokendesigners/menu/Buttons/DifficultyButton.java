@@ -6,6 +6,7 @@ import com.github.brokendesigners.enums.DifficultyLevel;
 import com.github.brokendesigners.menu.MenuScreen;
 
 /**
+ * Created class
 
  Represents a button that allows the user to select a difficulty level for the game.
  It extends the abstract class Button and overrides the performTask() method to set the game's difficulty level and

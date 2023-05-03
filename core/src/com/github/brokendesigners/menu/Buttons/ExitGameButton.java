@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.github.brokendesigners.menu.MenuScreen;
 /**
+ * Created class
 
  The ExitGameButton class represents a button that exits the game when clicked.
  */

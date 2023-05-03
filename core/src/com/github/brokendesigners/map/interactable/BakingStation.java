@@ -12,6 +12,10 @@ import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.textures.Animations;
 
+/**
+ *
+ *Extended Class
+ */
 public class BakingStation extends Station implements IFailable {
 
     static final String[] Bakeables = {"Pizza","JacketPotato"};
@@ -43,6 +47,7 @@ public class BakingStation extends Station implements IFailable {
         this.match = match;
     }
     /**
+     * Created Constructor
      * Constructor for BakingStation class that takes a fake bubble
      *
      * @param fakeBubble The fake bubble to use
@@ -56,6 +61,8 @@ public class BakingStation extends Station implements IFailable {
 
     }
     /**
+     * Created Task
+     *
      * Burns the food if required
      */
     public Timer.Task burnFood = new Timer.Task() {
@@ -73,7 +80,10 @@ public class BakingStation extends Station implements IFailable {
     public BakingStation() {
         stationUseTime = 4f;
     }
+
     /**
+     * Createde method
+     *
      * Performs the action of using the baking station
      *
      * @param player The player performing the action
@@ -100,7 +110,11 @@ public class BakingStation extends Station implements IFailable {
         }
     }
 
-    //Handles the burning of items and its prevention
+    /**
+     * Created method
+     *
+     * Handles the burning of items and its prevention
+     */
     @Override
     public void handleStationInteraction() {
         if(hand == null){
@@ -120,6 +134,9 @@ public class BakingStation extends Station implements IFailable {
         }
     }
 
+    /**
+    * Created method
+     */
     @Override
     public boolean finishSuccessfulOperation(Player player, float endingStationTime) {
         Timer timer = new Timer();
@@ -140,6 +157,10 @@ public class BakingStation extends Station implements IFailable {
         return true;
     }
 
+
+    /**
+     * Created method
+     */
     @Override
     public boolean finishFailedOperation(Player player, float endingStationTime) {
         System.out.println("Incorrect Item");
@@ -147,6 +168,9 @@ public class BakingStation extends Station implements IFailable {
         return false;
     }
 
+    /**
+     * Created method
+     */
     @Override
     public void generalFinish(Player player) {
         //Left empty for this class

@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
+/***
+ * Created Class
+ */
 public class LoadGame {
     FileHandle prefsFile = Gdx.files.internal(System.getProperty("user.home") + "/.prefs/Game_Data");
     Preferences pref = Gdx.app.getPreferences("Game_Data");

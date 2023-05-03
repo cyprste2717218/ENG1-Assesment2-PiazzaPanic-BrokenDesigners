@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 /**
+ * Extended class
 
  Handles rendering and controls for menu.
  This class is responsible for handling the rendering and user input of the menu screen. It
@@ -113,6 +114,7 @@ public class MenuScreen {
 		this.camera = camera;
 	}
 	/**
+	 * created method
 
 	 Initializes all the buttons on the menu screen.
 	 */
@@ -165,6 +167,8 @@ public class MenuScreen {
 
 
 	/**
+	 * Extended method
+	 *
 	 * Renders menu screen.
 	 * Also decides which menu "frame" to render.
 	 */
@@ -222,6 +226,11 @@ public class MenuScreen {
 		batch.end();
 	}
 
+	/**
+	 * Created Method
+	 *
+	 * Detemines which buttons are currently visible
+	 * */
 	private void setDisplayedButtons(List<Button> setButtonsTrue){
 		for (Button menuButton : menuButtons) {
 			menuButton.setRendered(false);
@@ -231,19 +240,29 @@ public class MenuScreen {
 		}
 	}
 
+	/**
+	 * Created Method
+	 *
+	 * Detemines which buttons are currently visible
+	 * */
+
 	private void setDisplayedButtons(Button button){
 		setDisplayedButtons(Arrays.asList(button));
 	}
 
+	//Created Method
 	public void setGameNull(){
 		panic.setGameNull();
 	}
 
+	//Created Method
 	public void unpauseGame(){
 		panic.getGame().getCustomerManager().unpause();
 	}
 
 	/***
+	 * Created method
+	 *
 	 * A function that allows scrolling through the different available buttons using up/w and down/s
 	 */
 	private void setSelectedButton(){

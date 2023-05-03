@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.github.brokendesigners.menu.MenuScreen;
 
 /**
+ * Created class
 
  A button that allows the user to navigate to the How To Play screen in the main menu.
  */

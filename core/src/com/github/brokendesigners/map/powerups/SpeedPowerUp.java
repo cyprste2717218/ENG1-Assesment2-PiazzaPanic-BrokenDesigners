@@ -11,6 +11,7 @@ import com.github.brokendesigners.Match;
 import com.github.brokendesigners.Player;
 
 /**
+ * Created Class
 
  SpeedPowerUp class represents a power up that increases the player's movement speed.
  */

@@ -9,6 +9,9 @@ import com.github.brokendesigners.MainGame;
 import com.github.brokendesigners.Match;
 import com.github.brokendesigners.Player;
 
+/**
+ * Created Class
+ */
 public class CarryCapacityPowerUp extends PowerUp{
 
     Hand hand;

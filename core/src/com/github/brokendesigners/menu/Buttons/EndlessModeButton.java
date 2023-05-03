@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.github.brokendesigners.menu.MenuScreen;
 
 /**
+ * Created class
 
  This class represents a button that, when clicked, sets the game mode to endless mode and opens the difficulty screen.
  */

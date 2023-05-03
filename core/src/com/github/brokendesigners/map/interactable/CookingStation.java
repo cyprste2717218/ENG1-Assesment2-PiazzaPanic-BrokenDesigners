@@ -15,6 +15,8 @@ import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.textures.Animations;
 import com.badlogic.gdx.utils.Timer.Task;
 /**
+ * Extended Class
+ *
  * A cooking station that can burn food and requires user input for flipping certain items.
  */
 public class CookingStation extends Station implements IFailable {
@@ -44,6 +46,14 @@ public class CookingStation extends Station implements IFailable {
         this.match = match;
         flippingBubble.setVisible(false);
     }
+
+    /**
+     * Created Constructor
+     *
+     * Used for testing
+     *
+     * @param fakeBubble
+     */
     public CookingStation(Bubble fakeBubble){
         this.station_name = "Cooking_Station";
         this.hand = null;
@@ -53,6 +63,8 @@ public class CookingStation extends Station implements IFailable {
     }
 
     /**
+     * Created Task
+     *
      * A task which burns the food when run, and resets the features of the station to do with burning.
      */
     public Task burnFood = new Task() {
@@ -73,11 +85,14 @@ public class CookingStation extends Station implements IFailable {
         }
     };
 
+    //Test Constructor
     public CookingStation() {
         stationUseTime = 4f;
     }
 
     /**
+     * Created method
+     *
      * Starts the timer for the food to burn after being left on the station too long.
      * If the station is empty, the burning should be cancelled.
      */
@@ -101,6 +116,9 @@ public class CookingStation extends Station implements IFailable {
     }
 
     /**
+     *
+     * Created Method
+     *
      * Handles the cooking operation.
      * If the player is holding something, the station is not already in use and the item in hand
      * has not already been cooked, and the food placed on the station is cookable,
@@ -134,6 +152,8 @@ public class CookingStation extends Station implements IFailable {
         return false;
     }
     /**
+     * Created method
+     *
      * A function that handles all food at the CookingStation that needs to be flipped, e.g. patties.
      * If the food is not flippable, it returns false.
      * Otherwise, it waits half of stationUseTime and then has the player flip the food.
@@ -167,6 +187,8 @@ public class CookingStation extends Station implements IFailable {
         return true;
     }
     /**
+     * Created method
+     *
      * Starts the timer for the food to burn if needed. If the station requires input,
      * this checks to see if that requirement is met.
      */
@@ -183,6 +205,8 @@ public class CookingStation extends Station implements IFailable {
     }
 
     /**
+     * Created method
+     *
      * Cancels any burning and puts the cooked version of the item in the station's inventory.
      *
      * @param player The player performing the operation.
@@ -205,6 +229,8 @@ public class CookingStation extends Station implements IFailable {
         return true;
     }
     /**
+     * Created method
+     *
      * Puts the burned item in the station's inventory.
      *
      * @param player The player performing the operation.
@@ -226,6 +252,9 @@ public class CookingStation extends Station implements IFailable {
         return false;
     }
     /**
+     *
+     * Created method
+     *
      * Cleans up after cooking an item. Sets the cooking flag on the item to true, hides
      * the cooking bubble, enables player movement and hand ability, and resets various
      * flags and state variables.

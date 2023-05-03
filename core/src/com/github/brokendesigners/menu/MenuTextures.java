@@ -1,7 +1,8 @@
 package com.github.brokendesigners.menu;
 
 import com.badlogic.gdx.graphics.Texture;
-/*
+/**
+ * Extended class
  * Holds all textures for main menu.
  */
 public class MenuTextures {

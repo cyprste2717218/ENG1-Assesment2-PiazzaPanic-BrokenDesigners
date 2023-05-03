@@ -12,6 +12,8 @@ import com.github.brokendesigners.map.interactable.*;
 import java.util.ArrayList;
 
 /**
+ *
+ * Created class
 
  The SaveGame class is responsible for saving the current state of the game to a Preferences object, which can be
  accessed later to resume the game. It saves information about the current match, the kitchen, the chefs, and the customers.

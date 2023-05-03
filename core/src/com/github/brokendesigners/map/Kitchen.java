@@ -20,7 +20,9 @@ import com.github.brokendesigners.map.interactable.*;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import java.util.ArrayList;
 
-/*
+/**
+ * Extended Class
+ *
  * Handles building of the game map.
  * It grabs all of the RectangleMapObjects in the TiledMap and decides which java class it belongs to.
  * It also builds a few arrays -
@@ -80,6 +82,7 @@ public class Kitchen {
 		if(isLoading) loadStations(loader);
 	}
 	/**
+	 * Created Constructor
 
 	 Kitchen class represents the game kitchen where players can cook and serve food.
 	 This constructor is used for testing purposes.
@@ -96,6 +99,7 @@ public class Kitchen {
 		if(isLoading) loadStations(loader);
 	}
 	/**
+	 * Created Method
 
 	 Loads stations when a saved game is being loaded.
 	 @param loader the load game object
@@ -119,6 +123,7 @@ public class Kitchen {
 	}
 
 	/**
+	 * Extended Method
 
 	 Sets up the collision layer by getting the collision objects from the tilemap and adding them to the list of kitchen obstacles.
 	 */
@@ -137,6 +142,7 @@ public class Kitchen {
 		}
 	}
 	/**
+	 * Extended Method - refactored
 
 	 Sets up the interact layer by getting the interactive objects from the tilemap and adding them to their respective lists based on their object type.
 	 */
@@ -192,6 +198,7 @@ public class Kitchen {
 		}
 	}
 	/**
+	 * Created Method
 
 	 This class sets up different kitchen stations like the Dispenser Station, Counter Station, Customer Counter, Bin Station,
 
@@ -206,6 +213,7 @@ public class Kitchen {
 						ItemRegister.itemRegister.get(rectangleMapObject.getProperties().get("itemType"))));
 	}
 	/**
+		Created Method
 
 	 This method sets up the counter station in the game
 
@@ -230,6 +238,7 @@ public class Kitchen {
 		counters.add(counterStation);
 	}
 	/**
+	 * Created Method
 
 	 This method sets up the customer counter station in the game
 
@@ -255,6 +264,7 @@ public class Kitchen {
 		customerStations.add(station);
 	}
 	/**
+	 * Created Method
 
 	 This method sets up the bin station in the game
 	 @param rectangleMapObject The map object for the bin station
@@ -271,6 +281,7 @@ public class Kitchen {
 								rectangle.height * Constants.UNIT_SCALE)));
 	}
 	/**
+	 * Created Method
 
 	 Sets up an assembly station object using properties from a rectangle map object.
 	 @param rectangleMapObject the rectangle map object containing the properties
@@ -296,6 +307,7 @@ public class Kitchen {
 		assembly.add(assemblyStation);
 	}
 	/**
+	 * Created Method
 
 	 Sets up a cooking station object using properties from a rectangle map object.
 
@@ -320,6 +332,7 @@ public class Kitchen {
 		cookings.add(cookingStation);
 	}
 	/**
+	 * Created Method
 
 	 Sets up a locked cooking station object using properties from a rectangle map object.
 
@@ -344,6 +357,7 @@ public class Kitchen {
 		cookings.add(LockedCookingStation);
 	}
 	/**
+	 * Created Method
 
 	 Sets up a baking station at a specified location on the game map.
 
@@ -368,6 +382,7 @@ public class Kitchen {
 		bakings.add(bakingStation);
 	}
 	/**
+	 * Created Method
 
 	 Sets up a locked baking station at a specified location on the game map.
 
@@ -393,6 +408,7 @@ public class Kitchen {
 
 	}
 	/**
+	 * Created Method
 
 	 Sets up a cutting station at a specified location on the game map.
 
@@ -417,6 +433,7 @@ public class Kitchen {
 		cuttings.add(cuttingStation);
 	}
 	/**
+	 * Created Method
 
 	 Sets up a locked cutting station at a specified location on the game map.
 	 @param rectangleMapObject the map object containing information about the cutting station's location
@@ -438,6 +455,7 @@ public class Kitchen {
 		cuttings.add(LockedCuttingStation);
 	}
 	/**
+	 * Extended Method
 
 	 Sets up the spawn points for players and customers based on map objects in the tile map.
 	 */
