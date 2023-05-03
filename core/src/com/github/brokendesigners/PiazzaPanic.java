@@ -28,6 +28,9 @@ import com.github.brokendesigners.renderer.CustomerRenderer;
 import com.github.brokendesigners.renderer.PlayerRenderer;
 import com.github.brokendesigners.textures.Textures;
 
+/**
+ * Extended Class
+ */
 
 public class PiazzaPanic extends ApplicationAdapter {
 
@@ -68,6 +71,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 	LoadGame loader;
 
 	/**
+	 * Extended Method
 
 	 This method is called when the game is started.
 
@@ -194,6 +198,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 		hud_batch.setProjectionMatrix(hud_cam.combined);
 	}
 	/**
+	 * Extended Method
 
 	 This method renders the game screen, and handles the game loop by calling the appropriate
 	 methods depending on whether the game is in menu or game mode. If the game is complete, the
@@ -226,6 +231,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 		return game;
 	}
 	/**
+	 * Created Method
 
 	 This method sets the current game object to null and initializes the customerRenderer, bubbleRenderer
 	 and game objects.
@@ -236,6 +242,7 @@ public class PiazzaPanic extends ApplicationAdapter {
 		game = null;
 	}
 	/**
+	 * Created Method
 
 	 This method starts the game by initializing the game objects, such as the match and the game
 	 itself, based on the selected game options and menu selections. If a new game is selected,

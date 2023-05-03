@@ -7,6 +7,11 @@ import com.github.brokendesigners.character.Customer;
 
 import java.util.Formatter;
 
+/**
+ * Created class
+ *
+ */
+
 public class Match {
 
     public Match(GameMode gameMode, DifficultyLevel difficultyLevel, int customerNumber){

@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.github.brokendesigners.menu.MenuScreen;
 
 /**
+ * Created class
 
  A base class for creating buttons in a menu screen. Provides methods for checking if the button is being hovered or
  selected, rendering the button on the screen, and performing an action when the button is activated.

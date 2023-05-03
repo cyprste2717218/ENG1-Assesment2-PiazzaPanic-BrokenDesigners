@@ -18,6 +18,9 @@ import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.textures.Animations;
 
+/**
+ * Extended Class
+ */
 
 public class CounterStation extends Station {
 
@@ -85,6 +88,8 @@ public class CounterStation extends Station {
 
 	}
 	/**
+	 * Extended Method
+	 *
 	 * Performs the action of using the counter station
 	 *
 	 * @param player The player performing the action

@@ -29,6 +29,11 @@ import com.github.brokendesigners.textures.Animations;
 
 import java.util.ArrayList;
 
+/**
+ *
+ *Extended class
+ */
+
 public class MainGame {
 
 	public static SaveGame saveGame;
@@ -115,6 +120,7 @@ public class MainGame {
 	}
 
 	/**
+	 * Created Constructor
 
 	 A constructor for creating a MainGame object for testing.
 
@@ -138,6 +144,7 @@ public class MainGame {
 	}
 
 	/**
+		Extended Method
 
 	 This method initializes and creates the game world, including the kitchen, customers, players, and power-ups.
 
@@ -190,6 +197,8 @@ public class MainGame {
 		powerUpManager = new PowerUpManager(playerList.get(selectedPlayer), match, customerManager, kitchen);
 	}
 	/**
+
+	 Extended Method
 
 	 This method is responsible for rendering the game. It clears the screen and sets the background color.
 
@@ -284,6 +293,7 @@ public class MainGame {
 		customerManager.update(hud_batch);
 	}
 	/**
+	 * Extended Method
 
 	 Initializes the players in the game.
 	 @param isLoading A boolean that indicates whether the game is loading or not.
@@ -357,6 +367,7 @@ public class MainGame {
 		return glibbert_animations;
 	}
 	/**
+	 Created Method
 
 	 Sets the currently selected player based on the provided index.
 	 @param selected the index of the player to be selected

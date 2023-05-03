@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.github.brokendesigners.PiazzaPanic;
 import com.github.brokendesigners.menu.MenuScreen;
 /**
+ * Created class
+ *
  * A button used to quit the game and return to the main menu.
  */
 public class QuitButton extends Button{

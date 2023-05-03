@@ -5,6 +5,10 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import java.util.ArrayList;
 
+/**
+ * Extended Class
+ */
+
 public class Animations {
 
 	public static Animation<TextureRegion> cuttingAnimation =

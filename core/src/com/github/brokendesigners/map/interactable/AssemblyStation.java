@@ -23,6 +23,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 /**
+ * Extended Class
+ *
  * This class represents an Assembly Station where the player can use their hand to create an item.
  * It extends the Station class and implements the Interactable interface.
  */
@@ -59,12 +61,19 @@ public class AssemblyStation extends Station{
         this.items[3] = null;
         this.Counter = 0;
     }
-    // empty constructor used for tests
+
+    /**
+     * Created method
+     *
+     * empty constructor used for tests
+     */
     public AssemblyStation()    {
         this.hand = null;
         stationUseTime = 10f;
     }
     /**
+     * Created method
+     *
      * Setter method for the list of items held in the hand.
      * @param items The list of items to be set.
      */
@@ -204,6 +213,9 @@ public class AssemblyStation extends Station{
     }
 
     /**
+     *
+     * Created method
+     *
      * Method to get the product created by the list of items held in the hand.
      * @return The product created by the list of items, or null if no product can be created.
      */

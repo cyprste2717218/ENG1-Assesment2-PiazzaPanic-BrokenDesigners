@@ -3,6 +3,8 @@ package com.github.brokendesigners.map.interactable;
 import com.github.brokendesigners.Player;
 
 /**
+ * Created Interface
+ *
  * The interface Failable - implemented by stations where the user can fail preparation steps.
  */
 public interface IFailable {

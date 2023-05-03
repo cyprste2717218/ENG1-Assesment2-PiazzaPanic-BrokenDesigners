@@ -23,6 +23,7 @@ import java.util.Random;
 
 
 /**
+ * EXTENDED CLASS
 
  The CustomerManager class is responsible for managing the spawning and timing of the customers.
  It creates an ArrayList of customers and an ArrayList of customer stations,
@@ -108,6 +109,7 @@ public class CustomerManager {
 		return true;
 	}
 	/**
+	 * Created Method
 
 	 Returns a random meal from a list of available meals.
 	 @return A String representing the name of the meal.
@@ -129,6 +131,7 @@ public class CustomerManager {
 		}
 	}
 	/**
+	 * Created Method
 
 	 Handles the phases of each customer in the match.
 	 */
@@ -158,6 +161,7 @@ public class CustomerManager {
 		}
 	}
 	/**
+	 * Created Method
 
 	 Handles the Heads-Up Display (HUD) for the match.
 	 @param hud_batch The SpriteBatch used to render the HUD.
@@ -172,6 +176,7 @@ public class CustomerManager {
 	}
 
 	/**
+	 * Created Method
 
 	 Spawns customers based on the elapsed time since the last spawn.
 	 */
@@ -194,6 +199,7 @@ public class CustomerManager {
 		}
 	}
 	/**
+	 * Created Method
 
 	 Updates the match by spawning customers, handling their phases, and updating the HUD.
 
@@ -241,6 +247,11 @@ public class CustomerManager {
 		this.elapsedTime = this.savedTime;
 	}
 
+	/**
+	 * Created Method
+	 *
+	 * Checks for when the game mode is complete
+	 * */
 	public boolean isComplete(){
 		return match.getCustomersSoFar() == customerNumber && match.getGameMode() == GameMode.SCENARIO || match.getGameMode() == GameMode.ENDLESS && match.getReputationPoints() <= 0;
 	}

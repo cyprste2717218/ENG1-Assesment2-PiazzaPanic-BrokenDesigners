@@ -12,6 +12,7 @@ import com.github.brokendesigners.character.CustomerManager;
 import java.util.ArrayList;
 
 /**
+    Created Class
 
  This class represents a power up that increases the wait time of all customers in the game when activated.
  It extends the abstract class PowerUp, and overrides the activate and deactivate methods to provide

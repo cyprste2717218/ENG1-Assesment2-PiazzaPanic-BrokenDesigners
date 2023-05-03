@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.github.brokendesigners.MainGame;
 import com.github.brokendesigners.menu.MenuScreen;
 /**
+ * Created class
 
  A button that saves the game when clicked.
  */

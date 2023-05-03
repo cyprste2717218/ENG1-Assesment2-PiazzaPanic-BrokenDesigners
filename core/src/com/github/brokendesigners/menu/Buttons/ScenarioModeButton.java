@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.github.brokendesigners.menu.MenuScreen;
 /**
+ * Created class
 
  The ScenarioModeButton class extends the Button class and represents a button for selecting scenario mode in the main menu.
  */

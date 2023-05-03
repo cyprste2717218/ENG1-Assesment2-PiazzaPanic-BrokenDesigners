@@ -26,6 +26,9 @@ import com.github.brokendesigners.textures.Animations;
 import jdk.tools.jmod.Main;
 import org.w3c.dom.css.Rect;
 
+/**
+ * Extended Class
+ */
 public class Player {
 	Vector2 worldPosition; // Position of the player in world-coords
 
@@ -88,6 +91,7 @@ public class Player {
 
 
 	/**
+	 Created Constructor
 
 	 Creates a Player instance with a texture, and adds it to the given PlayerRenderer's list of players.
 
@@ -401,17 +405,31 @@ public class Player {
 		}
 		return null;
 	}
+
+	/**
+	 * Created Method
+	 * @param stations
+	 * @return
+	 */
 	public boolean interact(ArrayList<? extends Station> stations){
 		Station interactingStation = getInteractingStation(stations);
 		if(interactingStation == null) return false;
 		interactingStation.action(this);
 		return true;
 	}
+
+	/**
+	 * Created Method
+	 */
 	public void lockPlayer()	{
 		this.locked = true;
 		this.disableMovement();
 
 	}
+
+	/**
+	 * Created Method
+	 */
 	public void unlockPlayer()	{
 		this.locked = false;
 		this.enableMovement();
@@ -419,6 +437,10 @@ public class Player {
 		this.match.subtractMoney(10);
 		System.out.println("Player Unlocked");
 	}
+
+	/**
+	 * Created Method
+	 */
 	public void activateLockSprite(SpriteBatch spriteBatch, int index)  {
 		lockSprite = new Sprite(new Texture(Gdx.files.internal("items/lock.png")));
 		spriteBatch.begin();
@@ -427,7 +449,12 @@ public class Player {
 		}
 		spriteBatch.end();
 	}
-	// A function to find the player that is being interacted with
+
+	/**
+	 * Created Method
+	 *
+	 * A function to find the player that is being interacted with
+	 */
 	private Player getInteractingPlayer(ArrayList<Player> lockedPlayerList)	{
 		if (this.isSelected())	{
 			for (Player player : lockedPlayerList)	{
@@ -442,6 +469,10 @@ public class Player {
 		}
 		return null;
 	}
+
+	/**
+	 * Created Method
+	 */
 	public Player playerInteract(ArrayList<Player> lockedPlayerList)	{
 		Player interactingPlayer = getInteractingPlayer(lockedPlayerList);
 		if (interactingPlayer == null) return null;

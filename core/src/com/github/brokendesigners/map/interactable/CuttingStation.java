@@ -16,6 +16,8 @@ import com.github.brokendesigners.item.ItemRegister;
 import com.github.brokendesigners.renderer.BubbleRenderer;
 import com.github.brokendesigners.textures.Animations;
 /**
+ * Extended Class
+ *
  * CuttingStation is a class that represents a cutting station in a game.
  * It extends Station and implements IFailable.
  */
@@ -53,12 +55,20 @@ public class CuttingStation extends Station implements IFailable{
         this.match = match;
     }
 
+
+    /**
+     * Created Constructor
+     *
+     * Constructor used for testing
+     */
     public CuttingStation() {
         this.station_name = "Cutting_Station";
         this.hand = null;
         stationUseTime = 2f;
     }
     /**
+     * Created Method
+     *
      * Readies the station for use when the player first interacts with it.
      *
      * @param player - the player who interacts with the station
@@ -74,6 +84,8 @@ public class CuttingStation extends Station implements IFailable{
         cuttingBubble.setVisible(true);
     }
     /**
+     * Created Method
+     *
      * If the player interacted with the station at the right moment, the cutting succeeds, otherwise it fails.
      *
      * @param timer - the Timer object that tracks time
@@ -89,7 +101,10 @@ public class CuttingStation extends Station implements IFailable{
             }
         }, 1f);
     }
+
     /**
+     * Created method
+     *
      * Handles the cutting countdown by displaying a cutting bubble and a countdown timer.
      * @param timer The Timer object used to handle the countdown.
      * @param player The Player object interacting with the Cutting Station.
@@ -112,7 +127,10 @@ public class CuttingStation extends Station implements IFailable{
         };
         timer.scheduleTask(task, getAdjustedStationUseTime());
     }
+
     /**
+     *
+     * Created method
      * Performs the cutting operation by setting up the cutting interaction and starting the cutting countdown.
      * @param player The Player object interacting with the Cutting Station.
      * @return Returns true if the cutting operation is successful, false otherwise.
@@ -133,6 +151,7 @@ public class CuttingStation extends Station implements IFailable{
         }
         return false;
     }
+
     /**
      * Gets the array of cuttable items.
      * @return Returns the array of cuttable items.
@@ -143,7 +162,10 @@ public class CuttingStation extends Station implements IFailable{
     public void setName(String name)   {
         this.station_name = name;
     }
+
     /**
+     * Created method
+     *
      * Handles the interaction with the Cutting Station by checking if the player presses space during the countdown and flagging if the cutting was successful or not.
      */
     @Override
@@ -160,6 +182,7 @@ public class CuttingStation extends Station implements IFailable{
         }
     }
 
+    //Created Method
     //Gives the player the correctly cut item
     @Override
     public boolean finishSuccessfulOperation(Player player, float endingStationTime) {
@@ -168,6 +191,7 @@ public class CuttingStation extends Station implements IFailable{
         return true;
     }
 
+    //Created Method
     //Gives the player a waste item
     @Override
     public boolean finishFailedOperation(Player player, float endingStationTime) {
@@ -178,6 +202,9 @@ public class CuttingStation extends Station implements IFailable{
         return false;
     }
     /**
+     *
+     * Created Method
+     *
      This method is called when the cutting operation is completed, regardless of whether it was successful or not.
      It restores the player's ability to move and use their hand, and resets all cutting-related variables.
      @param player the player object

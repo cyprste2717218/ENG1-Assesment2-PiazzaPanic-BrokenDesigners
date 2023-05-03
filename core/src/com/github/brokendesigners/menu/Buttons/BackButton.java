@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.github.brokendesigners.menu.MenuScreen;
 /**
+ * Created class
 
  A class that represents a back button in the menu screen.
  Extends the abstract Button class.

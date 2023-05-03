@@ -7,6 +7,7 @@ import com.github.brokendesigners.item.ItemRegister;
 
 import java.util.ArrayList;
 /**
+ * Extended Method
 
  A class representing the player's hand, which can hold up to 4 items.
  Implements a first-in-first-out (FIFO) stack.
@@ -105,18 +106,28 @@ public class Hand{
 		return heldItems;
 	}
 	/**
+	 * Created Method
+	 *
 	 * Disables the hand's ability to pick up items.
 	 */
 	public void disable_hand_ability()	{
 		hand_ability = false;
 	}
 	/**
+	 * Created Method
+	 *
 	 * Enables the hand's ability to pick up items.
 	 */
 	public void enable_hand_ability()	{
 		hand_ability = true;
 	}
 
+
+	/***
+	 * Created method
+	 *
+	 * @param items
+	 */
 	public void setHeldItems(ArrayList<String> items){
 		for(String i : items){
 			heldItems.add(ItemRegister.itemRegister.get(i));

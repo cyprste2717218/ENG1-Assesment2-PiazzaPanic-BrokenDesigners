@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.github.brokendesigners.menu.MenuScreen;
 
 /**
+ * Created class
 
  A button that modifies the number of customers in the scenario when clicked.
  */

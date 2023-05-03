@@ -7,6 +7,9 @@ import com.github.brokendesigners.MainGame;
 import com.github.brokendesigners.Match;
 import com.github.brokendesigners.Player;
 /**
+ * Created Class
+ *
+ *
  * The PowerUp class represents a power-up object that can be collected by the player in the game.
  * It is an abstract class that provides a basic implementation of a power-up, and it should be extended
  * by specific power-up classes that provide the specific behavior for each type of power-up.

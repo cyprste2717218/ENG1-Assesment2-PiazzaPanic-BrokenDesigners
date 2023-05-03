@@ -18,6 +18,8 @@ import com.github.brokendesigners.renderer.CustomerRenderer;
 import java.util.ArrayList;
 
 /**
+ * EXTENDED CLASS
+ *
  * A class representing a customer in the game. Each customer has a station assigned to them where they can
  * place an order and be served. Customers also have a desired meal, and will leave if they wait too long to be served.
  */
@@ -133,6 +135,7 @@ public class Customer {
 	/**
 
 	 This method updates the customer every frame similar to how the player is updated.
+	 Extended method
 	 */
 	public void update(){
 		switch (getPhase()) {
@@ -153,6 +156,7 @@ public class Customer {
 		}
 	}
 	/**
+	 * Created Method
 
 	 This method handles the customer's behavior during the moving to station phase.
 	 */
@@ -173,6 +177,7 @@ public class Customer {
 		}
 	}
 	/**
+	 * Created Method
 
 	 This method handles the customer's behavior during the waiting phase.
 	 */
@@ -201,9 +206,11 @@ public class Customer {
 		}
 	}
 	/**
+	 * Created Method
 
 	 Updates the customer's position during the leaving phase. If the customer's world position is not at its spawn point,
 	 the customer moves towards the spawn point on the x-axis.
+
 	 */
 	private void leavingPhase(){
 		if (worldPosition.x != spawnPoint.x) {
